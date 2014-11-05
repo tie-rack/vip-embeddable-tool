@@ -104,6 +104,39 @@ module.exports = View.extend({
     this.toggleLoadingDisplay();
   },
 
+  currentLocationAutocompleteListener: function (response) {
+    var address = this.autocomplete.getPlace().formatted_address || this.autocomplete.getPlace().name;
+
+    var stateName = ((response.state && response.state.length) ? response.state[0].name : '');
+    var stateAbbr = (stateName === 'Washington' ? 'WA' : 'OR');
+    if (address.indexOf(stateAbbr) !== -1) {
+      window.console && console.log(this.autocomplete.getPlace())
+      if (!this.autocomplete.getPlace().geometry) {
+        this._geocode(this.autocomplete.getPlace().name, function(geocodedLocation) {
+          $.extend(response, { currentLocation: geocodedLocation });
+
+          this.triggerRouteEvent('addressViewSubmit', response);
+        }.bind(this))
+      } else {
+        var location = this.autocomplete.getPlace().geometry.location;
+
+        $.extend(response, { currentLocation: location });
+
+        this.triggerRouteEvent('addressViewSubmit', response);
+      }
+
+      this.toggleLoadingDisplay();
+    } else {
+      this.find('.loading').hide();
+      this.find('#current-location').hide()
+      this.find('#out-of-state')
+        .fadeIn('fast')
+        .one('click', function() {
+          this.triggerRouteEvent('addressViewSubmit', response)
+        }.bind(this));
+    }
+  },
+
   submitAddress: function () {
     google.maps.event.trigger(this.autocomplete, 'place_changed'); 
   }, 
@@ -124,6 +157,8 @@ module.exports = View.extend({
       this.find('.loading').hide();
 
       $('#use-current-location').one('click', function() {
+        that.find('#current-location').fadeOut('fast');
+        that.find('.loading').show();
         if ('geolocation' in navigator) {
           navigator.geolocation.getCurrentPosition(function(position) {
             var lat = position.coords.latitude
@@ -133,18 +168,24 @@ module.exports = View.extend({
               position.coords.longitude,
               function(address) {
                 var stateAbbr = (stateName === 'Washington' ? 'WA' : 'OR');
-                if (address.indexOf(stateAbbr) !== -1)
-                  that._makeRequest({
-                    address: address,
-                    success: function(newResponse) {
-                      that.triggerRouteEvent('addressViewSubmit', newResponse);
-                    },
-                    error: function() {
-                      that.triggerRouteEvent('addressViewSubmit', response);
-                    }
-                  });
-                else that.triggerRouteEvent('addressViewRerender')
+                if (address.indexOf(stateAbbr) !== -1) {
+                  var currentLocation = new google.maps.LatLng(
+                    position.coords.latitude,
+                    position.coords.longitude
+                  );
+                  $.extend(response, { currentLocation: currentLocation });
+                  that.triggerRouteEvent('addressViewSubmit', response);
+                } else {
+                  that.find('.loading').hide();
+                  that.find('#out-of-state')
+                    .fadeIn('fast')
+                    .one('click', function() {
+                      that.triggerRouteEvent('addressViewSubmit', response)
+                    });
+                }
             });
+          }, function(err) {
+            window.console && console.warn('error...' + err.code + err.message)
           });
         } else
           that.triggerRouteEvent('addressViewRerender')
@@ -155,7 +196,19 @@ module.exports = View.extend({
       });
 
       that.find('#use-different-address').one('click', function() {
-        that.triggerRouteEvent('addressViewRerender')
+        // that.triggerRouteEvent('addressViewRerender');
+        var newInput = $('<input>')
+          .attr('type', 'text')
+          .attr('placeholder', "Enter a different address")
+          .css('margin', '10px 0 0')
+          .insertBefore('#current-location span');
+
+        that.autocomplete = new google.maps.places.Autocomplete(newInput[0], {
+          types: ['address'],
+          componentRestrictions: { country: 'us' }
+        });
+        google.maps.event.addListener(that.autocomplete, 'place_changed', that.currentLocationAutocompleteListener.bind(that, response));
+
       })
       return;
     }
@@ -232,11 +285,8 @@ module.exports = View.extend({
     geocoder.geocode({
       'latLng': latLng
     }, function(results, status) {
-      if (status === google.maps.GeocoderStatus.OK) {
-        if (results[1]) {
-          callback(results[1].formatted_address);
-        }
-      }
+      if (status === google.maps.GeocoderStatus.OK && results.length)
+        callback(results[0].formatted_address);
     })
   }
 });

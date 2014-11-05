@@ -10,7 +10,7 @@ module.exports = {
     "footerColor" : "#898989"
   },
   "text" : {
-    "summary" : "Find your ballot information, polling location, early voting, ID requirements and more...",
+    "summary" : "Find out where to vote, what's on your ballot, what you need to bring to the polls, and more...",
     "placeholderText" : {
       "enterAddress" : "Enter Registered Voting Address",
       "changeAddress" : "Enter a different address"

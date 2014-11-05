@@ -4,7 +4,6 @@ var util       = require('./util.js')
   , $          = require('jquery')
   , css        = require('../../build/app.css')
 
-// console.log(xdr)
 function loadScript(language) {
   var script = document.createElement('script');
   script.type = 'text/javascript';

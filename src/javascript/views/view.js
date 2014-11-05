@@ -96,6 +96,21 @@ module.exports = (function() {
       }
     },
 
+    _geocode: function(location, callback, error, count) {
+      var that = this;
+      var geocoder = new google.maps.Geocoder();
+      // if (count === 10) return;
+      geocoder.geocode({
+        'address': this._parseAddressWithoutName(location)
+      }, function(results, status) {
+        if (status == google.maps.GeocoderStatus.OK) callback(results[0].geometry.location);
+        else  {
+          error(status);
+          setTimeout(that._geocode.bind(that, location, callback, error, count + 1), 2000);
+        };
+      });
+    },
+
     remove: function() {
       this.onRemove();
       $(this.$el).remove();
@@ -182,7 +197,7 @@ module.exports = (function() {
       if (typeof address === 'object') {
         var parsedAddress = '';
         for (var key in address) {
-          if (key === 'locationName' || key === 'name' || key === 'line3') continue;
+          if (key === 'locationName' || key === 'name' || key === 'line2' || key === 'line3') continue;
           parsedAddress += address[key] + ' ';
         }
       return parsedAddress;

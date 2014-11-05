@@ -47,6 +47,10 @@ module.exports = View.extend({
 
   address: '',
 
+  locationTypes: {},
+
+  timeouts: [],
+
   onBeforeRender: function(options) {
     var that = this;
 
@@ -69,6 +73,7 @@ module.exports = View.extend({
     var dropOffLocations = options.data.dropOffLocations;
     var earlyVoteSitesToRemove = [];
     var dropOffLocationsToRemove = [];
+    this.locationTypes.hasBoth = false;
 
     var removeIndices = function(arr, indices) {
       for (var i = arr.length-1; i > -1; i--)
@@ -86,8 +91,10 @@ module.exports = View.extend({
         var idx = otherLocationCollection.indexOf(otherLocation);
         toRemoveCollection.push(idx);
 
-        if (isBoth) pollingLocation.isBoth = true;
-        else pollingLocation.isBothEarlyVoteAndDropOff = true;
+        if (isBoth) {
+          pollingLocation.isBoth = true;
+          that.locationTypes.hasBoth = true;
+        } else pollingLocation.isBothEarlyVoteAndDropOff = true;
       }
     }
 
@@ -155,6 +162,14 @@ module.exports = View.extend({
           removeIndices(dropOffLocations, dropOffLocationsToRemove);
       }
     }
+
+    this.locationTypes.hasPollingLocations = !!pollingLocations && !!pollingLocations.length;
+    this.locationTypes.hasEarlyVoteSites = (!!earlyVoteSites && !!earlyVoteSites.length && 
+      (earlyVoteSitesToRemove.length !== earlyVoteSites.length));
+    this.locationTypes.hasDropOffLocations = (!!dropOffLocations && !!dropOffLocations.length && 
+      (dropOffLocationsToRemove.length !== dropOffLocations.length));
+
+    window.console && console.log(this.locationTypes)
 
     if (pollingLocations && earlyVoteSites)
       pollingLocations = pollingLocations.concat(earlyVoteSites);
@@ -350,16 +365,28 @@ module.exports = View.extend({
 
   onAfterRender: function(options) {
 
-    var errorFeedbackUrl = "https://voter-info-tool.appspot.com/feedback?electionId=" + 
-      options.data.election.id + 
-      "&address=" +
-      this._parseAddress(options.data.normalizedInput);
+    // var errorFeedbackUrl = "https://voter-info-tool.appspot.com/feedback?electionId=" + 
+    //   options.data.election.id + 
+    //   "&address=" +
+    //   this._parseAddress(options.data.normalizedInput);
+
+    var errorFeedbackUrl = "https://voter-info-tool.appspot.com/feedback";  
 
     this.find('#error-feedback-form')
-      .attr('action', errorFeedbackUrl);
+      .attr('action', errorFeedbackUrl)
+      .prepend($('<input name="address" value="' + this._parseAddress(options.data.normalizedInput) + '">'))
+      .prepend($('<input name="electionId" value="' + options.data.election.id + '">'));
 
     this.find("#error-feedback-link").on("click", function (e) {
       e.preventDefault();
+      // $.ajax({
+      //   type: 'POST',
+      //   url: 'https://voter-info-tool.appspot.com/feedback',
+      //   data: {
+      //     electionId: options.data.election.id,
+      //     address: this._parseAddress(options.data.normalizedInput)
+      //   }
+      // });
       this.find('#error-feedback-form').submit();
     }.bind(this))
 
@@ -466,7 +493,7 @@ module.exports = View.extend({
       var daddr = this._parseAddressWithoutName(primaryLocation.address)
       var saddr = this._parseAddressWithoutName(options.data.normalizedInput);
 
-      this._encodeAddressAndInitializeMap(primaryLocation.address);
+      this._encodeAddressAndInitializeMap(primaryLocation.address, options.data.currentLocation);
 
       this.find('#location a').attr('href', 'https://maps.google.com?daddr=' + daddr + '&saddr=' + saddr);
 
@@ -550,13 +577,25 @@ module.exports = View.extend({
       this.find('#location-legend')
         .show()
 
-    if (!this.earlyVoteSites)
-      this.find('#red-label,#red-block')
-        .hide();
+    if (!this.locationTypes.hasEarlyVoteSites)
+      this.find('.red')
+        .remove();
 
-    if (!this.dropOffLocations)
-      this.find('#grey-block,#grey-label')
-        .hide();
+    if (!this.locationTypes.hasDropOffLocations)
+      this.find('.grey')
+        .remove();
+
+    if (!this.locationTypes.hasBoth)
+      this.find('.green')
+        .remove()
+
+    if (!this.locationTypes.hasPollingLocations)
+      this.find('.blue')
+        .remove()
+
+    if (options.data.pollingLocations && options.data.pollingLocations.filter(function(location) {
+      return (location.isEarlyVote === false && location.isDropOffLocation === false);
+    }).length === 0)
 
     if (!options.data.contests)
       this.find('#ballot-information')
@@ -570,7 +609,13 @@ module.exports = View.extend({
 
     this.find('.change-address').on('keypress', function() {
       $('.pac-container').last().css('z-index', 100000);
-    })
+    });
+
+    // if (options.data.currentLocation) {
+    //   console.log('current Location' + options.data.currentLocation)
+    //   window.console && console.log(this.map)
+    //   // this.map.setCenter(options.data.currentLocation)
+    // } 
   },
 
   closePopUps: function (e) {
@@ -582,6 +627,8 @@ module.exports = View.extend({
     if (this.autocomplete) google.maps.event.clearInstanceListeners(this.autocomplete);
 
     this.markers = [];
+
+    this.timeouts.forEach(clearTimeout)
 
     this.$container.css({
       'width' : '',
@@ -738,24 +785,31 @@ module.exports = View.extend({
     return map;
   },
 
-  _encodeAddressAndInitializeMap : function(address) {
+  _encodeAddressAndInitializeMap : function(address, currentLocation) {
     var that = this;
     var any = (address !== void 0);
     var zoom = any ? 12 : 3;
     var geocodeAddress = any ? address : "United States of America";
 
     this._geocode(geocodeAddress, function(position) {
-      that.map = that._generateMap(position, zoom, that.find('#map-canvas').get(0));
+      that.map = that._generateMap((currentLocation ? currentLocation : position), zoom, that.find('#map-canvas').get(0));
       if (any) {
         google.maps.event.addListener(that.map, 'click', function() {
           if (that.landscape) {
             that.find('.polling-location-info').slideUp('fast');
             that.toggleMap();
-            that.map.panTo(position)
-          }
-          that._fitMap();
+            // that.map.panTo((currentLocation ? currentLocation : position))
+          } 
+          if (currentLocation)
+            that.map.panTo(currentLocation)
+          else
+            that._fitMap();
+
           // that.map.panTo(position)
           that.find('#location .address').replaceWith($(that.addressPartial(address)));
+
+          // if (currentLocation)
+            // that.map.panTo(currentLocation)
         });
 
         that.find('#map-canvas').on(that._transitionEnd(), function() {
@@ -854,7 +908,7 @@ module.exports = View.extend({
 
     var timeout = locations.length > 10 ? 1000 : 100
       locations.forEach(function(location, idx) {
-      setTimeout(function () {
+      that.timeouts.push(setTimeout(function () {
         that._geocode(
           location.address, 
           function(position) {
@@ -871,7 +925,7 @@ module.exports = View.extend({
           },
           0
         );
-      }, timeout * idx);
+      }, timeout * idx));
     });
   },
 

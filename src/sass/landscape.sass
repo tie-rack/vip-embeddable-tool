@@ -38,7 +38,7 @@
       top: 2%
       width: 20%
       min-width: 145px
-      background-color: rgba(255, 255, 255, .85)
+      background-color: rgba(255, 255, 255, .75)
       z-index: 2
       @include box-shadow(2px 2px 8px rgba(0,0,0,.25))
       font-size: 13px
@@ -47,6 +47,9 @@
       span
         position: relative
         margin-left: 10px
+
+      &:hover > #location-legend-close
+        display: block
 
       #red-block,
       #blue-block,
@@ -105,12 +108,29 @@
         margin-right: -10px
         margin-top: -15px
 
-      #polling-location-info-close
+      &:hover > #polling-location-info-close
         display: block
+
+    #polling-location-info-close,
+    #location-legend-close
+      display: none
+      position: absolute
+      cursor: pointer
+      right: 10px
+      top: 6px
+
+      img
+        width: 10px
+        height: 10px
         position: absolute
-        cursor: pointer
-        right: 10px
-        top: 6px
+        top: 17px
+        left: -7px
+        @include rotate(45deg)
+
+    #location-legend-close
+      img
+        top: 0
+        left: -5px
 
     .left-wrapper
       float: left

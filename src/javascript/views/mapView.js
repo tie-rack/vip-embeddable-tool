@@ -32,6 +32,7 @@ module.exports = View.extend({
     '#vote-address-edit click' : 'changeAddress',
     '.address click' : 'changeAddress',
     '#fade click' : 'changeAddress',
+    '#submit-address-button click' : 'submitAddress',
     '#polling-location click' : 'toggleMap',
     '#more-elections click' : 'toggleElections',
     '#resources-toggle click' : 'toggleResources',
@@ -81,7 +82,7 @@ module.exports = View.extend({
           arr.splice(i, 1);
     };
 
-    var mergeAndRemoveDups = function(pollingLocation, otherLocation, otherLocationCollection, toRemoveCollection, isBoth) {
+    var mergeAndRemoveDups = function(pollingLocation, otherLocation, otherLocationCollection, toRemoveCollection, isBoth, isBothPollingAndDropoff) {
       if ((pollingLocation.address.line1 === otherLocation.address.line1 &&
            pollingLocation.address.line1) ||
           (pollingLocation.address.locationName === otherLocation.address.LocationName &&
@@ -95,6 +96,12 @@ module.exports = View.extend({
           pollingLocation.isBoth = true;
           that.locationTypes.hasBoth = true;
         } else pollingLocation.isBothEarlyVoteAndDropOff = true;
+
+        if (isBothPollingAndDropoff)
+          pollingLocation.isBothPollingAndDropOff = true;
+
+        if (pollingLocation.isBoth && otherLocation.isDropOffLocation)
+          pollingLocation.isDropOffLocation = false;
       }
     }
 
@@ -108,6 +115,7 @@ module.exports = View.extend({
         pollingLocation.isBoth = false;
         pollingLocation.isDropOffLocation = false;
         pollingLocation.isBothEarlyVoteAndDropOff = false;
+        pollingLocation.isBothPollingAndDropOff = false;
 
         if (earlyVoteSites) {
           earlyVoteSites.forEach(function(earlyVoteSite) {
@@ -120,17 +128,17 @@ module.exports = View.extend({
             if (endDate < now)
               earlyVoteSitesToRemove.push(idx);
             else
-              mergeAndRemoveDups(pollingLocation, earlyVoteSite, earlyVoteSites, earlyVoteSitesToRemove, true);
+              mergeAndRemoveDups(pollingLocation, earlyVoteSite, earlyVoteSites, earlyVoteSitesToRemove, true, false);
           });
           if (dropOffLocations)
             dropOffLocations.forEach(function(dropOffLocation) {
               dropOffLocation.isDropOffLocation = true;
-              mergeAndRemoveDups(pollingLocation, dropOffLocation, dropOffLocations, dropOffLocationsToRemove, false);
+              mergeAndRemoveDups(pollingLocation, dropOffLocation, dropOffLocations, dropOffLocationsToRemove, false, false);
             })
         } else if (dropOffLocations)
           dropOffLocations.forEach(function(dropOffLocation) {
             dropOffLocation.isDropOffLocation = true;
-            mergeAndRemoveDups(pollingLocation, dropOffLocation, dropOffLocations, dropOffLocationsToRemove, false);
+            mergeAndRemoveDups(pollingLocation, dropOffLocation, dropOffLocations, dropOffLocationsToRemove, false, true);
           })
       });
 
@@ -153,7 +161,7 @@ module.exports = View.extend({
           if (dropOffLocations)
             dropOffLocations.forEach(function(dropOffLocation) {
               dropOffLocation.isDropOffLocation = true;
-              mergeAndRemoveDups(earlyVoteSite, dropOffLocation, dropOffLocations, dropOffLocationsToRemove, false)
+              mergeAndRemoveDups(earlyVoteSite, dropOffLocation, dropOffLocations, dropOffLocationsToRemove, false, false)
             })
         });
 
@@ -164,12 +172,8 @@ module.exports = View.extend({
     }
 
     this.locationTypes.hasPollingLocations = !!pollingLocations && !!pollingLocations.length;
-    this.locationTypes.hasEarlyVoteSites = (!!earlyVoteSites && !!earlyVoteSites.length && 
-      (earlyVoteSitesToRemove.length !== earlyVoteSites.length));
-    this.locationTypes.hasDropOffLocations = (!!dropOffLocations && !!dropOffLocations.length && 
-      (dropOffLocationsToRemove.length !== dropOffLocations.length));
-
-    window.console && console.log(this.locationTypes)
+    this.locationTypes.hasEarlyVoteSites = (!!earlyVoteSites && earlyVoteSites.length);
+    this.locationTypes.hasDropOffLocations = (!!dropOffLocations && dropOffLocations.length)
 
     if (pollingLocations && earlyVoteSites)
       pollingLocations = pollingLocations.concat(earlyVoteSites);
@@ -183,6 +187,15 @@ module.exports = View.extend({
         location.isDropOffLocation = true;
         return location;
       });
+
+    if (pollingLocations) pollingLocations.forEach(function(pollingLocation) {
+      if (!pollingLocation.isEarlyVoteSite && 
+          !pollingLocation.isBoth &&
+          !pollingLocation.isDropOffLocation &&
+          !pollingLocation.isBothEarlyVoteAndDropOff &&
+          !pollingLocation.isBothPollingAndDropoff)
+        pollingLocation.isOnlyPollingLocation = true;
+    })
 
     options.data.pollingLocations = pollingLocations
 
@@ -505,6 +518,12 @@ module.exports = View.extend({
       var earlyVoteTag = this.find('.early-vote-site');
       if (earlyVoteTag.length > 1)
         earlyVoteTag.last().remove()
+
+      var ampersands = this.find('.early-vote-site').text().match(/ &/g);
+      if (ampersands && ampersands.length > 1) {
+        var newLocationText = this.find('.early-vote-site').text().replace(' & ', ', ');
+        this.find('.early-vote-site').text(newLocationText);
+      }
       if (!this.landscape) $locationInfo.hide();
 
       if (options.data.pollingLocations.length) {
@@ -512,6 +531,7 @@ module.exports = View.extend({
 
         this._geocodeSequence(locations, options.data.normalizedInput);
       }
+
     } else this._encodeAddressAndInitializeMap();
 
     if (this.landscape) this._switchToLandscape(options);
@@ -573,7 +593,7 @@ module.exports = View.extend({
 
     this.earlyVoteSites = options.data.earlyVoteSites;
     this.dropOffLocations = options.data.dropOffLocations;
-    if (this.earlyVoteSites || this.dropOffLocations)
+    if (this.earlyVoteSites || this.dropOffLocations || this.locationTypes.hasPollingLocations)
       this.find('#location-legend')
         .show()
 
@@ -592,6 +612,7 @@ module.exports = View.extend({
     if (!this.locationTypes.hasPollingLocations)
       this.find('.blue')
         .remove()
+
 
     if (options.data.pollingLocations && options.data.pollingLocations.filter(function(location) {
       return (location.isEarlyVote === false && location.isDropOffLocation === false);
@@ -615,7 +636,26 @@ module.exports = View.extend({
     //   console.log('current Location' + options.data.currentLocation)
     //   window.console && console.log(this.map)
     //   // this.map.setCenter(options.data.currentLocation)
-    // } 
+    // }
+
+    this.find('#location-legend-close').on('click', function() {
+      this.find('#location-legend').fadeOut('fast');
+    }.bind(this));
+
+    this.find('#polling-location-info-close').on('click', function(e) {
+      this.find('#location').fadeOut('fast');
+    }.bind(this));
+
+    var localLinks = this.find('.election-administration-body a #local-jurisdiction-title');
+    var stateLinks = this.find('.election-administration-body a #state-elections-office');
+
+    if (localLinks.length) localLinks.forEach(function(localLink) {
+      if (stateLinks.length) stateLinks.forEach(function(stateLink) {
+        if (localLink.attr('href') === stateLink.attr('href'))
+          stateLink.remove();
+      })
+    })
+
   },
 
   closePopUps: function (e) {
@@ -793,6 +833,14 @@ module.exports = View.extend({
 
     this._geocode(geocodeAddress, function(position) {
       that.map = that._generateMap((currentLocation ? currentLocation : position), zoom, that.find('#map-canvas').get(0));
+
+      that._geocode(that._parseAddressWithoutName(that.data.normalizedInput), function(location) {
+        var marker = new google.maps.Marker({
+          map: that.map,
+          position: location
+        });
+      });
+
       if (any) {
         google.maps.event.addListener(that.map, 'click', function() {
           if (that.landscape) {
@@ -806,7 +854,8 @@ module.exports = View.extend({
             that._fitMap();
 
           // that.map.panTo(position)
-          that.find('#location .address').replaceWith($(that.addressPartial(address)));
+          // that.find('#location .address').replaceWith($(that.addressPartial(address)));
+          that.find('#location').hide();
 
           // if (currentLocation)
             // that.map.panTo(currentLocation)
@@ -840,12 +889,12 @@ module.exports = View.extend({
     }
   },
 
-  _addPollingLocation: function(position, address, location, saddr, isEarlyVote, isBoth, isDropOffLocation) {
+  _addPollingLocation: function(position, address, location, saddr, isEarlyVote, isBoth, isDropOffLocation, isBothPollingAndDropOff) {
     var that = this;
     var daddr = this._parseAddressWithoutName(address);
     var saddr = this._parseAddressWithoutName(saddr);
     var url = 'https://s3.amazonaws.com/vip-voter-information-tool/images/' + (isEarlyVote ? 'red-marker.png' : 'blue-marker.png');
-    if (isDropOffLocation && !isEarlyVote) {
+    if (isDropOffLocation && !isEarlyVote && !isBothPollingAndDropOff) {
       url = 'https://s3.amazonaws.com/vip-voter-information-tool/images/gray-marker.png';
     }
     if (isBoth) url = 'https://s3.amazonaws.com/vip-voter-information-tool/images/green-marker.png'
@@ -919,7 +968,8 @@ module.exports = View.extend({
               normalizedInput,
               location.isEarlyVoteSite,
               location.isBoth,
-              location.isDropOffLocation
+              location.isDropOffLocation,
+              location.isBothPollingAndDropOff
             );
           }, function(status) {
           },
@@ -989,6 +1039,7 @@ module.exports = View.extend({
       this.find("#vote-address-edit").hide();
       addressInput.prev().hide();
       addressInput.show();
+      this.find('#submit-address-button').show();
       if (!this.landscape) this.find('#fade').fadeTo('fast', .25);
 
       $('.pac-container').addClass('pac-nudge');
@@ -1046,14 +1097,17 @@ module.exports = View.extend({
     // slide up the current polling location information partial
     // and then replace its information with new
     this.find('.early-vote-site').remove();
-    this.find('.polling-location-info').replaceWith($locationInfo);
+    this.find('.polling-location-info').replaceWith($locationInfo).fadeOut('slow').fadeIn('slow');
 
     // replace the directions link with the correct address
     this.find('#location a').attr('href', 'https://maps.google.com?daddr=' + daddr + '&saddr=' + saddr);
     $locationInfo.find('a').attr('href', 'https://maps.google.com?daddr=' + daddr + '&saddr=' + saddr);
     
-    // hide the additional information
-    $locationInfo.hide();
+    var ampersands = this.find('.early-vote-site').text().match(/ &/g);
+    if (ampersands && ampersands.length > 1) {
+      var newLocationText = this.find('.early-vote-site').text().replace(' & ', ', ');
+      this.find('.early-vote-site').text(newLocationText);
+    }
 
     this.toggleMap.call(this, null, marker, address);
 
@@ -1136,7 +1190,8 @@ module.exports = View.extend({
         this.find('#map-canvas, #location').show();
         this.find('#polling-location .right-arrow').addClass('hidden');
         this.find('#polling-location .left-arrow').removeClass('hidden');
-        if (this.earlyVoteSites) this.find('#location-legend').show();
+        if (this.earlyVoteSites) this.find('#location-legend').fadeIn('fast');
+        this.map.panTo(marker.getPosition());
       }
     }
 
@@ -1294,6 +1349,10 @@ module.exports = View.extend({
         toggleSign.text((isHidden ? '+' : '\u2013'));
       }.bind(this));
     }
+  },
+
+  submitAddress: function() {
+    google.maps.event.trigger(this.autocomplete, 'place_changed'); 
   },
 
   _scrollTo: function(target, padding) {

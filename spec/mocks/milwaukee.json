@@ -1,0 +1,203 @@
+{
+    "kind": "civicinfo#voterInfoResponse",
+    "election": {
+        "id": "2000",
+        "name": "VIP Test Election",
+        "electionDay": "2015-06-06"
+    },
+    "normalizedInput": {
+        "line1": "3439 n hackett ave",
+        "city": "milwaukee",
+        "state": "WI",
+        "zip": "53211"
+    },
+    "state": [
+        {
+            "id": "3019:55",
+            "name": "Wisconsin",
+            "electionAdministrationBody": {
+                "name": "1254",
+                "electionInfoUrl": "http://gab.wi.gov",
+                "electionRegistrationUrl": "http://myvote.wi.gov",
+                "electionRegistrationConfirmationUrl": "http://myvote.wi.gov",
+                "absenteeVotingInfoUrl": "http://myvote.wi.gov",
+                "votingLocationFinderUrl": "http://myvote.wi.gov",
+                "ballotInfoUrl": "http://myvote.wi.gov",
+                "physicalAddress": {
+                    "line1": "212 E WASHINGTON AVE",
+                    "city": "MADISON",
+                    "state": "WI",
+                    "zip": "53703"
+                },
+                "electionOfficials": [
+                    {
+                        "name": "MICHAEL HAAS",
+                        "title": "ELECTIONS DIVISION ADMINISTRATOR",
+                        "officePhoneNumber": "6082612028",
+                        "emailAddress": "michael.haas@wi.gov"
+                    }
+                ]
+            },
+            "sources": [
+                {
+                    "name": "Voting Information Project",
+                    "official": true
+                }
+            ]
+        }
+    ],
+    "pollingLocations": [
+        {
+            "id": "ajldk234230",
+            "address": {
+                "locationName": "Plymouth Church",
+                "line1": "3329 N. Hackett Ave.",
+                "city": "Milwaukee",
+                "state": "WI",
+                "zip": "53211"
+            },
+            "notes": "Use the side entrance ramp",
+            "pollingHours": "9am - 5pm",
+            "voterServices": "Accessible",
+            "sources": [
+                {
+                    "name": "Test",
+                    "official": false
+                }
+            ]
+        },
+        {
+            "id": "ajldk224230",
+            "address": {
+                "locationName": "Hayek's",
+                "line1": "4000 N. Downer Ave",
+                "city": "Shorewood",
+                "state": "WI",
+                "zip": "53211"
+            },
+            "notes": "Enter through the back",
+            "pollingHours": "9am - 5pm",
+            "sources": [
+                {
+                    "name": "Test",
+                    "official": false
+                }
+            ]
+        },
+        {
+            "id": "ajldk234231",
+            "address": {
+                "locationName": "St. Robert's School",
+                "line1": "1600 N. Capitol Dr.",
+                "city": "Shorewood",
+                "state": "WI",
+                "zip": "53211"
+            },
+            "notes": "Parking Lot",
+            "pollingHours": "9am - 5pm",
+            "voterServices": "Accessible",
+            "sources": [
+                {
+                    "name": "Test",
+                    "official": false
+                }
+            ]
+        }
+    ],
+    "earlyVoteSites": [
+        {
+            "id": "ajldk234230",
+            "address": {
+                "locationName": "Plymouth Church",
+                "line1": "3329 N. Hackett Ave.",
+                "city": "Milwaukee",
+                "state": "WI",
+                "zip": "53211"
+            },
+            "notes": "Use the side entrance ramp",
+            "pollingHours": "9am - 5pm",
+            "voterServices": "Accessible",
+            "sources": [
+                {
+                    "name": "Test",
+                    "official": false
+                }
+            ]
+        },
+        {
+            "id": "ajldk224230",
+            "address": {
+                "locationName": "Hayek's",
+                "line1": "4000 N. Downer Ave",
+                "city": "Shorewood",
+                "state": "WI",
+                "zip": "53211"
+            },
+            "notes": "Enter through the back",
+            "pollingHours": "9am - 5pm",
+            "sources": [
+                {
+                    "name": "Test",
+                    "official": false
+                }
+            ]
+        },
+        {
+            "id": "ajskdjs302",
+            "address": {
+                "locationName": "Alterra",
+                "line1": "2831 N. Downer Ave.",
+                "city": "Milwaukee",
+                "state": "WI",
+                "zip": "53211"
+            },
+            "notes": "Free coffee!",
+            "pollingHours": "9am-8pm",
+            "sources": [
+                {
+                    "name": "Text",
+                    "official": false
+                }
+            ]
+        }
+    ],
+    "dropOffLocations": [
+        {
+            "id": "ajldk234230",
+            "address": {
+                "locationName": "Plymouth Church",
+                "line1": "3329 N. Hackett Ave.",
+                "city": "Milwaukee",
+                "state": "WI",
+                "zip": "53211"
+            },
+            "notes": "Use the side entrance ramp",
+            "pollingHours": "9am - 5pm",
+            "voterServices": "Accessible",
+            "sources": [
+                {
+                    "name": "Test",
+                    "official": false
+                }
+            ]
+        },
+        {
+            "id": "ajldk224230",
+            "address": {
+                "locationName": "UWM Bookstore",
+                "line1": "3534 N. Shepard Ave.",
+                "city": "Milwaukee",
+                "state": "WI",
+                "zip": "53211"
+            },
+            "notes": "Enter through the back",
+            "pollingHours": "9am - 5pm",
+            "sources": [
+                {
+                    "name": "Test",
+                    "official": false
+                }
+            ]
+        }
+    ]
+}

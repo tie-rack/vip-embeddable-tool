@@ -222,7 +222,9 @@ module.exports = View.extend({
       $('.checked:first').removeClass('hidden');
       $('.unchecked:first').addClass('hidden');
       $(this.find('#multiple-elections button')).on('click', function() {
-        var id = this.find('.checked:not(.hidden)').siblings('.hidden').eq(0).text();
+
+        var id = this.find('.checked:not(.hidden)').siblings('.hidden').eq(1).text();
+        window.console && console.log(id)
         this._makeRequest({
           address: this._parseAddress(response.normalizedInput),
           success: function(newResponse) {

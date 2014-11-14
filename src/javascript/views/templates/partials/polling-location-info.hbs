@@ -1,20 +1,24 @@
 <div class="polling-location-info">
-  {{#if isEarlyVoteSite}}
   <div class="early-vote-site">
-  {{#if isBoth}}
+  {{#if isOnlyPollingLocation}}
+  Polling Location
+  {{/if}}
+  {{#if isBothPollingAndDropOff}}
   Polling Location & 
   {{/if}}
-  Early Vote Site 
-  {{#if isBothEarlyVoteAndDropOff}}
-  & Drop-off Location
-  {{/if}}
-  </div>
+  {{#if isEarlyVoteSite}}
+    {{#if isBoth}}
+    Polling Location & 
+    {{/if}}
+    Early Vote Site 
+    {{#if isBothEarlyVoteAndDropOff}}
+    & Drop-off Location
+    {{/if}}
   {{/if}}
   {{#if isDropOffLocation }}
-  <div class="early-vote-site">
-  Drop Off Location
-  </div>
+  Drop-off Location
   {{/if}}
+  </div>
   {{#if pollingHours}}
   <div class="address-line">
   {{{ pollingHours }}}
@@ -41,7 +45,7 @@
   {{{ notes }}}
   </div>
   {{/if}}
-  <div id="polling-location-info-close">
-  {{!-- x --}}
-  </div>
+{{!--   <div id="polling-location-info-close">
+  x
+  </div> --}}
 </div>

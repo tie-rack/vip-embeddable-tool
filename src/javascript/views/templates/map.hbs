@@ -10,6 +10,7 @@
 <div class="box left">
   {{> address data.normalizedInput }}
   <input type="text" class="change-address" placeholder="{{assets.text.placeholderText.changeAddress}}">
+  <img src="{{root}}/images/magnifying-glass.svg" class="magnifying-glass" id="submit-address-button">
   <span id="vote-address-edit">{{assets.text.headers.edit}}</span>
 </div>
 
@@ -53,6 +54,9 @@
 </div>
 
 <div id="location-legend" class="box right">
+  <div id="location-legend-close">
+    <img src="./images/grey-plus.png">
+  </div>
   <div id="red-block" class="red"></div>
   <span id="red-label" class="red">Early Voting Site</span>
   <br class="red">
@@ -66,6 +70,9 @@
 </div>
 
 <div id="location" class="box right">
+  <div id="polling-location-info-close">
+    <img src="./images/grey-plus.png">
+  </div>
   {{> address data.pollingLocations.0.address }}
   <span>
     <a href="#" target="_blank">
@@ -111,12 +118,12 @@
   {{/if}}
   </span>
   {{ data.state.0.local_jurisdiction.electionAdministrationBody.hoursOfOperation }}
-  {{#if data.state.0.local_jurisdiction.electionAdministrationBody.correspondenceAddress }}
+{{!--   {{#if data.state.0.local_jurisdiction.electionAdministrationBody.correspondenceAddress }}
   <div id="local-jurisdiction-correspondence-address" class="election-administration-address">
   <span>{{assets.text.resources.electionAdministration.correspondenceAddress}}:</span>
   {{> normalized-address data.state.0.local_jurisdiction.electionAdministrationBody.correspondenceAddress }}
   </div>
-  {{/if}}
+  {{/if}} --}}
   {{#if data.state.0.local_jurisdiction.electionAdministrationBody.physicalAddress }}
   <div id="local-jurisdiction-physical-address" class="election-administration-address">
   <span>{{assets.text.resources.electionAdministration.physicalAddress}}</span>
@@ -129,12 +136,12 @@
   {{/if}}
   <b>{{ data.state.0.electionAdministrationBody.name }}</b>
   {{ data.state.0.electionAdministrationBody.hoursOfOperation }}
-  {{#if data.state.0.electionAdministrationBody.correspondenceAddress }}
+{{!--   {{#if data.state.0.electionAdministrationBody.correspondenceAddress }}
   <div id="state-election-correspondence-address" class="election-administration-address">
   <span>{{assets.text.resources.electionAdministration.correspondenceAddress}}</span>
   {{> normalized-address data.state.0.electionAdministrationBody.correspondenceAddress }}
   </div>
-  {{/if}}
+  {{/if}} --}}
   {{#if data.state.0.electionAdministrationBody.physicalAddress }}
   <div id="state-election-physical-address" class="election-administration-address">
   <span>{{assets.text.resources.electionAdministration.physicalAddress}}</span>

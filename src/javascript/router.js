@@ -9,6 +9,7 @@ module.exports = (function() {
     , $                     = require('jquery')
     , csv                   = require('csv-string')
     , xdr                   = require('jquery-xdr').load($)
+    , mock                  = require('../../spec/mocks/milwaukee.json')
 
   var parseVoterIdData = function (state, data) {
     var csvArray = csv.parse(data);
@@ -70,6 +71,12 @@ module.exports = (function() {
 
       addressView
         .onRouteEvent('addressViewSubmit', function(response) {
+          // delete mock.earlyVoteSites;
+          // delete mock.dropOffLocations;
+          //
+          // replace data with mock stub for testing...
+          //
+          // data = mock;
           data = response;
 
           if (translatedVoterIdData && !options.json) {

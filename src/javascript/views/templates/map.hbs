@@ -81,7 +81,7 @@
   </span>
   {{#if data.pollingLocations.0.isEarlyVoteSite}}
   <div class="early-vote-site">
-  Early Vote Site
+    Early Vote Site
   </div>
   {{/if}}
 </div>
@@ -94,9 +94,11 @@
     <img src="{{root}}/images/minus.png" class="toggle-image minus">
   </span>
 </div>
+
 <div class="box information-items right" id="about-resources">
   <span>{{assets.text.resources.summary}}</span>
 </div>
+
 <div id="more-resources" class="right">
   <div class="subsection box more-resources-header">
     <span>
@@ -104,51 +106,71 @@
     </span>
   </div>
   <div class="correspondence-address box">
-  {{#if data.state.0.local_jurisdiction}}
-  <h1>{{assets.text.resources.electionAdministration.local_jurisdiction}}</h1>
-  {{/if}}
-  <span id="local-jurisdiction-name">
-  {{#if data.state.0.local_jurisdiction.name}}
-  <b>{{ data.state.0.local_jurisdiction.name }}</b><br>
-  {{/if}}
-  </span>
-  <span id="local-jurisdiction-eab-name">
-  {{#if data.state.0.local_jurisdiction.electionAdministrationBody.name }}
-    <b>{{ data.state.0.local_jurisdiction.electionAdministrationBody.name }}</b><br>
-  {{/if}}
-  </span>
-  {{ data.state.0.local_jurisdiction.electionAdministrationBody.hoursOfOperation }}
-{{!--   {{#if data.state.0.local_jurisdiction.electionAdministrationBody.correspondenceAddress }}
-  <div id="local-jurisdiction-correspondence-address" class="election-administration-address">
-  <span>{{assets.text.resources.electionAdministration.correspondenceAddress}}:</span>
-  {{> normalized-address data.state.0.local_jurisdiction.electionAdministrationBody.correspondenceAddress }}
+    {{#if data.state.0.local_jurisdiction}}
+    <h1>{{assets.text.resources.electionAdministration.local_jurisdiction}}</h1>
+    {{/if}}
+    <span id="local-jurisdiction-name">
+      {{#if data.state.0.local_jurisdiction.name}}
+      <b>{{ data.state.0.local_jurisdiction.name }}</b><br>
+      {{/if}}
+    </span>
+    <span id="local-jurisdiction-eab-name">
+      {{#if data.state.0.local_jurisdiction.electionAdministrationBody.name }}
+      <b>{{ data.state.0.local_jurisdiction.electionAdministrationBody.name }}</b><br>
+      {{/if}}
+    </span>
+    {{ data.state.0.local_jurisdiction.electionAdministrationBody.hoursOfOperation }}
+    {{!-- {{#if data.state.0.local_jurisdiction.electionAdministrationBody.correspondenceAddress }}
+      <div id="local-jurisdiction-correspondence-address" class="election-administration-address">
+      <span>{{assets.text.resources.electionAdministration.correspondenceAddress}}:</span>
+      {{> normalized-address data.state.0.local_jurisdiction.electionAdministrationBody.correspondenceAddress }}
+      </div>
+      {{/if}} --}}
+    {{#if data.state.0.local_jurisdiction.electionAdministrationBody.physicalAddress }}
+    <div id="local-jurisdiction-physical-address" class="election-administration-address">
+      <span>{{assets.text.resources.electionAdministration.physicalAddress}}</span>
+      {{> normalized-address data.state.0.local_jurisdiction.electionAdministrationBody.physicalAddress }}
+    </div>
+    {{/if}}
+    <br>
+    {{#if data.state.0.electionAdministrationBody}}
+    <h1>{{assets.text.resources.electionAdministration.stateElectionsOffice}}</h1>
+    {{/if}}
+    <b>{{ data.state.0.electionAdministrationBody.name }}</b>
+    {{ data.state.0.electionAdministrationBody.hoursOfOperation }}
+    {{!-- {{#if data.state.0.electionAdministrationBody.correspondenceAddress }}
+      <div id="state-election-correspondence-address" class="election-administration-address">
+      <span>{{assets.text.resources.electionAdministration.correspondenceAddress}}</span>
+      {{> normalized-address data.state.0.electionAdministrationBody.correspondenceAddress }}
+      </div>
+      {{/if}} --}}
+    {{#if data.state.0.electionAdministrationBody.physicalAddress }}
+    <div id="state-election-physical-address" class="election-administration-address">
+      <span>{{assets.text.resources.electionAdministration.physicalAddress}}</span>
+      {{> normalized-address data.state.0.electionAdministrationBody.physicalAddress }}
+    </div>
+    {{/if}}
+    {{#each data.state.0.electionAdministrationBody.electionOfficials }}
+    <div class="election-official">
+      <div>
+        <b>{{this.name}}</b>
+      </div>
+      <div>{{this.title}}</div>
+      <div>
+        <a href="tel:{{this.officePhoneNumber}}">
+          {{this.officePhoneNumber}}
+        </a>
+      </div>
+      <div>
+        <a href="fax:{{this.faxNumber}}">
+          {{this.faxNumber}}
+        </a>
+      </div>
+      <div>{{this.emailAddress}}</div>
+    </div>
+    {{/each}}
   </div>
-  {{/if}} --}}
-  {{#if data.state.0.local_jurisdiction.electionAdministrationBody.physicalAddress }}
-  <div id="local-jurisdiction-physical-address" class="election-administration-address">
-  <span>{{assets.text.resources.electionAdministration.physicalAddress}}</span>
-  {{> normalized-address data.state.0.local_jurisdiction.electionAdministrationBody.physicalAddress }}
-  </div>
-  {{/if}}
-  <br>
-  {{#if data.state.0.electionAdministrationBody}}
-  <h1>{{assets.text.resources.electionAdministration.stateElectionsOffice}}</h1>
-  {{/if}}
-  <b>{{ data.state.0.electionAdministrationBody.name }}</b>
-  {{ data.state.0.electionAdministrationBody.hoursOfOperation }}
-{{!--   {{#if data.state.0.electionAdministrationBody.correspondenceAddress }}
-  <div id="state-election-correspondence-address" class="election-administration-address">
-  <span>{{assets.text.resources.electionAdministration.correspondenceAddress}}</span>
-  {{> normalized-address data.state.0.electionAdministrationBody.correspondenceAddress }}
-  </div>
-  {{/if}} --}}
-  {{#if data.state.0.electionAdministrationBody.physicalAddress }}
-  <div id="state-election-physical-address" class="election-administration-address">
-  <span>{{assets.text.resources.electionAdministration.physicalAddress}}</span>
-  {{> normalized-address data.state.0.electionAdministrationBody.physicalAddress }}
-  </div>
-  {{/if}}
-  </div>
+
   <div class="subsection box more-resources-header">
     <span>
     {{assets.text.resources.moreResources.title}}
@@ -182,10 +204,11 @@
     <img src="{{root}}/images/minus.png" class="toggle-image minus">
   </span>
 </div>
+
 <div class="contests right" id="all-contests">
-{{#each data.contests}}
-{{> contest}}
-{{/each}}
+  {{#each data.contests}}
+  {{> contest}}
+  {{/each}}
 </div>
 
 <div class="footer">

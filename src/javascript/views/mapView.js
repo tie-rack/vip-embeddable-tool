@@ -4,6 +4,7 @@ var $ = require('jquery');
 var fastclick = require('fastclick');
 var ouiCal = require('../ouical.js');
 var async = require('async')
+window.$ = $
 
 module.exports = View.extend({
 
@@ -1235,7 +1236,7 @@ module.exports = View.extend({
             .show()
           .end()
         .end()
-        .find('#map-canvas, #location, #location-legend, .contests')
+        .find('#map-canvas, #location, #location-legend, #map-list-view, .contests')
           .hide()
         .end()
         .find('.info.box')
@@ -1296,7 +1297,7 @@ module.exports = View.extend({
 
     } else {
       this.find("#about-resources span").hide().end()
-        .find('#map-canvas, #location, #location-legend, #more-resources, #about-resources').hide().end()
+        .find('#map-canvas, #location, #location-legend, #map-list-view, #more-resources, #about-resources').hide().end()
         .find('.info.box').removeClass('expanded-pane').end()
         .find('#ballot-information').addClass('expanded-pane')
           // .find('.arrow').toggleClass('hidden')

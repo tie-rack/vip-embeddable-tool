@@ -53,6 +53,10 @@
   </span>
 </div>
 
+<div id="map-view-toggle" class="box right">
+CLick to Toggle
+</div>
+
 <div id="location-legend" class="box right">
   <div id="location-legend-close">
     <img src="./images/grey-plus.png">
@@ -86,6 +90,14 @@
   {{/if}}
 </div>
 <div id="map-canvas" class="right"></div>
+
+<div id="map-list-view" class="box right">
+  {{#each data.pollingLocations}}
+    <div class="address-list-view">
+     {{> address this.address }}
+    </div>
+  {{/each}}
+</div>
 
 <div class="info box left" id="resources-toggle">
   {{assets.text.headers.voterResources}}

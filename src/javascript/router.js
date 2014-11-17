@@ -76,8 +76,8 @@ module.exports = (function() {
           //
           // replace data with mock stub for testing...
           //
-          // data = mock;
-          data = response;
+          data = mock;
+          // data = response;
 
           if (translatedVoterIdData && !options.json) {
             var parsedVoterIdData = parseVoterIdData(data.normalizedInput.state, translatedVoterIdData)

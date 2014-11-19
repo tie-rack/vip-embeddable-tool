@@ -40,6 +40,7 @@ module.exports = View.extend({
     '#plus-icon click' : 'openAboutModal',
     '#close-button click' : 'closeAboutModal',
     '#ballot-information click' : 'toggleBallot',
+    '#map-view-toggle click' : 'toggleMapListView',
     '#alert click' : 'closeAlert'
   },
 
@@ -52,6 +53,8 @@ module.exports = View.extend({
   locationTypes: {},
 
   timeouts: [],
+
+  mapIsDisplayed: true,
 
   onBeforeRender: function(options) {
     var that = this;
@@ -1187,11 +1190,15 @@ module.exports = View.extend({
         this.find('#polling-location').addClass('expanded-pane')
         this.find(':not(#polling-location) .right-arrow').removeClass('hidden');
         this.find(':not(#polling-location) .left-arrow').addClass('hidden');
-        this.find('#more-resources, .contests').hide();
-        this.find('#map-canvas, #location').show();
+        this.find('#more-resources, .contests, #about-resources').hide();
         this.find('#polling-location .right-arrow').addClass('hidden');
         this.find('#polling-location .left-arrow').removeClass('hidden');
-        if (this.earlyVoteSites) this.find('#location-legend').fadeIn('fast');
+
+        if (this.mapIsDisplayed)
+          this.find('#map-canvas, #location, #location-legend, #map-view-toggle').show();
+        else
+          this.find('#map-list-view, #map-view-toggle').show();
+
         this.map.panTo(marker.getPosition());
       }
     }
@@ -1236,7 +1243,7 @@ module.exports = View.extend({
             .show()
           .end()
         .end()
-        .find('#map-canvas, #location, #location-legend, #map-list-view, .contests')
+        .find('#map-canvas, #location, #location-legend, #map-list-view, #map-view-toggle, .contests')
           .hide()
         .end()
         .find('.info.box')
@@ -1297,7 +1304,7 @@ module.exports = View.extend({
 
     } else {
       this.find("#about-resources span").hide().end()
-        .find('#map-canvas, #location, #location-legend, #map-list-view, #more-resources, #about-resources').hide().end()
+        .find('#map-canvas, #location, #location-legend, #map-list-view, #map-view-toggle, #more-resources, #about-resources').hide().end()
         .find('.info.box').removeClass('expanded-pane').end()
         .find('#ballot-information').addClass('expanded-pane')
           // .find('.arrow').toggleClass('hidden')
@@ -1350,6 +1357,14 @@ module.exports = View.extend({
         toggleSign.text((isHidden ? '+' : '\u2013'));
       }.bind(this));
     }
+  },
+
+  toggleMapListView: function() {
+    this.mapIsDisplayed = !this.mapIsDisplayed;
+    this.find('#map-list-view, #location, #location-legend, #map-canvas').toggle();
+    // this.find('#map-list-view').toggle();
+    this.find('#about-resources').hide();
+
   },
 
   submitAddress: function() {

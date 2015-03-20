@@ -87,10 +87,14 @@ module.exports = View.extend({
     };
 
     var mergeAndRemoveDups = function(pollingLocation, otherLocation, otherLocationCollection, toRemoveCollection, isBoth, isBothPollingAndDropoff) {
-      if ((pollingLocation.address.line1 === otherLocation.address.line1 &&
-           pollingLocation.address.line1) ||
-          (pollingLocation.address.locationName === otherLocation.address.LocationName &&
-           pollingLocation.address.locationName)) {
+      if (
+        ((pollingLocation.address.line1 && otherLocation.address.line1) && 
+        (pollingLocation.address.line1.replace(/\./g, '').toLowerCase() === otherLocation.address.line1.replace(/\./g, '').toLowerCase())) ||
+        ((pollingLocation.address.line2 && otherLocation.address.line2) && 
+        (pollingLocation.address.line2.replace(/\./g, '').toLowerCase() === otherLocation.address.line2.replace(/\./g, '').toLowerCase())) ||
+        ((pollingLocation.address.line3 && otherLocation.address.line3) && 
+        (pollingLocation.address.line3.replace(/\./g, '').toLowerCase() === otherLocation.address.line3.replace(/\./g, '').toLowerCase()))
+      ) {
         $.extend(pollingLocation, otherLocation);
 
         var idx = otherLocationCollection.indexOf(otherLocation);

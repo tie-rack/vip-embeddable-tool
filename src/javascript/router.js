@@ -76,8 +76,8 @@ module.exports = (function() {
           //
           // replace data with mock stub for testing...
           //
-          data = mock;
-          // data = response;
+          // data = mock;
+          data = response;
 
           if (translatedVoterIdData && !options.json) {
             var parsedVoterIdData = parseVoterIdData(data.normalizedInput.state, translatedVoterIdData)
@@ -154,16 +154,19 @@ module.exports = (function() {
         
         var voterIdTranslatedInfoUrl = location.protocol.toString() + '//s3.amazonaws.com/vip-voter-information-tool/voter-id/voterIdInfo_'+options.language+'.csv';
 
-        if (options.json) url = options.json;
-
-        $.ajax({
-          url: url,
-          cache: false,
-          success: function(newText) {
-            $.extend(options, { assets: JSON.parse(newText) });
-            addressView.render(options);
-          }
-        });
+        if (options.json) {
+          $.extend(options, { assets: JSON.parse(options.json) });
+          addressView.render(options);
+        } else {
+          $.ajax({
+            url: url,
+            cache: false,
+            success: function(newText) {
+              $.extend(options, { assets: JSON.parse(newText) });
+              addressView.render(options);
+            }
+          });
+        }
 
         //
         // for the spanish voter id info translations

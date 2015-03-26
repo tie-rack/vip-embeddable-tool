@@ -49,6 +49,7 @@ module.exports = (function() {
         if (options.alert) this.alert = options.alert;
         if (options.test) this.test = options.test;
         if (options.officialOnly) this.officialOnly = options.officialOnly;
+        if (options.electionId) this.electionId = options.electionId;
         if (!options.productionDataOnly) this.productionDataOnly = options.productionDataOnly;
         if (options.assets) this.assets = options.assets;
       }
@@ -169,6 +170,7 @@ module.exports = (function() {
         productionDataOnly: this.productionDataOnly,
         key: this.key,
         test: this.test,
+        electionId: this.electionId,
         success: this.handleElectionData.bind(this),
         error: this.handleAddressNotFound.bind(this),
         complete: this.toggleLoadingDisplay.bind(this)

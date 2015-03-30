@@ -6,10 +6,33 @@ module.exports = function(options) {
   if (options.key) url += 'key=' + options.key;
   if (options.address) url += '&address=' + options.address;
   if (options.test) url += '&electionId=2000';
-  if (options.electionId) url += '&electionId=' + options.electionId;
-  if (options.officialOnly) url += '&officialOnly=' + options.officialOnly;
-  if (typeof options.productionDataOnly !== 'undefined')
-    url += '&productionDataOnly=' + options.productionDataOnly;
+
+  if (!window._vitUsesStagingData) {
+    if (options.electionId) url += '&electionId=' + options.electionId;
+    if (options.officialOnly) url += '&officialOnly=' + options.officialOnly;
+    if (typeof options.productionDataOnly !== 'undefined')
+      url += '&productionDataOnly=' + options.productionDataOnly;
+  } else {
+    var form = $('#vit-staging-data-form');
+
+    var electionId = form.find('#election-id').val();
+    var officialOnly = form.find('#official-only').is(':checked');
+    var stagingData = form.find('#staging-data').is(':checked');
+
+    // check in case the user left the option blank
+    if (electionId) {
+      url += '&electionId=' + electionId;
+    } else if (options.electionId) {
+      url += '&electionId=' + options.electionId;
+    }
+
+    url += '&officialOnly=' + officialOnly;
+    if (stagingData) {
+      url += '&productionDataOnly=false';
+    }
+  }
+
+  console.log(url)
 
   $.support.cors = true;
   $.ajax({

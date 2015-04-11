@@ -18,7 +18,7 @@ module.exports = (function() {
     var stateData = Array.prototype.filter.call(states, function(entry) {
       return entry[0] === state;
     });
-    // console.log(stateData)
+
     var voterIdInfo = {};
     var voterIdLink;
     stateData.forEach(function(state) {
@@ -65,18 +65,18 @@ module.exports = (function() {
         productionDataOnly: true,
         assets: text
       };
+
       $.extend(options, config);
       $.extend(options, { root: 'https://d13luoc3ou2p3l.cloudfront.net'});
+
       if (options.productionOnly === false) options.productionDataOnly = options.productionOnly;
 
       addressView
         .onRouteEvent('addressViewSubmit', function(response) {
-          // delete mock.earlyVoteSites;
-          // delete mock.dropOffLocations;
           //
-          // replace data with mock stub for testing...
-          //
+          // uncomment to replace data with mock stub for testing...
           // data = mock;
+          //
           data = response;
 
           if (translatedVoterIdData && !options.json) {
@@ -91,15 +91,20 @@ module.exports = (function() {
           }
           
           window.history && history.pushState && history.pushState(null, null, '?polling-location');
+
           $(window).on('popstate', function() {
             router.navigate(addressView, mapView, options);
             $('#_vitModal').hide();
           }.bind(this));
+
           $.extend(options, { data: data });
+
           router.navigate(mapView, addressView, options);
         })
         .onRouteEvent('addressViewRerender', function() {
-          router.navigate(addressView, addressView, options)
+
+          router.navigate(addressView, addressView, options);
+
         });
 
       mapView
@@ -130,11 +135,16 @@ module.exports = (function() {
           router.navigate(mapView, mapView, options);
         });
 
+      // path to the voter ID information updated CSV file
       var voterIdInfoUrl = location.protocol.toString() + '//s3.amazonaws.com/vip-voter-information-tool/voter-id/voterIdInfo.csv';
+
+      // keep for the case of translateable voter id Info
       var voterIdTranslatedInfoUrl = false;
 
+      // default language unless specified in configs
       var language = navigator.language || navigator.browserLanguage;
 
+      // change language
       if ((options.language && options.language !== 'en') || !language.match(/en/) || options.json) {
         var language = options.language || language;
         var supportedLanguages = [
@@ -149,15 +159,22 @@ module.exports = (function() {
           'zh',
           'km'
         ];
+
+        // unsupported language
         if (supportedLanguages.indexOf(language) === -1) addressView.render(options);
+
+        // path for the supported language translation copy
         var url = location.protocol.toString() + '//s3.amazonaws.com/vip-voter-information-tool/languages/' + language + '-config.json';
         
+        // if applicable, translated voter ID information
         var voterIdTranslatedInfoUrl = location.protocol.toString() + '//s3.amazonaws.com/vip-voter-information-tool/voter-id/voterIdInfo_'+options.language+'.csv';
 
         if (options.json) {
+          // render with custom JSON text
           $.extend(options, { assets: JSON.parse(options.json) });
           addressView.render(options);
         } else {
+          // grab the translated copy and render with the new text
           $.ajax({
             url: url,
             cache: false,
@@ -168,13 +185,9 @@ module.exports = (function() {
           });
         }
 
-        //
-        // for the spanish voter id info translations
-        //
-        // if (language === 'es') voterIdInfoUrl = location.protocol.toString() + 'put-url-here'
-
       } else addressView.render(options);
 
+      // in the background grab the voter ID info copy
       $.ajax({
         url: voterIdInfoUrl,
         cache: false,
@@ -193,6 +206,7 @@ module.exports = (function() {
       });
     },
 
+    // helper function for navigation
     navigate: function(toView, fromView, options) {
       $.extend(options, { root: 'https://d13luoc3ou2p3l.cloudfront.net'});
       fromView.remove();

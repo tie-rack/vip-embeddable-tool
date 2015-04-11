@@ -3,8 +3,7 @@ var api  = require('../api.js');
 var $ = require('jquery');
 var fastclick = require('fastclick');
 var ouiCal = require('../ouical.js');
-var async = require('async')
-window.$ = $
+var async = require('async');
 
 module.exports = View.extend({
 
@@ -1198,10 +1197,14 @@ module.exports = View.extend({
         this.find('#polling-location .right-arrow').addClass('hidden');
         this.find('#polling-location .left-arrow').removeClass('hidden');
 
+        // if (this.mapIsDisplayed)
+        //   this.find('#map-canvas, #location, #location-legend, #map-view-toggle').show();
+        // else
+        //   this.find('#map-list-view, #map-view-toggle').show();
         if (this.mapIsDisplayed)
-          this.find('#map-canvas, #location, #location-legend, #map-view-toggle').show();
+          this.find('#map-canvas, #location, #location-legend').show();
         else
-          this.find('#map-list-view, #map-view-toggle').show();
+          this.find('#map-list-view').show();
 
         this.map.panTo(marker.getPosition());
       }

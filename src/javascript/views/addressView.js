@@ -22,10 +22,15 @@ module.exports = View.extend({
   address : '',
 
   resizer: function () {
-    $("#_vit").find("#about.modal").css({"max-height": $("#_vit").height() - 120 + "px"});
+    // reset about modal max height
+    $('#_vit').find('#about.modal').css({
+      'max-height': $('#_vit').height() - 120 + 'px'
+    });
 
-    if (this.$container.parent().width() < this.$container.width())
+    // constrain container to parent width
+    if (this.$container.parent().width() < this.$container.width()) {
       this.$container.width(this.$container.parent().width());
+    }
   },
 
   onAfterRender : function(options) {
@@ -34,71 +39,70 @@ module.exports = View.extend({
     var $notFoundModal = this.find('#address-not-found');
     var $currentLocationModal = this.find('#current-location');
 
+    // set container dimensions
     this.$container.css({
-      'max-width': "none",
+      'max-width': 'none',
       'width' : options.width,
       'height' : options.height
     });
 
+    // can we just do this in CSS?
     $("#_vit .footer").css("max-width", "none")
 
+    // limit user-uploaded image width
     if (this.$container.width() > 600) {
       $('#user-image').css('max-width', '85%');
     }
 
+    // apply custom colors
     if (options.colors) {
       colors.replace(options.colors);
     }
 
-    // if (this.$container.width() < 600)
-      // this.find('.modal').css('overflow-y', 'auto'
-
-    this.$container.on('click', function(e) {
+    // handle container clicks and hide modals
+    this.$container.on('click', function (e) {
       if (e.target !== $aboutModal) $aboutModal.hide();
       if (e.target !== $notFoundModal) $notFoundModal.hide();
       if (e.target !== $currentLocationModal) $currentLocationModal.hide();
       if (e.target !== this.find('#fade')) this.find('#fade').fadeOut('fast');
     }.bind(this));
+
     this.autocomplete = new google.maps.places.Autocomplete($address[0], {
       types: ['address'],
       componentRestrictions: { country: 'us' }
     });
+
+    // debounce submissions
     this.hasSubmitted = false;
 
+    // disable fast-click for place autocomplete by listening for DOM Node
+    // Insertion. PAC doesn't work with fastlick. See:
+    // https://github.com/ftlabs/fastclick/issues/316
     $(document).on({
-      'DOMNodeInserted':function() {
+      DOMNodeInserted: function() {
         $('.pac-item, .pac-item span', this).addClass('needsclick');
       }
     }, '.pac-container');
 
+    // bind resize event
+    // note: debounce
     this.resizer();
     $(window).on('resize', this.resizer.bind(this));
 
+    // bind autocomplete listener
     google.maps.event.addListener(this.autocomplete, 'place_changed', this.autocompleteListener.bind(this));
   },
 
   autocompleteListener: function () {
+    // TODO: replace this with a debouncer
     if (this.hasSubmitted) return;
-    var enteredAddress = this.autocomplete.getPlace();
-    var addrStr = JSON.stringify(enteredAddress);
-    if (typeof enteredAddress === 'undefined' ||
-        typeof enteredAddress.formatted_address === 'undefined') {
-      if (typeof enteredAddress !== 'undefined' && typeof enteredAddress.name !== 'undefined') enteredAddress = enteredAddress.name;
-      else {
-        // may not be necessary
-        var autocompleteContainer = $('.pac-container').last().find('.pac-item-query').first();
-        enteredAddress = autocompleteContainer.text() + ' ' +
-          autocompleteContainer.next().text();
-      }
-    } else enteredAddress = enteredAddress.formatted_address;
-    var enteredInput = this.find('#address-input').val();
 
-    if (enteredInput.length > enteredAddress.length) enteredAddress = enteredInput;
+    this.address = this.autocomplete.getPlace().formatted_address || this.autocomplete.getPlace().name;
 
-    this.address = enteredAddress;
     this.hasSubmitted = true;
+
     this._makeRequest({
-      address: enteredAddress
+      address: this.address
     });
 
     this.toggleLoadingDisplay();
@@ -107,16 +111,19 @@ module.exports = View.extend({
   currentLocationAutocompleteListener: function (response) {
     var address = this.autocomplete.getPlace().formatted_address || this.autocomplete.getPlace().name;
 
-    var stateName = ((response.state && response.state.length) ? response.state[0].name : '');
+    var stateName = (response.state && response.state.length) ? response.state[0].name : '';
     var stateAbbr = (stateName === 'Washington' ? 'WA' : 'OR');
+
     if (address.indexOf(stateAbbr) !== -1) {
-      window.console && console.log(this.autocomplete.getPlace())
+
       if (!this.autocomplete.getPlace().geometry) {
+
         this._geocode(this.autocomplete.getPlace().name, function(geocodedLocation) {
           $.extend(response, { currentLocation: geocodedLocation });
 
           this.triggerRouteEvent('addressViewSubmit', response);
         }.bind(this))
+
       } else {
         var location = this.autocomplete.getPlace().geometry.location;
 
@@ -127,6 +134,7 @@ module.exports = View.extend({
 
       this.toggleLoadingDisplay();
     } else {
+
       this.find('.loading').hide();
       this.find('#current-location').hide()
       this.find('#out-of-state')
@@ -134,6 +142,7 @@ module.exports = View.extend({
         .one('click', function() {
           this.triggerRouteEvent('addressViewSubmit', response)
         }.bind(this));
+
     }
   },
 
@@ -196,7 +205,7 @@ module.exports = View.extend({
       });
 
       that.find('#use-different-address').one('click', function() {
-        // that.triggerRouteEvent('addressViewRerender');
+
         var newInput = $('<input>')
           .attr('type', 'text')
           .attr('placeholder', "Enter a different address")
@@ -207,16 +216,19 @@ module.exports = View.extend({
           types: ['address'],
           componentRestrictions: { country: 'us' }
         });
+
         google.maps.event.addListener(that.autocomplete, 'place_changed', that.currentLocationAutocompleteListener.bind(that, response));
 
-      })
+      });
       return;
     }
 
     if (response.otherElections) {
+
       this.$el.append(this.multipleElections({
         elections: [response.election].concat(response.otherElections)
       }));
+
       this.find('#multiple-elections').fadeIn('fast');
       this.find('#fade').fadeTo('fast', .2);
       $('.checked:first').removeClass('hidden');
@@ -224,7 +236,7 @@ module.exports = View.extend({
       $(this.find('#multiple-elections button')).on('click', function() {
 
         var id = this.find('.checked:not(.hidden)').siblings('.hidden').eq(1).text();
-        window.console && console.log(id)
+
         this._makeRequest({
           address: this._parseAddress(response.normalizedInput),
           success: function(newResponse) {
@@ -232,6 +244,7 @@ module.exports = View.extend({
           }.bind(this),
           electionId: id
         });
+
       }.bind(this));
       $('.election').on('click', function() {
         $('.checked').addClass('hidden');
@@ -244,8 +257,6 @@ module.exports = View.extend({
   },
 
   handleAddressNotFound: function() {
-    // this.toggleLoadingDisplay()
-    // this.find('#fade').hide();
     this.$el.unbind('click');
     google.maps.event.addListener(this.autocomplete, 'place_changed', this.autocompleteListener.bind(this));
     this.find('.loading').hide();

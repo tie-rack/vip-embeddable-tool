@@ -232,19 +232,22 @@ module.exports = View.extend({
       }
     }
 
-    // reformat the dates
-    var date = new Date(options.data.election.electionDay);
+    // reformat the dates: Civic Info API returns yyyy-mm-dd, so split
+    // them and give them to the date object--decrementing month, because
+    // it's 0-indexed. Then convert it to a locale string
+    var dateArray = options.data.election.electionDay.split('-');
+    var date = new Date(dateArray[0], dateArray[1]-1, dateArray[2]);
 
     options.data.election.dateForCalendar = date.getMonth() + 1 + '/' + date.getDate() + '/' +  date.getFullYear();
 
-    var newDate = date.toLocaleDateString('en-us', {
+    var newDate = date.toLocaleDateString(options.language, {
       weekday: 'long',
       year: 'numeric',
       month: 'long',
       day: 'numeric'
     });
 
-    // options.data.election.electionDay = newDate;
+    options.data.election.electionDay = newDate;
 
     // sort the contests by their placement on the ballot
     function contestComparator(firstContest, secondContest) {
@@ -663,6 +666,11 @@ module.exports = View.extend({
       })
     })
 
+    // hide voter id questions which have no answer
+    this.find('.answer').filter(function () {
+      return $(this).text().trim().length == 0
+    }).prev().hide();
+
   },
 
   closePopUps: function (e) {
@@ -1045,7 +1053,7 @@ module.exports = View.extend({
     if (addressInput.is(':hidden')) {
       this.find("#vote-address-edit").hide();
       addressInput.prev().hide();
-      addressInput.show();
+      addressInput.show().focus();
       this.find('#submit-address-button').show();
       if (!this.landscape) this.find('#fade').fadeTo('fast', .25);
 
@@ -1058,6 +1066,7 @@ module.exports = View.extend({
       $(window).on('keypress', function(e) {
         if (this.hasSubmitted) return;
         var key = e.which || e.keyCode;
+
         if (key === 13) {
           google.maps.event.trigger(this.autocomplete, 'place_changed');
           if (this.hasSubmitted) return;

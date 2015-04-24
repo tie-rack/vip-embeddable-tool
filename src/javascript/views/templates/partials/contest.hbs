@@ -1,8 +1,7 @@
 <div class="contest contest-toggle">
 	<div class="subsection box">
 		<p>
-		{{!-- {{ referendumTitle }} --}}
-		{{ office }}
+		{{either referendumTitle office }}
 		</p>
 		<div class="contest-type"> 
 			{{ primaryParty }}
@@ -15,7 +14,6 @@
 		<a href="{{ referendumUrl }}">
 		{{/if}}
 			<div class="referendum-subtitle box">
-				<strong>{{{escapeHTML referendumTitle }}}</strong><br>
 				{{#if referendumUrl}}
 				<img src="https://d13luoc3ou2p3l.cloudfront.net/images/arrow.png" class="arrow">
 				{{/if}}

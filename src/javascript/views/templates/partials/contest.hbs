@@ -15,11 +15,11 @@
 		<a href="{{ referendumUrl }}">
 		{{/if}}
 			<div class="referendum-subtitle box">
-				<strong>{{ referendumTitle }}</strong><br>
+				<strong>{{{escapeHTML referendumTitle }}}</strong><br>
 				{{#if referendumUrl}}
 				<img src="https://d13luoc3ou2p3l.cloudfront.net/images/arrow.png" class="arrow">
 				{{/if}}
-				{{ referendumSubtitle }}
+				{{{escapeHTML referendumSubtitle }}}
 			</div>
 		{{#if referendumUrl}}
 		</a>

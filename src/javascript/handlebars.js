@@ -25,7 +25,7 @@ module.exports = (function() {
   };
 
   var either = function(a, b) {
-    return a != void 0 ? (a.length > 0 ? a : b) : '';
+    return a != void 0 && a.length > 0 ? a : b;
   };
 
   return {

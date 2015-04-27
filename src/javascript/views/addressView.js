@@ -2,7 +2,7 @@ var View = require('./view.js');
 var api = require('../api.js');
 var $ = require('jquery');
 var colors = require('../colors.js');
-
+window.$ = $;
 module.exports = View.extend({
 
   $id          : 'address-view',
@@ -97,7 +97,11 @@ module.exports = View.extend({
     // TODO: replace this with a debouncer
     if (this.hasSubmitted) return;
 
-    this.address = this.autocomplete.getPlace().formatted_address || this.autocomplete.getPlace().name;
+    if (this.autocomplete.getPlace()) {
+      this.address = this.autocomplete.getPlace().formatted_address || this.autocomplete.getPlace().name;
+    } else {
+      this.address = this.find('#address-input').val();
+    }
 
     this.hasSubmitted = true;
 

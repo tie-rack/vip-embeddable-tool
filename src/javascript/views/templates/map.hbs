@@ -203,7 +203,9 @@ Click to Toggle
       <div class="answer">{{ answer }}</div>
     {{/each}}
       <div class="answer">
+        {{#if data.VoterIdLink }}
         <a href="{{ data.VoterIdLink }}" target="_blank">{{assets.text.resources.voterIdRequirements.linkTitle }}</a>
+        {{/if}}
       </div>
     </div>
   </div>

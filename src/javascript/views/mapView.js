@@ -133,7 +133,7 @@ module.exports = View.extend({
               earlyVoteSite.address.name = earlyVoteSite.name;
 
             if (endDate < now)
-              earlyVoteSitesToRemove.push(idx);
+              earlyVoteSitesToRemove.push(earlyVoteSite);
             else
               mergeAndRemoveDups(pollingLocation, earlyVoteSite, earlyVoteSites, earlyVoteSitesToRemove, true, false);
           });

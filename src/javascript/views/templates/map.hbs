@@ -144,6 +144,9 @@ Click to Toggle
       {{> normalized-address data.state.0.local_jurisdiction.electionAdministrationBody.physicalAddress }}
     </div>
     {{/if}}
+    {{#each data.state.0.local_jurisdiction.electionAdministrationBody.electionOfficials }}
+    {{> election-official}}
+    {{/each}}
     <br>
     {{#if data.state.0.electionAdministrationBody}}
     <h1>{{assets.text.resources.electionAdministration.stateElectionsOffice}}</h1>
@@ -163,23 +166,7 @@ Click to Toggle
     </div>
     {{/if}}
     {{#each data.state.0.electionAdministrationBody.electionOfficials }}
-    <div class="election-official">
-      <div>
-        <b>{{this.name}}</b>
-      </div>
-      <div>{{this.title}}</div>
-      <div>
-        <a href="tel:{{this.officePhoneNumber}}">
-          {{this.officePhoneNumber}}
-        </a>
-      </div>
-      <div>
-        <a href="fax:{{this.faxNumber}}">
-          {{this.faxNumber}}
-        </a>
-      </div>
-      <div>{{this.emailAddress}}</div>
-    </div>
+    {{> election-official}}
     {{/each}}
   </div>
 

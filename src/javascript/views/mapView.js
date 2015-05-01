@@ -450,11 +450,13 @@ module.exports = View.extend({
     if (scrapeAddress(this.find('#local-jurisdiction-correspondence-address').children().children()) 
       === scrapeAddress(this.find('#local-jurisdiction-physical-address').children().children())) {
       this.find('#local-jurisdiction-correspondence-address').remove();
+      this.find('#state-election-physical-address span').remove();
     }
 
     if (scrapeAddress(this.find('#state-election-correspondence-address').children().children()) 
       === scrapeAddress(this.find('#state-election-physical-address').children().children())) {
       this.find('#state-election-correspondence-address').remove();
+      this.find('#local-jurisdiction-physical-address span').remove();
     }
 
     // remove election administration addresses that are only state acronyms
@@ -922,6 +924,10 @@ module.exports = View.extend({
     this.markers.push(marker);
 
     google.maps.event.addListener(marker, 'click', this._markerFocusHandler.bind(this, marker, address, location, saddr, daddr));
+    if (this.markers.length === 1) {
+      this.find('#location-legend').on('click', this._markerFocusHandler.bind(this, marker, address, location, saddr, daddr))
+    }
+
   },
 
   _calculateDistance: function(fromLocation, toLocation, callback) {

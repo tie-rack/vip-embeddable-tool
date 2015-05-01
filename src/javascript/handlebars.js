@@ -28,11 +28,16 @@ module.exports = (function() {
     return a != void 0 && a.length > 0 ? a : b;
   };
 
+  var log = function(text) {
+    window.console && console.log(text)
+  };
+
   return {
     registerHelpers: function() {
       handlebars.registerHelper('json', json);
       handlebars.registerHelper('escapeHTML', escapeHTML);
       handlebars.registerHelper('either', either);
+      handlebars.registerHelper('log', log);
     },
 
     registerPartials: function() {

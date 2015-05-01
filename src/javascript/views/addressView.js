@@ -2,7 +2,7 @@ var View = require('./view.js');
 var api = require('../api.js');
 var $ = require('jquery');
 var colors = require('../colors.js');
-window.$ = $;
+
 module.exports = View.extend({
 
   $id          : 'address-view',

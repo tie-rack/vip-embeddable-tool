@@ -656,13 +656,13 @@ module.exports = View.extend({
       this.find('#location').fadeOut('fast');
     }.bind(this));
 
-    var localLinks = this.find('.election-administration-body a #local-jurisdiction-title');
-    var stateLinks = this.find('.election-administration-body a #state-elections-office');
+    var localLinks = this.find('.election-administration-body #local-jurisdiction-title a');
+    var stateLinks = this.find('.election-administration-body #state-elections-office a');
 
-    if (localLinks.length) localLinks.forEach(function(localLink) {
-      if (stateLinks.length) stateLinks.forEach(function(stateLink) {
-        if (localLink.attr('href') === stateLink.attr('href'))
-          stateLink.remove();
+    if (localLinks.length) localLinks.each(function(_, localLink) {
+      if (stateLinks.length) stateLinks.each(function(_, stateLink) {
+        if ($(localLink).attr('href') === $(stateLink).attr('href'))
+          $(localLink).remove();
       })
     })
 

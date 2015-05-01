@@ -10,7 +10,9 @@
 <div class="box left">
   {{> address data.normalizedInput }}
   <textarea rows="1" type="text" class="change-address" placeholder="{{assets.text.placeholderText.changeAddress}}" />
-  <img src="{{root}}/images/magnifying-glass.svg" class="magnifying-glass" id="submit-address-button">
+  <div class="magnifying-glass" id="submit-address-button">
+    <img src="{{root}}/images/magnifying-glass.svg">
+  </div>
   <span id="vote-address-edit">{{assets.text.headers.edit}}</span>
 </div>
 

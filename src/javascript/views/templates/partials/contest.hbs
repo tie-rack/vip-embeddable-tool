@@ -37,6 +37,16 @@
 				<div class="party">
 				{{ party }}
 				</div>
+				{{#if email}}
+				<div class="email">
+				<a href="mailto:{{ email }}">{{email}}</a>
+				</div>
+				{{/if}}
+				{{#if phone}}
+				<div class="phone">
+				<a href="tel:{{phone}}">{{ phone }}</a>
+				</div>
+				{{/if}}
 			</div>
 		{{#if candidateUrl}}
 		</a>

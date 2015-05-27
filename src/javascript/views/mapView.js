@@ -87,11 +87,11 @@ module.exports = View.extend({
 
     var mergeAndRemoveDups = function(pollingLocation, otherLocation, otherLocationCollection, toRemoveCollection, isBoth, isBothPollingAndDropoff) {
       if (
-        ((pollingLocation.address.line1 && otherLocation.address.line1) && 
+        ((pollingLocation.address.line1 && otherLocation.address.line1) &&
         (pollingLocation.address.line1.replace(/\./g, '').toLowerCase() === otherLocation.address.line1.replace(/\./g, '').toLowerCase())) ||
-        ((pollingLocation.address.line2 && otherLocation.address.line2) && 
+        ((pollingLocation.address.line2 && otherLocation.address.line2) &&
         (pollingLocation.address.line2.replace(/\./g, '').toLowerCase() === otherLocation.address.line2.replace(/\./g, '').toLowerCase())) ||
-        ((pollingLocation.address.line3 && otherLocation.address.line3) && 
+        ((pollingLocation.address.line3 && otherLocation.address.line3) &&
         (pollingLocation.address.line3.replace(/\./g, '').toLowerCase() === otherLocation.address.line3.replace(/\./g, '').toLowerCase()))
       ) {
         $.extend(pollingLocation, otherLocation);
@@ -196,7 +196,7 @@ module.exports = View.extend({
       });
 
     if (pollingLocations) pollingLocations.forEach(function(pollingLocation) {
-      if (!pollingLocation.isEarlyVoteSite && 
+      if (!pollingLocation.isEarlyVoteSite &&
           !pollingLocation.isBoth &&
           !pollingLocation.isDropOffLocation &&
           !pollingLocation.isBothEarlyVoteAndDropOff &&
@@ -388,12 +388,12 @@ module.exports = View.extend({
 
   onAfterRender: function(options) {
 
-    // var errorFeedbackUrl = "https://voter-info-tool.appspot.com/feedback?electionId=" + 
-    //   options.data.election.id + 
+    // var errorFeedbackUrl = "https://voter-info-tool.appspot.com/feedback?electionId=" +
+    //   options.data.election.id +
     //   "&address=" +
     //   this._parseAddress(options.data.normalizedInput);
 
-    var errorFeedbackUrl = "https://voter-info-tool.appspot.com/feedback";  
+    var errorFeedbackUrl = "https://voter-info-tool.appspot.com/feedback";
 
     this.find('#error-feedback-form')
       .attr('action', errorFeedbackUrl)
@@ -447,13 +447,13 @@ module.exports = View.extend({
     }
 
     // remove duplicate election administration addresses
-    if (scrapeAddress(this.find('#local-jurisdiction-correspondence-address').children().children()) 
+    if (scrapeAddress(this.find('#local-jurisdiction-correspondence-address').children().children())
       === scrapeAddress(this.find('#local-jurisdiction-physical-address').children().children())) {
       this.find('#local-jurisdiction-correspondence-address').remove();
       this.find('#state-election-physical-address span').remove();
     }
 
-    if (scrapeAddress(this.find('#state-election-correspondence-address').children().children()) 
+    if (scrapeAddress(this.find('#state-election-correspondence-address').children().children())
       === scrapeAddress(this.find('#state-election-physical-address').children().children())) {
       this.find('#state-election-correspondence-address').remove();
       this.find('#local-jurisdiction-physical-address span').remove();
@@ -549,7 +549,7 @@ module.exports = View.extend({
     if (this.landscape) this._switchToLandscape(options);
 
 
-    if (options.data.state && 
+    if (options.data.state &&
         options.data.state.length &&
         options.data.state[0].electionAdministrationBody)
       this.find('#info-icon').parent().attr('href', options.data.state[0].electionAdministrationBody.electionInfoUrl);
@@ -824,7 +824,7 @@ module.exports = View.extend({
       },{
         featureType: "water",
         elementType: "all",
-        stylers: [ 
+        stylers: [
           { hue: "#a1cdfc" },
           { saturation: 39 },
           { lightness: 49 }
@@ -864,7 +864,7 @@ module.exports = View.extend({
             that.find('.polling-location-info').slideUp('fast');
             that.toggleMap();
             // that.map.panTo((currentLocation ? currentLocation : position))
-          } 
+          }
           if (currentLocation)
             that.map.panTo(currentLocation)
           else
@@ -980,7 +980,7 @@ module.exports = View.extend({
       locations.forEach(function(location, idx) {
       that.timeouts.push(setTimeout(function () {
         that._geocode(
-          location.address, 
+          location.address,
           function(position) {
             that._addPollingLocation(
               position,
@@ -1124,7 +1124,7 @@ module.exports = View.extend({
     // replace the directions link with the correct address
     this.find('#location a').attr('href', 'https://maps.google.com?daddr=' + daddr + '&saddr=' + saddr);
     $locationInfo.find('a').attr('href', 'https://maps.google.com?daddr=' + daddr + '&saddr=' + saddr);
-    
+
     var ampersands = this.find('.early-vote-site').text().match(/ &/g);
     if (ampersands && ampersands.length > 1) {
       var newLocationText = this.find('.early-vote-site').text().replace(' & ', ', ');
@@ -1263,32 +1263,20 @@ module.exports = View.extend({
           .show()
           .find('span')
             .show()
-          .end()
-        .end()
-        .find('#map-canvas, #location, #location-legend, #map-list-view, #map-view-toggle, .contests')
+      this.find('#map-canvas, #location, #location-legend, #map-list-view, #map-view-toggle, .contests')
           .hide()
-        .end()
-        .find('.info.box')
-          .removeClass('expanded-pane')
-        .end()
-        .find('#resources-toggle')
-          .addClass('expanded-pane')
-        .end()
-        .find(':not(#resources-toggle)')
-          .find('.right-arrow')
-            .removeClass('hidden')
-          .end()
-          .find('.left-arrow')
-            .addClass('hidden')
-          .end()
-        .find('#resources-toggle')
-          .find('.right-arrow')
-            .addClass('hidden')
-          .end()
-          .find('.left-arrow')
-            .removeClass('hidden')
-          .end()
-
+      this.find('.info.box')
+        .removeClass('expanded-pane')
+      this.find('#resources-toggle')
+        .addClass('expanded-pane')
+      this.find(':not(#resources-toggle) .right-arrow')
+        .removeClass('hidden')
+      this.find(':not(#resources-toggle) .left-arrow')
+        .addClass('hidden')
+      this.find('#resources-toggle .right-arrow')
+        .addClass('hidden')
+      this.find('#resources-toggle .left-arrow')
+        .removeClass('hidden')
 
       this.find('#more-resources')
         .css({
@@ -1325,39 +1313,29 @@ module.exports = View.extend({
       if (!ballotInfoIsMaximized) this._scrollTo($("#ballot-information"), 20);
 
     } else {
-      this.find("#about-resources span").hide().end()
-        .find('#map-canvas, #location, #location-legend, #map-list-view, #map-view-toggle, #more-resources, #about-resources').hide().end()
-        .find('.info.box').removeClass('expanded-pane').end()
-        .find('#ballot-information').addClass('expanded-pane')
-          // .find('.arrow').toggleClass('hidden')
-        .end()
-        .find(':not(#ballot-information)')
-          .find('.right-arrow')
-            .removeClass('hidden')
-          .end()
-          .find('.left-arrow')
-            .addClass('hidden')
-          .end()
-        .end()
-        .find('#ballot-information')
-          .find('.right-arrow')
-            .addClass('hidden')
-          .end()
-          .find('.left-arrow')
-            .removeClass('hidden')
-          .end()
-        .end()
+      this.find("#about-resources span").hide()
+      this.find('#map-canvas, #location, #location-legend, #map-list-view, #map-view-toggle, #more-resources, #about-resources').hide()
+      this.find('.info.box').removeClass('expanded-pane')
+      this.find('#ballot-information').addClass('expanded-pane')
+      this.find(':not(#ballot-information) .right-arrow')
+        .removeClass('hidden');
+      this.find(':not(#ballot-information) .left-arrow')
+        .addClass('hidden');
+      this.find('#ballot-information .right-arrow')
+        .addClass('hidden');
+      this.find('#ballot-information .left-arrow')
+        .removeClass('hidden');
 
-        .find('.contests').show().end()
-        .find('#about-resources').css("height", "initial").end()
-        .find('#about-resources').css("height", "0px")
+      this.find('.contests').show().end()
+      this.find('#about-resources').css("height", "initial").end()
+      this.find('#about-resources').css("height", "0px")
     }
   },
 
   toggleContest: function(e) {
     if ($(e.target).hasClass('subsection') ||
         $(e.target).hasClass('subsection-plus') ||
-        $(e.target).parent().hasClass('subsection') || 
+        $(e.target).parent().hasClass('subsection') ||
         $(e.target).parent().hasClass('subsection-plus')) {
       var candidateList = $(e.currentTarget).find('.candidate-list');
       var toggleSign = $(e.currentTarget).find('span');
@@ -1390,7 +1368,7 @@ module.exports = View.extend({
   },
 
   submitAddress: function() {
-    google.maps.event.trigger(this.autocomplete, 'place_changed'); 
+    google.maps.event.trigger(this.autocomplete, 'place_changed');
   },
 
   _scrollTo: function(target, padding) {

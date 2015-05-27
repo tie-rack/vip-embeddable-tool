@@ -1,0 +1,36 @@
+/* ==========================================================================
+ Option boxes
+ ========================================================================== */
+
+.options {
+  padding: 0;
+  text-align: center;
+}
+
+.options .selected {
+  background: #2fa5cb;
+  color: #fff;
+}
+
+.option {
+  border: 1px solid lightgray;
+  border-radius: 2px;
+  cursor: pointer;
+  display: inline-block;
+  // margin: 0 20px;
+  margin: 0 auto;
+  height: 45px;
+  line-height: 45px;
+  list-style: none;
+  text-align: center;
+  width: 120px;
+
+  &.highlighted {
+    background: #2fa5cb;
+    color: #fff;
+    display: block;
+    margin: 20px auto;
+    text-align: center;
+    width: 200px;
+  }
+}

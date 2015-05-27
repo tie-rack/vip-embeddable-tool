@@ -1,0 +1,320 @@
+// CSS normalize.css reset
+@import "modules/normalize";
+
+// See modules/_base.scss
+@import "modules/base";
+
+@import "partials/header";
+@import "partials/footer";
+@import "partials/ie";
+
+@import "partials/dropdown";
+@import "partials/option";
+
+body {
+    @include typeface;
+}
+
+body, button, input, select, textarea {
+  font-family: 'Roboto', sans-serif;
+}
+
+html {
+  -webkit-touch-callout: none;
+  -webkit-user-select: none;
+  -khtml-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
+
+html,
+body {
+  height: 100%;
+  margin: 0;
+  overflow: hidden;
+}
+
+input:focus {
+  outline: none;
+}
+
+/* styling for panels */
+.container {
+  height: 100%;
+}
+
+.form {
+  height: 50%;
+}
+
+.navigation {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+}
+
+.preview {
+  background: #d7d7d7;
+  height: 50%;
+  padding: 50px;
+}
+
+/* styles for elements */
+svg.active {
+  // border: 1px solid orange;
+  // position: absolute;
+  // left: 50%;
+  // fill: white;
+
+  &.desktop, &.tablet {
+    // margin-left: -160px;
+  }
+
+  &.tablet {
+    width: 275px;
+    height: 205px;
+    margin: -2px 0 0 -2px;
+  }
+
+  &.phone {
+    // margin-left: -80px;
+  }
+
+  &:last-child {
+
+  }
+}
+
+.background {
+  width: 275px;
+  height: 205px;
+}
+
+.devices {
+  margin: 0 auto;
+  text-align: center;
+  li {
+    cursor: pointer;
+    display: inline-block;
+    list-style: none;
+    padding: 10px;
+  }
+}
+
+.device-container {
+  position: relative;
+  // left: 50%;
+  // display: inline-block;
+
+  &.tablet {
+    left: 50%;
+    margin: 50px 0 50px -135px;
+    width: 280px;
+    // height: 200px;
+  }
+
+  &.phone {
+    margin: 100px 0 100px -80px;
+    width: 160px;
+    float: left;
+    &:first-child {
+      left: 30%;
+
+    }
+    &:last-child {
+      left: 60%;
+    }
+  }
+
+  /* EXPERIMENTAL */
+  &.tablet {
+    width: 298px;
+    height: 200px;
+    background-image: url(img/tablet-frame.png)
+
+    img {
+      height: 100%;
+      transform: rotate(90deg);
+      -webkit-transform: rotate(90deg);
+      display: block;
+    }
+
+    svg {
+      display: none;
+      width: 0;
+      height: 0;
+    }
+  }
+}
+
+.device-frame {
+  overflow: visible !important;
+  pointer-events: none;
+  position: absolute;
+
+  &.tablet {
+    width: 227px;
+    left: 19px;
+    top: -68px;
+  }
+
+  &.phone {
+    width: 186px;
+    left: 42px;
+    top: -35px;
+    left: -12px;
+  }
+}
+
+.prev,
+.next {
+  background: #03244b;
+  box-shadow: 2px 2px 10px rgba(0,0,0,.4);
+  color: #fff;
+  float: left;
+  padding: 10px;
+  text-transform: uppercase;
+  width: 50%;
+}
+
+.get-started {
+  width: 100%;
+}
+
+.input-text {
+  width: 80%;
+}
+
+.interior-tile-bar-color {
+  box-sizing: border-box;
+  cursor: pointer;
+  display: inline-block;
+  list-style: none;
+  height: 60px;
+  margin: 10px;
+  width: 60px;
+
+  &.selected {
+    border: 2px solid #000;
+  }
+}
+
+.preview.right {
+  display: none;
+}
+
+.row {
+  text-align: center;
+}
+
+.subtitle,
+.title {
+  white-space: pre-line;
+}
+
+.subtitle {
+  font-size: 1.2rem;
+  font-weight: 500;
+  text-transform: uppercase;
+}
+
+.text-box {
+  background: #ebebeb;
+  margin: 20px 10%;
+  padding: 20px;
+  text-align: left; /* Should this be left or center? */
+}
+
+.title {
+  font-size: 1.5rem;
+  font-weight: 400;
+  text-transform: uppercase;
+}
+
+.url-input {
+  color: #333;
+  font-size: 1.05rem;
+  height: 30px;
+  line-height: 1.05rem;
+  margin: 0;
+  padding: 0 10px;
+  width: 300px;
+}
+
+.vip-name {
+  color: #d7d7d7;
+  display: inline-block;
+  font-weight: 300;
+}
+
+.vip-logo {
+  width: 50px;
+  margin-top: -10px;
+}
+
+/* Tablet styles */
+@media screen and (min-width: 480px) {
+  html,
+  body {
+    overflow: auto;
+  }
+
+  .bottom {
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    display: none;
+  }
+
+  .container {
+    border: 1px solid lightgray;
+    border-radius: 2px;
+    height: auto;
+    margin: 5%;
+    width: 40%;
+
+    .preview {
+      display: none;
+    }
+
+    .navigation {
+      display: none;
+    }
+  }
+
+  .preview.right {
+    bottom: 0;
+    display: block;
+    height: auto;
+    padding: 0;
+    position: fixed;
+    right: 0;
+    top: 0;
+    width: 50%;
+    // width: 90%;
+  }
+
+  .step {
+    display: none;
+  }
+
+  .subtitle {
+    background: #03244b;
+    color: #fff;
+    margin: 0;
+    padding: 10px;
+  }
+}
+
+
+
+
+
+
+
+
+
+
+

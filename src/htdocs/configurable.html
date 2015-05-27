@@ -10,21 +10,27 @@
       margin-left: -320px;
       margin-top: 50px;
     }
+    body {
+      background: #fcfcfc;
+    }
     #vit-staging-data-form {
+      background: #eee;
+      margin-top: 100px;
       text-align: center;
       font-family: 'Roboto', sans-serif;
+      border: 1px solid gray;
+      padding: 20px;
+      border-radius: 3px;
+      margin: 100px auto 0 auto;
+      width: 500px;
     }
     #vit-staging-data-form label {
       margin: 0 5px 0 10px;
     }
     </style>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/immutable/3.7.2/immutable.js"></script>
   </head>
   <body>
-    <form id="vit-staging-data-form">
-      <label>Election ID</label><input type="number" value="4100" id="election-id">
-      <label>Official Only</label><input type="checkbox" id="official-only">
-      <label>Staging Data</label><input type="checkbox" id="staging-data" checked>
-    </form>
     <script>
     window._vitUsesStagingData = true;
     </script>
@@ -33,10 +39,17 @@
     <script>
     vit.load({
       alert: "Remember to vote on Nov 4!",
+      key: "AIzaSyB9fZvrp7yUuDHkdoUU0WcFlvhIgQq9miE",
       width: "640px",
       height: "480px",
       officialOnly: false
     });
     </script>
+
+    <form id="vit-staging-data-form">
+      <label>Election ID</label><input type="number" value="4100" id="election-id">
+      <label>Official Only</label><input type="checkbox" id="official-only">
+      <label>Staging Data</label><input type="checkbox" id="staging-data" checked>
+    </form>
   </body>
 </html>

@@ -1,0 +1,212 @@
+<!doctype html>
+<html ng-app="Application" class="no-js" lang="">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <title></title>
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <link rel="apple-touch-icon" href="apple-touch-icon.png">
+    <!-- Place favicon.ico in the root directory -->
+
+    <link rel="stylesheet" href="css/normalize.css">
+    <link rel="stylesheet" href="css/main.css">
+    <link href='http://fonts.googleapis.com/css?family=Roboto:400,100,100italic,300,300italic,400italic,500,500italic,700,700italic,900,900italic' rel='stylesheet' type='text/css'>
+
+    <script type="text/javascript" src="js/vendor/angular.js"></script>
+  </head>
+  <body ng-controller="ApplicationController as applicationController">
+
+    <div ng-show="step == 0" class="container" ng-init="step = 2">
+      <div class="left form">
+        <div class="row">
+          <img class="vip-logo" src="img/vip-logo.png">
+          <h1 class="vip-name">Voting Information Project</h1>
+        </div>
+        <div class="row">
+          <h1 class="title">Welcome<br>Place copy here</h1>
+        </div>
+        <div class="row text-box">
+          <span>
+              Lorem ipsum Incididunt ullamco labore aliqua culpa pariatur sed. Lorem ipsum Voluptate ea velit nostrud Duis aliquip consectetur magna consequat. Lorem ipsum Qui ut aute minim aute dolor aliqua qui laborum ad esse. Lorem ipsum Sed in Excepteur Ut magna enim. Lorem ipsum In minim ex fugiat laborum commodo. Lorem ipsum Est quis consectetur nostrud amet incididunt incididunt laborum. Lorem ipsum Laboris dolore ad amet in cupidatat ut cillum ea anim in. Lorem ipsum Deserunt voluptate consectetur voluptate Excepteur magna pariatur.
+          </span>
+        </div>
+      </div>
+
+      <div class="right preview">
+          Loading...
+      </div>
+
+      <div class="navigation">
+          <button ng-click="step = step + 1" class="get-started next">Get Started</button>
+      </div>
+    </div>
+
+    <div ng-show="step == 1" class="container">
+      <div class="left form">
+        <div class="row">
+          <h2 class="subtitle">
+            Step {{ step }} of 8<br>Select your theme
+          </h2>
+          <div class="dropdown">
+            <div ng-click="showThemes = !showThemes" class="dropdowns">
+              <span>{{ selectedTheme || "Theme One"}}</span>
+              <div class="dropdown-button">
+                <span class="dropdown-arrow"></span>
+              </div>
+            </div>
+            <ul ng-class="{open: showThemes}"
+                ng-init="themeOptions = ['Theme One', 'Theme Two', 'Theme Three']">
+              <li ng-repeat="themeOption in themeOptions"
+                  ng-mouseover="$parent.selectedTheme = themeOption"
+                  ng-click="$parent.showThemes = !showThemes">
+                {{ themeOption }}
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <div class="right preview">
+        <div class="dropdown small">
+          <div ng-click="showDeviceDropdown = !showDeviceDropdown"
+               class="dropdowns">
+            <span>{{ selectedDevice || "Desktop" }}</span>
+            <div class="dropdown-button">
+              <span class="dropdown-arrow"></span>
+            </div>
+          </div>
+          <ul ng-class="{open: showDeviceDropdown}"
+              ng-init="deviceOptions = ['Desktop', 'Tablet', 'Phone']">
+            <li ng-repeat="option in deviceOptions"
+                ng-mouseover="$parent.selectedDevice = option"
+                ng-click="$parent.showDeviceDropdown = !showDeviceDropdown">
+              {{option}}
+            </li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="navigation">
+        <button ng-click="step = step - 1" class="prev">Prev</button>
+        <button ng-click="step = step + 1" class="next">Next</button>
+      </div>
+    </div>
+
+    <div ng-show="step == 2" class="container">
+      <div class="left form">
+        <div class="row">
+          <h2 class="subtitle">
+            Step {{ step }} of 8<br>Logo
+          </h2>
+          <ul class="options"
+              ng-init="logoOptions = ['State Seal', 'Logo', 'None']; selectedLogoOption = logoOptions[0]">
+            <li ng-repeat="logoOption in logoOptions"
+                ng-class="{selected: $parent.selectedLogoOption == logoOption}"
+                ng-click="$parent.selectedLogoOption = logoOption"
+                class="option">
+              {{ logoOption }}
+            </li>
+          </ul>
+
+          <div ng-show="selectedLogoOption == 'Logo'" class="logo-url">
+            <h2 class="subtitle">
+              Enter URL
+            </h2>
+            <input type="text" name="url" ng-model="logoUrl">
+          </div>
+
+          <div ng-show="selectedLogoOption == 'State Seal'" class="dropdown">
+            <div ng-click="showThemes = !showThemes" class="dropdowns">
+              <span>{{ selectedTheme || "Theme One"}}</span>
+              <div class="dropdown-button">
+                <span class="dropdown-arrow"></span>
+              </div>
+            </div>
+            <ul ng-class="{open: showThemes}"
+                ng-init="themeOptions = ['Alabama', 'Alaska', 'Bridgehampton', 'Compton', 'Delaware', 'Delancey St.', 'Edinburgh', 'Frankfurt', 'Georgia']">
+              <li ng-repeat="themeOption in themeOptions"
+                  ng-mouseover="$parent.selectedTheme = themeOption"
+                  ng-click="$parent.showThemes = !showThemes">
+                {{ themeOption }}
+              </li>
+            </ul>
+          </div>
+
+
+        </div>
+      </div>
+
+      <div class="right preview">
+      <img src="//{{logoUrl}}">
+        <h1> {{ logoUrl }} </h1>
+        <h1> {{ logoUrl.$valid }} </h1>
+      </div>
+
+      <div class="navigation">
+        <button ng-click="step = step - 1" class="prev">Prev</button>
+        <button ng-click="step = step + 1" class="next">Next</button>
+      </div>
+    </div>
+
+    <div ng-show="step == 2" class="container">
+      <div class="left form">
+        <div class="row">
+          <h2 class="subtitle">
+            Step {{ step }} of 8<br>Logo
+          </h2>
+          <ul class="options"
+              ng-init="logoOptions = ['State Seal', 'Logo', 'None']; selectedLogoOption = logoOptions[0]">
+            <li ng-repeat="logoOption in logoOptions"
+                ng-class="{selected: $parent.selectedLogoOption == logoOption}"
+                ng-click="$parent.selectedLogoOption = logoOption"
+                class="option">
+              {{ logoOption }}
+            </li>
+          </ul>
+
+          <div ng-show="selectedLogoOption == 'Logo'" class="logo-url">
+            <h2 class="subtitle">
+              Enter URL
+            </h2>
+            <input type="text" name="url" ng-model="logoUrl">
+          </div>
+
+          <div ng-show="selectedLogoOption == 'State Seal'" class="dropdown">
+            <div ng-click="showThemes = !showThemes" class="dropdowns">
+              <span>{{ selectedTheme || "Theme One"}}</span>
+              <div class="dropdown-button">
+                <span class="dropdown-arrow"></span>
+              </div>
+            </div>
+            <ul ng-class="{open: showThemes}"
+                ng-init="themeOptions = ['Alabama', 'Alaska', 'Bridgehampton', 'Compton', 'Delaware', 'Delancey St.', 'Edinburgh', 'Frankfurt', 'Georgia']">
+              <li ng-repeat="themeOption in themeOptions"
+                  ng-mouseover="$parent.selectedTheme = themeOption"
+                  ng-click="$parent.showThemes = !showThemes">
+                {{ themeOption }}
+              </li>
+            </ul>
+          </div>
+
+
+        </div>
+      </div>
+
+      <div class="right preview">
+      <img src="//{{logoUrl}}">
+        <h1> {{ logoUrl }} </h1>
+        <h1> {{ logoUrl.$valid }} </h1>
+      </div>
+
+      <div class="navigation">
+        <button ng-click="step = step - 1" class="prev">Prev</button>
+        <button ng-click="step = step + 1" class="next">Next</button>
+      </div>
+    </div>
+
+    <script src="js/app.js"></script>
+
+  </body>
+</html>

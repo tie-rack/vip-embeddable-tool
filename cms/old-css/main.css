@@ -1,0 +1,520 @@
+/*! HTML5 Boilerplate v5.2.0 | MIT License | https://html5boilerplate.com/ */
+
+/*
+* What follows is the result of much research on cross-browser styling.
+* Credit left inline and big thanks to Nicolas Gallagher, Jonathan Neal,
+* Kroc Camen, and the H5BP dev community and team.
+*/
+
+/* ==========================================================================
+ Base styles: opinionated defaults
+ ========================================================================== */
+
+html {
+  color: #222;
+  font-size: 1em;
+  line-height: 1.4;
+}
+
+/*
+* Remove text-shadow in selection highlight:
+* https://twitter.com/miketaylr/status/12228805301
+*
+* These selection rule sets have to be separate.
+* Customize the background color to match your design.
+*/
+
+::-moz-selection {
+  background: #b3d4fc;
+  text-shadow: none;
+}
+
+::selection {
+  background: #b3d4fc;
+  text-shadow: none;
+}
+
+/*
+* A better looking default horizontal rule
+*/
+
+hr {
+  display: block;
+  height: 1px;
+  border: 0;
+  border-top: 1px solid #ccc;
+  margin: 1em 0;
+  padding: 0;
+}
+
+/*
+* Remove the gap between audio, canvas, iframes,
+* images, videos and the bottom of their containers:
+* https://github.com/h5bp/html5-boilerplate/issues/440
+*/
+
+audio,
+canvas,
+iframe,
+img,
+svg,
+video {
+  vertical-align: middle;
+}
+
+/*
+* Remove default fieldset styles.
+*/
+
+fieldset {
+  border: 0;
+  margin: 0;
+  padding: 0;
+}
+
+/*
+* Allow only vertical resizing of textareas.
+*/
+
+textarea {
+  resize: vertical;
+}
+
+/* ==========================================================================
+ Browser Upgrade Prompt
+ ========================================================================== */
+
+.browserupgrade {
+  margin: 0.2em 0;
+  background: #ccc;
+  color: #000;
+  padding: 0.2em 0;
+}
+
+/* ==========================================================================
+ Author's custom styles
+ ========================================================================== */
+
+html {
+  font-family: 'Roboto', sans-serif;
+  -webkit-touch-callout: none;
+  -webkit-user-select: none;
+  -khtml-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
+
+html,
+body {
+  height: 100%;
+  margin: 0;
+  overflow: hidden;
+}
+
+/* styling for panels */
+.container {
+  height: 100%;
+}
+
+.form {
+  height: 50%;
+}
+
+.navigation {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+}
+
+.preview {
+  background: #d7d7d7;
+  height: 50%;
+  padding: 50px;
+}
+
+/* styles for elements */
+
+/* ==========================================================================
+ Dropdown
+ ========================================================================== */
+
+.dropdown {
+  width: 275px;
+  border-radius: 2px;
+  box-shadow: 2px 2px 10px rgba(0,0,0,.1);
+  cursor: pointer;
+  line-height: 45px;
+  margin: 0 auto;
+  overflow: hidden;
+  transition: max-height .1s linear;
+  vertical-align: center;
+  width: 275px;
+}
+
+.dropdowns {
+  background: #fff;
+  border: 1px solid lightgray;
+  border-radius-top-right: 2px;
+  margin: 0;
+  padding: 0;
+}
+
+.dropdown.small .dropdowns {
+  height: 39px;
+  border: 0;
+}
+
+.dropdown.small {
+  line-height: 39px;
+  text-transform: uppercase;
+  width: 300px;
+}
+
+.dropdown.small li {
+  border-left: none;
+  border-right: none;
+}
+
+.dropdown.small li:first-child {
+  border-top: 1px solid lightgray;
+}
+
+.dropdown ul {
+  margin: 0;
+  max-height: 0;
+  overflow: scroll;
+  padding: 0;
+  transition: max-height .25s ease;
+}
+
+.dropdown ul.open {
+  max-height: 138px;
+}
+
+.dropdown li {
+  background: #fff;
+  border-right: 1px solid lightgray;
+  border-left: 1px solid lightgray;
+  border-top-left-radius: 2px;
+  border-top-right-radius: 2px;
+  list-style: none;
+}
+
+.dropdown li {
+  border-bottom: 1px solid lightgray;
+  border-radius: 0;
+}
+
+.dropdown li:last-child {
+  border-bottom-left-radius: 2px;
+  border-bottom-right-radius: 2px;
+}
+
+.dropdown li:hover {
+  background: #03244b;
+  color: #fff;
+}
+
+.dropdown-arrow {
+  border-left: 13px solid transparent;
+  border-right: 13px solid transparent;
+  border-top: 13px solid #fff;
+  height: 0;
+  position: relative;
+  top: 18px;
+  width: 0;
+}
+
+.dropdown.small .dropdown-arrow {
+  border-left: 10px solid transparent;
+  border-right: 10px solid transparent;
+  border-top: 10px solid #fff;
+  left: 8px;
+  top: 16px;
+}
+
+.dropdown-button {
+  background: #03244b;
+  border-top-right-radius: 2px;
+  border-bottom-right-radius: 2px;
+  color: #fff;
+  float: right;
+  position: relative;
+  right: -1px;
+  top: -1px;
+  width: 45px;
+  height: 46px;
+}
+
+.dropdown.small .dropdown-button {
+  width: 37px;
+  height: 39px;
+  top: initial;
+  left: initial;
+}
+
+/* ==========================================================================
+ Option boxes
+ ========================================================================== */
+
+.options {
+  padding: 0;
+}
+
+.options .selected {
+  background: #2fa5cb;
+  color: #fff;
+}
+
+.option {
+  border: 1px solid lightgray;
+  border-radius: 2px;
+  cursor: pointer;
+  display: inline-block;
+  margin: 0 20px;
+  height: 45px;
+  line-height: 45px;
+  list-style: none;
+  width: 120px;
+}
+
+.prev,
+.next {
+  background: #03244b;
+  box-shadow: 2px 2px 10px rgba(0,0,0,.4);
+  color: #fff;
+  float: left;
+  padding: 10px;
+  text-transform: uppercase;
+  width: 50%;
+}
+
+.get-started {
+  width: 100%;
+}
+
+.row {
+  text-align: center;
+}
+
+.subtitle,
+.title {
+  white-space: pre-line;
+}
+
+.subtitle {
+  font-size: 1.2rem;
+  font-weight: 500;
+  text-transform: uppercase;
+}
+
+.text-box {
+  background: #ebebeb;
+  margin: 20px 10%;
+  padding: 20px;
+  text-align: left; /* Should this be left or center? */
+}
+
+.title {
+  font-size: 1.5rem;
+  font-weight: 400;
+  text-transform: uppercase;
+}
+
+.vip-name {
+  color: #d7d7d7;
+  display: inline-block;
+  font-weight: 300;
+}
+
+.vip-logo {
+  width: 50px;
+  margin-top: -10px;
+}
+
+/* Tablet styles */
+@media screen and (min-width: 480px) {
+
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+/* ==========================================================================
+ Helper classes
+ ========================================================================== */
+
+/*
+* Hide visually and from screen readers:
+*/
+
+.hidden {
+  display: none !important;
+}
+
+/*
+* Hide only visually, but have it available for screen readers:
+* http://snook.ca/archives/html_and_css/hiding-content-for-accessibility
+*/
+
+.visuallyhidden {
+  border: 0;
+  clip: rect(0 0 0 0);
+  height: 1px;
+  margin: -1px;
+  overflow: hidden;
+  padding: 0;
+  position: absolute;
+  width: 1px;
+}
+
+/*
+* Extends the .visuallyhidden class to allow the element
+* to be focusable when navigated to via the keyboard:
+* https://www.drupal.org/node/897638
+*/
+
+.visuallyhidden.focusable:active,
+.visuallyhidden.focusable:focus {
+  clip: auto;
+  height: auto;
+  margin: 0;
+  overflow: visible;
+  position: static;
+  width: auto;
+}
+
+/*
+* Hide visually and from screen readers, but maintain layout
+*/
+
+.invisible {
+  visibility: hidden;
+}
+
+/*
+* Clearfix: contain floats
+*
+* For modern browsers
+* 1. The space content is one way to avoid an Opera bug when the
+*    `contenteditable` attribute is included anywhere else in the document.
+*    Otherwise it causes space to appear at the top and bottom of elements
+*    that receive the `clearfix` class.
+* 2. The use of `table` rather than `block` is only necessary if using
+*    `:before` to contain the top-margins of child elements.
+*/
+
+.clearfix:before,
+.clearfix:after {
+  content: " "; /* 1 */
+  display: table; /* 2 */
+}
+
+.clearfix:after {
+  clear: both;
+}
+
+/* ==========================================================================
+ EXAMPLE Media Queries for Responsive Design.
+ These examples override the primary ('mobile first') styles.
+ Modify as content requires.
+ ========================================================================== */
+
+@media only screen and (min-width: 35em) {
+  /* Style adjustments for viewports that meet the condition */
+}
+
+@media print,
+     (-webkit-min-device-pixel-ratio: 1.25),
+     (min-resolution: 1.25dppx),
+     (min-resolution: 120dpi) {
+  /* Style adjustments for high resolution devices */
+}
+
+/* ==========================================================================
+ Print styles.
+ Inlined to avoid the additional HTTP request:
+ http://www.phpied.com/delay-loading-your-print-css/
+ ========================================================================== */
+
+@media print {
+  *,
+  *:before,
+  *:after {
+    background: transparent !important;
+    color: #000 !important; /* Black prints faster:
+                               http://www.sanbeiji.com/archives/953 */
+    box-shadow: none !important;
+    text-shadow: none !important;
+  }
+
+  a,
+  a:visited {
+    text-decoration: underline;
+  }
+
+  a[href]:after {
+    content: " (" attr(href) ")";
+  }
+
+  abbr[title]:after {
+    content: " (" attr(title) ")";
+  }
+
+  /*
+   * Don't show links that are fragment identifiers,
+   * or use the `javascript:` pseudo protocol
+   */
+
+  a[href^="#"]:after,
+  a[href^="javascript:"]:after {
+    content: "";
+  }
+
+  pre,
+  blockquote {
+    border: 1px solid #999;
+    page-break-inside: avoid;
+  }
+
+  /*
+   * Printing Tables:
+   * http://css-discuss.incutio.com/wiki/Printing_Tables
+   */
+
+  thead {
+    display: table-header-group;
+  }
+
+  tr,
+  img {
+    page-break-inside: avoid;
+  }
+
+  img {
+    max-width: 100% !important;
+  }
+
+  p,
+  h2,
+  h3 {
+    orphans: 3;
+    widows: 3;
+  }
+
+  h2,
+  h3 {
+    page-break-after: avoid;
+  }
+}

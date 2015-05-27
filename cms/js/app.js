@@ -1,11 +1,24 @@
 var app = angular.module('Application', []);
-app.controller('ApplicationController', function($scope, $window) {
+app.controller('ApplicationController', function($scope, $window, $sce) {
   $scope.isVisible = function (idx, step) {
     return $window.innerWidth > 480 ? true : idx == step
   };
+
+  $scope.trustedLogoUrl = $sce.trustAsResourceUrl($scope.logoUrl);
+  // $scope.watch('logoUrl', function(value) {
+    // alert(value)
+  // })
   window.scope = $scope;
 });
 
+app.directive('trustedresourceurl', function () {
+  return function(scope, element, attrs) {
+    console.log('woohoo')
+    scope.$watch(attrs.trustedResourceUrl, function(value) {
+      console.log(value);
+    })
+  }
+})
 
 app.directive('resize', function ($window) {
   return function (scope, element) {

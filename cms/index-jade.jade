@@ -116,7 +116,7 @@ head
             .dropdowns(
               ng-click='showStates = !showStates')
               span {{ selectedState || "Select your state" }}
-   
+
               .dropdown-button
                 span.dropdown-arrow
 
@@ -133,7 +133,7 @@ head
         img(
           ng-src='{{logoUrl}}')
 
-        h1  {{ logoUrl }} 
+        h1  {{ logoUrl }}
 
       .navigation
         button.prev(
@@ -160,9 +160,9 @@ head
 
       .preview
 
-        h1  {{ title }} 
+        h1  {{ title }}
 
-        h1  {{ subtitle }} 
+        h1  {{ subtitle }}
 
       .navigation
         button.prev(
@@ -190,7 +190,7 @@ head
 
       .preview
 
-        h1  {{ selectedTileBarColor }} 
+        h1  {{ selectedTileBarColor }}
 
       .navigation
         button.prev(
@@ -336,8 +336,8 @@ head
             ng-click='$parent.showDeviceDropdown = !showDeviceDropdown')
             {{ option }}
 
-      ul.devices(ng-init="dimension=60")
-        li 
+      ul.devices(ng-init="dimension=60; $parent.selectedTileBarColor='#25a095'; logoUrl='//placekitten.com/g/500/500'")
+        li
           svg(
             ng-click="selectedDevice = 'desktop'",
             class="device-icon", version='1.1', xmlns='http://www.w3.org/2000/svg', xmlns:xlink='http://www.w3.org/1999/xlink',
@@ -346,7 +346,7 @@ head
               fill="{{selectedDevice == 'desktop' ? '#000' : 'darkgrey'}}",
               d='M-717.1,2116.8h-91.8c-1.9,0-3.4,1.5-3.4,3.4v59.7c0,1.9,1.5,3.4,3.4,3.4h38.1l-5.7,20.8h-3.9v1.1h37v-1.1h-3.6l-5.7-20.8\
               h35.5c1.9,0,3.4-1.5,3.4-3.4v-59.7C-713.7,2118.3-715.2,2116.8-717.1,2116.8z M-806.6,2177.7v-55.2h87.2v55.2H-806.6z')
-        li 
+        li
           svg(
             ng-click="selectedDevice = 'tablet'",
             class="device-icon", version='1.1', xmlns='http://www.w3.org/2000/svg', xmlns:xlink='http://www.w3.org/1999/xlink',
@@ -373,36 +373,61 @@ head
                 M-759.1,2202.1h-7.3c-0.7,0-1.3-0.6-1.3-1.3c0-0.1,0-0.2,0-0.2c0-0.1,0-0.1,0-0.2c0-0.5,0.4-0.9,0.9-0.9h0.4h7.3h0.4\
                 c0.5,0,0.9,0.4,0.9,0.9c0,0.1,0,0.1,0,0.2c0,0.1,0,0.1,0,0.2C-757.8,2201.5-758.4,2202.1-759.1,2202.1z M-743.2,2194.3h-39.5V2125\
                 h39.5V2194.3z')
-
+      svg(width="100", height="100")
+        image(ng-attr-xlink:href='{{trustedLogoUrl}}', xlink:href="", x="0", y="0", width="100", height="100")
+      svg(width="100", height="100")
+        image(xlink:href='http://placekitten.com/g/500/500', x="0", y="0", width="100", height="100")
       .row(ng-init="selectedDevice='tablet'")
         .device-container(ng-class="selectedDeviceNewTry")
           svg(
             ng-show="selectedDevice == 'tablet'",
             ng-attr-width="{{deviceDimensions[selectedDevice][0]}}",
             ng-attr-height="{{deviceDimensions[selectedDevice][1]}}",
-            version='1.1',
-            xmlns='http://www.w3.org/2000/svg',
-            xmlns:xlink='http://www.w3.org/1999/xlink',
             x='0px', y='0px',
-            viewbox='0 0 525.9 354',
-            style='enable-background:new 0 0 525.9 354;',
-            xml:space='preserve')
+            viewbox='0 0 525.9 354')
             path(d='M525.9,328.1V25.9C525.9,11.6,514.4,0,500,0H25.9C11.6,0,0,11.6,0,25.9v302.1C0,342.4,11.6,354,25.9,354H500\
               C514.3,354.1,525.9,342.4,525.9,328.1z M501.1,177c0,1.9-1.5,3.2-3.2,3.2c-1.7,0-3.2-1.5-3.2-3.2s1.5-3.2,3.2-3.2\
               C499.6,173.8,501.1,175.2,501.1,177z M12.2,177c0-7.2,5.9-13.2,13.2-13.2s13.2,5.9,13.2,13.2s-5.9,13.2-13.2,13.2\
               S12.2,184.2,12.2,177z M52.2,336.4c-0.5,0-0.9-0.4-0.9-0.9V18.6c0-0.5,0.4-0.9,0.9-0.9h421.9c0.5,0,0.9,0.4,0.9,0.9v316.9\
               c0,0.5-0.4,0.9-0.9,0.9H52.2z')
             svg(
-              x="50", y="18", width="428", height="318", viewbox="0 0 136 102")
-              rect(fill="{{'teal' || selectedTileBarColor}}", x="0", y="0", width="135", height="102")
+              x="50", y="17", width="428", height="320", viewbox="0 0 136 102", preserveAspectRatio="xMinYMin slice")
+              rect(fill="{{ selectedTileBarColor}}", xlink:href="", x="0", y="0", width="135", height="102")
+              image(xlink:href='img/vip-logo.png', x="60", y="2", width="15", height="15")
+              image(xlink:href='', trustedresourceurl='{{logoUrl}}')
+              text(x="67" y="25" text-anchor="middle" font-size="10px") {{ title }}
+              text(x="67" y="35" text-anchor="middle" font-size="7px") {{ subtitle }}
+              rect(fill="#bbb", x="27", y="40", width="80", height="30")
+              rect(fill="#fff", x="37", y="50", width="60", height="5")
+        .device-container(ng-class="selectedDeviceNewTry")
+          svg(
+            ng-show="selectedDevice == 'phone'",
+            ng-attr-width="{{deviceDimensions[selectedDevice][0]}}",
+            ng-attr-height="{{deviceDimensions[selectedDevice][1]}}",
+            x='0px', y='0px',
+            viewbox='0 0 347.8 713.9')
+            g
+              circle(cx='174.6', cy='665.3', r='23.9')
+              path(d='M348.8,151.4h-1.1V52.8C347.8,23.7,324.1,0,295,0H54.9C25.8,0,2.1,23.7,2.1,52.8v37.3H1.1\
+              c-0.6,0-1.1,0.5-1.1,1.1v26.8c0,0.6,0.5,1.1,1.1,1.1h1.1v32.4H1.1c-0.6,0-1.1,0.5-1.1,1.1v50.7c0,0.6,0.5,1.1,1.1,1.1h1.1v12H1.1\
+              c-0.6,0-1.1,0.5-1.1,1.1v50.7c0,0.6,0.5,1.1,1.1,1.1h1.1v392.1c0,29.1,23.7,52.8,52.8,52.8H295c29.1,0,52.8-23.7,52.8-52.8V204.2\
+              h1.1c0.6,0,1.1-0.5,1.1-1.1v-50.7C349.9,151.9,349.4,151.4,348.8,151.4z M175.3,19c2,0,3.5,1.5,3.5,3.5s-1.5,3.5-3.5,3.5\
+              c-2,0-3.5-1.5-3.5-3.5S173.3,19,175.3,19z M150,42.2h50.7c1.5,0,2.8,1.3,2.8,2.8s-1.3,2.8-2.8,2.8H150c-1.5,0-2.8-1.3-2.8-2.8\
+              S148.4,42.2,150,42.2z M119.7,39.4c3.1,0,5.6,2.5,5.6,5.6s-2.5,5.6-5.6,5.6s-5.6-2.5-5.6-5.6S116.6,39.4,119.7,39.4z M174.6,692\
+              c-14.8,0-26.8-12-26.8-26.8c0-14.8,12-26.8,26.8-26.8s26.8,12,26.8,26.8C201.3,680.1,189.4,692,174.6,692z M326.7,625.9H23.2V86.6\
+              h303.4V625.9z')
+            svg(
+              x="24", y="87")
+              rect(fill="{{ selectedTileBarColor}}", x="0", y="0", width="303", height="539")
               text(x="67" y="20" text-anchor="middle" font-size="15px") {{ title }}
-              text(x="67" y="40" text-anchor="middle" font-size="10px") {{ subtitle }}
+
+
 
 
           //- svg(
           //-   ng-show="selectedDevice == 'tablet'",
           //-   class="device-frame tablet", version='1.1', xmlns='http://www.w3.org/2000/svg', xmlns:xlink='http://www.w3.org/1999/xlink',
-          //-   x='0px', y='0px', 
+          //-   x='0px', y='0px',
           //-   viewbox='-114 113 382 568', style='enable-background:new -114 113 382 568;', xml:space='preserve')
           //-   path(
           //-     fill="{{selectedDevice == 'tablet' ? '#000' : 'darkgrey'}}",
@@ -437,7 +462,7 @@ head
         //-   svg(
         //-     ng-show="selectedDevice == 'tablet'",
         //-     class="device-frame tablet", version='1.1', xmlns='http://www.w3.org/2000/svg', xmlns:xlink='http://www.w3.org/1999/xlink',
-        //-     x='0px', y='0px', 
+        //-     x='0px', y='0px',
         //-     viewbox='-114 113 382 568', style='enable-background:new -114 113 382 568;', xml:space='preserve')
         //-     path(
         //-       fill="{{selectedDevice == 'tablet' ? '#000' : 'darkgrey'}}",
@@ -467,7 +492,7 @@ head
         //-   svg(
         //-     ng-show="selectedDevice == 'tablet'",
         //-     class="device-frame", version='1.1', xmlns='http://www.w3.org/2000/svg', xmlns:xlink='http://www.w3.org/1999/xlink',
-        //-     x='0px', y='0px', 
+        //-     x='0px', y='0px',
         //-     viewbox='-114 113 382 568', style='enable-background:new -114 113 382 568;', xml:space='preserve')
         //-     path(
         //-       fill="{{selectedDevice == 'tablet' ? '#000' : 'darkgrey'}}",

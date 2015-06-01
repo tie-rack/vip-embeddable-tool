@@ -26,6 +26,19 @@ app.controller('ApplicationController', function($scope, $window, $sce) {
     'Vietnamese': 'vi',
     'Chinese': 'zh'
   };
+
+  $scope.startOver = function () {
+    $scope.step = 0;
+    $scope.selectedTheme = "Theme One";
+    $scope.selectedLogoOption = $scope.logoOptions[0];
+    $scope.title = "";
+    $scope.subtitle = "";
+    $scope.selectedTileBarColor = $scope.interiorTileBarColors[2];
+    $scope.selectedSecondaryTileBarColor = $scope.interiorSecondaryTileBarColors[2];
+    $scope.alertTextEnabled = false;
+    $scope.selectedLanguage = $scope.languageOptions[0];
+    window.scrollTo(0,0);
+  }
 });
 
 app.directive('trustedresourceurl', function () {

@@ -9,6 +9,8 @@
   <link rel="stylesheet" href="css/style.css">
   <link href="http://fonts.googleapis.com/css?family=Roboto:400,100,100italic,300,300italic,400italic,500,500italic,700,700italic,900,900italic" rel="stylesheet" type="text/css">
   <script type="text/javascript" src="js/vendor/angular.js"></script>
+  <script type="text/javascript" src="js/vendor/ZeroClipboard.js"></script>
+  <script type="text/javascript" src="js/vendor/ng-clip.min.js"></script>
   <body ng-controller="ApplicationController as applicationController" resize>
     <div ng-show="isVisible(0, step)" ng-init="step = 0; logoUrls={'default': 'img/vip-logo.png', 'New York': 'img/new-york.svg'}; selectedState = 'default'" class="container">
       <div class="left form">
@@ -203,7 +205,7 @@
         <div class="row">
           <h2 class="subtitle step">Step {{ step }} of 8</h2>
           <h2 class="subtitle">Here's your embed code</h2>
-          <div class="row text-box copy-code">
+          <div id="embed-code" class="row text-box copy-code">
             &ltscript type="text/javascript" src="//s3.amazonaws.com/vip-voter-information-tool/app.js"&gt&lt/script&gt
             &ltdiv id="_vit"&gt&lt/div&gt
             &ltscript type="text/javascript"&gtvit.load({<br><span>    modal: true,</span><br><span ng-if="officialOnly">    officialOnly: true,</span><br ng-if="officialOnly"><span ng-if="title">    title: {{ title }}</span><br ng-if="title"><span ng-if="subtitle">    subtitle: {{ subtitle }}</span><br ng-if="subtitle"><span ng-if="selectedFormat == '640x480'">
@@ -219,9 +221,9 @@
         </div>
       </div>
       <div class="options">
-        <div ng-click="step = 0" class="option highlighted">Start over</div>
-        <div class="option highlighted">Copy code</div>
-        <div class="option highlighted">E-Mail code</div>
+        <div ng-click="startOver()" class="option highlighted">Start over</div>
+        <div clip-copy="getTextToCopy()" class="option highlighted">Copy code</div>
+        <div ng-click="emailCode()" class="option highlighted">E-Mail code</div>
         <div class="option highlighted">Need help?</div>
       </div>
       <div class="navigation">

@@ -13,6 +13,8 @@ head
   link(href='http://fonts.googleapis.com/css?family=Roboto:400,100,100italic,300,300italic,400italic,500,500italic,700,700italic,900,900italic', rel='stylesheet', type='text/css')
 
   script(type='text/javascript', src='js/vendor/angular.js')
+  script(type='text/javascript', src='js/vendor/ZeroClipboard.js')
+  script(type='text/javascript', src='js/vendor/ng-clip.min.js')
 
   body(ng-controller='ApplicationController as applicationController' resize)
     .container(ng-show='isVisible(0, step)',
@@ -313,7 +315,7 @@ head
           h2.subtitle
             | Here's your embed code
 
-          .row.text-box.copy-code
+          #embed-code.row.text-box.copy-code
             | &ltscript type="text/javascript" src="//s3.amazonaws.com/vip-voter-information-tool/app.js"&gt&lt/script&gt
             | &ltdiv id="_vit"&gt&lt/div&gt
             | &ltscript type="text/javascript"&gtvit.load({
@@ -349,9 +351,9 @@ head
             | });&lt/script&gt
 
       .options
-        .option.highlighted(ng-click="step = 0") Start over
-        .option.highlighted Copy code
-        .option.highlighted E-Mail code
+        .option.highlighted(ng-click="startOver()") Start over
+        .option.highlighted(clip-copy="getTextToCopy()") Copy code
+        .option.highlighted(ng-click="emailCode()") E-Mail code
         .option.highlighted Need help?
 
       .navigation

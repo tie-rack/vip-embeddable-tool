@@ -1,4 +1,4 @@
-var app = angular.module('Application', []);
+var app = angular.module('Application', ['ngClipboard']);
 app.controller('ApplicationController', function($scope, $window, $sce) {
   $scope.isVisible = function (idx, step) {
     return $window.innerWidth > 480 ? true : idx == step
@@ -26,6 +26,29 @@ app.controller('ApplicationController', function($scope, $window, $sce) {
     'Vietnamese': 'vi',
     'Chinese': 'zh'
   };
+
+  $scope.startOver = function () {
+    $scope.step = 0;
+    $scope.selectedTheme = "Theme One";
+    $scope.selectedLogoOption = $scope.logoOptions[0];
+    $scope.title = "";
+    $scope.subtitle = "";
+    $scope.selectedTileBarColor = $scope.interiorTileBarColors[2];
+    $scope.selectedSecondaryTileBarColor = $scope.interiorSecondaryTileBarColors[2];
+    $scope.alertTextEnabled = false;
+    $scope.selectedLanguage = $scope.languageOptions[0];
+    window.scrollTo(0,0);
+  }
+
+  $scope.getTextToCopy = function () {
+    var d = document.getElementById("embed-code");
+    var text = ('innerText' in d)? 'innerText' : 'textContent';
+    return d[text];
+  }
+
+  $scope.emailCode = function () {
+    $window.location = "mailto:email@address.com?&subject=Your%20Embed%20Code&body=" + window.encodeURI($scope.getTextToCopy());
+  }
 });
 
 app.directive('trustedresourceurl', function () {
@@ -92,3 +115,7 @@ app.directive('ngDimensions', function () {
     });
   }
 })
+
+app.config(['ngClipProvider', function(ngClipProvider) {
+  ngClipProvider.setPath("js/vendor/ZeroClipboard.swf");
+}]);

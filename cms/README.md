@@ -4,7 +4,7 @@ npm install -g jade
 
 for development, watch index for changes:
 
-jade watch index-jade.jade
+jade watch index.jade
 
 make sure compass is installed:
 

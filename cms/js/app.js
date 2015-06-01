@@ -1,4 +1,4 @@
-var app = angular.module('Application', []);
+var app = angular.module('Application', ['ngClipboard']);
 app.controller('ApplicationController', function($scope, $window, $sce) {
   $scope.isVisible = function (idx, step) {
     return $window.innerWidth > 480 ? true : idx == step
@@ -38,6 +38,12 @@ app.controller('ApplicationController', function($scope, $window, $sce) {
     $scope.alertTextEnabled = false;
     $scope.selectedLanguage = $scope.languageOptions[0];
     window.scrollTo(0,0);
+  }
+
+  $scope.getTextToCopy = function () {
+    var d = document.getElementById("embed-code");
+    var text = ('innerText' in d)? 'innerText' : 'textContent';
+    return d[text];
   }
 });
 
@@ -105,3 +111,7 @@ app.directive('ngDimensions', function () {
     });
   }
 })
+
+app.config(['ngClipProvider', function(ngClipProvider) {
+  ngClipProvider.setPath("js/vendor/ZeroClipboard.swf");
+}]);

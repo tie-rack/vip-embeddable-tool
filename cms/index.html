@@ -10,7 +10,7 @@
   <link href="http://fonts.googleapis.com/css?family=Roboto:400,100,100italic,300,300italic,400italic,500,500italic,700,700italic,900,900italic" rel="stylesheet" type="text/css">
   <script type="text/javascript" src="js/vendor/angular.js"></script>
   <body ng-controller="ApplicationController as applicationController" resize>
-    <div ng-show="isVisible(0, step)" ng-init="step = 0; logoUrls={'default': 'img/vip-logo.png', 'New York': 'img/new-york.svg'}, selectedState = 'default'" class="container">
+    <div ng-show="isVisible(0, step)" ng-init="step = 0; logoUrls={'default': 'img/vip-logo.png', 'New York': 'img/new-york.svg'}; selectedState = 'default'" class="container">
       <div class="left form">
         <div class="row"><img src="img/vip-logo.png" class="vip-logo">
           <h1 class="vip-name">Voting Information Project</h1>
@@ -273,7 +273,7 @@
             <path d="M525.9,328.1V25.9C525.9,11.6,514.4,0,500,0H25.9C11.6,0,0,11.6,0,25.9v302.1C0,342.4,11.6,354,25.9,354H500              C514.3,354.1,525.9,342.4,525.9,328.1z M501.1,177c0,1.9-1.5,3.2-3.2,3.2c-1.7,0-3.2-1.5-3.2-3.2s1.5-3.2,3.2-3.2              C499.6,173.8,501.1,175.2,501.1,177z M12.2,177c0-7.2,5.9-13.2,13.2-13.2s13.2,5.9,13.2,13.2s-5.9,13.2-13.2,13.2              S12.2,184.2,12.2,177z M52.2,336.4c-0.5,0-0.9-0.4-0.9-0.9V18.6c0-0.5,0.4-0.9,0.9-0.9h421.9c0.5,0,0.9,0.4,0.9,0.9v316.9              c0,0.5-0.4,0.9-0.9,0.9H52.2z"></path>
             <svg x="50" y="17" width="428" height="320" viewbox="0 0 136 102" preserveAspectRatio="xMinYMin slice">
               <rect fill="#efefef" xlink:href="" x="0" y="0" width="135" height="102"></rect>
-              <image ng-show="selectedState == void 0" xlink:href="img/vip-logo.png" x="60" y="1" width="15" height="15"></image>
+              <image ng-show="selectedState == void(0)" xlink:href="img/vip-logo.png" x="60" y="1" width="15" height="15"></image>
               <image ng-show="selectedState == 'New York'" xlink:href="img/new-york.svg" x="60" y="1" width="15" height="15"></image>
               <text x="67" y="25" text-anchor="middle" font-size="10px">{{ title }}</text>
               <text x="67" y="35" text-anchor="middle" font-size="7px">{{ subtitle }}</text>
@@ -291,7 +291,8 @@
             <svg x="24" y="87">
               <rect fill="#efefef" x="0" y="0" width="303" height="539"></rect>
               <rect fill="#bbb" x="10" y="180" width="285" height="150"></rect>
-              <image xlink:href="img/vip-logo.png" x="120" y="10" width="60" height="60"></image>
+              <image ng-show="selectedState == void(0)" xlink:href="img/vip-logo.png" x="120" y="10" width="60" height="60"></image>
+              <image ng-show="selectedState == 'New York'" xlink:href="img/new-york.svg" x="120" y="10" width="60" height="60"></image>
               <text x="150" y="100" text-anchor="middle" font-size="25px">{{ title }}</text>
               <text x="150" y="140" text-anchor="middle" font-size="18px">{{ subtitle }}</text>
             </svg>
@@ -366,15 +367,35 @@
             </svg>
           </svg>
         </div>
-        <div ng-class="selectedDeviceNewTry" class="device-container">
+        <div ng-class="selectedDeviceNewTry" ng-init="selectedDevice = 'phone'" class="device-container">
           <svg ng-show="selectedDevice == 'phone'" ng-attr-width="{{deviceDimensions[selectedDevice][0]}}" ng-attr-height="{{deviceDimensions[selectedDevice][1]}}" x="0px" y="0px" viewbox="0 0 347.8 713.9">
             <g>
               <circle cx="174.6" cy="665.3" r="23.9"></circle>
               <path d="M348.8,151.4h-1.1V52.8C347.8,23.7,324.1,0,295,0H54.9C25.8,0,2.1,23.7,2.1,52.8v37.3H1.1              c-0.6,0-1.1,0.5-1.1,1.1v26.8c0,0.6,0.5,1.1,1.1,1.1h1.1v32.4H1.1c-0.6,0-1.1,0.5-1.1,1.1v50.7c0,0.6,0.5,1.1,1.1,1.1h1.1v12H1.1              c-0.6,0-1.1,0.5-1.1,1.1v50.7c0,0.6,0.5,1.1,1.1,1.1h1.1v392.1c0,29.1,23.7,52.8,52.8,52.8H295c29.1,0,52.8-23.7,52.8-52.8V204.2              h1.1c0.6,0,1.1-0.5,1.1-1.1v-50.7C349.9,151.9,349.4,151.4,348.8,151.4z M175.3,19c2,0,3.5,1.5,3.5,3.5s-1.5,3.5-3.5,3.5              c-2,0-3.5-1.5-3.5-3.5S173.3,19,175.3,19z M150,42.2h50.7c1.5,0,2.8,1.3,2.8,2.8s-1.3,2.8-2.8,2.8H150c-1.5,0-2.8-1.3-2.8-2.8              S148.4,42.2,150,42.2z M119.7,39.4c3.1,0,5.6,2.5,5.6,5.6s-2.5,5.6-5.6,5.6s-5.6-2.5-5.6-5.6S116.6,39.4,119.7,39.4z M174.6,692              c-14.8,0-26.8-12-26.8-26.8c0-14.8,12-26.8,26.8-26.8s26.8,12,26.8,26.8C201.3,680.1,189.4,692,174.6,692z M326.7,625.9H23.2V86.6              h303.4V625.9z"></path>
             </g>
             <svg x="24" y="87">
-              <rect fill="{{ selectedTileBarColor}}" x="0" y="0" width="303" height="539"></rect>
-              <text x="67" y="20" text-anchor="middle" font-size="15px">{{ title }}</text>
+              <rect fill="#fff" x="0" y="0" width="303" height="539"></rect>
+              <rect fill="{{ selectedTileBarColor}}" x="0" y="0" width="303" height="40"></rect>
+              <text x="10" y="30" fill="#fff" font-size="25px">Elections</text>
+              <text x="280" y="30" fill="#fff" font-size="25px">+</text>
+              <text x="10" y="80" fill="#333" font-size="29px">General Election 2014</text>
+              <text x="10" y="110" fill="#333" font-size="20px">Tuesday, November 4th, 2014</text>
+              <rect fill="{{ selectedTileBarColor}}" x="0" y="130" width="303" height="40"></rect>
+              <text x="10" y="160" fill="#fff" font-size="25px">Polling Locations</text>
+              <text x="280" y="160" fill="#fff" font-size="25px">+</text>
+              <text x="10" y="205" fill="#333" font-size="27px">Andrew Heiskell Library</text>
+              <text x="10" y="230" fill="#333" font-size="20px">40 West 20th Street</text>
+              <text x="10" y="255" fill="#333" font-size="20px">New York, NY 10011</text>
+              <image xlink:href="img/map-phone.png" x="0" y="235" width="303" height="200"></image>
+              <rect fill="{{ selectedTileBarColor}}" x="0" y="405" width="303" height="40"></rect>
+              <text x="10" y="430" fill="#fff" font-size="25px">More Resources</text>
+              <text x="280" y="430" fill="#fff" font-size="25px">+</text>
+              <text x="10" y="445" fill="#333" font-size="16.5px" width="293px">
+                <tspan x="10" dy="1.4em">Information on how to navigate the</tspan>
+                <tspan x="10" dy="1.4em">elections process, including deadlines,</tspan>
+                <tspan x="10" dy="1.4em">Voter ID information, and registration</tspan>
+                <tspan x="10" dy="1.4em">links.</tspan>
+              </text>
             </svg>
           </svg>
         </div>

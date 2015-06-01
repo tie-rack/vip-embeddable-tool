@@ -497,7 +497,7 @@ html,
 body {
   height: 100%;
   margin: 0;
-  overflow: hidden;
+  overflow: initial;
 }
 
 input:focus {
@@ -705,7 +705,7 @@ svg.active.tablet {
 @media screen and (min-width: 480px) {
   html,
   body {
-    overflow: auto;
+    overflow: initial;
   }
 
   .bottom {

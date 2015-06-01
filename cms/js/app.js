@@ -45,6 +45,10 @@ app.controller('ApplicationController', function($scope, $window, $sce) {
     var text = ('innerText' in d)? 'innerText' : 'textContent';
     return d[text];
   }
+
+  $scope.emailCode = function () {
+    $window.location = "mailto:email@address.com?&subject=Your%20Embed%20Code&body=" + window.encodeURI($scope.getTextToCopy());
+  }
 });
 
 app.directive('trustedresourceurl', function () {

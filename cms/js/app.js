@@ -9,6 +9,23 @@ app.controller('ApplicationController', function($scope, $window, $sce) {
     // alert(value)
   // })
   window.scope = $scope;
+
+  $scope.log = function (el) {
+    console.log(el)
+  };
+
+  $scope.languages = {
+    'English': 'en',
+    'Spanish': 'es',
+    'Hindi': 'hi',
+    'Japanese': 'ja',
+    'Khmer': 'km',
+    'Korean': 'ko',
+    'Tagalog': 'tl-PH',
+    'Thai': 'th',
+    'Vietnamese': 'vi',
+    'Chinese': 'zh'
+  };
 });
 
 app.directive('trustedresourceurl', function () {

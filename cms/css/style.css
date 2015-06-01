@@ -446,7 +446,7 @@ td {
  Option boxes
  ========================================================================== */
 .options {
-  padding: 0;
+  padding: 10px 0;
   text-align: center;
 }
 
@@ -538,6 +538,18 @@ svg.active.tablet {
   height: 205px;
 }
 
+.copy-code {
+  -webkit-touch-callout: all;
+  -webkit-user-select: all;
+  -khtml-user-select: all;
+  -moz-user-select: all;
+  -ms-user-select: all;
+  user-select: all;
+  white-space: pre;
+  overflow-x: scroll;
+  overflow-y: hidden;
+}
+
 .devices {
   margin: 0 auto;
   text-align: center;
@@ -617,7 +629,9 @@ svg.active.tablet {
 }
 
 .input-text {
-  width: 80%;
+  width: 90%;
+  margin: 10px 0;
+  padding: 4px;
 }
 
 .interior-tile-bar-color {

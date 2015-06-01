@@ -16,7 +16,7 @@ head
 
   body(ng-controller='ApplicationController as applicationController' resize)
     .container(ng-show='isVisible(0, step)',
-      ng-init='step = 8')
+      ng-init="step = 0; logoUrls={'default': 'img/vip-logo.png', 'New York': 'img/new-york.svg'}, selectedState = 'default'")
       .left.form
         .row
           img.vip-logo(
@@ -122,7 +122,7 @@ head
 
             ul(
               ng-class='{open: showStates}',
-              ng-init="states = ['Alabama', 'Alaska', 'Bridgehampton', 'Compton', 'Delaware', 'Delancey St.', 'Edinburgh', 'Frankfurt', 'Georgia']")
+              ng-init="states = [ 'Alabama', 'Alaska', 'American Samoa', 'Arizona', 'Arkansas', 'California', 'Colorado', 'Connecticut', 'Delaware', 'District Of Columbia', 'Federated States Of Micronesia', 'Florida', 'Georgia', 'Guam', 'Hawaii', 'Idaho', 'Illinois', 'Indiana', 'Iowa', 'Kansas', 'Kentucky', 'Louisiana', 'Maine', 'Marshall Islands', 'Maryland', 'Massachusetts', 'Michigan', 'Minnesota', 'Mississippi', 'Missouri', 'Montana', 'Nebraska', 'Nevada', 'New Hampshire', 'New Jersey', 'New Mexico', 'New York', 'North Carolina', 'North Dakota', 'Northern Mariana Islands', 'Ohio', 'Oklahoma', 'Oregon', 'Palau', 'Pennsylvania', 'Puerto Rico', 'Rhode Island', 'South Carolina', 'South Dakota', 'Tennessee', 'Texas', 'Utah', 'Vermont', 'Virgin Islands', 'Virginia', 'Washington', 'West Virginia', 'Wisconsin', 'Wyoming' ]")
               li(
                 ng-repeat='state in states',
                 ng-mouseover='$parent.selectedState = state',
@@ -180,12 +180,18 @@ head
           .section-interior-tile-bar-color
             h2.subtitle
               | Interior tile bar color
-            ul(ng-init="interiorTileBarColors = ['#000', '#a4a4a4', '#229acd', '#ad1b1b', '#25a095', '#9ccc66', '#ffa004', '#5e34b1', '#a1887f', '#f06292']")
+            ul(ng-init="interiorTileBarColors = ['#000', '#a4a4a4', '#229acd', '#ad1b1b', '#25a095', '#9ccc66', '#ffa004', '#5e34b1', '#a1887f', '#f06292']; interiorSecondaryTileBarColors = ['#555', '#909090', '#228a9d', '#8d1919', '#258065', '#7caa66', '#dd8004', '#5e3481', '#81665f', '#c04273']")
+              //- li(
+              //-   class="interior-tile-bar-color"
+              //-   ng-class="{selected: $parent.selectedTileBarColor == tileBarColor}"
+              //-   ng-repeat="tileBarColor in interiorTileBarColors"
+              //-   ng-click="$parent.selectedTileBarColor = tileBarColor"
+              //-   style="background: {{tileBarColor}}")
               li(
                 class="interior-tile-bar-color"
                 ng-class="{selected: $parent.selectedTileBarColor == tileBarColor}"
-                ng-repeat="tileBarColor in interiorTileBarColors"
-                ng-click="$parent.selectedTileBarColor = tileBarColor"
+                ng-repeat="tileBarColor in interiorTileBarColors track by $index"
+                ng-click="$parent.selectedTileBarColor = tileBarColor; log($index); $parent.selectedSecondaryTileBarColor = interiorSecondaryTileBarColors[$index]"
                 style="background: {{tileBarColor}}")
 
       .preview
@@ -223,10 +229,10 @@ head
                 ng-click='$parent.showFormats = !showFormats')
                 | {{ formatOption }}
 
-          .format-info(
-            ng-repeat="formatOption in formatOptions"
-            ng-show="formatOption == selectedFormat")
-            | {{ formatOption }}
+          //- .format-info(
+          //-   ng-repeat="formatOption in formatOptions"
+          //-   ng-show="formatOption == selectedFormat")
+          //-   | {{ formatOption }}
 
       .preview
 
@@ -257,7 +263,7 @@ head
             ng-show="alertTextEnabled")
             h2.subtitle
               | Alert Message
-            input(type="text" class="alert-text" ng-model="alertText")
+            input(type="text" class="input-text alert-text" ng-model="alertText")
 
       .preview
         h2.subtitle(ng-show="alertTextEnabled")
@@ -285,7 +291,7 @@ head
 
             ul(
               ng-class='{open: showLanguages}',
-              ng-init="languageOptions = ['Chinese', 'English', 'Japanese']")
+              ng-init="languageOptions = ['English', 'Spanish', 'Korean', 'Japanese', 'Thai', 'Hindi', 'Tagalog', 'Chinese', 'Vietnamese', 'Khmer']")
               li(
                 ng-repeat='languageOption in languageOptions',
                 ng-mouseover='$parent.selectedLanguage = languageOption',
@@ -307,8 +313,40 @@ head
           h2.subtitle
             | Here's your embed code
 
-          .row.text-box
-            &ltiframe width="640" height="480"&gt...&lt/iframe&gt
+          .row.text-box.copy-code
+            | &ltscript type="text/javascript" src="//s3.amazonaws.com/vip-voter-information-tool/app.js"&gt&lt/script&gt
+            | &ltdiv id="_vit"&gt&lt/div&gt
+            | &ltscript type="text/javascript"&gtvit.load({
+            br
+            span     modal: true,
+            br
+            span(ng-if="officialOnly")     officialOnly: true,
+            br(ng-if="officialOnly")
+            span(ng-if="title")     title: {{ title }}
+            br(ng-if="title")
+            span(ng-if="subtitle")     subtitle: {{ subtitle }}
+            br(ng-if="subtitle")
+            span(ng-if="selectedFormat == '640x480'")
+              |     width: '640px',
+              |     height: '480px',
+            span(ng-if="selectedFormat == '320x240'")
+              |     width: '320px',
+              |     height: '240px',
+            br(ng-if="selectedFormat.length > 0")
+            span(ng-if="logoUrl")     logo: '{{ logoUrl }}',
+            br(ng-if="logoUrl")
+            span(ng-if="selectedState") logo: 'img/new-york.svg',
+            br(ng-if="selectedState")
+            span(ng-if="selectedTileBarColor")     colors: {
+              |       'header': '{{ selectedTileBarColor }}',
+              |       'landscapeBackgroundHeader': '{{ selectedSecondaryTileBarColor }}'
+              |     },
+            br(ng-if="selectedTileBarColor")
+            span(ng-if="alertTextEnabled")     alertText: '{{ alertText }}'
+            br(ng-if="alertTextEnabled")
+            span(ng-if="selectedLanguage")     language: '{{ languages[selectedLanguage] }}'
+            br(ng-if="selectedLanguage")
+            | });&lt/script&gt
 
       .options
         .option.highlighted(ng-click="step = 0") Start over
@@ -336,7 +374,11 @@ head
             ng-click='$parent.showDeviceDropdown = !showDeviceDropdown')
             {{ option }}
 
-      ul.devices(ng-init="dimension=60; $parent.selectedTileBarColor='#25a095'; logoUrl='//placekitten.com/g/500/500'")
+      //-
+      //- DEVICE ICONS
+      //-
+      //-
+      ul.devices(ng-init="dimension=60; $parent.selectedTileBarColor='#229acd'; $parent.selectedSecondaryTileBarColor = interiorSecondaryTileBarColors[2]")
         li
           svg(
             ng-click="selectedDevice = 'desktop'",
@@ -373,12 +415,43 @@ head
                 M-759.1,2202.1h-7.3c-0.7,0-1.3-0.6-1.3-1.3c0-0.1,0-0.2,0-0.2c0-0.1,0-0.1,0-0.2c0-0.5,0.4-0.9,0.9-0.9h0.4h7.3h0.4\
                 c0.5,0,0.9,0.4,0.9,0.9c0,0.1,0,0.1,0,0.2c0,0.1,0,0.1,0,0.2C-757.8,2201.5-758.4,2202.1-759.1,2202.1z M-743.2,2194.3h-39.5V2125\
                 h39.5V2194.3z')
-      svg(width="100", height="100")
-        image(ng-attr-xlink:href='{{trustedLogoUrl}}', xlink:href="", x="0", y="0", width="100", height="100")
-      svg(width="100", height="100")
-        image(xlink:href='http://placekitten.com/g/500/500', x="0", y="0", width="100", height="100")
+      //-
+      //- IMAGE TEST
+      //-
+      //-
+      //- svg(width="100", height="100")
+      //-   image(ng-attr-xlink:href='{{trustedLogoUrl}}', xlink:href="", x="0", y="0", width="100", height="100")
+      //- svg(width="100", height="100")
+      //-   image(xlink:href='http://placekitten.com/g/500/500', x="0", y="0", width="100", height="100")
+
+      //-
+      //- DEVICE PREVIEW - 1
+      //-
+      //-
       .row(ng-init="selectedDevice='tablet'")
+        //-
+        //- DESKTOP
+        //-
         .device-container(ng-class="selectedDeviceNewTry")
+          svg(
+            ng-show="selectedDevice == 'desktop'",
+            ng-attr-width="{{deviceDimensions[selectedDevice][0]}}",
+            ng-attr-height="{{deviceDimensions[selectedDevice][1]}}",
+            x="0", y="0",
+            viewbox='0 0 525.9 354')
+            svg(
+              x="50", y="17", width="428", height="320", viewbox="0 0 136 102", preserveAspectRatio="xMinYMin slice")
+              rect(fill="#efefef", xlink:href="", x="0", y="0", width="135", height="102")
+              image(xlink:href='img/vip-logo.png', x="60", y="2", width="15", height="15")
+              image(xlink:href='', trustedresourceurl='{{logoUrl}}')
+              text(x="67" y="25" text-anchor="middle" font-size="10px") {{ title }}
+              text(x="67" y="35" text-anchor="middle" font-size="7px") {{ subtitle }}
+              rect(fill="#bbb", x="27", y="40", width="80", height="30")
+              rect(fill="#fff", x="37", y="50", width="60", height="5")
+        //-
+        //- TABLET
+        //-
+        .device-container(ng-class="selectedDeviceNewTry", ng-init="temp = 'img/new-york.svg'")
           svg(
             ng-show="selectedDevice == 'tablet'",
             ng-attr-width="{{deviceDimensions[selectedDevice][0]}}",
@@ -392,13 +465,160 @@ head
               c0,0.5-0.4,0.9-0.9,0.9H52.2z')
             svg(
               x="50", y="17", width="428", height="320", viewbox="0 0 136 102", preserveAspectRatio="xMinYMin slice")
-              rect(fill="{{ selectedTileBarColor}}", xlink:href="", x="0", y="0", width="135", height="102")
-              image(xlink:href='img/vip-logo.png', x="60", y="2", width="15", height="15")
-              image(xlink:href='', trustedresourceurl='{{logoUrl}}')
+              rect(fill="#efefef", xlink:href="", x="0", y="0", width="135", height="102")
+              image(ng-show="selectedState == void 0" xlink:href='img/vip-logo.png' x="60" y="1" width="15" height="15")
+              image(ng-show="selectedState == 'New York'" xlink:href='img/new-york.svg' x="60" y="1" width="15" height="15")
               text(x="67" y="25" text-anchor="middle" font-size="10px") {{ title }}
               text(x="67" y="35" text-anchor="middle" font-size="7px") {{ subtitle }}
               rect(fill="#bbb", x="27", y="40", width="80", height="30")
               rect(fill="#fff", x="37", y="50", width="60", height="5")
+        //-
+        //- PHONE
+        //-
+        .device-container(ng-class="selectedDeviceNewTry")
+          svg(
+            ng-show="selectedDevice == 'phone'",
+            ng-attr-width="{{deviceDimensions[selectedDevice][0]}}",
+            ng-attr-height="{{deviceDimensions[selectedDevice][1]}}",
+            x='0px', y='0px',
+            viewbox='0 0 347.8 713.9')
+            g
+              circle(cx='174.6', cy='665.3', r='23.9')
+              path(d='M348.8,151.4h-1.1V52.8C347.8,23.7,324.1,0,295,0H54.9C25.8,0,2.1,23.7,2.1,52.8v37.3H1.1\
+              c-0.6,0-1.1,0.5-1.1,1.1v26.8c0,0.6,0.5,1.1,1.1,1.1h1.1v32.4H1.1c-0.6,0-1.1,0.5-1.1,1.1v50.7c0,0.6,0.5,1.1,1.1,1.1h1.1v12H1.1\
+              c-0.6,0-1.1,0.5-1.1,1.1v50.7c0,0.6,0.5,1.1,1.1,1.1h1.1v392.1c0,29.1,23.7,52.8,52.8,52.8H295c29.1,0,52.8-23.7,52.8-52.8V204.2\
+              h1.1c0.6,0,1.1-0.5,1.1-1.1v-50.7C349.9,151.9,349.4,151.4,348.8,151.4z M175.3,19c2,0,3.5,1.5,3.5,3.5s-1.5,3.5-3.5,3.5\
+              c-2,0-3.5-1.5-3.5-3.5S173.3,19,175.3,19z M150,42.2h50.7c1.5,0,2.8,1.3,2.8,2.8s-1.3,2.8-2.8,2.8H150c-1.5,0-2.8-1.3-2.8-2.8\
+              S148.4,42.2,150,42.2z M119.7,39.4c3.1,0,5.6,2.5,5.6,5.6s-2.5,5.6-5.6,5.6s-5.6-2.5-5.6-5.6S116.6,39.4,119.7,39.4z M174.6,692\
+              c-14.8,0-26.8-12-26.8-26.8c0-14.8,12-26.8,26.8-26.8s26.8,12,26.8,26.8C201.3,680.1,189.4,692,174.6,692z M326.7,625.9H23.2V86.6\
+              h303.4V625.9z')
+            svg(
+              x="24", y="87")
+              rect(fill="#efefef", x="0", y="0", width="303", height="539")
+              rect(fill="#bbb", x="10" y="180" width="285" height="150")
+              image(xlink:href='img/vip-logo.png', x="120", y="10", width="60", height="60")
+              text(x="150" y="100" text-anchor="middle" font-size="25px") {{ title }}
+              text(x="150" y="140" text-anchor="middle" font-size="18px") {{ subtitle }}
+
+      //-
+      //- DEVICE PREVIEW - 2
+      //-
+      //-
+      .row
+        //-
+        //- DESKTOP
+        //-
+        .device-container(ng-class="selectedDeviceNewTry")
+          svg(
+            ng-show="selectedDevice == 'desktop'",
+            ng-attr-width="{{deviceDimensions[selectedDevice][0]}}",
+            ng-attr-height="{{deviceDimensions[selectedDevice][1]}}",
+            x="0", y="0",
+            viewbox='0 0 525.9 354')
+            svg(
+              x="50" y="17" width="428" height="320" viewbox="0 0 136 102" preserveAspectRatio="xMinYMin slice")
+              rect(fill="white" xlink:href="" x="0" y="0" width="135" height="102")
+
+              //- sidebar image
+              image(xlink:href='img/vip-logo.png', x="13", y="5", width="15", height="15")
+
+              //- sidebar address
+              rect(fill="{{ selectedTileBarColor }}" x="0" y="20" width="45" height="8")
+              text(fill="#fff" x="1" y="25" font-size="3.7px") Registered Voter Address
+              text(fill="#000" x="1" y="28" font-size="3.7px")
+                tspan(x="3" dy="1.4em") 36 E. 20th St.
+                tspan(x="3" dy="1.4em") New York, NY 10003
+
+              //- sidebar election
+              rect(fill="{{ selectedTileBarColor }}" x="0" y="40" width="45" height="8")
+              text(fill="#fff" x="1" y="45" font-size="3.7px") Elections
+              text(fill="#000" x="1" y="48" font-size="3.7px")
+                tspan(x="1" dy="1.4em" font-size="4px") General Election 2014
+                tspan(x="1" dy="1.4em" font-size="4px") New York State
+                tspan(x="1" dy="1.4em" font-size="2.7px") June 17th, 2015
+
+              //- sidebar tabs
+              rect(fill="{{ selectedTileBarColor }}" x="0" y="65" width="45" height="8")
+              text(fill="#fff" x="1" y="70" font-size="3.3px") Polling Location
+              rect(fill="{{ selectedTileBarColor }}" x="0" y="73" width="45" height="8")
+              text(fill="#fff" x="1" y="78" font-size="3.3px") Voter Resources
+              rect(fill="{{ selectedTileBarColor }}" x="0" y="81" width="45" height="8")
+              text(fill="#fff" x="1" y="86" font-size="3.3px") Ballot Information
+
+              rect(fill="{{ selectedSecondaryTileBarColor }}" x="0" y="89" width="45" height="45")
+
+              image(xlink:href="img/map.jpg" x="40" y="0" height="102px" width="102px")
+
+              //- page footer
+              rect(fill="#333" x="0" y="97" width="140" height="6")
+
+
+              //- alert text
+              rect(ng-show="alertTextEnabled" fill="#f00" x="0" y="0" width="145" height="10")
+              text(ng-show="alertTextEnabled" x="2" y="7" font-size="5px" fill="#fff") {{ alertText }}
+
+              image(xlink:href='' trustedresourceurl='{{logoUrl}}')
+        //-
+        //- TABLET
+        //-
+        .device-container(ng-class="selectedDeviceNewTry")
+          svg(
+            ng-show="selectedDevice == 'tablet'",
+            ng-attr-width="{{deviceDimensions[selectedDevice][0]}}",
+            ng-attr-height="{{deviceDimensions[selectedDevice][1]}}",
+            x='0px', y='0px',
+            viewbox='0 0 525.9 354')
+            path(d='M525.9,328.1V25.9C525.9,11.6,514.4,0,500,0H25.9C11.6,0,0,11.6,0,25.9v302.1C0,342.4,11.6,354,25.9,354H500\
+              C514.3,354.1,525.9,342.4,525.9,328.1z M501.1,177c0,1.9-1.5,3.2-3.2,3.2c-1.7,0-3.2-1.5-3.2-3.2s1.5-3.2,3.2-3.2\
+              C499.6,173.8,501.1,175.2,501.1,177z M12.2,177c0-7.2,5.9-13.2,13.2-13.2s13.2,5.9,13.2,13.2s-5.9,13.2-13.2,13.2\
+              S12.2,184.2,12.2,177z M52.2,336.4c-0.5,0-0.9-0.4-0.9-0.9V18.6c0-0.5,0.4-0.9,0.9-0.9h421.9c0.5,0,0.9,0.4,0.9,0.9v316.9\
+              c0,0.5-0.4,0.9-0.9,0.9H52.2z')
+            svg(
+              x="50" y="17" width="428" height="320" viewbox="0 0 136 102" preserveAspectRatio="xMinYMin slice")
+              rect(fill="white" xlink:href="" x="0" y="0" width="135" height="102")
+
+              //- sidebar image
+              image(xlink:href='img/vip-logo.png', x="13", y="5", width="15", height="15")
+
+              //- sidebar address
+              rect(fill="{{ selectedTileBarColor }}" x="0" y="20" width="45" height="8")
+              text(fill="#fff" x="1" y="25" font-size="3.7px") Registered Voter Address
+              text(fill="#000" x="1" y="28" font-size="3.7px")
+                tspan(x="3" dy="1.4em") 36 E. 20th St.
+                tspan(x="3" dy="1.4em") New York, NY 10003
+
+              //- sidebar election
+              rect(fill="{{ selectedTileBarColor }}" x="0" y="40" width="45" height="8")
+              text(fill="#fff" x="1" y="45" font-size="3.7px") Elections
+              text(fill="#000" x="1" y="48" font-size="3.7px")
+                tspan(x="1" dy="1.4em" font-size="4px") General Election 2014
+                tspan(x="1" dy="1.4em" font-size="4px") New York State
+                tspan(x="1" dy="1.4em" font-size="2.7px") June 17th, 2015
+
+              //- sidebar tabs
+              rect(fill="{{ selectedTileBarColor }}" x="0" y="65" width="45" height="8")
+              text(fill="#fff" x="1" y="70" font-size="3.3px") Polling Location
+              rect(fill="{{ selectedTileBarColor }}" x="0" y="73" width="45" height="8")
+              text(fill="#fff" x="1" y="78" font-size="3.3px") Voter Resources
+              rect(fill="{{ selectedTileBarColor }}" x="0" y="81" width="45" height="8")
+              text(fill="#fff" x="1" y="86" font-size="3.3px") Ballot Information
+
+              rect(fill="{{ selectedSecondaryTileBarColor }}" x="0" y="89" width="45" height="45")
+
+              image(xlink:href="img/map.jpg" x="40" y="0" height="102px" width="102px")
+
+              //- page footer
+              rect(fill="#333" x="0" y="97" width="140" height="6")
+
+
+              //- alert text
+              rect(ng-show="alertTextEnabled" fill="#f00" x="0" y="0" width="145" height="10")
+              text(ng-show="alertTextEnabled" x="2" y="7" font-size="5px" fill="#fff") {{ alertText }}
+
+              image(xlink:href='' trustedresourceurl='{{logoUrl}}')
+        //-
+        //- PHONE
+        //-
         .device-container(ng-class="selectedDeviceNewTry")
           svg(
             ng-show="selectedDevice == 'phone'",

@@ -66,31 +66,6 @@ input:focus {
 }
 
 /* styles for elements */
-svg.active {
-  // border: 1px solid orange;
-  // position: absolute;
-  // left: 50%;
-  // fill: white;
-
-  &.desktop, &.tablet {
-    // margin-left: -160px;
-  }
-
-  &.tablet {
-    width: 275px;
-    height: 205px;
-    margin: -2px 0 0 -2px;
-  }
-
-  &.phone {
-    // margin-left: -80px;
-  }
-
-  &:last-child {
-
-  }
-}
-
 .background {
   width: 275px;
   height: 205px;
@@ -121,14 +96,11 @@ svg.active {
 
 .device-container {
   position: relative;
-  // left: 50%;
-  // display: inline-block;
 
   &.tablet {
     left: 50%;
     margin: 50px 0 50px -135px;
     width: 280px;
-    // height: 200px;
   }
 
   &.phone {
@@ -137,7 +109,6 @@ svg.active {
     float: left;
     &:first-child {
       left: 30%;
-
     }
     &:last-child {
       left: 60%;
@@ -222,7 +193,6 @@ svg.active {
 }
 
 .preview.right {
-  // display: none;
   padding: 1px 5px;
 }
 
@@ -299,30 +269,10 @@ svg.active {
     .preview {
       display: none;
     }
-
-    .navigation {
-      display: none;
-    }
   }
 
-  // .device-preview-1 .phone {
-  //   float: left;
-  //   margin-left: 10%;
-  // }
-
-  // .device-preview-2 .phone {
-  //   float: right;
-  //   margin-right: 10%;
-  // }
-
-  .phone {
-    // float: left;
-  }
-
-  .device-preview-2,
-  .device-preview-1 {
-    // width: 50%;
-    // display: inline-block;
+  .navigation {
+    display: none;
   }
 
   .preview.right {
@@ -334,18 +284,6 @@ svg.active {
     right: 0;
     top: 0;
     width: 50%;
-    // width: 90%;
-  }
-
-  .device-preview-1,
-  .device-preview-2 {
-    // width: 50%;
-  }
-
-  .device-preview-1 {
-    .phone {
-      // margin-left: 100px;
-    }
   }
 
   .step {
@@ -396,12 +334,3 @@ svg.active {
     left: -80px;
   }
 }
-
-
-
-
-
-
-
-
-

@@ -1,0 +1,23 @@
+.container(ng-show='isVisible(5, step)')
+  .left.form
+    .row
+      h2.subtitle.step
+        | Step {{ step }} of 8
+      h2.subtitle
+        | Format
+
+      .dropdown
+        .dropdowns(ng-click='showFormats = !showFormats')
+          span {{ selectedFormat  || "Select a format" }}
+
+          .dropdown-button
+            span.dropdown-arrow
+
+        ul.no-scrollbar(
+          ng-class='{open: showFormats}',
+          ng-init="formatOptions = ['640x480', '320x240', 'Responsive']")
+          li(
+            ng-repeat='formatOption in formatOptions',
+            ng-mouseover='$parent.selectedFormat = formatOption',
+            ng-click='$parent.showFormats = !showFormats')
+            | {{ formatOption }}

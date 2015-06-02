@@ -1,0 +1,51 @@
+.device-container(ng-class="selectedDeviceNewTry")
+  svg(
+    ng-show="selectedDevice == 'desktop'",
+    ng-attr-width="{{deviceDimensions[selectedDevice][0]}}",
+    ng-attr-height="{{deviceDimensions[selectedDevice][1]}}",
+    x="0", y="0",
+    viewbox='0 0 525.9 354'
+    class="device-preview desktop")
+    svg(
+      x="50" y="17" width="428" height="320" viewbox="0 0 136 102" preserveAspectRatio="xMinYMin slice")
+      rect(fill="white" xlink:href="" x="0" y="0" width="135" height="102")
+
+      //- sidebar image
+      image(xlink:href='img/vip-logo.png', x="13", y="5", width="15", height="15")
+
+      //- sidebar address
+      rect(fill="{{ selectedTileBarColor }}" x="0" y="20" width="45" height="8")
+      text(fill="#fff" x="1" y="25" font-size="3.7px") Registered Voter Address
+      text(fill="#000" x="1" y="28" font-size="3.7px")
+        tspan(x="3" dy="1.4em") 36 E. 20th St.
+        tspan(x="3" dy="1.4em") New York, NY 10003
+
+      //- sidebar election
+      rect(fill="{{ selectedTileBarColor }}" x="0" y="40" width="45" height="8")
+      text(fill="#fff" x="1" y="45" font-size="3.7px") Elections
+      text(fill="#000" x="1" y="48" font-size="3.7px")
+        tspan(x="1" dy="1.4em" font-size="4px") General Election 2014
+        tspan(x="1" dy="1.4em" font-size="4px") New York State
+        tspan(x="1" dy="1.4em" font-size="2.7px") June 17th, 2015
+
+      //- sidebar tabs
+      rect(fill="{{ selectedTileBarColor }}" x="0" y="65" width="45" height="8")
+      text(fill="#fff" x="1" y="70" font-size="3.3px") Polling Location
+      rect(fill="{{ selectedTileBarColor }}" x="0" y="73" width="45" height="8")
+      text(fill="#fff" x="1" y="78" font-size="3.3px") Voter Resources
+      rect(fill="{{ selectedTileBarColor }}" x="0" y="81" width="45" height="8")
+      text(fill="#fff" x="1" y="86" font-size="3.3px") Ballot Information
+
+      rect(fill="{{ selectedSecondaryTileBarColor }}" x="0" y="89" width="45" height="45")
+
+      image(xlink:href="img/map.jpg" x="40" y="0" height="102px" width="102px")
+
+      //- page footer
+      rect(fill="#333" x="0" y="97" width="140" height="6")
+
+
+      //- alert text
+      rect(ng-show="alertTextEnabled" fill="#f00" x="0" y="0" width="145" height="10")
+      text(ng-show="alertTextEnabled" x="2" y="7" font-size="5px" fill="#fff") {{ alertText }}
+
+      image(xlink:href='' trustedresourceurl='{{logoUrl}}')

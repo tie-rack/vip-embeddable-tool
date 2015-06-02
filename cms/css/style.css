@@ -537,12 +537,6 @@ input:focus {
 }
 
 /* styles for elements */
-svg.active.tablet {
-  width: 275px;
-  height: 205px;
-  margin: -2px 0 0 -2px;
-}
-
 .background {
   width: 275px;
   height: 205px;
@@ -735,7 +729,8 @@ svg.active.tablet {
   .container .preview {
     display: none;
   }
-  .container .navigation {
+
+  .navigation {
     display: none;
   }
 

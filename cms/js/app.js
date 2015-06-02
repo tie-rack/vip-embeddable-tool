@@ -1,17 +1,8 @@
 var app = angular.module('Application', ['ngClipboard']);
+
 app.controller('ApplicationController', function($scope, $window, $sce) {
   $scope.isVisible = function (idx, step) {
     return $window.innerWidth > 480 ? true : idx == step
-  };
-
-  $scope.trustedLogoUrl = $sce.trustAsResourceUrl($scope.logoUrl);
-  // $scope.watch('logoUrl', function(value) {
-    // alert(value)
-  // })
-  window.scope = $scope;
-
-  $scope.log = function (el) {
-    console.log(el)
   };
 
   $scope.languages = {
@@ -59,15 +50,6 @@ app.controller('ApplicationController', function($scope, $window, $sce) {
   }
 });
 
-app.directive('trustedresourceurl', function () {
-  return function(scope, element, attrs) {
-    console.log('woohoo')
-    scope.$watch(attrs.trustedResourceUrl, function(value) {
-      console.log(value);
-    })
-  }
-})
-
 app.directive('resize', function ($window) {
   return function (scope, element) {
     var w = angular.element($window);
@@ -95,34 +77,6 @@ app.directive('resize', function ($window) {
     });
   }
 });
-
-app.directive('ngWidth', function() {
-  return function(scope, element, attrs) {
-    scope.$watch(attrs.ngWidth, function(value) {
-      console.log(value)
-      element.attr('width', value);
-    });
-    // console.log(attrs)
-  };
-});
-
-app.directive('ngHeight', function() {
-  return function(scope, element, attrs) {
-    scope.$watch(attrs.ngHeight, function(value) {
-      console.log(value)
-      element.attr('height', value);
-    });
-    // console.log(attrs)
-  };
-});
-
-app.directive('ngDimensions', function () {
-  return function(scope, element, attrs) {
-    scope.$watch(attrs.ngDimension, function(dim) {
-      // console.log(dim);
-    });
-  }
-})
 
 app.config(['ngClipProvider', function(ngClipProvider) {
   ngClipProvider.setPath("js/vendor/ZeroClipboard.swf");

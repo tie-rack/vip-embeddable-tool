@@ -1,0 +1,15 @@
+.container(ng-show='isVisible(3, step)')
+  .left.form
+    .row
+      h2.subtitle.step
+        | Step {{ step }} of 8
+
+      .section-title
+        h2.subtitle
+          | Title
+        input(type="text" class="input-text" ng-model="title")
+
+      .section-subtitle
+        h2.subtitle
+          | Subtitle (optional)
+        input(type="text" class="input-text" ng-model="subtitle")

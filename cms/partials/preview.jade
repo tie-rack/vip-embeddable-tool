@@ -1,0 +1,43 @@
+.right.preview(ng-init="deviceDimensions = { desktop: [320, 240], tablet: [320, 240], phone: [165, 285] }; deviceOptions = ['desktop', 'tablet', 'phone']")
+  .dropdown.small
+    .dropdowns(
+      ng-click='showDeviceDropdown = !showDeviceDropdown')
+      span {{ selectedDevice || "Desktop" }}
+
+      .dropdown-button
+        span.dropdown-arrow
+
+    ul(
+      ng-class='{open: showDeviceDropdown}')
+      li(
+        ng-repeat='option in deviceOptions',
+        ng-mouseover='$parent.selectedDevice = option',
+        ng-click='$parent.showDeviceDropdown = !showDeviceDropdown')
+        {{ option }}
+
+  include .partials/devices/device-icons.jade
+
+  //-
+  //- SEARCH SCREEN PREVIEWS:
+  //-
+  //-
+  .device-wrapper
+    .row(ng-init="selectedDevice='tablet'" class="device-preview-1" ng-class="isFirstVisible() ? 'show-device-preview' : 'hide-device-preview'")
+
+      include ./partials/devices/desktop-search.jade
+
+      include ./partials/devices/tablet-search.jade
+
+      include ./partials/devices/phone-search.jade
+
+    //-
+    //- MAP SCREEN PREVIEWS:
+    //-
+    //-
+    .row(class="device-preview-2" ng-class="isFirstVisible() ? 'hide-device-preview' : 'show-device-preview'")
+
+      include ./partials/devices/desktop-map.jade
+
+      include ./partials/devices/tablet-search.jade
+
+      include ./partials/devices/phone-search.jade

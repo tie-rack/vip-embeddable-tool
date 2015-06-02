@@ -1,0 +1,48 @@
+.container(ng-show='isVisible(8, step)')
+  .left.form
+    .row
+      h2.subtitle.step
+        | Step {{ step }} of 8
+      h2.subtitle
+        | Here's your embed code &nbsp;
+
+      #embed-code.row.text-box.copy-code
+        | &ltscript type="text/javascript" src="//s3.amazonaws.com/vip-voter-information-tool/app.js"&gt&lt/script&gt
+        | &ltdiv id="_vit"&gt&lt/div&gt
+        | &ltscript type="text/javascript"&gtvit.load({
+        br
+        span     modal: true,
+        br
+        span(ng-if="officialOnly")     officialOnly: true,
+        br(ng-if="officialOnly")
+        span(ng-if="title")     title: {{ title }}
+        br(ng-if="title")
+        span(ng-if="subtitle")     subtitle: {{ subtitle }}
+        br(ng-if="subtitle")
+        span(ng-if="selectedFormat == '640x480'")
+          |     width: '640px',
+          |     height: '480px',
+        span(ng-if="selectedFormat == '320x240'")
+          |     width: '320px',
+          |     height: '240px',
+        br(ng-if="selectedFormat.length > 0")
+        span(ng-if="logoUrl")     logo: '{{ logoUrl }}',
+        br(ng-if="logoUrl")
+        span(ng-if="selectedState")     logo: 'img/new-york.svg',
+        br(ng-if="selectedState")
+        span(ng-if="selectedTileBarColor")     colors: {
+          |       'header': '{{ selectedTileBarColor }}',
+          |       'landscapeBackgroundHeader': '{{ selectedSecondaryTileBarColor }}'
+          |     },
+        br(ng-if="selectedTileBarColor")
+        span(ng-if="alertTextEnabled")     alertText: '{{ alertText }}'
+        br(ng-if="alertTextEnabled")
+        span(ng-if="selectedLanguage")     language: '{{ languages[selectedLanguage] }}'
+        br(ng-if="selectedLanguage")
+        | });&lt/script&gt
+
+  .options
+    .option.highlighted(ng-click="startOver()") Start over
+    .option.highlighted(clip-copy="getTextToCopy()") Copy code
+    .option.highlighted(ng-click="emailCode()") E-Mail code
+    .option.highlighted Need help?

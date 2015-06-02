@@ -1,0 +1,23 @@
+.container(ng-show='isVisible(7, step)')
+  .left.form
+    .row
+      h2.subtitle.step
+        | Step {{ step }} of 8
+      h2.subtitle
+        | Language Option
+
+      .dropdown
+        .dropdowns(ng-click='showLanguages = !showLanguages')
+          span {{ selectedLanguage  || "Select a language" }}
+
+          .dropdown-button
+            span.dropdown-arrow
+
+        ul(
+          ng-class='{open: showLanguages}',
+          ng-init="languageOptions = ['English', 'Spanish', 'Korean', 'Japanese', 'Thai', 'Hindi', 'Tagalog', 'Chinese', 'Vietnamese', 'Khmer']")
+          li(
+            ng-repeat='languageOption in languageOptions',
+            ng-mouseover='$parent.selectedLanguage = languageOption',
+            ng-click='$parent.showLanguages = !showLanguages')
+            | {{ languageOption }}

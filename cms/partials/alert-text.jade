@@ -1,0 +1,23 @@
+.container(ng-show='isVisible(6, step)')
+  .left.form
+    .row
+      h2.subtitle.step
+        | Step {{ step }} of 8
+      h2.subtitle
+        | Alert text
+
+      ul.options(ng-init="alertTextEnabled = false")
+        li.option(
+          ng-class="{selected: alertTextEnabled}"
+          ng-click="alertTextEnabled = true")
+          | Yes
+        li.option(
+          ng-class="{selected: !alertTextEnabled}"
+          ng-click="alertTextEnabled = false")
+          | No
+
+      .section-alert-text(
+        ng-show="alertTextEnabled")
+        h2.subtitle
+          | Alert Message
+        input(type="text" class="input-text alert-text" ng-model="alertText")

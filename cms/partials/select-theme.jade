@@ -1,0 +1,24 @@
+.container(ng-show='isVisible(1, step)')
+  .left.form
+    .row
+      h2.subtitle.step
+        | Step {{ step }} of 8
+
+      h2.subtitle
+        | Select your theme
+
+      .dropdown
+        .dropdowns(ng-click='showThemes = !showThemes')
+          span {{ selectedTheme  || "Theme One" }}
+
+          .dropdown-button
+            span.dropdown-arrow
+
+        ul.no-scrollbar(
+          ng-class='{open: showThemes}',
+          ng-init="themeOptions = ['Theme One', 'Theme Two', 'Theme Three']")
+          li(
+            ng-repeat='themeOption in themeOptions',
+            ng-mouseover='$parent.selectedTheme = themeOption',
+            ng-click='$parent.showThemes = !showThemes')
+            | {{ themeOption }}

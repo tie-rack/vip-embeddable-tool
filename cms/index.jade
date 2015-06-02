@@ -58,7 +58,7 @@ head
               .dropdown-button
                 span.dropdown-arrow
 
-            ul(
+            ul.no-scrollbar(
               ng-class='{open: showThemes}',
               ng-init="themeOptions = ['Theme One', 'Theme Two', 'Theme Three']")
               li(
@@ -222,7 +222,7 @@ head
               .dropdown-button
                 span.dropdown-arrow
 
-            ul(
+            ul.no-scrollbar(
               ng-class='{open: showFormats}',
               ng-init="formatOptions = ['640x480', '320x240', 'Responsive']")
               li(

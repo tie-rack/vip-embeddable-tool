@@ -9,9 +9,11 @@
   line-height: 45px;
   margin: 20px auto;
   overflow: hidden;
+  position: relative;
   transition: max-height .1s linear;
   vertical-align: center;
   width: 275px;
+  z-index: 2;
 }
 .dropdown ul {
   margin: 0;
@@ -43,8 +45,10 @@
 }
 .dropdown.small {
   line-height: 39px;
+  position: relative;
   text-transform: uppercase;
   width: 300px;
+  z-index: 1;
 }
 .dropdown.small li {
   border-left: none;

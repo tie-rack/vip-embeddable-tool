@@ -36,7 +36,11 @@ app.controller('ApplicationController', function($scope, $window, $sce) {
     $scope.selectedTileBarColor = $scope.interiorTileBarColors[2];
     $scope.selectedSecondaryTileBarColor = $scope.interiorSecondaryTileBarColors[2];
     $scope.alertTextEnabled = false;
+    $scope.alertText = "";
     $scope.selectedLanguage = $scope.languageOptions[0];
+    $scope.selectedLogoOption = $scope.logoOptions[0]
+    $scope.logoUrl = undefined;
+    $scope.selectedState = "Default";
     window.scrollTo(0,0);
   }
 

@@ -305,6 +305,26 @@ svg.active {
     }
   }
 
+  // .device-preview-1 .phone {
+  //   float: left;
+  //   margin-left: 10%;
+  // }
+
+  // .device-preview-2 .phone {
+  //   float: right;
+  //   margin-right: 10%;
+  // }
+
+  .phone {
+    // float: left;
+  }
+
+  .device-preview-2,
+  .device-preview-1 {
+    // width: 50%;
+    // display: inline-block;
+  }
+
   .preview.right {
     bottom: 0;
     display: block;
@@ -315,6 +335,17 @@ svg.active {
     top: 0;
     width: 50%;
     // width: 90%;
+  }
+
+  .device-preview-1,
+  .device-preview-2 {
+    // width: 50%;
+  }
+
+  .device-preview-1 {
+    .phone {
+      // margin-left: 100px;
+    }
   }
 
   .step {

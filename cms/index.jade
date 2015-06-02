@@ -1,4 +1,4 @@
-doctype html
+  doctype html
 html.no-js(ng-app='Application', lang='')
 head
   meta(charset='utf-8')
@@ -430,252 +430,253 @@ head
       //- DEVICE PREVIEW - 1
       //-
       //-
-      .row(ng-init="selectedDevice='tablet'" class="device-preview-1" ng-class="isFirstVisible() ? 'show-device-preview' : 'hide-device-preview'")
-        //-
-        //- DESKTOP
-        //-
-        .device-container(ng-class="selectedDeviceNewTry")
-          svg(
-            ng-show="selectedDevice == 'desktop'",
-            ng-attr-width="{{deviceDimensions[selectedDevice][0]}}",
-            ng-attr-height="{{deviceDimensions[selectedDevice][1]}}",
-            x="0", y="0",
-            viewbox='0 0 525.9 354'
-            class="device-preview desktop")
+      .device-wrapper
+        .row(ng-init="selectedDevice='tablet'" class="device-preview-1" ng-class="isFirstVisible() ? 'show-device-preview' : 'hide-device-preview'")
+          //-
+          //- DESKTOP
+          //-
+          .device-container(ng-class="selectedDeviceNewTry")
             svg(
-              x="50", y="17", width="428", height="320", viewbox="0 0 136 102", preserveAspectRatio="xMinYMin slice")
-              rect(fill="#efefef", xlink:href="", x="0", y="0", width="135", height="102")
-              image(xlink:href='img/vip-logo.png', x="60", y="2", width="15", height="15")
-              image(xlink:href='', trustedresourceurl='{{logoUrl}}')
-              text(x="67" y="25" text-anchor="middle" font-size="10px") {{ title }}
-              text(x="67" y="35" text-anchor="middle" font-size="7px") {{ subtitle }}
-              rect(fill="#bbb", x="27", y="40", width="80", height="30")
-              rect(fill="#fff", x="37", y="50", width="60", height="5")
-        //-
-        //- TABLET
-        //-
-        .device-container(ng-class="selectedDeviceNewTry", ng-init="temp = 'img/new-york.svg'")
-          svg(
-            ng-show="selectedDevice == 'tablet'",
-            ng-attr-width="{{deviceDimensions[selectedDevice][0]}}",
-            ng-attr-height="{{deviceDimensions[selectedDevice][1]}}",
-            x='0px', y='0px',
-            viewbox='0 0 525.9 354'
-            class="device-preview tablet")
-            path(d='M525.9,328.1V25.9C525.9,11.6,514.4,0,500,0H25.9C11.6,0,0,11.6,0,25.9v302.1C0,342.4,11.6,354,25.9,354H500\
-              C514.3,354.1,525.9,342.4,525.9,328.1z M501.1,177c0,1.9-1.5,3.2-3.2,3.2c-1.7,0-3.2-1.5-3.2-3.2s1.5-3.2,3.2-3.2\
-              C499.6,173.8,501.1,175.2,501.1,177z M12.2,177c0-7.2,5.9-13.2,13.2-13.2s13.2,5.9,13.2,13.2s-5.9,13.2-13.2,13.2\
-              S12.2,184.2,12.2,177z M52.2,336.4c-0.5,0-0.9-0.4-0.9-0.9V18.6c0-0.5,0.4-0.9,0.9-0.9h421.9c0.5,0,0.9,0.4,0.9,0.9v316.9\
-              c0,0.5-0.4,0.9-0.9,0.9H52.2z')
+              ng-show="selectedDevice == 'desktop'",
+              ng-attr-width="{{deviceDimensions[selectedDevice][0]}}",
+              ng-attr-height="{{deviceDimensions[selectedDevice][1]}}",
+              x="0", y="0",
+              viewbox='0 0 525.9 354'
+              class="device-preview desktop")
+              svg(
+                x="50", y="17", width="428", height="320", viewbox="0 0 136 102", preserveAspectRatio="xMinYMin slice")
+                rect(fill="#efefef", xlink:href="", x="0", y="0", width="135", height="102")
+                image(xlink:href='img/vip-logo.png', x="60", y="2", width="15", height="15")
+                image(xlink:href='', trustedresourceurl='{{logoUrl}}')
+                text(x="67" y="25" text-anchor="middle" font-size="10px") {{ title }}
+                text(x="67" y="35" text-anchor="middle" font-size="7px") {{ subtitle }}
+                rect(fill="#bbb", x="27", y="40", width="80", height="30")
+                rect(fill="#fff", x="37", y="50", width="60", height="5")
+          //-
+          //- TABLET
+          //-
+          .device-container(ng-class="selectedDeviceNewTry", ng-init="temp = 'img/new-york.svg'")
             svg(
-              x="50", y="17", width="428", height="320", viewbox="0 0 136 102", preserveAspectRatio="xMinYMin slice")
-              rect(fill="#efefef", xlink:href="", x="0", y="0", width="135", height="102")
-              image(ng-show="selectedState == void(0)" xlink:href='img/vip-logo.png' x="60" y="1" width="15" height="15")
-              image(ng-show="selectedState == 'New York'" xlink:href='img/new-york.svg' x="60" y="1" width="15" height="15")
-              text(x="67" y="25" text-anchor="middle" font-size="10px") {{ title }}
-              text(x="67" y="35" text-anchor="middle" font-size="7px") {{ subtitle }}
-              rect(fill="#bbb", x="27", y="40", width="80", height="30")
-              rect(fill="#fff", x="37", y="50", width="60", height="5")
-        //-
-        //- PHONE
-        //-
-        .device-container(ng-class="selectedDeviceNewTry")
-          svg(
-            ng-show="selectedDevice == 'phone'",
-            ng-attr-width="{{deviceDimensions[selectedDevice][0]}}",
-            ng-attr-height="{{deviceDimensions[selectedDevice][1]}}",
-            x='0px', y='0px',
-            viewbox='0 0 347.8 713.9'
-            class="device-preview phone")
-            g
-              circle(cx='174.6', cy='665.3', r='23.9')
-              path(d='M348.8,151.4h-1.1V52.8C347.8,23.7,324.1,0,295,0H54.9C25.8,0,2.1,23.7,2.1,52.8v37.3H1.1\
-              c-0.6,0-1.1,0.5-1.1,1.1v26.8c0,0.6,0.5,1.1,1.1,1.1h1.1v32.4H1.1c-0.6,0-1.1,0.5-1.1,1.1v50.7c0,0.6,0.5,1.1,1.1,1.1h1.1v12H1.1\
-              c-0.6,0-1.1,0.5-1.1,1.1v50.7c0,0.6,0.5,1.1,1.1,1.1h1.1v392.1c0,29.1,23.7,52.8,52.8,52.8H295c29.1,0,52.8-23.7,52.8-52.8V204.2\
-              h1.1c0.6,0,1.1-0.5,1.1-1.1v-50.7C349.9,151.9,349.4,151.4,348.8,151.4z M175.3,19c2,0,3.5,1.5,3.5,3.5s-1.5,3.5-3.5,3.5\
-              c-2,0-3.5-1.5-3.5-3.5S173.3,19,175.3,19z M150,42.2h50.7c1.5,0,2.8,1.3,2.8,2.8s-1.3,2.8-2.8,2.8H150c-1.5,0-2.8-1.3-2.8-2.8\
-              S148.4,42.2,150,42.2z M119.7,39.4c3.1,0,5.6,2.5,5.6,5.6s-2.5,5.6-5.6,5.6s-5.6-2.5-5.6-5.6S116.6,39.4,119.7,39.4z M174.6,692\
-              c-14.8,0-26.8-12-26.8-26.8c0-14.8,12-26.8,26.8-26.8s26.8,12,26.8,26.8C201.3,680.1,189.4,692,174.6,692z M326.7,625.9H23.2V86.6\
-              h303.4V625.9z')
+              ng-show="selectedDevice == 'tablet'",
+              ng-attr-width="{{deviceDimensions[selectedDevice][0]}}",
+              ng-attr-height="{{deviceDimensions[selectedDevice][1]}}",
+              x='0px', y='0px',
+              viewbox='0 0 525.9 354'
+              class="device-preview tablet")
+              path(d='M525.9,328.1V25.9C525.9,11.6,514.4,0,500,0H25.9C11.6,0,0,11.6,0,25.9v302.1C0,342.4,11.6,354,25.9,354H500\
+                C514.3,354.1,525.9,342.4,525.9,328.1z M501.1,177c0,1.9-1.5,3.2-3.2,3.2c-1.7,0-3.2-1.5-3.2-3.2s1.5-3.2,3.2-3.2\
+                C499.6,173.8,501.1,175.2,501.1,177z M12.2,177c0-7.2,5.9-13.2,13.2-13.2s13.2,5.9,13.2,13.2s-5.9,13.2-13.2,13.2\
+                S12.2,184.2,12.2,177z M52.2,336.4c-0.5,0-0.9-0.4-0.9-0.9V18.6c0-0.5,0.4-0.9,0.9-0.9h421.9c0.5,0,0.9,0.4,0.9,0.9v316.9\
+                c0,0.5-0.4,0.9-0.9,0.9H52.2z')
+              svg(
+                x="50", y="17", width="428", height="320", viewbox="0 0 136 102", preserveAspectRatio="xMinYMin slice")
+                rect(fill="#efefef", xlink:href="", x="0", y="0", width="135", height="102")
+                image(ng-show="selectedState == void(0)" xlink:href='img/vip-logo.png' x="60" y="1" width="15" height="15")
+                image(ng-show="selectedState == 'New York'" xlink:href='img/new-york.svg' x="60" y="1" width="15" height="15")
+                text(x="67" y="25" text-anchor="middle" font-size="10px") {{ title }}
+                text(x="67" y="35" text-anchor="middle" font-size="7px") {{ subtitle }}
+                rect(fill="#bbb", x="27", y="40", width="80", height="30")
+                rect(fill="#fff", x="37", y="50", width="60", height="5")
+          //-
+          //- PHONE
+          //-
+          .device-container(ng-class="selectedDeviceNewTry")
             svg(
-              x="24", y="87")
-              rect(fill="#efefef", x="0", y="0", width="303", height="539")
-              rect(fill="#bbb", x="10" y="180" width="285" height="150")
-              //- image(xlink:href='img/vip-logo.png', x="120", y="10", width="60", height="60")
-              image(ng-show="selectedState == void(0)" xlink:href='img/vip-logo.png' x="120" y="10" width="60" height="60")
-              image(ng-show="selectedState == 'New York'" xlink:href='img/new-york.svg' x="120" y="10" width="60" height="60")
-              text(x="150" y="100" text-anchor="middle" font-size="25px") {{ title }}
-              text(x="150" y="140" text-anchor="middle" font-size="18px") {{ subtitle }}
+              ng-show="selectedDevice == 'phone'",
+              ng-attr-width="{{deviceDimensions[selectedDevice][0]}}",
+              ng-attr-height="{{deviceDimensions[selectedDevice][1]}}",
+              x='0px', y='0px',
+              viewbox='0 0 347.8 713.9'
+              class="device-preview phone")
+              g
+                circle(cx='174.6', cy='665.3', r='23.9')
+                path(d='M348.8,151.4h-1.1V52.8C347.8,23.7,324.1,0,295,0H54.9C25.8,0,2.1,23.7,2.1,52.8v37.3H1.1\
+                c-0.6,0-1.1,0.5-1.1,1.1v26.8c0,0.6,0.5,1.1,1.1,1.1h1.1v32.4H1.1c-0.6,0-1.1,0.5-1.1,1.1v50.7c0,0.6,0.5,1.1,1.1,1.1h1.1v12H1.1\
+                c-0.6,0-1.1,0.5-1.1,1.1v50.7c0,0.6,0.5,1.1,1.1,1.1h1.1v392.1c0,29.1,23.7,52.8,52.8,52.8H295c29.1,0,52.8-23.7,52.8-52.8V204.2\
+                h1.1c0.6,0,1.1-0.5,1.1-1.1v-50.7C349.9,151.9,349.4,151.4,348.8,151.4z M175.3,19c2,0,3.5,1.5,3.5,3.5s-1.5,3.5-3.5,3.5\
+                c-2,0-3.5-1.5-3.5-3.5S173.3,19,175.3,19z M150,42.2h50.7c1.5,0,2.8,1.3,2.8,2.8s-1.3,2.8-2.8,2.8H150c-1.5,0-2.8-1.3-2.8-2.8\
+                S148.4,42.2,150,42.2z M119.7,39.4c3.1,0,5.6,2.5,5.6,5.6s-2.5,5.6-5.6,5.6s-5.6-2.5-5.6-5.6S116.6,39.4,119.7,39.4z M174.6,692\
+                c-14.8,0-26.8-12-26.8-26.8c0-14.8,12-26.8,26.8-26.8s26.8,12,26.8,26.8C201.3,680.1,189.4,692,174.6,692z M326.7,625.9H23.2V86.6\
+                h303.4V625.9z')
+              svg(
+                x="24", y="87")
+                rect(fill="#efefef", x="0", y="0", width="303", height="539")
+                rect(fill="#bbb", x="10" y="180" width="285" height="150")
+                //- image(xlink:href='img/vip-logo.png', x="120", y="10", width="60", height="60")
+                image(ng-show="selectedState == void(0)" xlink:href='img/vip-logo.png' x="120" y="10" width="60" height="60")
+                image(ng-show="selectedState == 'New York'" xlink:href='img/new-york.svg' x="120" y="10" width="60" height="60")
+                text(x="150" y="100" text-anchor="middle" font-size="25px") {{ title }}
+                text(x="150" y="140" text-anchor="middle" font-size="18px") {{ subtitle }}
 
-      //-
-      //- DEVICE PREVIEW - 2
-      //-
-      //-
-      .row(class="device-preview-2" ng-class="isFirstVisible() ? 'hide-device-preview' : 'show-device-preview'")
         //-
-        //- DESKTOP
+        //- DEVICE PREVIEW - 2
         //-
-        .device-container(ng-class="selectedDeviceNewTry")
-          svg(
-            ng-show="selectedDevice == 'desktop'",
-            ng-attr-width="{{deviceDimensions[selectedDevice][0]}}",
-            ng-attr-height="{{deviceDimensions[selectedDevice][1]}}",
-            x="0", y="0",
-            viewbox='0 0 525.9 354'
-            class="device-preview desktop")
+        //-
+        .row(class="device-preview-2" ng-class="isFirstVisible() ? 'hide-device-preview' : 'show-device-preview'")
+          //-
+          //- DESKTOP
+          //-
+          .device-container(ng-class="selectedDeviceNewTry")
             svg(
-              x="50" y="17" width="428" height="320" viewbox="0 0 136 102" preserveAspectRatio="xMinYMin slice")
-              rect(fill="white" xlink:href="" x="0" y="0" width="135" height="102")
+              ng-show="selectedDevice == 'desktop'",
+              ng-attr-width="{{deviceDimensions[selectedDevice][0]}}",
+              ng-attr-height="{{deviceDimensions[selectedDevice][1]}}",
+              x="0", y="0",
+              viewbox='0 0 525.9 354'
+              class="device-preview desktop")
+              svg(
+                x="50" y="17" width="428" height="320" viewbox="0 0 136 102" preserveAspectRatio="xMinYMin slice")
+                rect(fill="white" xlink:href="" x="0" y="0" width="135" height="102")
 
-              //- sidebar image
-              image(xlink:href='img/vip-logo.png', x="13", y="5", width="15", height="15")
+                //- sidebar image
+                image(xlink:href='img/vip-logo.png', x="13", y="5", width="15", height="15")
 
-              //- sidebar address
-              rect(fill="{{ selectedTileBarColor }}" x="0" y="20" width="45" height="8")
-              text(fill="#fff" x="1" y="25" font-size="3.7px") Registered Voter Address
-              text(fill="#000" x="1" y="28" font-size="3.7px")
-                tspan(x="3" dy="1.4em") 36 E. 20th St.
-                tspan(x="3" dy="1.4em") New York, NY 10003
+                //- sidebar address
+                rect(fill="{{ selectedTileBarColor }}" x="0" y="20" width="45" height="8")
+                text(fill="#fff" x="1" y="25" font-size="3.7px") Registered Voter Address
+                text(fill="#000" x="1" y="28" font-size="3.7px")
+                  tspan(x="3" dy="1.4em") 36 E. 20th St.
+                  tspan(x="3" dy="1.4em") New York, NY 10003
 
-              //- sidebar election
-              rect(fill="{{ selectedTileBarColor }}" x="0" y="40" width="45" height="8")
-              text(fill="#fff" x="1" y="45" font-size="3.7px") Elections
-              text(fill="#000" x="1" y="48" font-size="3.7px")
-                tspan(x="1" dy="1.4em" font-size="4px") General Election 2014
-                tspan(x="1" dy="1.4em" font-size="4px") New York State
-                tspan(x="1" dy="1.4em" font-size="2.7px") June 17th, 2015
+                //- sidebar election
+                rect(fill="{{ selectedTileBarColor }}" x="0" y="40" width="45" height="8")
+                text(fill="#fff" x="1" y="45" font-size="3.7px") Elections
+                text(fill="#000" x="1" y="48" font-size="3.7px")
+                  tspan(x="1" dy="1.4em" font-size="4px") General Election 2014
+                  tspan(x="1" dy="1.4em" font-size="4px") New York State
+                  tspan(x="1" dy="1.4em" font-size="2.7px") June 17th, 2015
 
-              //- sidebar tabs
-              rect(fill="{{ selectedTileBarColor }}" x="0" y="65" width="45" height="8")
-              text(fill="#fff" x="1" y="70" font-size="3.3px") Polling Location
-              rect(fill="{{ selectedTileBarColor }}" x="0" y="73" width="45" height="8")
-              text(fill="#fff" x="1" y="78" font-size="3.3px") Voter Resources
-              rect(fill="{{ selectedTileBarColor }}" x="0" y="81" width="45" height="8")
-              text(fill="#fff" x="1" y="86" font-size="3.3px") Ballot Information
+                //- sidebar tabs
+                rect(fill="{{ selectedTileBarColor }}" x="0" y="65" width="45" height="8")
+                text(fill="#fff" x="1" y="70" font-size="3.3px") Polling Location
+                rect(fill="{{ selectedTileBarColor }}" x="0" y="73" width="45" height="8")
+                text(fill="#fff" x="1" y="78" font-size="3.3px") Voter Resources
+                rect(fill="{{ selectedTileBarColor }}" x="0" y="81" width="45" height="8")
+                text(fill="#fff" x="1" y="86" font-size="3.3px") Ballot Information
 
-              rect(fill="{{ selectedSecondaryTileBarColor }}" x="0" y="89" width="45" height="45")
+                rect(fill="{{ selectedSecondaryTileBarColor }}" x="0" y="89" width="45" height="45")
 
-              image(xlink:href="img/map.jpg" x="40" y="0" height="102px" width="102px")
+                image(xlink:href="img/map.jpg" x="40" y="0" height="102px" width="102px")
 
-              //- page footer
-              rect(fill="#333" x="0" y="97" width="140" height="6")
+                //- page footer
+                rect(fill="#333" x="0" y="97" width="140" height="6")
 
 
-              //- alert text
-              rect(ng-show="alertTextEnabled" fill="#f00" x="0" y="0" width="145" height="10")
-              text(ng-show="alertTextEnabled" x="2" y="7" font-size="5px" fill="#fff") {{ alertText }}
+                //- alert text
+                rect(ng-show="alertTextEnabled" fill="#f00" x="0" y="0" width="145" height="10")
+                text(ng-show="alertTextEnabled" x="2" y="7" font-size="5px" fill="#fff") {{ alertText }}
 
-              image(xlink:href='' trustedresourceurl='{{logoUrl}}')
-        //-
-        //- TABLET
-        //-
-        .device-container(ng-class="selectedDeviceNewTry")
-          svg(
-            ng-show="selectedDevice == 'tablet'",
-            ng-attr-width="{{deviceDimensions[selectedDevice][0]}}",
-            ng-attr-height="{{deviceDimensions[selectedDevice][1]}}",
-            x='0px', y='0px',
-            viewbox='0 0 525.9 354'
-            class="device-preview tablet")
-            path(d='M525.9,328.1V25.9C525.9,11.6,514.4,0,500,0H25.9C11.6,0,0,11.6,0,25.9v302.1C0,342.4,11.6,354,25.9,354H500\
-              C514.3,354.1,525.9,342.4,525.9,328.1z M501.1,177c0,1.9-1.5,3.2-3.2,3.2c-1.7,0-3.2-1.5-3.2-3.2s1.5-3.2,3.2-3.2\
-              C499.6,173.8,501.1,175.2,501.1,177z M12.2,177c0-7.2,5.9-13.2,13.2-13.2s13.2,5.9,13.2,13.2s-5.9,13.2-13.2,13.2\
-              S12.2,184.2,12.2,177z M52.2,336.4c-0.5,0-0.9-0.4-0.9-0.9V18.6c0-0.5,0.4-0.9,0.9-0.9h421.9c0.5,0,0.9,0.4,0.9,0.9v316.9\
-              c0,0.5-0.4,0.9-0.9,0.9H52.2z')
+                image(xlink:href='' trustedresourceurl='{{logoUrl}}')
+          //-
+          //- TABLET
+          //-
+          .device-container(ng-class="selectedDeviceNewTry")
             svg(
-              x="50" y="17" width="428" height="320" viewbox="0 0 136 102" preserveAspectRatio="xMinYMin slice")
-              rect(fill="white" xlink:href="" x="0" y="0" width="135" height="102")
+              ng-show="selectedDevice == 'tablet'",
+              ng-attr-width="{{deviceDimensions[selectedDevice][0]}}",
+              ng-attr-height="{{deviceDimensions[selectedDevice][1]}}",
+              x='0px', y='0px',
+              viewbox='0 0 525.9 354'
+              class="device-preview tablet")
+              path(d='M525.9,328.1V25.9C525.9,11.6,514.4,0,500,0H25.9C11.6,0,0,11.6,0,25.9v302.1C0,342.4,11.6,354,25.9,354H500\
+                C514.3,354.1,525.9,342.4,525.9,328.1z M501.1,177c0,1.9-1.5,3.2-3.2,3.2c-1.7,0-3.2-1.5-3.2-3.2s1.5-3.2,3.2-3.2\
+                C499.6,173.8,501.1,175.2,501.1,177z M12.2,177c0-7.2,5.9-13.2,13.2-13.2s13.2,5.9,13.2,13.2s-5.9,13.2-13.2,13.2\
+                S12.2,184.2,12.2,177z M52.2,336.4c-0.5,0-0.9-0.4-0.9-0.9V18.6c0-0.5,0.4-0.9,0.9-0.9h421.9c0.5,0,0.9,0.4,0.9,0.9v316.9\
+                c0,0.5-0.4,0.9-0.9,0.9H52.2z')
+              svg(
+                x="50" y="17" width="428" height="320" viewbox="0 0 136 102" preserveAspectRatio="xMinYMin slice")
+                rect(fill="white" xlink:href="" x="0" y="0" width="135" height="102")
 
-              //- sidebar image
-              image(xlink:href='img/vip-logo.png', x="13", y="5", width="15", height="15")
+                //- sidebar image
+                image(xlink:href='img/vip-logo.png', x="13", y="5", width="15", height="15")
 
-              //- sidebar address
-              rect(fill="{{ selectedTileBarColor }}" x="0" y="20" width="45" height="8")
-              text(fill="#fff" x="1" y="25" font-size="3.7px") Registered Voter Address
-              text(fill="#000" x="1" y="28" font-size="3.7px")
-                tspan(x="3" dy="1.4em") 36 E. 20th St.
-                tspan(x="3" dy="1.4em") New York, NY 10003
+                //- sidebar address
+                rect(fill="{{ selectedTileBarColor }}" x="0" y="20" width="45" height="8")
+                text(fill="#fff" x="1" y="25" font-size="3.7px") Registered Voter Address
+                text(fill="#000" x="1" y="28" font-size="3.7px")
+                  tspan(x="3" dy="1.4em") 36 E. 20th St.
+                  tspan(x="3" dy="1.4em") New York, NY 10003
 
-              //- sidebar election
-              rect(fill="{{ selectedTileBarColor }}" x="0" y="40" width="45" height="8")
-              text(fill="#fff" x="1" y="45" font-size="3.7px") Elections
-              text(fill="#000" x="1" y="48" font-size="3.7px")
-                tspan(x="1" dy="1.4em" font-size="4px") General Election 2014
-                tspan(x="1" dy="1.4em" font-size="4px") New York State
-                tspan(x="1" dy="1.4em" font-size="2.7px") June 17th, 2015
+                //- sidebar election
+                rect(fill="{{ selectedTileBarColor }}" x="0" y="40" width="45" height="8")
+                text(fill="#fff" x="1" y="45" font-size="3.7px") Elections
+                text(fill="#000" x="1" y="48" font-size="3.7px")
+                  tspan(x="1" dy="1.4em" font-size="4px") General Election 2014
+                  tspan(x="1" dy="1.4em" font-size="4px") New York State
+                  tspan(x="1" dy="1.4em" font-size="2.7px") June 17th, 2015
 
-              //- sidebar tabs
-              rect(fill="{{ selectedTileBarColor }}" x="0" y="65" width="45" height="8")
-              text(fill="#fff" x="1" y="70" font-size="3.3px") Polling Location
-              rect(fill="{{ selectedTileBarColor }}" x="0" y="73" width="45" height="8")
-              text(fill="#fff" x="1" y="78" font-size="3.3px") Voter Resources
-              rect(fill="{{ selectedTileBarColor }}" x="0" y="81" width="45" height="8")
-              text(fill="#fff" x="1" y="86" font-size="3.3px") Ballot Information
+                //- sidebar tabs
+                rect(fill="{{ selectedTileBarColor }}" x="0" y="65" width="45" height="8")
+                text(fill="#fff" x="1" y="70" font-size="3.3px") Polling Location
+                rect(fill="{{ selectedTileBarColor }}" x="0" y="73" width="45" height="8")
+                text(fill="#fff" x="1" y="78" font-size="3.3px") Voter Resources
+                rect(fill="{{ selectedTileBarColor }}" x="0" y="81" width="45" height="8")
+                text(fill="#fff" x="1" y="86" font-size="3.3px") Ballot Information
 
-              rect(fill="{{ selectedSecondaryTileBarColor }}" x="0" y="89" width="45" height="45")
+                rect(fill="{{ selectedSecondaryTileBarColor }}" x="0" y="89" width="45" height="45")
 
-              image(xlink:href="img/map.jpg" x="40" y="0" height="102px" width="102px")
+                image(xlink:href="img/map.jpg" x="40" y="0" height="102px" width="102px")
 
-              //- page footer
-              rect(fill="#333" x="0" y="97" width="140" height="6")
+                //- page footer
+                rect(fill="#333" x="0" y="97" width="140" height="6")
 
 
-              //- alert text
-              rect(ng-show="alertTextEnabled" fill="#f00" x="0" y="0" width="145" height="10")
-              text(ng-show="alertTextEnabled" x="2" y="7" font-size="5px" fill="#fff") {{ alertText }}
+                //- alert text
+                rect(ng-show="alertTextEnabled" fill="#f00" x="0" y="0" width="145" height="10")
+                text(ng-show="alertTextEnabled" x="2" y="7" font-size="5px" fill="#fff") {{ alertText }}
 
-              image(xlink:href='' trustedresourceurl='{{logoUrl}}')
-        //-
-        //- PHONE
-        //-
-        .device-container(ng-class="selectedDeviceNewTry" ng-init="selectedDevice = 'phone'")
-          svg(
-            ng-show="selectedDevice == 'phone'",
-            ng-attr-width="{{deviceDimensions[selectedDevice][0]}}",
-            ng-attr-height="{{deviceDimensions[selectedDevice][1]}}",
-            x='0px', y='0px',
-            viewbox='0 0 347.8 713.9'
-            class="device-preview phone")
-            g
-              circle(cx='174.6', cy='665.3', r='23.9')
-              path(d='M348.8,151.4h-1.1V52.8C347.8,23.7,324.1,0,295,0H54.9C25.8,0,2.1,23.7,2.1,52.8v37.3H1.1\
-              c-0.6,0-1.1,0.5-1.1,1.1v26.8c0,0.6,0.5,1.1,1.1,1.1h1.1v32.4H1.1c-0.6,0-1.1,0.5-1.1,1.1v50.7c0,0.6,0.5,1.1,1.1,1.1h1.1v12H1.1\
-              c-0.6,0-1.1,0.5-1.1,1.1v50.7c0,0.6,0.5,1.1,1.1,1.1h1.1v392.1c0,29.1,23.7,52.8,52.8,52.8H295c29.1,0,52.8-23.7,52.8-52.8V204.2\
-              h1.1c0.6,0,1.1-0.5,1.1-1.1v-50.7C349.9,151.9,349.4,151.4,348.8,151.4z M175.3,19c2,0,3.5,1.5,3.5,3.5s-1.5,3.5-3.5,3.5\
-              c-2,0-3.5-1.5-3.5-3.5S173.3,19,175.3,19z M150,42.2h50.7c1.5,0,2.8,1.3,2.8,2.8s-1.3,2.8-2.8,2.8H150c-1.5,0-2.8-1.3-2.8-2.8\
-              S148.4,42.2,150,42.2z M119.7,39.4c3.1,0,5.6,2.5,5.6,5.6s-2.5,5.6-5.6,5.6s-5.6-2.5-5.6-5.6S116.6,39.4,119.7,39.4z M174.6,692\
-              c-14.8,0-26.8-12-26.8-26.8c0-14.8,12-26.8,26.8-26.8s26.8,12,26.8,26.8C201.3,680.1,189.4,692,174.6,692z M326.7,625.9H23.2V86.6\
-              h303.4V625.9z')
+                image(xlink:href='' trustedresourceurl='{{logoUrl}}')
+          //-
+          //- PHONE
+          //-
+          .device-container(ng-class="selectedDeviceNewTry" ng-init="selectedDevice = 'phone'")
             svg(
-              x="24", y="87")
-              rect(fill="#fff", x="0", y="0", width="303", height="539")
+              ng-show="selectedDevice == 'phone'",
+              ng-attr-width="{{deviceDimensions[selectedDevice][0]}}",
+              ng-attr-height="{{deviceDimensions[selectedDevice][1]}}",
+              x='0px', y='0px',
+              viewbox='0 0 347.8 713.9'
+              class="device-preview phone")
+              g
+                circle(cx='174.6', cy='665.3', r='23.9')
+                path(d='M348.8,151.4h-1.1V52.8C347.8,23.7,324.1,0,295,0H54.9C25.8,0,2.1,23.7,2.1,52.8v37.3H1.1\
+                c-0.6,0-1.1,0.5-1.1,1.1v26.8c0,0.6,0.5,1.1,1.1,1.1h1.1v32.4H1.1c-0.6,0-1.1,0.5-1.1,1.1v50.7c0,0.6,0.5,1.1,1.1,1.1h1.1v12H1.1\
+                c-0.6,0-1.1,0.5-1.1,1.1v50.7c0,0.6,0.5,1.1,1.1,1.1h1.1v392.1c0,29.1,23.7,52.8,52.8,52.8H295c29.1,0,52.8-23.7,52.8-52.8V204.2\
+                h1.1c0.6,0,1.1-0.5,1.1-1.1v-50.7C349.9,151.9,349.4,151.4,348.8,151.4z M175.3,19c2,0,3.5,1.5,3.5,3.5s-1.5,3.5-3.5,3.5\
+                c-2,0-3.5-1.5-3.5-3.5S173.3,19,175.3,19z M150,42.2h50.7c1.5,0,2.8,1.3,2.8,2.8s-1.3,2.8-2.8,2.8H150c-1.5,0-2.8-1.3-2.8-2.8\
+                S148.4,42.2,150,42.2z M119.7,39.4c3.1,0,5.6,2.5,5.6,5.6s-2.5,5.6-5.6,5.6s-5.6-2.5-5.6-5.6S116.6,39.4,119.7,39.4z M174.6,692\
+                c-14.8,0-26.8-12-26.8-26.8c0-14.8,12-26.8,26.8-26.8s26.8,12,26.8,26.8C201.3,680.1,189.4,692,174.6,692z M326.7,625.9H23.2V86.6\
+                h303.4V625.9z')
+              svg(
+                x="24", y="87")
+                rect(fill="#fff", x="0", y="0", width="303", height="539")
 
-              rect(fill="{{ selectedTileBarColor}}", x="0", y="0", width="303", height="40")
-              text(x="10" y="30" fill="#fff"  font-size="25px") Elections
-              text(x="280" y="30" fill="#fff" font-size="25px") +
+                rect(fill="{{ selectedTileBarColor}}", x="0", y="0", width="303", height="40")
+                text(x="10" y="30" fill="#fff"  font-size="25px") Elections
+                text(x="280" y="30" fill="#fff" font-size="25px") +
 
-              text(x="10" y="80" fill="#333" font-size="29px") General Election 2014
-              text(x="10" y="110" fill="#333" font-size="20px") Tuesday, November 4th, 2014
+                text(x="10" y="80" fill="#333" font-size="29px") General Election 2014
+                text(x="10" y="110" fill="#333" font-size="20px") Tuesday, November 4th, 2014
 
-              rect(fill="{{ selectedTileBarColor}}", x="0", y="130", width="303", height="40")
-              text(x="10" y="160" fill="#fff"  font-size="25px") Polling Locations
-              text(x="280" y="160" fill="#fff" font-size="25px") +
+                rect(fill="{{ selectedTileBarColor}}", x="0", y="130", width="303", height="40")
+                text(x="10" y="160" fill="#fff"  font-size="25px") Polling Locations
+                text(x="280" y="160" fill="#fff" font-size="25px") +
 
-              text(x="10" y="205" fill="#333" font-size="27px") Andrew Heiskell Library
-              text(x="10" y="230" fill="#333" font-size="20px") 40 West 20th Street
-              text(x="10" y="255" fill="#333" font-size="20px") New York, NY 10011
+                text(x="10" y="205" fill="#333" font-size="27px") Andrew Heiskell Library
+                text(x="10" y="230" fill="#333" font-size="20px") 40 West 20th Street
+                text(x="10" y="255" fill="#333" font-size="20px") New York, NY 10011
 
-              image(xlink:href='img/map-phone.png' x="0" y="235" width="303" height="200")
+                image(xlink:href='img/map-phone.png' x="0" y="235" width="303" height="200")
 
-              rect(fill="{{ selectedTileBarColor}}", x="0", y="405", width="303", height="40")
-              text(x="10" y="430" fill="#fff"  font-size="25px") More Resources
-              text(x="280" y="430" fill="#fff" font-size="25px") +
+                rect(fill="{{ selectedTileBarColor}}", x="0", y="405", width="303", height="40")
+                text(x="10" y="430" fill="#fff"  font-size="25px") More Resources
+                text(x="280" y="430" fill="#fff" font-size="25px") +
 
-              text(x="10" y="445" fill="#333" font-size="16.5px" width="293px")
-                tspan(x="10" dy="1.4em") Information on how to navigate the
-                tspan(x="10" dy="1.4em") elections process, including deadlines,
-                tspan(x="10" dy="1.4em") Voter ID information, and registration
-                tspan(x="10" dy="1.4em") links.
+                text(x="10" y="445" fill="#333" font-size="16.5px" width="293px")
+                  tspan(x="10" dy="1.4em") Information on how to navigate the
+                  tspan(x="10" dy="1.4em") elections process, including deadlines,
+                  tspan(x="10" dy="1.4em") Voter ID information, and registration
+                  tspan(x="10" dy="1.4em") links.
 
 
 

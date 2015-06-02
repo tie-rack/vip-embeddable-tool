@@ -18,12 +18,15 @@
 .dropdown ul {
   margin: 0;
   max-height: 0;
-  overflow-y: auto;
+  overflow-y: scroll;
   padding: 0;
   transition: max-height .25s ease;
 }
 .dropdown ul.open {
   max-height: 138px;
+}
+.dropdown ul.no-scrollbar {
+  overflow: hidden;
 }
 .dropdown li {
   background: #fff;
@@ -32,7 +35,7 @@
   border-top-left-radius: 2px;
   border-top-right-radius: 2px;
   list-style: none;
-  border-bottom: 1px solid lightgray;
+  border-top: 1px solid lightgray;
   border-radius: 0;
 }
 .dropdown li:last-child {
@@ -89,7 +92,7 @@
   border-top: 13px solid #fff;
   height: 0;
   position: relative;
-  top: 18px;
+  top: 15px;
   width: 0;
 }
 

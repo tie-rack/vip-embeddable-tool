@@ -67,23 +67,23 @@ head
                 ng-click='$parent.showThemes = !showThemes')
                 | {{ themeOption }}
 
-      .preview
-        .dropdown.small
-          .dropdowns(
-            ng-click='showDeviceDropdown = !showDeviceDropdown')
-            span {{ selectedDevice || "Desktop" }}
+      //- .preview
+      //-   .dropdown.small
+      //-     .dropdowns(
+      //-       ng-click='showDeviceDropdown = !showDeviceDropdown')
+      //-       span {{ selectedDevice || "Desktop" }}
 
-            .dropdown-button
-              span.dropdown-arrow
+      //-       .dropdown-button
+      //-         span.dropdown-arrow
 
-          ul(
-            ng-class='{open: showDeviceDropdown}',
-            ng-init="deviceOptions = ['desktop', 'tablet', 'phone']")
-            li(
-              ng-repeat='option in deviceOptions',
-              ng-mouseover='$parent.selectedDevice = option',
-              ng-click='$parent.showDeviceDropdown = !showDeviceDropdown')
-              {{ option }}
+      //-     ul(
+      //-       ng-class='{open: showDeviceDropdown}',
+      //-       ng-init="deviceOptions = ['desktop', 'tablet', 'phone']")
+      //-       li(
+      //-         ng-repeat='option in deviceOptions',
+      //-         ng-mouseover='$parent.selectedDevice = option',
+      //-         ng-click='$parent.showDeviceDropdown = !showDeviceDropdown')
+      //-         {{ option }}
 
       .navigation
         button.prev(ng-click='step = step - 1') Prev
@@ -359,7 +359,7 @@ head
       .navigation
         button.prev(ng-click='step = step - 1') Prev
 
-    .right.preview(ng-init="deviceDimensions = { desktop: [320, 240], tablet: [320, 240], phone: [165, 285] }")
+    .right.preview(ng-init="deviceDimensions = { desktop: [320, 240], tablet: [320, 240], phone: [165, 285] }; deviceOptions = ['desktop', 'tablet', 'phone']")
       .dropdown.small
         .dropdowns(
           ng-click='showDeviceDropdown = !showDeviceDropdown')
@@ -430,7 +430,7 @@ head
       //- DEVICE PREVIEW - 1
       //-
       //-
-      .row(ng-init="selectedDevice='tablet'")
+      .row(ng-init="selectedDevice='tablet'" class="device-preview-1" ng-class="isFirstVisible() ? 'show-device-preview' : 'hide-device-preview'")
         //-
         //- DESKTOP
         //-
@@ -440,7 +440,8 @@ head
             ng-attr-width="{{deviceDimensions[selectedDevice][0]}}",
             ng-attr-height="{{deviceDimensions[selectedDevice][1]}}",
             x="0", y="0",
-            viewbox='0 0 525.9 354')
+            viewbox='0 0 525.9 354'
+            class="device-preview desktop")
             svg(
               x="50", y="17", width="428", height="320", viewbox="0 0 136 102", preserveAspectRatio="xMinYMin slice")
               rect(fill="#efefef", xlink:href="", x="0", y="0", width="135", height="102")
@@ -459,7 +460,8 @@ head
             ng-attr-width="{{deviceDimensions[selectedDevice][0]}}",
             ng-attr-height="{{deviceDimensions[selectedDevice][1]}}",
             x='0px', y='0px',
-            viewbox='0 0 525.9 354')
+            viewbox='0 0 525.9 354'
+            class="device-preview tablet")
             path(d='M525.9,328.1V25.9C525.9,11.6,514.4,0,500,0H25.9C11.6,0,0,11.6,0,25.9v302.1C0,342.4,11.6,354,25.9,354H500\
               C514.3,354.1,525.9,342.4,525.9,328.1z M501.1,177c0,1.9-1.5,3.2-3.2,3.2c-1.7,0-3.2-1.5-3.2-3.2s1.5-3.2,3.2-3.2\
               C499.6,173.8,501.1,175.2,501.1,177z M12.2,177c0-7.2,5.9-13.2,13.2-13.2s13.2,5.9,13.2,13.2s-5.9,13.2-13.2,13.2\
@@ -483,7 +485,8 @@ head
             ng-attr-width="{{deviceDimensions[selectedDevice][0]}}",
             ng-attr-height="{{deviceDimensions[selectedDevice][1]}}",
             x='0px', y='0px',
-            viewbox='0 0 347.8 713.9')
+            viewbox='0 0 347.8 713.9'
+            class="device-preview phone")
             g
               circle(cx='174.6', cy='665.3', r='23.9')
               path(d='M348.8,151.4h-1.1V52.8C347.8,23.7,324.1,0,295,0H54.9C25.8,0,2.1,23.7,2.1,52.8v37.3H1.1\
@@ -508,7 +511,7 @@ head
       //- DEVICE PREVIEW - 2
       //-
       //-
-      .row
+      .row(class="device-preview-2" ng-class="isFirstVisible() ? 'hide-device-preview' : 'show-device-preview'")
         //-
         //- DESKTOP
         //-
@@ -518,7 +521,8 @@ head
             ng-attr-width="{{deviceDimensions[selectedDevice][0]}}",
             ng-attr-height="{{deviceDimensions[selectedDevice][1]}}",
             x="0", y="0",
-            viewbox='0 0 525.9 354')
+            viewbox='0 0 525.9 354'
+            class="device-preview desktop")
             svg(
               x="50" y="17" width="428" height="320" viewbox="0 0 136 102" preserveAspectRatio="xMinYMin slice")
               rect(fill="white" xlink:href="" x="0" y="0" width="135" height="102")
@@ -571,7 +575,8 @@ head
             ng-attr-width="{{deviceDimensions[selectedDevice][0]}}",
             ng-attr-height="{{deviceDimensions[selectedDevice][1]}}",
             x='0px', y='0px',
-            viewbox='0 0 525.9 354')
+            viewbox='0 0 525.9 354'
+            class="device-preview tablet")
             path(d='M525.9,328.1V25.9C525.9,11.6,514.4,0,500,0H25.9C11.6,0,0,11.6,0,25.9v302.1C0,342.4,11.6,354,25.9,354H500\
               C514.3,354.1,525.9,342.4,525.9,328.1z M501.1,177c0,1.9-1.5,3.2-3.2,3.2c-1.7,0-3.2-1.5-3.2-3.2s1.5-3.2,3.2-3.2\
               C499.6,173.8,501.1,175.2,501.1,177z M12.2,177c0-7.2,5.9-13.2,13.2-13.2s13.2,5.9,13.2,13.2s-5.9,13.2-13.2,13.2\
@@ -629,7 +634,8 @@ head
             ng-attr-width="{{deviceDimensions[selectedDevice][0]}}",
             ng-attr-height="{{deviceDimensions[selectedDevice][1]}}",
             x='0px', y='0px',
-            viewbox='0 0 347.8 713.9')
+            viewbox='0 0 347.8 713.9'
+            class="device-preview phone")
             g
               circle(cx='174.6', cy='665.3', r='23.9')
               path(d='M348.8,151.4h-1.1V52.8C347.8,23.7,324.1,0,295,0H54.9C25.8,0,2.1,23.7,2.1,52.8v37.3H1.1\
@@ -757,9 +763,9 @@ head
 
 
 
-      .bottom
-        ul.options
-          li.option.selected Save
-          li.option.selected Generate Code
+    .bottom
+      ul.options
+        li.option.selected Save
+        li.option.selected Generate Code
 
     script(src='js/app.js')

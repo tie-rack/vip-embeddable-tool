@@ -41,7 +41,11 @@ input:focus {
 
 /* styling for panels */
 .container {
-  height: 100%;
+  height: 50%;
+
+  .preview {
+    display: none;
+  }
 }
 
 .form {
@@ -161,6 +165,8 @@ svg.active {
   }
 }
 
+
+
 .device-frame {
   overflow: visible !important;
   pointer-events: none;
@@ -216,7 +222,8 @@ svg.active {
 }
 
 .preview.right {
-  display: none;
+  // display: none;
+  padding: 1px 5px;
 }
 
 .row {
@@ -322,7 +329,42 @@ svg.active {
   }
 }
 
+@media screen and (max-width: 480px) {
+  .devices {
+    display: none;
+  }
 
+  .device-container {
+    left: 50%;
+    position: absolute;
+    bottom: 40px;
+  }
+
+  .show-device-preview {
+    display: block;
+  }
+
+  .hide-device-preview {
+    display: none;
+  }
+
+  .desktop,
+  .tablet,
+  .phone {
+    height: 140px;
+    position: relative;
+    pointer-events: none;
+  }
+
+  .desktop,
+  .tablet {
+    left: -160px;
+  }
+
+  .phone {
+    left: -80px;
+  }
+}
 
 
 

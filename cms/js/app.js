@@ -48,6 +48,10 @@ app.controller('ApplicationController', function($scope, $window, $sce) {
 
   $scope.emailCode = function () {
     $window.location = "mailto:email@address.com?&subject=Your%20Embed%20Code&body=" + window.encodeURI($scope.getTextToCopy());
+  };
+
+  $scope.isFirstVisible = function () {
+    return ([2, 3, 5, 8].indexOf($scope.step) != -1)
   }
 });
 

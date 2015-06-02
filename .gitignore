@@ -2,4 +2,6 @@
 .sass-cache
 build
 Desktop.ini
-node_modules
+node_modules/
+cms/*.html
+cms/css

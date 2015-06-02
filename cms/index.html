@@ -32,7 +32,11 @@
             <div ng-click="showThemes = !showThemes" class="dropdowns"><span>{{ selectedTheme  || "Theme One" }}</span>
               <div class="dropdown-button"><span class="dropdown-arrow"></span></div>
             </div>
+<<<<<<< HEAD
             <ul ng-class="{open: showThemes}" ng-init="themeOptions = ['Theme One', 'Theme Two', 'Theme Three']" class="no-scrollbar">
+=======
+            <ul ng-class="{open: showThemes}" ng-init="themeOptions = ['Theme One', 'Theme Two', 'Theme Three']" class="themes">
+>>>>>>> cea23d19162151db13dc4faba2d54e91c11c21d3
               <li ng-repeat="themeOption in themeOptions" ng-mouseover="$parent.selectedTheme = themeOption" ng-click="$parent.showThemes = !showThemes">{{ themeOption }}</li>
             </ul>
           </div>
@@ -127,7 +131,11 @@
             <div ng-click="showFormats = !showFormats" class="dropdowns"><span>{{ selectedFormat  || "Select a format" }}</span>
               <div class="dropdown-button"><span class="dropdown-arrow"></span></div>
             </div>
+<<<<<<< HEAD
             <ul ng-class="{open: showFormats}" ng-init="formatOptions = ['640x480', '320x240', 'Responsive']" class="no-scrollbar">
+=======
+            <ul ng-class="{open: showFormats}" ng-init="formatOptions = ['640x480', '320x240', 'Responsive']" class="format">
+>>>>>>> cea23d19162151db13dc4faba2d54e91c11c21d3
               <li ng-repeat="formatOption in formatOptions" ng-mouseover="$parent.selectedFormat = formatOption" ng-click="$parent.showFormats = !showFormats">{{ formatOption }}</li>
             </ul>
           </div>

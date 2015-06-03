@@ -1,0 +1,14 @@
+.dropdown
+  .dropdowns(ng-click='showDropdown = !showDropdown')
+    span {{ selectedValue  || options[0] }}
+
+    .dropdown-button
+      span.dropdown-arrow
+
+  ul(
+    ng-class="{open: showDropdown, 'no-scrollbar': options.length < 4}")
+    li(
+      ng-repeat='option in options',
+      ng-mouseover='setValue({value: option}); $parent.selectedValue = option',
+      ng-click='$parent.showDropdown = !showDropdown')
+      | {{ option }}

@@ -18,6 +18,28 @@ app.controller('ApplicationController', function($scope, $window, $sce) {
     'Chinese': 'zh'
   };
 
+  $scope.languageNames = Object.keys($scope.languages)
+
+  $scope.themes = ['Theme One', 'Theme Two', 'Theme Three'];
+
+  $scope.states = [ 'Default', 'Alabama', 'Alaska', 'American Samoa', 'Arizona', 'Arkansas', 'California', 'Colorado', 'Connecticut', 'Delaware', 'District Of Columbia', 'Federated States Of Micronesia', 'Florida', 'Georgia', 'Guam', 'Hawaii', 'Idaho', 'Illinois', 'Indiana', 'Iowa', 'Kansas', 'Kentucky', 'Louisiana', 'Maine', 'Marshall Islands', 'Maryland', 'Massachusetts', 'Michigan', 'Minnesota', 'Mississippi', 'Missouri', 'Montana', 'Nebraska', 'Nevada', 'New Hampshire', 'New Jersey', 'New Mexico', 'New York', 'North Carolina', 'North Dakota', 'Northern Mariana Islands', 'Ohio', 'Oklahoma', 'Oregon', 'Palau', 'Pennsylvania', 'Puerto Rico', 'Rhode Island', 'South Carolina', 'South Dakota', 'Tennessee', 'Texas', 'Utah', 'Vermont', 'Virgin Islands', 'Virginia', 'Washington', 'West Virginia', 'Wisconsin', 'Wyoming' ];
+
+  $scope.setFormat = function (value) {
+    $scope.selectedFormat = value;
+  }
+
+  $scope.setLanguage = function (value) {
+    $scope.selectedLanguage = value;
+  }
+
+  $scope.setTheme = function (value) {
+    $scope.selectedTheme = value;
+  }
+
+  $scope.setState = function (value) {
+    $scope.selectedState = value;
+  }
+
   $scope.startOver = function () {
     $scope.step = 0;
     $scope.selectedTheme = "Theme One";
@@ -75,6 +97,32 @@ app.directive('resize', function ($window) {
     w.bind('resize', function () {
       scope.$apply();
     });
+  }
+});
+
+app.directive('dropdown', function () {
+  return {
+    templateUrl: '../partials/directives/dropdown.html',
+    restrict: 'E',
+    scope: {
+      defaultText: '@',
+      options: '=',
+      setValue: '&'
+    }
+  }
+});
+
+app.directive('navigation', function () {
+  return {
+    templateUrl: '../partials/directives/navigation.html',
+    restrict: 'E'
+  }
+});
+
+app.directive('heading', function () {
+  return {
+    templateUrl: '../partials/directives/header.html',
+    restrict: 'E'
   }
 });
 

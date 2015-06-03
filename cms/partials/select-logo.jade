@@ -12,7 +12,7 @@
           ng-repeat='logoOption in logoOptions',
           ng-class='{selected: $parent.selectedLogoOption == logoOption}',
           ng-click='$parent.selectedLogoOption = logoOption')
-          {{ logoOption }}
+          | {{ logoOption }}
 
       .logo-url(ng-show="selectedLogoOption == 'Logo'")
         h2.subtitle
@@ -21,27 +21,9 @@
         input(
           class='url-input' type='text', name='url', ng-model='logoUrl')
 
-      .dropdown(
-        ng-show="selectedLogoOption == 'State Seal'")
-        .dropdowns(
-          ng-click='showStates = !showStates')
-          span {{ selectedState || "Select your state" }}
-
-          .dropdown-button
-            span.dropdown-arrow
-
-        ul(
-          ng-class='{open: showStates}',
-          ng-init="states = [ 'Default', 'Alabama', 'Alaska', 'American Samoa', 'Arizona', 'Arkansas', 'California', 'Colorado', 'Connecticut', 'Delaware', 'District Of Columbia', 'Federated States Of Micronesia', 'Florida', 'Georgia', 'Guam', 'Hawaii', 'Idaho', 'Illinois', 'Indiana', 'Iowa', 'Kansas', 'Kentucky', 'Louisiana', 'Maine', 'Marshall Islands', 'Maryland', 'Massachusetts', 'Michigan', 'Minnesota', 'Mississippi', 'Missouri', 'Montana', 'Nebraska', 'Nevada', 'New Hampshire', 'New Jersey', 'New Mexico', 'New York', 'North Carolina', 'North Dakota', 'Northern Mariana Islands', 'Ohio', 'Oklahoma', 'Oregon', 'Palau', 'Pennsylvania', 'Puerto Rico', 'Rhode Island', 'South Carolina', 'South Dakota', 'Tennessee', 'Texas', 'Utah', 'Vermont', 'Virgin Islands', 'Virginia', 'Washington', 'West Virginia', 'Wisconsin', 'Wyoming' ]")
-          li(
-            ng-repeat='state in states',
-            ng-mouseover='$parent.selectedState = state',
-            ng-click='$parent.showStates = !showStates')
-            | {{ state }}
-
-  .navigation
-    button.prev(
-      ng-click='step = step - 1') Prev
-
-    button.next(
-      ng-click='step = step + 1') Next
+      dropdown(
+        ng-show="selectedLogoOption == 'State Seal'"
+        default-text="Default"
+        options="states"
+        set-value="setState(value)"
+      )

@@ -15,7 +15,7 @@
         ng-click='$parent.showDeviceDropdown = !showDeviceDropdown')
         {{ option }}
 
-  include .partials/devices/device-icons.jade
+  include ./devices/device-icons.jade
 
   //-
   //- SEARCH SCREEN PREVIEWS:
@@ -24,11 +24,11 @@
   .device-wrapper
     .row(ng-init="selectedDevice='tablet'" class="device-preview-1" ng-class="isFirstVisible() ? 'show-device-preview' : 'hide-device-preview'")
 
-      include ./partials/devices/desktop-search.jade
+      include ./devices/desktop-search.jade
 
-      include ./partials/devices/tablet-search.jade
+      include ./devices/tablet-search.jade
 
-      include ./partials/devices/phone-search.jade
+      include ./devices/phone-search.jade
 
     //-
     //- MAP SCREEN PREVIEWS:
@@ -36,8 +36,8 @@
     //-
     .row(class="device-preview-2" ng-class="isFirstVisible() ? 'hide-device-preview' : 'show-device-preview'")
 
-      include ./partials/devices/desktop-map.jade
+      include ./devices/desktop-map.jade
 
-      include ./partials/devices/tablet-search.jade
+      include ./devices/tablet-map.jade
 
-      include ./partials/devices/phone-search.jade
+      include ./devices/phone-map.jade

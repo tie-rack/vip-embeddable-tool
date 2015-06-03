@@ -1,0 +1,6 @@
+.navigation
+  button.get-started.next(ng-click='step = step + 1' ng-show="step == 0") Get Started
+
+  button.prev(ng-click='step = step - 1' ng-show="step > 0") Prev
+
+  button.next(ng-click='step = step + 1' ng-show="step > 0 && step < 8") Next

@@ -1,19 +1,25 @@
 .right.preview(ng-hide="step == 8 || step == 0" ng-init="deviceDimensions = { desktop: [320, 240], tablet: [320, 240], phone: [165, 285] }; deviceOptions = ['desktop', 'tablet', 'phone']")
-  .dropdown.small
-    .dropdowns(
-      ng-click='showDeviceDropdown = !showDeviceDropdown')
-      span {{ selectedDevice + ' preview' || "Desktop Preview" }}
+  dropdown(
+    default-text="DESKTOP PREVIEW"
+    options="['desktop', 'tablet', 'phone']"
+    set-value="setPreviewOption(value)"
+    my-class="small"
+  )
+  //- .dropdown.small
+  //-   .dropdowns(
+  //-     ng-click='showDeviceDropdown = !showDeviceDropdown')
+  //-     span {{ selectedDevice + ' preview' || "Desktop Preview" }}
 
-      .dropdown-button
-        span.dropdown-arrow
+  //-     .dropdown-button
+  //-       span.dropdown-arrow
 
-    ul(
-      ng-class='{open: showDeviceDropdown}')
-      li(
-        ng-repeat='option in deviceOptions',
-        ng-mouseover='$parent.selectedDevice = option',
-        ng-click='$parent.showDeviceDropdown = !showDeviceDropdown')
-        {{ option }} preview
+  //-   ul(
+  //-     ng-class='{open: showDeviceDropdown}')
+  //-     li(
+  //-       ng-repeat='option in deviceOptions',
+  //-       ng-mouseover='$parent.selectedDevice = option',
+  //-       ng-click='$parent.showDeviceDropdown = !showDeviceDropdown')
+  //-       {{ option }} preview
 
   include ./devices/device-icons.jade
 

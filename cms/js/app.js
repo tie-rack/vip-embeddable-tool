@@ -40,6 +40,10 @@ app.controller('ApplicationController', function($scope, $window, $sce) {
     $scope.selectedState = value;
   }
 
+  $scope.setPreviewOption = function (value) {
+    $scope.selectedDevice = value;
+  }
+
   $scope.startOver = function () {
     $scope.step = 0;
     $scope.selectedTheme = "Theme One";
@@ -107,7 +111,8 @@ app.directive('dropdown', function () {
     scope: {
       defaultText: '@',
       options: '=',
-      setValue: '&'
+      setValue: '&',
+      myClass: '@'
     }
   }
 });

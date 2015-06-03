@@ -76,6 +76,8 @@ app.controller('ApplicationController', function($scope, $window, $sce) {
   }
 });
 
+app.filter('unsafe', function($sce) { return $sce.trustAsHtml; });
+
 app.directive('resize', function ($window) {
   return function (scope, element) {
     var w = angular.element($window);

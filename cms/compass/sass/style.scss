@@ -48,6 +48,10 @@ input:focus {
   }
 }
 
+.invisile {
+  visibility: none;
+}
+
 // .form {
 //   height: 50%;
 // }
@@ -379,9 +383,22 @@ input:focus {
     display: none;
   }
 
+  .input-text {
+    width: 80%;
+  }
+
+  #embed-code {
+    margin-bottom: 0;
+    padding-bottom: 0;
+  }
+
   .option {
     margin: 0 2px;
     width: 80px;
+
+    &.highlighted {
+      margin: 5px auto;
+    }
   }
 
   .desktop,

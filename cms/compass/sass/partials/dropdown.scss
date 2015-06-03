@@ -2,6 +2,7 @@
 /* ==========================================================================
  Dropdown
  ========================================================================== */
+$dropdown-height: 35px;
 
 .dropdown {
   width: 275px;
@@ -53,10 +54,10 @@
   }
 
   &.small {
-    line-height: 39px;
+    line-height: $dropdown-height;
     position: relative;
     text-transform: uppercase;
-    width: 300px;
+    width: 70%;
     z-index: 1;
 
     li {
@@ -68,7 +69,7 @@
       }
     }
     .dropdowns {
-      height: 39px;
+      height: $dropdown-height;
       border: 0;
     }
     .dropdown-arrow {
@@ -76,11 +77,11 @@
       border-right: 10px solid transparent;
       border-top: 10px solid #fff;
       left: 8px;
-      top: 16px;
+      top: 14px;
     }
     .dropdown-button {
       width: 37px;
-      height: 39px;
+      height: $dropdown-height;
       top: initial;
       left: initial;
     }
@@ -120,7 +121,7 @@
 
 .dropdown.small .dropdown-button {
   width: 37px;
-  height: 39px;
+  height: $dropdown-height;
   top: initial;
   left: initial;
 }

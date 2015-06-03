@@ -1,4 +1,4 @@
-var app = angular.module('Application', ['ngClipboard']);
+var app = angular.module('Application', ['ngClipboard', 'ngTouch']);
 
 app.controller('ApplicationController', function($scope, $window, $sce) {
   $scope.isVisible = function (idx, step) {

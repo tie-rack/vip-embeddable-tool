@@ -48,9 +48,9 @@ input:focus {
   }
 }
 
-.form {
-  height: 50%;
-}
+// .form {
+//   height: 50%;
+// }
 
 .navigation {
   position: absolute;
@@ -232,6 +232,7 @@ input:focus {
   margin: 0;
   padding: 0 10px;
   width: 300px;
+  width: 90%;
 }
 
 .vip-name {
@@ -299,6 +300,22 @@ input:focus {
 }
 
 @media screen and (max-width: 480px) {
+  html {
+    overflow: hidden;
+  }
+
+  .section-alert-text {
+    .input-text {
+      margin-top: 2px;
+    }
+    .subtitle {
+      margin-top: 0;
+    }
+  }
+
+  .container {
+    height: 40%;
+  }
   .devices {
     display: none;
   }
@@ -306,7 +323,20 @@ input:focus {
   .device-container {
     left: 50%;
     position: absolute;
-    bottom: 40px;
+    bottom: 45px;
+
+  }
+
+  .dropdowns {
+    padding: 0 0 0 10px;
+  }
+
+  .dropdown li {
+    padding: 0 0 0 10px;
+  }
+
+  .select-logo .dropdown {
+    margin: 0 auto;
   }
 
   .show-device-preview {
@@ -315,6 +345,19 @@ input:focus {
 
   .hide-device-preview {
     display: none;
+  }
+
+  .interior-tile-bar-color {
+    height: 40px;
+    width: 40px;
+  }
+
+  .logo-url .subtitle {
+    margin-top: -5px;
+  }
+
+  .option {
+    width: 80px;
   }
 
   .desktop,
@@ -332,5 +375,21 @@ input:focus {
 
   .phone {
     left: -80px;
+  }
+
+  .preview {
+    height: 60%;
+  }
+
+  .select-title .section-subtitle .subtitle {
+    margin-top: 0;
+  }
+
+  .subtitle {
+    margin-bottom: 0;
+  }
+
+  .vip-logo {
+    margin-top: 10px;
   }
 }

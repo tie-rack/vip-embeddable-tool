@@ -351,10 +351,10 @@ td {
   color: #fff;
 }
 .dropdown.small {
-  line-height: 39px;
+  line-height: 35px;
   position: relative;
   text-transform: uppercase;
-  width: 300px;
+  width: 70%;
   z-index: 1;
 }
 .dropdown.small li {
@@ -365,7 +365,7 @@ td {
   border-top: 1px solid lightgray;
 }
 .dropdown.small .dropdowns {
-  height: 39px;
+  height: 35px;
   border: 0;
 }
 .dropdown.small .dropdown-arrow {
@@ -373,11 +373,11 @@ td {
   border-right: 10px solid transparent;
   border-top: 10px solid #fff;
   left: 8px;
-  top: 16px;
+  top: 14px;
 }
 .dropdown.small .dropdown-button {
   width: 37px;
-  height: 39px;
+  height: 35px;
   top: initial;
   left: initial;
 }
@@ -415,7 +415,7 @@ td {
 
 .dropdown.small .dropdown-button {
   width: 37px;
-  height: 39px;
+  height: 35px;
   top: initial;
   left: initial;
 }
@@ -517,10 +517,6 @@ input:focus {
 }
 .container .preview {
   display: none;
-}
-
-.form {
-  height: 50%;
 }
 
 .navigation {
@@ -692,6 +688,7 @@ input:focus {
   margin: 0;
   padding: 0 10px;
   width: 300px;
+  width: 90%;
 }
 
 .vip-name {
@@ -757,6 +754,21 @@ input:focus {
   }
 }
 @media screen and (max-width: 480px) {
+  html {
+    overflow: hidden;
+  }
+
+  .section-alert-text .input-text {
+    margin-top: 2px;
+  }
+  .section-alert-text .subtitle {
+    margin-top: 0;
+  }
+
+  .container {
+    height: 40%;
+  }
+
   .devices {
     display: none;
   }
@@ -764,7 +776,19 @@ input:focus {
   .device-container {
     left: 50%;
     position: absolute;
-    bottom: 40px;
+    bottom: 45px;
+  }
+
+  .dropdowns {
+    padding: 0 0 0 10px;
+  }
+
+  .dropdown li {
+    padding: 0 0 0 10px;
+  }
+
+  .select-logo .dropdown {
+    margin: 0 auto;
   }
 
   .show-device-preview {
@@ -773,6 +797,19 @@ input:focus {
 
   .hide-device-preview {
     display: none;
+  }
+
+  .interior-tile-bar-color {
+    height: 40px;
+    width: 40px;
+  }
+
+  .logo-url .subtitle {
+    margin-top: -5px;
+  }
+
+  .option {
+    width: 80px;
   }
 
   .desktop,
@@ -790,5 +827,21 @@ input:focus {
 
   .phone {
     left: -80px;
+  }
+
+  .preview {
+    height: 60%;
+  }
+
+  .select-title .section-subtitle .subtitle {
+    margin-top: 0;
+  }
+
+  .subtitle {
+    margin-bottom: 0;
+  }
+
+  .vip-logo {
+    margin-top: 10px;
   }
 }

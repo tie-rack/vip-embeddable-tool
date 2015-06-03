@@ -47,10 +47,10 @@
   color: #fff;
 }
 .dropdown.small {
-  line-height: 39px;
+  line-height: 35px;
   position: relative;
   text-transform: uppercase;
-  width: 300px;
+  width: 70%;
   z-index: 1;
 }
 .dropdown.small li {
@@ -61,7 +61,7 @@
   border-top: 1px solid lightgray;
 }
 .dropdown.small .dropdowns {
-  height: 39px;
+  height: 35px;
   border: 0;
 }
 .dropdown.small .dropdown-arrow {
@@ -69,11 +69,11 @@
   border-right: 10px solid transparent;
   border-top: 10px solid #fff;
   left: 8px;
-  top: 16px;
+  top: 14px;
 }
 .dropdown.small .dropdown-button {
   width: 37px;
-  height: 39px;
+  height: 35px;
   top: initial;
   left: initial;
 }
@@ -111,7 +111,7 @@
 
 .dropdown.small .dropdown-button {
   width: 37px;
-  height: 39px;
+  height: 35px;
   top: initial;
   left: initial;
 }

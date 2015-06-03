@@ -330,6 +330,10 @@ input:focus {
 
   .container {
     height: 40%;
+
+    .left.form {
+      padding-top: 10px;
+    }
   }
   .devices {
     display: none;
@@ -372,6 +376,7 @@ input:focus {
   }
 
   .option {
+    margin: 0 2px;
     width: 80px;
   }
 
@@ -403,7 +408,9 @@ input:focus {
   }
 
   .subtitle {
+    font-size: 1rem;
     margin-bottom: 0;
+    margin-top: 0;
   }
 
   .vip-logo {

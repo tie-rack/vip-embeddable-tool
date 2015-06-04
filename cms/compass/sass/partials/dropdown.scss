@@ -40,6 +40,7 @@ $dropdown-height: 35px;
     border-top-right-radius: 2px;
     border-top: 1px solid lightgray;
     border-radius: 0;
+    color: #666;
     list-style: none;
 
     &:last-child {
@@ -48,8 +49,8 @@ $dropdown-height: 35px;
     }
 
     &:hover {
-      background: #03244b;
-      color: #fff;
+      background: #d7d7d7;
+      color: #111;
     }
   }
 

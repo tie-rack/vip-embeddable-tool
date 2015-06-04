@@ -7,7 +7,9 @@
 }
 
 .options .selected {
-  background: #2fa5cb;
+  background: #33b5e5;
+  border-bottom: 3px solid #2baae0;
+  height: 42px;
   color: #fff;
 }
 

@@ -458,7 +458,9 @@ td {
 }
 
 .options .selected {
-  background: #2fa5cb;
+  background: #33b5e5;
+  border-bottom: 3px solid #2baae0;
+  height: 42px;
   color: #fff;
 }
 
@@ -489,6 +491,10 @@ body {
 
 body, button, input, select, textarea {
   font-family: 'Roboto', sans-serif;
+}
+
+input[type="text"] {
+  border: 1px solid #ABABAB;
 }
 
 html {
@@ -714,11 +720,13 @@ input:focus {
   color: #d7d7d7;
   display: inline-block;
   font-weight: 300;
+  position: relative;
+  top: 8px;
 }
 
 .vip-logo {
   width: 50px;
-  margin-top: -10px;
+  margin-right: 10px;
 }
 
 /* Tablet styles */
@@ -775,6 +783,10 @@ input:focus {
 @media screen and (max-width: 480px) {
   html {
     overflow: hidden;
+  }
+
+  h1 {
+    margin-bottom: 0;
   }
 
   .section-alert-text .input-text {
@@ -841,6 +853,9 @@ input:focus {
   #embed-code {
     margin-bottom: 0;
     padding-bottom: 0;
+    height: 20vh;
+    overflow: scroll;
+    padding: 15px;
   }
 
   .option {
@@ -885,5 +900,24 @@ input:focus {
 
   .vip-logo {
     margin-top: 10px;
+    margin-right: 10px;
+  }
+
+  .vip-name {
+    font-size: 1.3rem;
+    position: relative;
+    top: 8px;
+  }
+
+  .title {
+    margin-top: 0;
+    font-size: 1rem;
+  }
+
+  .text-box {
+    height: 50vh;
+    overflow: hidden;
+    margin-top: 15px;
+    font-size: 0.9em;
   }
 }

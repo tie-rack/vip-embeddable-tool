@@ -1,15 +1,10 @@
-make sure jade is installed:
+setup:
+npm install --global gulp
+npm install --save-dev gulp
+npm install --save-dev gulp-webserver
+gem install compass
+npm install gulp-compass --save-dev
+npm install gulp-jade --save-dev
 
-npm install -g jade
-
-for development, watch index for changes:
-
-jade watch index.jade
-
-make sure compass is installed:
-
-npm install -g compass
-
-for development, watch compass directory for changes:
-
-cd compass; compass watch;
+to run locally:
+gulp

@@ -38,9 +38,9 @@ $dropdown-height: 35px;
     border-left: 1px solid lightgray;
     border-top-left-radius: 2px;
     border-top-right-radius: 2px;
-    list-style: none;
     border-top: 1px solid lightgray;
     border-radius: 0;
+    list-style: none;
 
     &:last-child {
       border-bottom-left-radius: 2px;
@@ -130,7 +130,9 @@ $dropdown-height: 35px;
   .form  {
     .dropdown {
       border: none;
+      line-height: 40px;
       margin: 0;
+      text-align: left;
       width: 100%;
 
       li {
@@ -146,13 +148,22 @@ $dropdown-height: 35px;
 
     .dropdown-button {
       background: initial;
-      height: 45px;
+      height: $dropdown-height;
+      top: 2px;
+      width: 25px;
     }
 
     .dropdown-arrow {
-      border-left: 8px solid transparent;
-      border-right: 8px solid transparent;
+      border-left: 7px solid transparent;
+      border-right: 7px solid transparent;
       border-top: 8px solid #03244b;
+      top: 12px;
+    }
+
+    .dropdown li,
+    .dropdowns {
+      font-size: .9rem;
+      padding: 0 0 0 20px;
     }
   }
 

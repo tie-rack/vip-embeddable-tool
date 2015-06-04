@@ -293,8 +293,8 @@ input:focus {
     border: 1px solid lightgray;
     border-radius: 2px;
     height: auto;
-    margin: 5%;
-    width: 40%;
+    margin: 25px;
+    width: calc(50% - 50px);
 
     .preview {
       display: none;
@@ -323,8 +323,12 @@ input:focus {
   .subtitle {
     background: #03244b;
     color: #fff;
+    font-size: 1rem;
+    font-weight: 400;
+    letter-spacing: 1px;
     margin: 0;
-    padding: 10px;
+    padding: 8px 15px;
+    text-align: left;
   }
 }
 

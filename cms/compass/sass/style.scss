@@ -12,7 +12,7 @@
 @import "partials/option";
 
 body {
-    @include typeface;
+  @include typeface;
 }
 
 body, button, input, select, textarea {
@@ -269,6 +269,10 @@ input:focus {
 .vip-logo {
   width: 50px;
   margin-right: 10px;
+}
+
+#embed-code {
+    margin-bottom: 0;
 }
 
 /* Tablet styles */

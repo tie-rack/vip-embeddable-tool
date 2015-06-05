@@ -22,12 +22,71 @@ app.controller('ApplicationController', function($scope, $window, $sce) {
 
   $scope.themes = ['Theme One', 'Theme Two', 'Theme Three'];
 
-  $scope.states = [ 'Default', 'Alabama', 'Alaska', 'American Samoa', 'Arizona', 'Arkansas', 'California', 'Colorado', 'Connecticut', 'Delaware', 'District Of Columbia', 'Federated States Of Micronesia', 'Florida', 'Georgia', 'Guam', 'Hawaii', 'Idaho', 'Illinois', 'Indiana', 'Iowa', 'Kansas', 'Kentucky', 'Louisiana', 'Maine', 'Marshall Islands', 'Maryland', 'Massachusetts', 'Michigan', 'Minnesota', 'Mississippi', 'Missouri', 'Montana', 'Nebraska', 'Nevada', 'New Hampshire', 'New Jersey', 'New Mexico', 'New York', 'North Carolina', 'North Dakota', 'Northern Mariana Islands', 'Ohio', 'Oklahoma', 'Oregon', 'Palau', 'Pennsylvania', 'Puerto Rico', 'Rhode Island', 'South Carolina', 'South Dakota', 'Tennessee', 'Texas', 'Utah', 'Vermont', 'Virgin Islands', 'Virginia', 'Washington', 'West Virginia', 'Wisconsin', 'Wyoming' ];
+  $scope.states = [
+    'Default',
+    'Alabama',
+    'Alaska',
+    // 'American Samoa',
+    'Arizona',
+    'Arkansas',
+    'California',
+    'Colorado',
+    'Connecticut',
+    'Delaware',
+    // 'District Of Columbia',
+    // 'Federated States Of Micronesia',
+    'Florida',
+    'Georgia',
+    // 'Guam',
+    'Hawaii',
+    'Idaho',
+    'Illinois',
+    'Indiana',
+    'Iowa',
+    'Kansas',
+    'Kentucky',
+    'Louisiana',
+    'Maine',
+    // 'Marshall Islands',
+    'Maryland',
+    'Massachusetts',
+    'Michigan',
+    'Minnesota',
+    'Mississippi',
+    'Missouri',
+    'Montana',
+    'Nebraska',
+    'Nevada',
+    'New Hampshire',
+    'New Jersey',
+    'New Mexico',
+    'New York',
+    'North Carolina',
+    'North Dakota',
+    // 'Northern Mariana Islands',
+    'Ohio',
+    'Oklahoma',
+    'Oregon',
+    // 'Palau',
+    'Pennsylvania',
+    // 'Puerto Rico',
+    'Rhode Island',
+    'South Carolina',
+    'South Dakota',
+    'Tennessee',
+    'Texas',
+    'Utah',
+    'Vermont',
+    // 'Virgin Islands',
+    'Virginia',
+    'Washington',
+    'West Virginia',
+    'Wisconsin',
+    'Wyoming'
+  ];
 
   $scope.stateSealUrl = function (state) {
-    if (state == void 0) {
-      return 'img/vip-logo.png'
-    }
+    var defaultUrl = 'img/vip-logo.png';
 
     var baseUrl = '//upload.wikimedia.org/wikipedia/commons/';
     var stateSeals = {
@@ -92,7 +151,9 @@ app.controller('ApplicationController', function($scope, $window, $sce) {
       'Wyoming': 'e/e4/Seal_of_Wyoming.svg'
     };
 
-    return baseUrl + stateSeals[state];
+    var seal = stateSeals[state];
+
+    return seal != void 0 && seal.length > 0 ? baseUrl + stateSeals[state] : defaultUrl;
   }
 
 
@@ -150,6 +211,8 @@ app.controller('ApplicationController', function($scope, $window, $sce) {
 });
 
 app.filter('unsafe', function($sce) { return $sce.trustAsHtml; });
+
+app.filter('unsafeResource', function($sce) { return $sce.trustAsResourceUrl });
 
 app.directive('resize', function ($window) {
   return function (scope, element) {

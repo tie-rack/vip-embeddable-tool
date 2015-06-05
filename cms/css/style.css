@@ -817,6 +817,14 @@ input:focus {
   margin-bottom: 0;
 }
 
+h2.preview-label {
+  margin: -13px 0 0 0;
+  font-size: 14px;
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
 /* Tablet styles */
 @media screen and (min-width: 480px) {
   html,

@@ -98,7 +98,11 @@ input:focus {
     cursor: pointer;
     display: inline-block;
     list-style: none;
-    padding: 10px;
+    padding: 10px 20px;
+  }
+
+  li:nth-child(2) {
+    padding-right: 6px;
   }
 }
 
@@ -219,6 +223,15 @@ input:focus {
 
 .preview.right {
   padding: 1px 5px;
+
+  h1 {
+    text-align: center;
+    font-size: 20px;
+    font-weight: 500;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    margin: 19px 0px 5px;
+  }
 }
 
 .row {
@@ -275,6 +288,14 @@ input:focus {
 
 #embed-code {
     margin-bottom: 0;
+}
+
+h2.preview-label {
+  margin: -13px 0 0 0;
+  font-size: 14px;
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 1px;
 }
 
 /* Tablet styles */
@@ -338,6 +359,10 @@ input:focus {
     margin: 0;
     padding: 8px 15px;
     text-align: left;
+  }
+
+  .dropdown.border-top {
+    border-top: 1px solid #d5d5d5;
   }
 }
 

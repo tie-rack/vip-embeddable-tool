@@ -16,33 +16,4 @@
       S148.4,42.2,150,42.2z M119.7,39.4c3.1,0,5.6,2.5,5.6,5.6s-2.5,5.6-5.6,5.6s-5.6-2.5-5.6-5.6S116.6,39.4,119.7,39.4z M174.6,692\
       c-14.8,0-26.8-12-26.8-26.8c0-14.8,12-26.8,26.8-26.8s26.8,12,26.8,26.8C201.3,680.1,189.4,692,174.6,692z M326.7,625.9H23.2V86.6\
       h303.4V625.9z')
-    svg(
-      x="24", y="87")
-      rect(fill="#fff", x="0", y="0", width="303", height="539")
-
-      rect(fill="{{ selectedTileBarColor}}", x="0", y="0", width="303", height="40")
-      text(x="10" y="30" fill="#fff"  font-size="25px") Elections
-      text(x="280" y="30" fill="#fff" font-size="25px") +
-
-      text(x="10" y="80" fill="#333" font-size="29px") General Election 2014
-      text(x="10" y="110" fill="#333" font-size="20px") Tuesday, November 4th, 2014
-
-      rect(fill="{{ selectedTileBarColor}}", x="0", y="130", width="303", height="40")
-      text(x="10" y="160" fill="#fff"  font-size="25px") Polling Locations
-      text(x="280" y="160" fill="#fff" font-size="25px") +
-
-      text(x="10" y="205" fill="#333" font-size="27px") Andrew Heiskell Library
-      text(x="10" y="230" fill="#333" font-size="20px") 40 West 20th Street
-      text(x="10" y="255" fill="#333" font-size="20px") New York, NY 10011
-
-      image(xlink:href='img/map-phone.png' x="0" y="235" width="303" height="200")
-
-      rect(fill="{{ selectedTileBarColor}}", x="0", y="405", width="303", height="40")
-      text(x="10" y="430" fill="#fff"  font-size="25px") More Resources
-      text(x="280" y="430" fill="#fff" font-size="25px") +
-
-      text(x="10" y="445" fill="#333" font-size="16.5px" width="293px")
-        tspan(x="10" dy="1.4em") Information on how to navigate the
-        tspan(x="10" dy="1.4em") elections process, including deadlines,
-        tspan(x="10" dy="1.4em") Voter ID information, and registration
-        tspan(x="10" dy="1.4em") links.
+    include ./visualizations/portrait-map.jade

@@ -296,6 +296,11 @@ h2.preview-label {
   font-weight: 500;
   text-transform: uppercase;
   letter-spacing: 1px;
+  display: inline;
+
+  &.phoneSelected {
+    // display: none;
+  }
 }
 
 /* Tablet styles */
@@ -372,6 +377,19 @@ h2.preview-label {
   .dropdown.border-top {
     border-top: 1px solid #d5d5d5;
   }
+
+  .device-container {
+    &.phone-prev svg {
+      position: relative;
+      right: 0;
+    }
+  }
+
+  .phonePrev {
+    width: 50%;
+    float: left;
+    margin-top: 30px;
+  }
 }
 
 @media screen and (max-width: 480px) {
@@ -407,7 +425,6 @@ h2.preview-label {
     left: 50%;
     position: absolute;
     bottom: 48px;
-
   }
 
   .dropdowns {

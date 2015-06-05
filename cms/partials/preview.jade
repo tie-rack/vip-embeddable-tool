@@ -15,7 +15,7 @@
   //-
   //-
   .device-wrapper
-    .row(ng-init="selectedDevice='tablet'" class="device-preview-1" ng-class="isFirstVisible() ? 'show-device-preview' : 'hide-device-preview'")
+    .row(ng-init="selectedDevice='tablet'" class="device-preview-1" ng-class="{'show-device-preview': isFirstVisible(), 'hide-device-preview': !isFirstVisible(), phonePrev: selectedDevice == 'phone'}")
 
       include ./devices/desktop-search.jade
 
@@ -23,13 +23,13 @@
 
       include ./devices/phone-search.jade
 
-      h2.preview-label Title Page
+      h2.preview-label(ng-class="{phoneSelected: selectedDevice == 'phone'}") Title Page
 
     //-
     //- MAP SCREEN PREVIEWS:
     //-
     //-
-    .row(class="device-preview-2" ng-class="isFirstVisible() ? 'hide-device-preview' : 'show-device-preview'")
+    .row(class="device-preview-2" ng-class="{'show-device-preview': !isFirstVisible(), 'hide-device-preview': isFirstVisible(), phonePrev: selectedDevice == 'phone'}")
 
       include ./devices/desktop-map.jade
 
@@ -37,4 +37,4 @@
 
       include ./devices/phone-map.jade
 
-      h2.preview-label Interior Page
+      h2.preview-label(ng-class="{phoneSelected: selectedDevice == 'phone'}") Interior Page

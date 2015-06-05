@@ -196,9 +196,11 @@ input:focus {
 }
 
 .input-text {
+  border-radius: 2px;
+  font-size: 1rem;
   width: 90%;
   margin: 10px 0;
-  padding: 4px;
+  padding: 6px;
 }
 
 .interior-tile-bar-color {
@@ -299,6 +301,13 @@ input:focus {
     .preview {
       display: none;
     }
+  }
+
+  .interior-tile-bar-color {
+    border-radius: 30px;
+    height: 30px;
+    margin: 10px 5px;
+    width: 30px;
   }
 
   .navigation {

@@ -5,21 +5,8 @@
     set-value="setPreviewOption(value)"
     my-class="small"
   )
-  //- .dropdown.small
-  //-   .dropdowns(
-  //-     ng-click='showDeviceDropdown = !showDeviceDropdown')
-  //-     span {{ selectedDevice + ' preview' || "Desktop Preview" }}
 
-  //-     .dropdown-button
-  //-       span.dropdown-arrow
-
-  //-   ul(
-  //-     ng-class='{open: showDeviceDropdown}')
-  //-     li(
-  //-       ng-repeat='option in deviceOptions',
-  //-       ng-mouseover='$parent.selectedDevice = option',
-  //-       ng-click='$parent.showDeviceDropdown = !showDeviceDropdown')
-  //-       {{ option }} preview
+  h1 Preview
 
   include ./devices/device-icons.jade
 
@@ -36,6 +23,8 @@
 
       include ./devices/phone-search.jade
 
+      h2.preview-label Title Page
+
     //-
     //- MAP SCREEN PREVIEWS:
     //-
@@ -47,3 +36,5 @@
       include ./devices/tablet-map.jade
 
       include ./devices/phone-map.jade
+
+      h2.preview-label Interior Page

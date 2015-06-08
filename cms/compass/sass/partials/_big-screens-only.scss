@@ -1,0 +1,88 @@
+/* Tablet styles */
+@media screen and (min-width: 480px) {
+  html,
+  body {
+    overflow: initial;
+  }
+
+  .bottom {
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    display: none;
+  }
+
+  .container {
+    border: 1px solid lightgray;
+    border-radius: 2px;
+    height: auto;
+    margin: 25px;
+    width: calc(50% - 50px);
+
+    .preview {
+      display: none;
+    }
+  }
+
+  h2.preview-label {
+    margin: -13px 0 0 0;
+    font-size: 14px;
+    font-weight: 500;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+  }
+
+  .interior-tile-bar-color {
+    border-radius: 30px;
+    height: 30px;
+    margin: 10px 5px;
+    width: 30px;
+  }
+
+  .navigation {
+    display: none;
+  }
+
+  .preview.right {
+    bottom: 0;
+    display: block;
+    height: auto;
+    padding: 0;
+    position: fixed;
+    right: 0;
+    top: 0;
+    width: 50%;
+  }
+
+  .step {
+    display: none;
+  }
+
+  .subtitle {
+    background: #03244b;
+    color: #fff;
+    font-size: 1rem;
+    font-weight: 400;
+    letter-spacing: 1px;
+    margin: 0;
+    padding: 8px 15px;
+    text-align: left;
+  }
+
+  .dropdown.border-top {
+    border-top: 1px solid #d5d5d5;
+  }
+
+  .device-container {
+    &.phone-prev svg {
+      position: relative;
+      right: 0;
+    }
+  }
+
+  .phonePrev {
+    width: 50%;
+    float: left;
+    margin-top: 30px;
+  }
+}

@@ -826,6 +826,10 @@ h2.preview-label {
   display: inline;
 }
 
+.need-help {
+  text-decoration: none;
+}
+
 /* Tablet styles */
 @media screen and (min-width: 480px) {
   html,

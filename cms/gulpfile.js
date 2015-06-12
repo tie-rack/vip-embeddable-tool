@@ -2,14 +2,6 @@ var gulp = require('gulp');
 var webserver = require('gulp-webserver');
 var compass = require('gulp-compass');
 var jade = require('gulp-jade');
-var s3 = require("gulp-s3");
-
-awsStaging = JSON.parse(fs.readFileSync('./aws-staging.json'));
-
-gulp.task("push-staging", function () {
-  gulp.src('./dist/**')
-    .pipe(s3(awsStaging));
-})
 
 gulp.task('webserver', function() {
   gulp.src('./')

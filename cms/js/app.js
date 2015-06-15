@@ -156,6 +156,11 @@ app.controller('ApplicationController', function($scope, $window, $sce, $timeout
     return seal != void 0 && seal.length > 0 ? baseUrl + stateSeals[state] : defaultUrl;
   }
 
+  $scope.setTheme = function (value) {
+    $scope.selectedTheme = value;
+  }
+  $scope.setTheme($scope.themes[0]);
+
   $scope.themeUrl = function(selectedTheme) {
     var themeUrls = {
       'No Theme': '',
@@ -175,23 +180,23 @@ app.controller('ApplicationController', function($scope, $window, $sce, $timeout
     $scope.selectedLanguage = value;
   }
 
-  $scope.setTheme = function (value) {
-    $scope.selectedTheme = value;
-  }
-  $scope.setTheme("Theme One");
-
   $scope.setState = function (value) {
     $scope.selectedState = value;
   }
 
-  $scope.selectedDevice = 'tablet';
+  $scope.selectedDevice = 'desktop';
   $scope.setPreviewOption = function (value) {
     $scope.selectedDevice = value;
   }
+  //FIX A STRANGING BUG WITH THEME SVGs:
+  setTimeout(function () {
+    $scope.setPreviewOption('tablet');
+    $scope.$apply();
+  }, 50);
 
   $scope.startOver = function () {
     $scope.step = 0;
-    $scope.selectedTheme = "Theme One";
+    $scope.selectedTheme = $scope.themes[0];
     $scope.selectedLogoOption = $scope.logoOptions[0];
     $scope.title = "";
     $scope.subtitle = "";

@@ -1,5 +1,5 @@
 .dropdown(ng-class="myClass")
-  .dropdowns(ng-click='showDropdown = !showDropdown')
+  .dropdowns(ng-click='showDropdown = !showDropdown' ng-init="selectedValue = options[1]")
     span {{ selectedValue  || options[0] }}
 
     .dropdown-button

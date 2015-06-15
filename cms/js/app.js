@@ -1,6 +1,6 @@
 var app = angular.module('Application', ['ngClipboard', 'ngTouch']);
 
-app.controller('ApplicationController', function($scope, $window, $sce) {
+app.controller('ApplicationController', function($scope, $window, $sce, $timeout) {
   $scope.isVisible = function (idx, step) {
     return $window.innerWidth > 480 ? true : idx == step
   };
@@ -20,7 +20,7 @@ app.controller('ApplicationController', function($scope, $window, $sce) {
 
   $scope.languageNames = Object.keys($scope.languages)
 
-  $scope.themes = ['Theme One', 'Theme Two', 'Theme Three'];
+  $scope.themes = ['No Theme', 'Theme One', 'Theme Two', 'Theme Three'];
 
   $scope.states = [
     'Default',
@@ -156,7 +156,16 @@ app.controller('ApplicationController', function($scope, $window, $sce) {
     return seal != void 0 && seal.length > 0 ? baseUrl + stateSeals[state] : defaultUrl;
   }
 
+  $scope.themeUrl = function(selectedTheme) {
+    var themeUrls = {
+      'No Theme': '',
+      'Theme One': '/img/theme1.png',
+      'Theme Two': '/img/theme2.png',
+      'Theme Three': '/img/theme3.png'
+    }
 
+    return themeUrls[selectedTheme];
+  }
 
   $scope.setFormat = function (value) {
     $scope.selectedFormat = value;
@@ -169,11 +178,13 @@ app.controller('ApplicationController', function($scope, $window, $sce) {
   $scope.setTheme = function (value) {
     $scope.selectedTheme = value;
   }
+  $scope.setTheme("Theme One");
 
   $scope.setState = function (value) {
     $scope.selectedState = value;
   }
 
+  $scope.selectedDevice = 'tablet';
   $scope.setPreviewOption = function (value) {
     $scope.selectedDevice = value;
   }
@@ -244,7 +255,7 @@ app.directive('resize', function ($window) {
 
 app.directive('dropdown', function () {
   return {
-    templateUrl: '../partials/directives/dropdown.html',
+    templateUrl: './partials/directives/dropdown.html',
     restrict: 'E',
     scope: {
       defaultText: '@',
@@ -257,14 +268,14 @@ app.directive('dropdown', function () {
 
 app.directive('navigation', function () {
   return {
-    templateUrl: '../partials/directives/navigation.html',
+    templateUrl: './partials/directives/navigation.html',
     restrict: 'E'
   }
 });
 
 app.directive('heading', function () {
   return {
-    templateUrl: '../partials/directives/header.html',
+    templateUrl: './partials/directives/header.html',
     restrict: 'E'
   }
 });

@@ -46,7 +46,8 @@
     "gulp-jade-find-affected": "^0.2.1",
     "gulp-jade": "^1.0.1",
     "gulp-s3": "^0.3.0",
-    "fs": "0.0.2"
+    "fs": "0.0.2",
+    "lodash": "^3.9.3"
   },
   "dependencies": {
     "jquery": "^2.1.1",

@@ -1,6 +1,9 @@
 svg(
   x="24", y="87")
-  rect(fill="#efefef", x="0", y="0", width="303", height="539")
+  defs
+    pattern(id="theme", patternUnits="userSpaceOnUse", width="303", height="539")
+      image(ng-attr-xlink:href='{{ themeUrl(selectedTheme) | unsafeResource }}' xlink:href='', x="0", y="-300", width="303", height="1078")
+  rect(fill="url(#theme)", x="0", y="0", width="303", height="1078")
   rect(fill="#bbb", x="10" y="180" width="285" height="150")
   image(ng-attr-xlink:href='{{ stateSealUrl(selectedState) | unsafeResource }}', xlink:href='', x="120", y="10", width="60", height="60")
   text(x="150" y="100" text-anchor="middle" font-size="25px") {{ title }}

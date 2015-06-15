@@ -152,7 +152,6 @@ app.controller('ApplicationController', function($scope, $window, $sce, $timeout
     };
 
     var seal = stateSeals[state];
-
     return seal != void 0 && seal.length > 0 ? baseUrl + stateSeals[state] : defaultUrl;
   }
 
@@ -172,6 +171,10 @@ app.controller('ApplicationController', function($scope, $window, $sce, $timeout
     return themeUrls[selectedTheme];
   }
 
+  $scope.logoURL = function (url) {
+    return url != void 0 && url.length > 0 ? url : '';
+  }
+
   $scope.setFormat = function (value) {
     $scope.selectedFormat = value;
   }
@@ -183,6 +186,7 @@ app.controller('ApplicationController', function($scope, $window, $sce, $timeout
   $scope.setState = function (value) {
     $scope.selectedState = value;
   }
+  $scope.setState("Default")
 
   $scope.selectedDevice = 'desktop';
   $scope.setPreviewOption = function (value) {

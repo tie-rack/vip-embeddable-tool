@@ -12,7 +12,8 @@
         </defs>
         <rect fill="url(#theme)" x="0" y="0" width="303" height="1078"></rect>
         <rect fill="#bbb" x="10" y="180" width="285" height="150"></rect>
-        <image ng-attr-xlink:href="{{ stateSealUrl(selectedState) | unsafeResource }}" xlink:href="" x="120" y="10" width="60" height="60"></image>
+        <image ng-show="selectedLogoOption == 'State Seal'" ng-attr-xlink:href="{{ stateSealUrl(selectedState) | unsafeResource }}" xlink:href="" x="120" y="10" width="60" height="60"></image>
+        <image ng-show="selectedLogoOption == 'Logo'" ng-attr-xlink:href="{{ logoURL(logoUrl) | unsafeResource }}" xlink:href="" x="120" y="10" width="60" height="60"></image>
         <text x="150" y="100" text-anchor="middle" font-size="25px">{{ title }}</text>
         <text x="150" y="140" text-anchor="middle" font-size="18px">{{ subtitle }}</text>
       </svg>

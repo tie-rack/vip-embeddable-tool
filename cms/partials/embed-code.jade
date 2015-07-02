@@ -12,6 +12,8 @@
         | &ltscript type="text/javascript"&gtvit.load({
         br
         span     modal: true,
+        br(ng-if="selectedTheme != '' && selectedTheme != 'No Theme'")
+        span(ng-if="selectedTheme != '' && selectedTheme != 'No Theme'")     theme: '{{ selectedTheme }}',
         br
         span(ng-if="officialOnly")     officialOnly: true,
         br(ng-if="officialOnly")

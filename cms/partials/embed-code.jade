@@ -13,7 +13,7 @@
         br
         span     modal: true,
         br(ng-if="selectedTheme != '' && selectedTheme != 'No Theme'")
-        span(ng-if="selectedTheme != '' && selectedTheme != 'No Theme'")     theme: '{{ selectedTheme }}',
+        span(ng-if="selectedTheme != '' && selectedTheme != 'No Theme'")     theme: '{{ themeUrl(selectedTheme) }}',
         br
         span(ng-if="officialOnly")     officialOnly: true,
         br(ng-if="officialOnly")

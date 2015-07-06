@@ -39,6 +39,10 @@ module.exports = View.extend({
     var $notFoundModal = this.find('#address-not-found');
     var $currentLocationModal = this.find('#current-location');
 
+    // set theme
+    if (options.theme)
+      this.$el.css({background: "url(" + options.theme + ") no-repeat 50% 0"});
+
     // set container dimensions
     this.$container.css({
       'max-width': 'none',
@@ -151,8 +155,8 @@ module.exports = View.extend({
   },
 
   submitAddress: function () {
-    google.maps.event.trigger(this.autocomplete, 'place_changed'); 
-  }, 
+    google.maps.event.trigger(this.autocomplete, 'place_changed');
+  },
 
   onRemove: function() {
     google.maps.event.clearInstanceListeners(this.autocomplete);
@@ -256,7 +260,7 @@ module.exports = View.extend({
         $(this).find('.checked').removeClass('hidden');
         $(this).find('.unchecked').addClass('hidden');
       });
-      
+
     } else this.triggerRouteEvent('addressViewSubmit', response);
   },
 
@@ -282,7 +286,7 @@ module.exports = View.extend({
   openAboutModal: function(e) {
     this.find('#fade').fadeTo('fast', .2);
     this.find('#about').fadeIn('fast')
-   
+
     if ( ($("#_vit").find("#about.modal").find("p").height() + $("#_vit").find("#about.modal").find("h2").height()) > ($("#_vit").height() - 120) ) {
       $("#_vit").find("#about.modal").find("#close-button").hide();
        $("#_vit").find("#about.modal").find(".close-modal-text-button").toggle();

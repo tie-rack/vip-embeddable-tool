@@ -10,5 +10,5 @@
     li(
       ng-repeat='option in options',
       ng-mouseover='setValue({value: option}); $parent.selectedValue = option',
-      ng-click='$parent.showDropdown = !showDropdown')
+      ng-click='setValue({value: option}); $parent.selectedValue = option; $parent.showDropdown = !showDropdown')
       | {{ option }}

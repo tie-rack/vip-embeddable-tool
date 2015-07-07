@@ -162,7 +162,7 @@ app.controller('ApplicationController', function($scope, $window, $sce, $timeout
 
   $scope.themeUrl = function(selectedTheme) {
     var themeUrls = {
-      'No Theme': '//:0',
+      'No Theme': 'https://s3.amazonaws.com/vip-voter-information-tool/images/theme0.png',
       'Theme One': 'https://s3.amazonaws.com/vip-voter-information-tool/images/theme1.png',
       'Theme Two': 'https://s3.amazonaws.com/vip-voter-information-tool/images/theme2.png',
       'Theme Three': 'https://s3.amazonaws.com/vip-voter-information-tool/images/theme3.png'

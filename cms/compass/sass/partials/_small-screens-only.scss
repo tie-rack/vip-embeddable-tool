@@ -137,7 +137,6 @@
   }
 
   .text-box {
-    height: 50vh;
     overflow: hidden;
     margin-top: 15px;
     font-size: 0.9em;
@@ -156,8 +155,14 @@
   h2.preview-label {
     display: none;
   }
+
+  .dropdown {
+    margin: 5px auto;
+  }
 }
 
 @media screen and (max-width: 480px) and (max-height: 420px) {
-
+  .desktop, .tablet, .phone {
+    height: 30vh;
+  }
 }

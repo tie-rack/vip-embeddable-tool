@@ -189,6 +189,14 @@ input:focus {
 .next {
   float: left;
   width: 50%;
+  &:active {
+    position: relative;
+    top: 1px;
+  }
+
+  &:focus {
+    outline: none;
+  }
 }
 
 .next {
@@ -215,6 +223,7 @@ input:focus {
   height: 60px;
   margin: 10px;
   width: 60px;
+  border-radius: 30px;
 
   &.selected {
     border: 2px solid #000;

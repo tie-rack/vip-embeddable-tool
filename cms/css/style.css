@@ -718,6 +718,15 @@ input:focus {
   float: left;
   width: 50%;
 }
+.prev:active,
+.next:active {
+  position: relative;
+  top: 1px;
+}
+.prev:focus,
+.next:focus {
+  outline: none;
+}
 
 .next {
   border-left: 1px solid #d7d7d7;
@@ -743,6 +752,7 @@ input:focus {
   height: 60px;
   margin: 10px;
   width: 60px;
+  border-radius: 30px;
 }
 .interior-tile-bar-color.selected {
   border: 2px solid #000;
@@ -1050,7 +1060,6 @@ h2.preview-label {
   }
 
   .text-box {
-    height: 50vh;
     overflow: hidden;
     margin-top: 15px;
     font-size: 0.9em;
@@ -1063,5 +1072,14 @@ h2.preview-label {
 @media screen and (max-width: 480px) and (max-height: 525px) {
   h2.preview-label {
     display: none;
+  }
+
+  .dropdown {
+    margin: 5px auto;
+  }
+}
+@media screen and (max-width: 480px) and (max-height: 420px) {
+  .desktop, .tablet, .phone {
+    height: 30vh;
   }
 }

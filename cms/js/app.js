@@ -2,7 +2,7 @@ var app = angular.module('Application', ['ngClipboard', 'ngTouch']);
 
 app.controller('ApplicationController', function($scope, $window, $sce, $timeout) {
   $scope.isVisible = function (idx, step) {
-    return $window.innerWidth > 480 ? true : idx == step
+    return $window.innerWidth > 685 ? true : idx == step
   };
 
   $scope.languages = {

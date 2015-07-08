@@ -217,12 +217,12 @@ app.controller('ApplicationController', function($scope, $window, $sce, $timeout
 
   $scope.getTextToCopy = function () {
     var d = document.getElementById("embed-code");
-    var text = ('innerText' in d)? 'innerText' : 'textContent';
+    var text = ('innerText' in d) ? 'innerText' : 'textContent';
     return d[text];
   }
 
   $scope.emailCode = function () {
-    $window.location = "mailto:email@address.com?&subject=Your%20Embed%20Code&body=" + window.encodeURI($scope.getTextToCopy());
+    $window.location = "mailto:email@address.com?&subject=Your%20Embed%20Code&body=" + "yadfs" //window.encodeURI($scope.getTextToCopy());
   };
 
   $scope.isFirstVisible = function () {

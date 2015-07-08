@@ -589,6 +589,11 @@ input:focus {
   height: 0;
 }
 
+svg image {
+  height: 100%;
+  width: 100%;
+}
+
 .device-frame {
   overflow: visible !important;
   pointer-events: none;

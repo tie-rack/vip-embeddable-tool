@@ -1,5 +1,12 @@
 var app = angular.module('Application', ['ngClipboard', 'ngTouch']);
 
+var resizer = function () {
+  if (window.innerWidth > 685 && window.innerHeight < 650) {
+    var wrapper = document.getElementsByClassName("device-wrapper")[0];
+    wrapper.style.height = window.innerHeight - 133 + "px";
+  }
+}
+
 app.controller('ApplicationController', function($scope, $window, $sce, $timeout) {
   $scope.isMobile = {
     Android: function() {
@@ -264,6 +271,7 @@ app.controller('ApplicationController', function($scope, $window, $sce, $timeout
     viewport = document.querySelector("meta[name=viewport]");
     viewport.setAttribute('content', 'height=' + height + ' width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0');
   }
+  resizer();
 });
 
 app.filter('unsafe', function($sce) { return $sce.trustAsHtml; });
@@ -293,6 +301,7 @@ app.directive('resize', function ($window) {
     }, true);
 
     w.bind('resize', function () {
+      resizer();
       scope.$apply();
     });
   }

@@ -1,27 +1,31 @@
-var isMobile = {
-  Android: function() {
-    return navigator.userAgent.match(/Android/i) ? true : false;
-  },
-  BlackBerry: function() {
-    return navigator.userAgent.match(/BlackBerry/i) ? true : false;
-  },
-  iOS: function() {
-    return navigator.userAgent.match(/iPhone|iPad|iPod/i) ? true : false;
-  },
-  iPad: function() {
-    return navigator.userAgent.match(/iPad/i) ? true : false;
-  },
-  Windows: function() {
-    return navigator.userAgent.match(/IEMobile/i) ? true : false;
-  },
-  any: function() {
-    return (isMobile.Android() || isMobile.BlackBerry() || isMobile.iOS() || isMobile.Windows());
-  }
-};
-
 var app = angular.module('Application', ['ngClipboard', 'ngTouch']);
 
 app.controller('ApplicationController', function($scope, $window, $sce, $timeout) {
+  $scope.isMobile = {
+    Android: function() {
+      return navigator.userAgent.match(/Android/i) ? true : false;
+    },
+    BlackBerry: function() {
+      return navigator.userAgent.match(/BlackBerry/i) ? true : false;
+    },
+    iOS: function() {
+      return navigator.userAgent.match(/iPhone|iPad|iPod/i) ? true : false;
+    },
+    iPad: function() {
+      return navigator.userAgent.match(/iPad/i) ? true : false;
+    },
+    Windows: function() {
+      return navigator.userAgent.match(/IEMobile/i) ? true : false;
+    },
+    any: function() {
+      return (isMobile.Android() || isMobile.BlackBerry() || isMobile.iOS() || isMobile.Windows());
+    }
+  };
+
+  $scope.isiOS = function () {
+    return $scope.isMobile.iOS();
+  }
+
   $scope.isVisible = function (idx, step) {
     return $window.innerWidth > 685 ? true : idx == step
   };
@@ -238,16 +242,16 @@ app.controller('ApplicationController', function($scope, $window, $sce, $timeout
 
   $scope.getTextToCopy = function () {
     var d = document.getElementById("embed-code");
-    var text = ('innerText' in d) ? 'innerText' : 'textContent';
-    return d.textContent;
+    var textFunc = ('innerText' in d) ? 'innerText' : 'textContent';
+    if (isMobile.iOS()) {
+      return d.innerHTML;
+    } else {
+      return d[textFunc];
+    }
   }
 
   $scope.emailCode = function () {
-    if (isMobile.iOS()) {
-      $window.location = "mailto:email@address.com?&subject=VIP%20Embed%20Code&body=" + window.encodeURIComponent(document.getElementById("embed-code").innerHTML);
-    } else {
-      $window.location = "mailto:email@address.com?&subject=VIP%20Embed%20Code&body=" + window.encodeURIComponent($scope.getTextToCopy());
-    }
+    $window.location = "mailto:email@address.com?&subject=VIP%20Embed%20Code&body=" + window.encodeURIComponent($scope.getTextToCopy());
   };
 
   $scope.isFirstVisible = function () {

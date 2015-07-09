@@ -248,6 +248,25 @@ svg image {
 
 .row {
   text-align: center;
+
+  .logo-image {
+    width: 30px;
+    height: 30px;
+    position: relative;
+    top: 70px;
+    z-index: 3;
+  }
+}
+
+.device-preview-2 {
+  .logo-image {
+    right: 86px;
+    top: 55px;
+  }
+}
+
+.device-preview-2.phonePrev .logo-image {
+  visibility: hidden;
 }
 
 .subtitle,

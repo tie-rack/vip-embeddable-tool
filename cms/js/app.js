@@ -257,6 +257,13 @@ app.controller('ApplicationController', function($scope, $window, $sce, $timeout
   $scope.isFirstVisible = function () {
     return ([1, 2, 3, 5, 8].indexOf($scope.step) != -1)
   }
+
+  // Fix for android keyboard popup:
+  if (window.innerWidth < 685) {
+    var height = window.innerHeight;
+    viewport = document.querySelector("meta[name=viewport]");
+    viewport.setAttribute('content', 'height=' + height + ' width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0');
+  }
 });
 
 app.filter('unsafe', function($sce) { return $sce.trustAsHtml; });

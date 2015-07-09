@@ -8,7 +8,9 @@ var fs = require("fs");
 awsStaging = JSON.parse(fs.readFileSync('../aws-staging.json'));
 gulp.task("push-staging", function () {
   return gulp.src('**')
-    .pipe(s3(awsStaging));
+    .pipe(s3(awsStaging, {
+      uploadPath: "/cms/"
+    }));
 })
 
 gulp.task('webserver', function() {

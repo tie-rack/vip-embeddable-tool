@@ -1,7 +1,6 @@
 var app = angular.module('Application', ['ngClipboard', 'ngTouch']);
 
-app.controller('ApplicationController', function($scope, $window, $sce, $timeout) {
-  $scope.isMobile = {
+var isMobile = {
     Android: function() {
       return navigator.userAgent.match(/Android/i) ? true : false;
     },
@@ -22,8 +21,18 @@ app.controller('ApplicationController', function($scope, $window, $sce, $timeout
     }
   };
 
+var lockOrientation = function () {
+  if (window.innerWidth < 685 && isMobile.any()) {
+    console.log("here")
+    document.getElementsByTagName("body")[0].style.height = window.innerWidth + "px";
+    // document.getElementsByTagName("body")[0].style.bottom = -window.innerHeight/2 + "px";
+  }
+}
+
+app.controller('ApplicationController', function($scope, $window, $sce, $timeout) {
+
   $scope.isiOS = function () {
-    return $scope.isMobile.iOS();
+    return isMobile.iOS();
   }
 
   $scope.isVisible = function (idx, step) {
@@ -264,6 +273,8 @@ app.controller('ApplicationController', function($scope, $window, $sce, $timeout
     viewport = document.querySelector("meta[name=viewport]");
     viewport.setAttribute('content', 'height=' + height + ' width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0');
   }
+
+  lockOrientation();
 });
 
 app.filter('unsafe', function($sce) { return $sce.trustAsHtml; });
@@ -293,6 +304,7 @@ app.directive('resize', function ($window) {
     }, true);
 
     w.bind('resize', function () {
+      lockOrientation();
       scope.$apply();
     });
   }

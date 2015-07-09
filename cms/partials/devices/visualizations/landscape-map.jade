@@ -3,7 +3,7 @@ svg(
   rect(fill="white" xlink:href="" x="0" y="0" width="135" height="102")
 
   //- sidebar image
-  image(ng-show="selectedLogoOption == 'State Seal'", ng-attr-xlink:href='{{ stateSealUrl(selectedState) | unsafeResource }}', xlink:href='', x="13", y="2", width="15", height="15")
+  image(class="mobile-seal" ng-show="selectedLogoOption == 'State Seal'", ng-attr-xlink:href='{{ stateSealUrl(selectedState) | unsafeResource }}', xlink:href='', x="13", y="2", width="15", height="15")
   image(ng-show="selectedLogoOption == 'Logo'", ng-attr-xlink:href='{{ logoURL(logoUrl) | unsafeResource }}', xlink:href='', x="13", y="2", width="15", height="15")
 
   //- sidebar address

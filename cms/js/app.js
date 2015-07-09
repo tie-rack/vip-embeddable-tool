@@ -4,6 +4,9 @@ var resizer = function () {
   if (window.innerWidth > 685 && window.innerHeight < 650) {
     var wrapper = document.getElementsByClassName("device-wrapper")[0];
     wrapper.style.height = window.innerHeight - 133 + "px";
+  } else {
+    var wrapper = document.getElementsByClassName("device-wrapper")[0];
+    wrapper.style.height = "initial";
   }
 }
 

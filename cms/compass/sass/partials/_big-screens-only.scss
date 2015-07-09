@@ -182,4 +182,11 @@
   .mobile-seal {
     display: none;
   }
+
+  @media (max-height: 650px) {
+    .device-wrapper {
+      overflow: auto;
+      border-top: 1px solid black;
+    }
+  }
 }

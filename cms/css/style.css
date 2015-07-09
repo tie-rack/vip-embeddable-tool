@@ -699,6 +699,10 @@ input:focus {
   z-index: 3;
 }
 
+.device-preview-1, .device-preview-2 {
+  margin-top: -30px;
+}
+
 .device-preview-2 .logo-image {
   right: 86px;
   top: 55px;
@@ -950,6 +954,12 @@ h2.preview-label {
 
   .mobile-seal {
     display: none;
+  }
+}
+@media screen and (min-width: 685px) and (max-height: 650px) {
+  .device-wrapper {
+    overflow: auto;
+    border-top: 1px solid black;
   }
 }
 @media screen and (max-width: 685px) {

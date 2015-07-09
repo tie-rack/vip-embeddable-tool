@@ -24,8 +24,8 @@ var isMobile = {
 var lockOrientation = function () {
   if (window.innerWidth < 685 && isMobile.any()) {
     console.log("here")
-    document.getElementsByTagName("body")[0].style.height = window.innerWidth + "px";
-    // document.getElementsByTagName("body")[0].style.bottom = -window.innerHeight/2 + "px";
+    // document.getElementsByTagName("body")[0].style.height = window.innerWidth + "px";
+    document.getElementsByTagName("body")[0].style.height = window.innerHeight + "px";
   }
 }
 

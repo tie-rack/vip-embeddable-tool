@@ -9,6 +9,6 @@
     ng-class="{open: showDropdown, 'no-scrollbar': options.length < 4}")
     li(
       ng-repeat='option in options',
-      ng-mouseover='setValue({value: option}); $parent.selectedValue = option',
-      ng-click='setValue({value: option}); $parent.selectedValue = option; $parent.showDropdown = !showDropdown')
+      ng-mouseover='setValue({value: option}); selectedValue = option',
+      ng-click='setValue({value: option}); selectedValue = option; $parent.showDropdown = !showDropdown')
       | {{ option }}

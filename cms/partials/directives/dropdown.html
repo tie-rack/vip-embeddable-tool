@@ -4,6 +4,6 @@
     <div class="dropdown-button"><span class="dropdown-arrow"></span></div>
   </div>
   <ul ng-class="{open: showDropdown, 'no-scrollbar': options.length &lt; 4}">
-    <li ng-repeat="option in options" ng-mouseover="setValue({value: option}); $parent.selectedValue = option" ng-click="setValue({value: option}); $parent.selectedValue = option; $parent.showDropdown = !showDropdown">{{ option }}</li>
+    <li ng-repeat="option in options" ng-mouseover="setValue({value: option}); selectedValue = option" ng-click="setValue({value: option}); selectedValue = option; $parent.showDropdown = !showDropdown">{{ option }}</li>
   </ul>
 </div>

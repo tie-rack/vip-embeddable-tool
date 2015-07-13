@@ -6,8 +6,7 @@
       h2.subtitle
         | Logo
 
-      ul.options(
-        ng-init="logoOptions = ['State Seal', 'Logo', 'None']; selectedLogoOption = logoOptions[0]")
+      ul.options()
         li.option(
           ng-repeat='logoOption in logoOptions',
           ng-class='{selected: $parent.selectedLogoOption == logoOption}',
@@ -33,6 +32,7 @@
       dropdown(
         ng-show="selectedLogoOption == 'State Seal'"
         default-text="Default"
+        selected-value="selectedState"
         options="states"
         set-value="setState(value)"
         my-class="border-top"

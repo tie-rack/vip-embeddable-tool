@@ -54,6 +54,7 @@ app.controller('ApplicationController', function($scope, $window, $sce, $timeout
 
   // PREVIEW FUNCTIONS:
   $scope.previewOptions = ['desktop', 'tablet', 'phone'];
+
   $scope.setPreviewOption = function (value) {
     $scope.selectedDevice = value;
   }
@@ -64,6 +65,7 @@ app.controller('ApplicationController', function($scope, $window, $sce, $timeout
     return themeUrls[selectedTheme];
   }
   $scope.themes = ['No Theme', 'Theme One', 'Theme Two', 'Theme Three'];
+
   $scope.setTheme = function (value) {
     $scope.selectedTheme = value;
   }

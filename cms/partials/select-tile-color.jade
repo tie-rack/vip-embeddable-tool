@@ -13,4 +13,4 @@
             class="interior-tile-bar-color"
             ng-class="{selected: $parent.selectedTileBarColor == tileBarColor}"
             ng-click="$parent.selectedTileBarColor = tileBarColor; log($index); $parent.selectedSecondaryTileBarColor = interiorSecondaryTileBarColors[$index]"
-            style="background-color: {{tileBarColor}}")
+            ng-style="{'background-color': $interiorTileBarColors[$index]}"

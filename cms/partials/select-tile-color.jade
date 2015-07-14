@@ -7,10 +7,10 @@
       .section-interior-tile-bar-color
         h2.subtitle
           | Interior tile bar color
-        ul(ng-init="interiorTileBarColors = ['#000', '#a4a4a4', '#229acd', '#ad1b1b', '#25a095', '#9ccc66', '#ffa004', '#5e34b1', '#a1887f', '#f06292']; interiorSecondaryTileBarColors = ['#555', '#909090', '#228a9d', '#8d1919', '#258065', '#7caa66', '#dd8004', '#5e3481', '#81665f', '#c04273']")
+        ul
           li(
+            ng-repeat="tileBarColor in interiorTileBarColors track by $index"
             class="interior-tile-bar-color"
             ng-class="{selected: $parent.selectedTileBarColor == tileBarColor}"
-            ng-repeat="tileBarColor in interiorTileBarColors track by $index"
             ng-click="$parent.selectedTileBarColor = tileBarColor; log($index); $parent.selectedSecondaryTileBarColor = interiorSecondaryTileBarColors[$index]"
-            style="background: {{tileBarColor}}")
+            style="background-color: {{tileBarColor}}")

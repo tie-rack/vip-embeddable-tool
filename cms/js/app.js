@@ -93,6 +93,10 @@ app.controller('ApplicationController', function($scope, $window, $sce, $timeout
     return url != void 0 && url.length > 0 ? url : '';
   }
 
+  // COLOR SELECTOR:
+  $scope.interiorTileBarColors = ['#000', '#a4a4a4', '#229acd', '#ad1b1b', '#25a095', '#9ccc66', '#ffa004', '#5e34b1', '#a1887f', '#f06292'];
+  $scope.interiorSecondaryTileBarColors = ['#555', '#909090', '#228a9d', '#8d1919', '#258065', '#7caa66', '#dd8004', '#5e3481', '#81665f', '#c04273']
+
   // FORMAT SELECTOR:
   $scope.formats = ['640x480', '320x240', 'Responsive'];
 

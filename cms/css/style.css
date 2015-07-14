@@ -1040,6 +1040,9 @@ h2.preview-label {
     margin: 0 2px;
     width: 80px;
   }
+  .option.embed-button {
+    width: 200px;
+  }
   .option.highlighted {
     margin: 5px auto;
   }

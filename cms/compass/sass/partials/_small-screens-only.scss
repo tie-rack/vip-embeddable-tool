@@ -82,6 +82,10 @@
     margin: 0 2px;
     width: 80px;
 
+    &.embed-button {
+      width: 200px;
+    }
+
     &.highlighted {
       margin: 5px auto;
     }

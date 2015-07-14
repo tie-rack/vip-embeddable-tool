@@ -10,8 +10,7 @@
         ul
           li(
             ng-repeat="tileBarColor in interiorTileBarColors track by $index"
-            ng-init="circleStyle = {'background-color': $interiorTileBarColors[$index]}"
             class="interior-tile-bar-color"
             ng-class="{selected: $parent.selectedTileBarColor == tileBarColor}"
             ng-click="$parent.selectedTileBarColor = tileBarColor; log($index); $parent.selectedSecondaryTileBarColor = interiorSecondaryTileBarColors[$index]"
-            ng-attr-style="circleStyle")
+            ng-style="{'background-color': interiorTileBarColors[$index]}")

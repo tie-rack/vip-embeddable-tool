@@ -44,8 +44,8 @@
         | });&lt/script&gt
 
   .options
-    .option.highlighted(ng-click="startOver()") Start over
-    .option.highlighted(ng-hide="isiOS()" clip-copy="getTextToCopy()" clip-click-fallback="clipFallback(copy)") Copy code
-    .option.highlighted(ng-click="emailCode()") E-Mail code
+    .option.highlighted.embed-button(ng-click="startOver()") Start over
+    .option.highlighted.embed-button(ng-hide="isiOS()" clip-copy="getTextToCopy()" clip-click-fallback="clipFallback(copy)") Copy code
+    .option.highlighted.embed-button(ng-click="emailCode()") E-Mail code
     a(href="mailto:info@votinginfoproject.org" class="need-help")
-      .option.highlighted Need help?
+      .option.highlighted.embed-button Need help?

@@ -758,6 +758,10 @@ input:focus {
   margin-bottom: 0;
 }
 
+.embed-button {
+  width: 200px;
+}
+
 h2.preview-label {
   margin: -13px 0 0 0;
   font-size: 14px;

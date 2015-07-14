@@ -107,6 +107,11 @@ module.exports = View.extend({
       this.address = this.find('#address-input').val();
     }
 
+    // OVERRIDE: if what is in the text box is lengthier than the PAC address, use the former
+    if (this.address.length < this.find('#address-input').val().length) {
+      this.address = this.find('#address-input').val();
+    }
+
     this.hasSubmitted = true;
 
     this._makeRequest({

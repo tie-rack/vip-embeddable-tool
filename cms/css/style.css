@@ -497,6 +497,10 @@ input:focus {
   outline: none;
 }
 
+.vis-hidden {
+  visibility: hidden;
+}
+
 /* styling for panels */
 .container {
   height: 50%;

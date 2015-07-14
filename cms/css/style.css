@@ -874,7 +874,7 @@ h2.preview-label {
     box-shadow: none;
   }
   .form .dropdown-button {
-    background: initial;
+    background: transparent;
     height: 35px;
     top: 2px;
     width: 25px;

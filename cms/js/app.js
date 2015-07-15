@@ -30,7 +30,7 @@ var lockOrientation = function () {
     // document.getElementsByTagName("navigation").style
   } else {
     document.getElementsByTagName("body")[0].style.height = "100%";
-    document.getElementsByTagName("body")[0].style.transform = "rotate(0deg)";
+    document.getElementsByTagName("body")[0].style.transform = "none";
   }
 }
 

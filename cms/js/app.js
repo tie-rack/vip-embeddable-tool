@@ -27,10 +27,14 @@ var lockOrientation = function () {
     document.getElementsByTagName("body")[0].style.width = window.innerHeight + "px";
     document.getElementsByTagName("body")[0].style.transform = "rotate(-90deg)";
 
-    // document.getElementsByTagName("navigation").style
+    document.getElementsByClassName("nav-holder")[0].style.bottom = -window.innerHeight/2 + "px";
+    document.getElementsByClassName("instructions")[0].style.paddingTop = "20%";
   } else {
-    document.getElementsByTagName("body")[0].style.height = "100%";
+    document.getElementsByTagName("body")[0].style.width = "100%";
     document.getElementsByTagName("body")[0].style.transform = "none";
+
+    document.getElementsByClassName("nav-holder")[0].style.bottom = 0;
+    document.getElementsByClassName("instructions")[0].style.paddingTop = 0;
   }
 }
 

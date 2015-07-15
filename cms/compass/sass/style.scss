@@ -54,6 +54,10 @@ input:focus {
   outline: none;
 }
 
+.vis-hidden {
+  visibility: hidden;
+}
+
 /* styling for panels */
 .container {
   height: 50%;
@@ -330,6 +334,10 @@ input:focus {
 
 #embed-code {
     margin-bottom: 0;
+}
+
+.embed-button {
+  width: 200px;
 }
 
 h2.preview-label {

@@ -467,15 +467,6 @@ body {
   font-family: "Helvetica", Arial, sans-serif;
 }
 
-@media screen and (max-width: 685px) and (orientation: landscape) {
-  body {
-    -webkit-transform: rotate(-90deg);
-    -moz-transform: rotate(-90deg);
-    -o-transform: rotate(-90deg);
-    -ms-transform: rotate(-90deg);
-    transform: rotate(-90deg);
-  }
-}
 body, button, input, select, textarea {
   font-family: 'Roboto', sans-serif;
 }
@@ -520,7 +511,7 @@ input:focus {
   visibility: none;
 }
 
-.navigation {
+navigation {
   position: absolute;
   bottom: 0;
   left: 0;

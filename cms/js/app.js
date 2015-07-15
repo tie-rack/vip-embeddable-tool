@@ -1,5 +1,39 @@
 // RESIZER:
 var BREAKPOINT = 685;
+var isMobile = {
+  Android: function() {
+    return navigator.userAgent.match(/Android/i) ? true : false;
+  },
+  BlackBerry: function() {
+    return navigator.userAgent.match(/BlackBerry/i) ? true : false;
+  },
+  iOS: function() {
+    return navigator.userAgent.match(/iPhone|iPad|iPod/i) ? true : false;
+  },
+  iPad: function() {
+    return navigator.userAgent.match(/iPad/i) ? true : false;
+  },
+  Windows: function() {
+    return navigator.userAgent.match(/IEMobile/i) ? true : false;
+  },
+  any: function() {
+    return (isMobile.Android() || isMobile.BlackBerry() || isMobile.iOS() || isMobile.Windows());
+  }
+};
+
+var lockOrientation = function () {
+  if (window.innerWidth < 685 && isMobile.any() && window.innerWidth/window.innerHeight > 1) {
+    // document.getElementsByTagName("body")[0].style.height = window.innerWidth + "px";
+    document.getElementsByTagName("body")[0].style.width = window.innerHeight + "px";
+    document.getElementsByTagName("body")[0].style.transform = "rotate(-90deg)";
+
+    // document.getElementsByTagName("navigation").style
+  } else {
+    document.getElementsByTagName("body")[0].style.height = "100%";
+    document.getElementsByTagName("body")[0].style.transform = "rotate(0deg)";
+  }
+}
+
 var resizer = function () {
   if (window.innerWidth > BREAKPOINT && window.innerHeight < 650) {
     var wrapper = document.getElementsByClassName("device-wrapper")[0];
@@ -8,15 +42,8 @@ var resizer = function () {
     var wrapper = document.getElementsByClassName("device-wrapper")[0];
     wrapper.style.height = "initial";
   }
-}
 
-var lockOrientation = function () {
-  if (window.innerWidth < 685 && isMobile.any()) {
-    // document.getElementsByTagName("body")[0].style.height = window.innerWidth + "px";
-    document.getElementsByTagName("body")[0].style.height = window.innerHeight + "px";
-  } else {
-    document.getElementsByTagName("body")[0].style.height = "initial";
-  }
+  lockOrientation();
 }
 
 // MODULE:
@@ -151,7 +178,7 @@ app.controller('ApplicationController', function($scope, $window, $sce, $timeout
 
   // UTILS:
   $scope.isiOS = function () {
-    return navigator.userAgent.match(/iPhone|iPad|iPod/i) ? true : false;
+    return isMobile.iOS();
   }
 
   $scope.init();
@@ -193,7 +220,6 @@ app.directive('resize', function ($window) {
     }, true);
 
     w.bind('resize', function () {
-      lockOrientation();
       resizer();
       scope.$apply();
     });

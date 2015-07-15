@@ -15,17 +15,6 @@ body {
   @include typeface;
 }
 
-@media screen and (max-width: 685px) and (orientation: landscape) {
-  body {
-    // position: absolute;
-    -webkit-transform: rotate(-90deg);
-    -moz-transform: rotate(-90deg);
-    -o-transform: rotate(-90deg);
-    -ms-transform: rotate(-90deg);
-    transform: rotate(-90deg);
-  }
-}
-
 body, button, input, select, textarea {
   font-family: 'Roboto', sans-serif;
 }
@@ -75,11 +64,15 @@ input:focus {
 //   height: 50%;
 // }
 
-.navigation {
+navigation {
   position: absolute;
   bottom: 0;
   left: 0;
   right: 0;
+}
+
+.navigation {
+
 }
 
 .preview {

@@ -63,7 +63,7 @@ app.controller('ApplicationController', function($scope, $window, $sce, $timeout
     $scope.selectedLogoOption = $scope.logoOptions[0];
     $scope.setState($scope.states[0]);
     $scope.setFormat($scope.formats[0]);
-    $scope.selectedDevice = 'desktop';
+    $scope.setPreviewOption('desktop');
     $scope.setLanguage("English");
 
     // Bug fix for theme SVGS:

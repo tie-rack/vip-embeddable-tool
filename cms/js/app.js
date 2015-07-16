@@ -169,7 +169,7 @@ app.controller('ApplicationController', function($scope, $window, $sce, $timeout
   $scope.getTextToCopy = function () {
     var d = document.getElementById("embed-code");
     var textFunc = ('innerText' in d) ? 'innerText' : 'textContent';
-    if ($scope.isiOS) {
+    if ($scope.isiOS()) {
       return d.innerHTML;
     } else {
       return d[textFunc];

@@ -1038,7 +1038,8 @@ h2.preview-label {
 
   .option {
     margin: 0 2px;
-    width: 80px;
+    padding: 0 5px;
+    min-width: 35px;
   }
   .option.embed-button {
     width: 200px;

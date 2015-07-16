@@ -1,9 +1,9 @@
 svg(
   x="24", y="87")
   defs
-    pattern(id="theme", patternUnits="userSpaceOnUse", width="303", height="1078")
+    pattern(id="theme3", patternUnits="userSpaceOnUse", width="303", height="1078")
       image(ng-attr-xlink:href='{{ themeUrl(selectedTheme) | unsafeResource }}' xlink:href='', x="0", y="-270", width="720", height="1078")
-  rect(fill="url(#theme)", x="0", y="0", width="303", height="1078")
+  rect(fill="url(#theme3)", x="0", y="0", width="303", height="1078")
   rect(fill="#bbb", x="10" y="180" width="285" height="150")
   rect(fill="#fff", x="55" y="240" width="200" height="30")
   image(class="mobile-seal" ng-show="selectedLogoOption == 'State Seal' || selectedLogoOption == 'Default'", ng-attr-xlink:href='{{ stateSealUrl(selectedState) | unsafeResource }}', xlink:href='', x="120", y="10", width="60", height="60")

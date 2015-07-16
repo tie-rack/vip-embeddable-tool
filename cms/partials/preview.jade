@@ -19,8 +19,12 @@
     .row(class="device-preview-1" ng-class="{'show-device-preview': isFirstVisible(), 'hide-device-preview': !isFirstVisible(), phonePrev: selectedDevice == 'phone'}")
 
       img(class="logo-image" ng-class="{'vis-hidden': selectedLogoOption != 'State Seal' && selectedLogoOption != 'Default'}" ng-src='{{ stateSealUrl(selectedState) | unsafeResource }}')
+
+      //- These jade vars are used to interpolate unique values into these templates and to fix a theme bug on IE
+      - var themeId = "theme1";
       include ./devices/desktop-search.jade
 
+      - var themeId = "theme2";
       include ./devices/tablet-search.jade
 
       include ./devices/phone-search.jade

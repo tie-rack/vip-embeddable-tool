@@ -70,7 +70,7 @@ app.controller('ApplicationController', function($scope, $window, $sce, $timeout
     setTimeout(function () {
       $scope.setPreviewOption('tablet');
       $scope.$apply();
-    }, 50);
+    }, 500);
 
     // Fix for android keyboard popup:
     if (window.innerWidth < BREAKPOINT) {

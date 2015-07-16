@@ -330,7 +330,18 @@ navigation, .nav-holder {
 }
 
 .embed-button {
+  position: relative;
   width: 200px;
+
+  &:hover {
+    background: #60A0B4;
+  }
+
+  &:active {
+    position: relative;
+    top: 2px;
+    left: 2px;
+  }
 }
 
 h2.preview-label {

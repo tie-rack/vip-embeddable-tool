@@ -759,7 +759,16 @@ navigation, .nav-holder {
 }
 
 .embed-button {
+  position: relative;
   width: 200px;
+}
+.embed-button:hover {
+  background: #60A0B4;
+}
+.embed-button:active {
+  position: relative;
+  top: 2px;
+  left: 2px;
 }
 
 h2.preview-label {

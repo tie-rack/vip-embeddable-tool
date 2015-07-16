@@ -185,6 +185,15 @@ app.controller('ApplicationController', function($scope, $window, $sce, $timeout
     return isMobile.iOS();
   }
 
+  $scope.flashButtonClickWorkaround = function () {
+    document.getElementById("copy-code-button").style.top = "2px";
+    document.getElementById("copy-code-button").style.left = "2px";
+    setTimeout(function () {
+      document.getElementById("copy-code-button").style.top = 0;
+      document.getElementById("copy-code-button").style.left = 0;
+    }, 300)
+  }
+
   $scope.init();
 });
 

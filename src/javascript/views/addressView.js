@@ -269,20 +269,6 @@ module.exports = View.extend({
     } else this.triggerRouteEvent('addressViewSubmit', response);
   },
 
-  handleAddressNotFound: function() {
-    this.$el.unbind('click');
-    google.maps.event.addListener(this.autocomplete, 'place_changed', this.autocompleteListener.bind(this));
-    this.find('.loading').hide();
-    setTimeout(function() {
-      this.find('.loading').hide();
-    }.bind(this), 500);
-    this.find('#address-not-found').fadeIn();
-    this.find('#fade').fadeTo('fast', .2);
-    this.find('#address-not-found h1').text(this.address);
-    this.find('#address-input').value = "";
-    this.hasSubmitted = false;
-  },
-
   selectElection: function(e) {
     var electionId = e.currentTarget.querySelector('.hidden');
     this.triggerRouteEvent('');

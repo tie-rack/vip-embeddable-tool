@@ -40,7 +40,8 @@ module.exports = View.extend({
     '#close-button click' : 'closeAboutModal',
     '#ballot-information click' : 'toggleBallot',
     '#map-view-toggle click' : 'toggleMapListView',
-    '#alert click' : 'closeAlert'
+    '#alert click' : 'closeAlert',
+    '#not-found-button click': 'closeAddressNotFound'
   },
 
   map: null,
@@ -1091,11 +1092,6 @@ module.exports = View.extend({
     }
   },
 
-  handleAddressNotFound: function() {
-    $('.change-address').val("");
-    this.hasSubmitted = false;
-  },
-
   changeElection: function(e) {
     var selected = $(this).firstElementChild;
 
@@ -1398,5 +1394,9 @@ module.exports = View.extend({
         this.find('#location-legend')
           .css('top', '2%');
     }.bind(this));
+  },
+
+  closeAddressNotFound: function() {
+    this.find('#address-not-found').hide();
   }
 });

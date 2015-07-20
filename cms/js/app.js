@@ -25,12 +25,14 @@ var lockOrientation = function () {
   if (window.innerWidth < 685 && isMobile.any() && window.innerWidth/window.innerHeight > 1) {
     // document.getElementsByTagName("body")[0].style.height = window.innerWidth + "px";
     document.getElementsByTagName("body")[0].style.width = window.innerHeight + "px";
+    document.getElementsByTagName("body")[0].style['-webkit-transform'] = "rotate(-90deg)";
     document.getElementsByTagName("body")[0].style.transform = "rotate(-90deg)";
 
     document.getElementsByClassName("nav-holder")[0].style.display = "none";
     document.getElementsByClassName("instructions")[0].style.paddingTop = "20%";
   } else {
     document.getElementsByTagName("body")[0].style.width = "100%";
+    document.getElementsByTagName("body")[0].style['-webkit-transform'] = "none";
     document.getElementsByTagName("body")[0].style.transform = "none";
 
     document.getElementsByClassName("nav-holder")[0].style.display = "block";

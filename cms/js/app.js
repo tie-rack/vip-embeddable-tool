@@ -55,7 +55,7 @@ var resizer = function () {
 }
 
 // MODULE:
-var app = angular.module('Application', ['ngClipboard', 'ngTouch']);
+var app = angular.module('Application', ['ngTouch']);
 
 
 /**
@@ -275,6 +275,6 @@ app.directive('heading', function () {
 /**
 * CONFIG:
 **/
-app.config(['ngClipProvider', function(ngClipProvider) {
-  ngClipProvider.setPath("js/vendor/ZeroClipboard.swf");
-}]);
+// app.config(['ngClipProvider', function(ngClipProvider) {
+//   ngClipProvider.setPath("js/vendor/ZeroClipboard.swf");
+// }]);

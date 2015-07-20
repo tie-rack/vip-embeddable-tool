@@ -22,9 +22,9 @@ var isMobile = {
 };
 
 var lockOrientation = function () {
-  if (window.innerWidth < 685 && isMobile.any() && window.innerWidth/window.innerHeight > 1) {
+  if (window.innerWidth < BREAKPOINT && isMobile.any() && window.innerWidth/window.innerHeight > 1) {
     document.getElementsByTagName("body")[0].style.width = window.innerHeight + "px";
-    document.getElementsByTagName("body")[0].style.position = "absolute";
+    document.getElementsByTagName("body")[0].style.position = "fixed";
     document.getElementsByTagName("body")[0].style.top = 0;
     document.getElementsByTagName("body")[0].style['-webkit-transform'] = "rotate(-90deg)";
     document.getElementsByTagName("body")[0].style.transform = "rotate(-90deg)";
@@ -32,10 +32,10 @@ var lockOrientation = function () {
     document.getElementsByClassName("nav-holder")[0].style.display = "none";
     document.getElementsByClassName("instructions")[0].style.paddingTop = "20%";
   } else {
-    document.getElementsByTagName("body")[0].style.width = "100%";
-    document.getElementsByTagName("body")[0].style.position = "static";
     document.getElementsByTagName("body")[0].style['-webkit-transform'] = "none";
     document.getElementsByTagName("body")[0].style.transform = "none";
+    document.getElementsByTagName("body")[0].style.position = "static";
+    document.getElementsByTagName("body")[0].style.width = "100%";
 
     document.getElementsByClassName("nav-holder")[0].style.display = "block";
     document.getElementsByClassName("instructions")[0].style.paddingTop = 0;

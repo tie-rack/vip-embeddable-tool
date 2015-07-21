@@ -6,3 +6,4 @@ node_modules/
 cms/*.html
 cms/css
 aws-staging.json
+aws-production.json

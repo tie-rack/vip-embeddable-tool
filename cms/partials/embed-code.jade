@@ -17,9 +17,9 @@
         br
         span(ng-if="officialOnly")     officialOnly: true,
         br(ng-if="officialOnly")
-        span(ng-if="title")     title: {{ title }}
+        span(ng-if="title")     title: '{{ title }}'
         br(ng-if="title")
-        span(ng-if="subtitle")     subtitle: {{ subtitle }}
+        span(ng-if="subtitle")     subtitle: '{{ subtitle }}'
         br(ng-if="subtitle")
         span(ng-if="selectedFormat == '640x480'")
           |     width: '640px',

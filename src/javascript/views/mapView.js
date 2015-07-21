@@ -40,7 +40,8 @@ module.exports = View.extend({
     '#close-button click' : 'closeAboutModal',
     '#ballot-information click' : 'toggleBallot',
     '#map-view-toggle click' : 'toggleMapListView',
-    '#alert click' : 'closeAlert'
+    '#alert click' : 'closeAlert',
+    '#not-found-button click': 'closeAddressNotFound'
   },
 
   map: null,
@@ -925,7 +926,31 @@ module.exports = View.extend({
 
     google.maps.event.addListener(marker, 'click', this._markerFocusHandler.bind(this, marker, address, location, saddr, daddr));
     if (this.markers.length === 1) {
-      this.find('#location-legend').on('click', this._markerFocusHandler.bind(this, marker, address, location, saddr, daddr))
+      this.find('#blue-block').on('click', this._markerFocusHandler.bind(this, marker, address, location, saddr, daddr))
+      this.find('#red-block').on('click', function () {
+        for (var i = 0; i < that.markers.length; i++) {
+          if (that.data.pollingLocations[i].isEarlyVoteSite && !that.data.pollingLocations[i].isBoth && !that.data.pollingLocations[i].isBothEarlyVoteAndDropOff) {
+            var location = that.data.pollingLocations[i];
+            that._markerFocusHandler(that.markers[i], location.address, location, location.normalizedInput, that._parseAddressWithoutName(location.address))
+          }
+        }
+      });
+      this.find('#grey-block').on('click', function () {
+        for (var i = 0; i < that.markers.length; i++) {
+          if (that.data.pollingLocations[i].isDropOffLocation && !that.data.pollingLocations[i].isBothPollingAndDropoff && !that.data.pollingLocations[i].isBothEarlyVoteAndDropOff) {
+            var location = that.data.pollingLocations[i];
+            that._markerFocusHandler(that.markers[i], location.address, location, location.normalizedInput, that._parseAddressWithoutName(location.address))
+          }
+        }
+      });
+      this.find('#green-block').on('click', function () {
+        for (var i = 0; i < that.markers.length; i++) {
+          if (that.data.pollingLocations[i].isBoth) {
+            var location = that.data.pollingLocations[i];
+            that._markerFocusHandler(that.markers[i], location.address, location, location.normalizedInput, that._parseAddressWithoutName(location.address))
+          }
+        }
+      });
     }
 
   },
@@ -992,6 +1017,8 @@ module.exports = View.extend({
               location.isDropOffLocation,
               location.isBothPollingAndDropOff
             );
+            location.normalizedInput = normalizedInput;
+            location.position = position;
           }, function(status) {
           },
           0
@@ -1089,11 +1116,6 @@ module.exports = View.extend({
       addressInput.hide()
       this.find('#fade').fadeOut()
     }
-  },
-
-  handleAddressNotFound: function() {
-    $('.change-address').val("");
-    this.hasSubmitted = false;
   },
 
   changeElection: function(e) {
@@ -1398,5 +1420,9 @@ module.exports = View.extend({
         this.find('#location-legend')
           .css('top', '2%');
     }.bind(this));
+  },
+
+  closeAddressNotFound: function() {
+    this.find('#address-not-found').hide();
   }
 });

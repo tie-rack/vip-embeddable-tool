@@ -185,6 +185,26 @@
     background-color: black
     z-index: 2
 
+  #address-not-found,
+  #current-location
+    display: none
+    position: absolute
+    width: 95%
+    left: 50%
+    top: 50%
+    transform: translate(-50%, -50%)
+    z-index: 3
+    @include box-shadow(0 3px 2px 0 rgba(50,50,50,0.45))
+    h1
+      margin: 10px 0
+      text-align: left
+    h2
+      color: $red
+    button
+      display: block
+      margin: 0 auto
+      margin-top: 20px
+
 @media screen and (max-device-width: 480px)
   #_vit
     -webkit-text-size-adjust: none

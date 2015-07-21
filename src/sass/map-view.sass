@@ -15,7 +15,7 @@
       display: table
       clear: both
 
-    button
+    button:not(#not-found-button)
       position: absolute
       left: 2px
       margin-top: 100px
@@ -88,6 +88,7 @@
       overflow: hidden
 
     .candidate-item
+      position: relative
       .right-arrow
         @include translateY(-50%)
 
@@ -121,6 +122,16 @@
 
     .party
       font-style: italic
+
+    .phone,
+    .email
+      position: absolute
+      top: 50%
+      margin-top: -12px
+      right: 40px
+
+    .email
+      right: 80px
 
     .election
       cursor: default
@@ -185,6 +196,9 @@
 
     .polling-location-info
       margin: 5px 0
+
+    #polling-location-info-close
+      display: none
 
     #registered-address
       cursor: pointer
@@ -332,6 +346,8 @@
         top: 63%
 
   @media only screen and (min-device-width : 768px)
-  #map-view
-    #alert
-      position: absolute
+    #map-view
+      #alert
+        position: absolute
+      #polling-location-info-close
+        display: block

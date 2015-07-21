@@ -29,6 +29,17 @@ var lockOrientation = function () {
     document.getElementsByTagName("body")[0].style['-webkit-transform'] = "rotate(-90deg)";
     document.getElementsByTagName("body")[0].style.transform = "rotate(-90deg)";
 
+    var containers = document.getElementsByClassName("container");
+    for (var i = 0; i < containers.length; i++) {
+      containers[i].style.height = window.innerWidth * .5 + "px";
+    }
+    document.getElementsByClassName("preview")[0].style.height = window.innerWidth * .5 + "px";
+    var containers = document.getElementsByClassName("device-container");
+    for (var i = 0; i < containers.length; i++) {
+      containers[i].style.position = "relative";
+      containers[i].style.bottom = "-50px";
+    }
+
     document.getElementsByClassName("nav-holder")[0].style.display = "none";
     document.getElementsByClassName("instructions")[0].style.paddingTop = "20%";
   } else {
@@ -36,6 +47,29 @@ var lockOrientation = function () {
     document.getElementsByTagName("body")[0].style.transform = "none";
     document.getElementsByTagName("body")[0].style.position = "static";
     document.getElementsByTagName("body")[0].style.width = "100%";
+
+    if (window.innerWidth < BREAKPOINT && isMobile.any()) {
+      var containers = document.getElementsByClassName("container");
+      for (var i = 0; i < containers.length; i++) {
+        containers[i].style.height = "40%";
+      }
+      document.getElementsByClassName("preview")[0].style.height = "60%";
+      var containers = document.getElementsByClassName("device-container");
+      for (var i = 0; i < containers.length; i++) {
+        containers[i].style.position = "absolute";
+        containers[i].style.bottom = "48px";
+      }
+    } else {
+      var containers = document.getElementsByClassName("container");
+      for (var i = 0; i < containers.length; i++) {
+        containers[i].style.height = "auto";
+      }
+      document.getElementsByClassName("preview")[0].style.height = "auto";
+      var containers = document.getElementsByClassName("device-container");
+      for (var i = 0; i < containers.length; i++) {
+        containers[i].style.position = "static";
+      }
+    }
 
     document.getElementsByClassName("nav-holder")[0].style.display = "block";
     document.getElementsByClassName("instructions")[0].style.paddingTop = 0;
@@ -187,15 +221,6 @@ app.controller('ApplicationController', function($scope, $window, $sce, $timeout
   // UTILS:
   $scope.isiOS = function () {
     return isMobile.iOS();
-  }
-
-  $scope.flashButtonClickWorkaround = function () {
-    document.getElementById("copy-code-button").style.top = "2px";
-    document.getElementById("copy-code-button").style.left = "2px";
-    setTimeout(function () {
-      document.getElementById("copy-code-button").style.top = 0;
-      document.getElementById("copy-code-button").style.left = 0;
-    }, 300)
   }
 
   $scope.init();

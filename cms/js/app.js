@@ -76,6 +76,8 @@ var lockOrientation = function () {
   }
 }
 
+var preFocusHeight = window.innerHeight;
+
 var resizer = function () {
   if (window.innerWidth > BREAKPOINT && window.innerHeight < 650) {
     var wrapper = document.getElementsByClassName("device-wrapper")[0];
@@ -84,6 +86,8 @@ var resizer = function () {
     var wrapper = document.getElementsByClassName("device-wrapper")[0];
     wrapper.style.height = "initial";
   }
+
+  preFocusHeight = window.innerHeight;
 
   lockOrientation();
 }
@@ -115,6 +119,15 @@ app.controller('ApplicationController', function($scope, $window, $sce, $timeout
       var height = window.innerHeight;
       viewport = document.querySelector("meta[name=viewport]");
       viewport.setAttribute('content', 'height=' + height + ' width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0');
+
+      if (isMobile.Android()) {
+        var inputs = document.getElementsByTagName("input");
+        for (var i = 0; i < inputs.length; i++) {
+          inputs[i].addEventListener("focus", function () {
+            window.innerHeight = preFocusHeight;
+          })
+        }
+      }
     }
 
     resizer();

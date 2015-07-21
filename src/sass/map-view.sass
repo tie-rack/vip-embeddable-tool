@@ -197,8 +197,12 @@
     .polling-location-info
       margin: 5px 0
 
-    #polling-location-info-close
+    #polling-location-info-close,
+    #map-view-toggle
       display: none
+
+    #location-legend
+      display: none !important
 
     #registered-address
       cursor: pointer
@@ -349,5 +353,8 @@
     #map-view
       #alert
         position: absolute
+      #location-legend
+        display: block !important
+      #map-view-toggle,
       #polling-location-info-close
         display: block

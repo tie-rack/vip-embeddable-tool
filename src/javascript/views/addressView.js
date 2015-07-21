@@ -31,6 +31,13 @@ module.exports = View.extend({
     if (this.$container.parent().width() < this.$container.width()) {
       this.$container.width(this.$container.parent().width());
     }
+
+    if (this.$container.width() <= 320) {
+      this.$el.find('#app-info').css('visibility', 'hidden');
+      this.$el.find('#plus-icon').css('margin-top', '-35px');
+    } else {
+      this.$el.find('#plus-icon').css('margin-top', '-50px');
+    }
   },
 
   onAfterRender : function(options) {

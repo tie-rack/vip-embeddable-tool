@@ -48,7 +48,7 @@ var lockOrientation = function () {
     document.getElementsByTagName("body")[0].style.position = "static";
     document.getElementsByTagName("body")[0].style.width = "100%";
 
-    if (window.innerWidth < BREAKPOINT && isMobile.any()) {
+    if (window.innerWidth < BREAKPOINT) {
       var containers = document.getElementsByClassName("container");
       for (var i = 0; i < containers.length; i++) {
         containers[i].style.height = "40%";

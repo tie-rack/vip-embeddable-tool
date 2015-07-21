@@ -22,7 +22,7 @@
 
           .text {{ logoOption }}
 
-      .logo-url(ng-show="selectedLogoOption == 'Logo'")
+      .logo-url(ng-show="selectedLogoOption == 'Custom'")
         h2.subtitle
            Enter URL
 
@@ -31,7 +31,6 @@
 
       dropdown(
         ng-show="selectedLogoOption == 'State Seal'"
-        default-text="Default"
         selected-value="selectedState"
         options="states"
         set-value="setState(value)"

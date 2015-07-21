@@ -24,6 +24,7 @@ input[type="text"] {
 }
 
 html {
+  position: relative;
   -webkit-touch-callout: none;
   -webkit-user-select: none;
   -khtml-user-select: none;
@@ -64,11 +65,15 @@ input:focus {
 //   height: 50%;
 // }
 
-.navigation {
+navigation, .nav-holder {
   position: absolute;
   bottom: 0;
   left: 0;
   right: 0;
+}
+
+.navigation {
+
 }
 
 .preview {
@@ -323,6 +328,21 @@ input:focus {
 
 #embed-code {
     margin-bottom: 0;
+}
+
+.embed-button {
+  position: relative;
+  width: 200px;
+
+  &:hover {
+    background: #60A0B4;
+  }
+
+  &:active {
+    position: relative;
+    top: 2px;
+    left: 2px;
+  }
 }
 
 h2.preview-label {

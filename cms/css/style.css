@@ -476,6 +476,7 @@ input[type="text"] {
 }
 
 html {
+  position: relative;
   -webkit-touch-callout: none;
   -webkit-user-select: none;
   -khtml-user-select: none;
@@ -511,7 +512,7 @@ input:focus {
   visibility: none;
 }
 
-.navigation {
+navigation, .nav-holder {
   position: absolute;
   bottom: 0;
   left: 0;
@@ -756,6 +757,19 @@ input:focus {
 
 #embed-code {
   margin-bottom: 0;
+}
+
+.embed-button {
+  position: relative;
+  width: 200px;
+}
+.embed-button:hover {
+  background: #60A0B4;
+}
+.embed-button:active {
+  position: relative;
+  top: 2px;
+  left: 2px;
 }
 
 h2.preview-label {
@@ -1034,7 +1048,11 @@ h2.preview-label {
 
   .option {
     margin: 0 2px;
-    width: 80px;
+    padding: 0 5px;
+    min-width: 35px;
+  }
+  .option.embed-button {
+    width: 200px;
   }
   .option.highlighted {
     margin: 5px auto;

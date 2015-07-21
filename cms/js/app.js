@@ -161,6 +161,10 @@ app.controller('ApplicationController', function($scope, $window, $sce, $timeout
 
     if ($scope.selectedLogoOption == 'Default') {
       return 'img/vip-logo.png';
+    } else if ($scope.selectedLogoOption == 'Custom') {
+      console.log($scope.logoUrl)
+      if ($scope.logoUrl == undefined) return '//:0';
+      return $scope.logoURL($scope.logoUrl);
     } else {
       return baseUrl + $scope.stateSeals[state];
     }

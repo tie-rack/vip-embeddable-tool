@@ -18,7 +18,7 @@
   .device-wrapper
     .row(class="device-preview-1" ng-class="{'show-device-preview': isFirstVisible(), 'hide-device-preview': !isFirstVisible(), phonePrev: selectedDevice == 'phone'}")
 
-      img(class="logo-image" ng-class="{'vis-hidden': selectedLogoOption != 'State Seal' && selectedLogoOption != 'Default'}" ng-src='{{ stateSealUrl(selectedState) | unsafeResource }}')
+      img(class="logo-image" ng-class="{'vis-hidden': (selectedLogoOption != 'State Seal' && selectedLogoOption != 'Default') && selectedLogoOption != 'Custom'}" ng-src='{{ stateSealUrl(selectedState) | unsafeResource }}')
 
       //- These jade vars are used to interpolate unique values into these templates and to fix a theme bug on IE
       - var themeId = "theme1";
@@ -37,7 +37,7 @@
     //-
     .row(class="device-preview-2" ng-class="{'show-device-preview': !isFirstVisible(), 'hide-device-preview': isFirstVisible(), phonePrev: selectedDevice == 'phone'}")
 
-      img(class="logo-image" ng-class="{'vis-hidden': selectedLogoOption != 'State Seal' && selectedLogoOption != 'Default'}" ng-src='{{ stateSealUrl(selectedState) | unsafeResource }}')
+      img(class="logo-image" ng-class="{'vis-hidden': (selectedLogoOption != 'State Seal' && selectedLogoOption != 'Default') && selectedLogoOption != 'Custom'}" ng-src='{{ stateSealUrl(selectedState) | unsafeResource }}')
       include ./devices/desktop-map.jade
 
       include ./devices/tablet-map.jade

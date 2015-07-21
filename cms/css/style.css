@@ -1013,10 +1013,6 @@ h2.preview-label {
     margin: 0 auto;
   }
 
-  .show-device-preview {
-    display: block;
-  }
-
   .hide-device-preview {
     display: none;
   }
@@ -1078,6 +1074,10 @@ h2.preview-label {
 
   .preview {
     height: 60%;
+  }
+
+  .show-device-preview {
+    display: block;
   }
 
   .select-title .section-subtitle .subtitle {

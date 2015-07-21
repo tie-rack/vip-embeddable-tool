@@ -45,10 +45,6 @@
     margin: 0 auto;
   }
 
-  .show-device-preview {
-    display: block;
-  }
-
   .hide-device-preview {
     display: none;
   }
@@ -113,7 +109,17 @@
   }
 
   .preview {
+    // position: relative;
     height: 60%;
+  }
+
+  .show-device-preview {
+    // position: relative;
+    display: block;
+  }
+
+  .device-wrapper {
+    // position: relative;
   }
 
   .select-title .section-subtitle .subtitle {

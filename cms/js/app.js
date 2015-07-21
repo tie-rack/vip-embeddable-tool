@@ -22,7 +22,7 @@ var isMobile = {
 };
 
 var lockOrientation = function () {
-  if (window.innerWidth < BREAKPOINT && isMobile.any() && window.innerWidth/window.innerHeight > 1) {
+  if (window.innerWidth < BREAKPOINT && isMobile.any() && window.innerWidth/window.innerHeight > 1 && window.innerHeight > 300) {
     document.getElementsByTagName("body")[0].style.width = window.innerHeight + "px";
     document.getElementsByTagName("body")[0].style.position = "fixed";
     document.getElementsByTagName("body")[0].style.top = 0;

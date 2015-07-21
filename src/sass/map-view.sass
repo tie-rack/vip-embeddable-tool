@@ -88,6 +88,7 @@
       overflow: hidden
 
     .candidate-item
+      position: relative
       .right-arrow
         @include translateY(-50%)
 
@@ -121,6 +122,16 @@
 
     .party
       font-style: italic
+
+    .phone,
+    .email
+      position: absolute
+      top: 50%
+      margin-top: -12px
+      right: 60px
+
+    .email
+      right: 80px
 
     .election
       cursor: default

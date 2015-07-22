@@ -234,7 +234,11 @@ app.controller('ApplicationController', function($scope, $window, $sce, $timeout
       if ($scope.stateSeals[state].base != undefined) baseUrl = $scope.stateSeals[state].base;
       var extension = ".png"
       if ($scope.stateSeals[state].extension != undefined) extension = $scope.stateSeals[state].extension;
-      return baseUrl + $scope.stateSeals[state].pre + $scope.stateSeals[state].svg + "/170px-" + $scope.stateSeals[state].svg + extension;
+      if (state == "Connecticut") {
+        return "//upload.wikimedia.org/wikipedia/commons/" + $scope.stateSeals[state].pre + $scope.stateSeals[state].svg;
+      } else {
+        return baseUrl + $scope.stateSeals[state].pre + $scope.stateSeals[state].svg + "/170px-" + $scope.stateSeals[state].svg + extension;
+      }
     }
   }
 

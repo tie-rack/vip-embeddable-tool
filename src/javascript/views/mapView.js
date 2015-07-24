@@ -674,6 +674,11 @@ module.exports = View.extend({
       return $(this).text().trim().length == 0
     }).prev().hide();
 
+    // only dropoff locations
+    if (options.data.pollingLocations && options.data.dropOffLocations && (options.data.pollingLocations.length === options.data.dropOffLocations.length)) {
+      this.find('#grey-block').css('top', 'initial');
+      this.find('#grey-label').css('top', '-8px');
+    }
   },
 
   closePopUps: function (e) {
@@ -917,10 +922,17 @@ module.exports = View.extend({
     }
     if (isBoth) url = 'https://s3.amazonaws.com/vip-voter-information-tool/images/green-marker.png'
 
+    var icon = {
+      url: url,
+      scaledSize: new google.maps.Size(23, 38),
+      origin: new google.maps.Point(0, 0),
+      anchor: new google.maps.Point(23, 35)
+    };
+
     var marker = new google.maps.Marker({
       map: this.map,
       position: position,
-      icon: url
+      icon: icon
     });
     this.markers.push(marker);
 

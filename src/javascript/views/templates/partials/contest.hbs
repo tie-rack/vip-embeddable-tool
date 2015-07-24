@@ -9,7 +9,7 @@
 		<span class="subsection-plus">&#8212</span>
 	</div>
 	<div class="candidate-list">
-		{{#if referendumSubtitle }}
+		{{#if referendumTitle }}
 		{{#if referendumUrl }}
 		<a href="{{ referendumUrl }}">
 		{{/if}}
@@ -17,11 +17,21 @@
 				{{#if referendumUrl}}
 				<img src="https://d13luoc3ou2p3l.cloudfront.net/images/arrow.png" class="arrow">
 				{{/if}}
-				{{{escapeHTML referendumSubtitle }}}
+				<p>{{{escapeHTML referendumSubtitle }}}</p>
+				<p>{{{escapeHTML referendumBrief }}}</p>
+				<p>{{{escapeHTML referendumText }}}</p>
+				<p>{{{escapeHTML referendumProStatement }}}</p>
+				<p>{{{escapeHTML referendumConStatement }}}</p>
+				<p>{{{escapeHTML referendumPassageThreshold }}}</p>
+				<p>{{{escapeHTML referendumEffectOfAbstain }}}</p>
+				<p>{{{escapeHTML referendum }}}</p>
+				{{#each referendumBallotResponses}}
+					<p>{{{escapeHTML this}}}
+				{{/each}}
 			</div>
 		{{#if referendumUrl}}
 		</a>
-		{{/if}}
+		{{/if }}
 		{{/if }}
 		{{#each candidates}}
 		{{#if candidateUrl}}

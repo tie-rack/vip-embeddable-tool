@@ -162,7 +162,7 @@ app.controller('ApplicationController', function($scope, $window, $sce, $timeout
 
   // LOGO SELECTOR:
   $scope.logoOptions = ['Default', 'State Seal', 'Custom', 'None'];
-  $scope.stateSeals = {'Alabama': 'f/f7/Seal_of_Alabama.svg','Alaska': '2/2b/Alaska-StateSeal.svg','Arizona': '7/7e/Arizona-StateSeal.svg','Arkansas': 'a/a4/Seal_of_Arkansas.svg','California': '0/0f/Seal_of_California.svg','Colorado': '0/00/Seal_of_Colorado.svg','Connecticut': '4/48/Seal_of_Connecticut.svg','Delaware': '3/35/Seal_of_Delaware.svg','Florida': '2/2b/Seal_of_Florida.svg','Georgia': '7/79/Seal_of_Georgia.svg','Hawaii': 'c/ca/Seal_of_the_State_of_Hawaii.svg','Idaho': 'e/eb/Seal_of_Idaho.svg','Illinois': 'e/e7/Seal_of_Illinois.svg','Indiana': 'c/c4/Indiana-StateSeal.svg','Iowa': '5/5a/Iowa-StateSeal.svg','Kansas': '4/45/Seal_of_Kansas.svg','Kentucky': '3/35/Seal_of_Kentucky.svg','Louisiana': 'b/b4/Seal_of_Louisiana_2010.png','Maine': '6/63/Seal_of_Maine.svg','Maryland': '1/1f/Seal_of_Maryland_%28obverse%29.png','Massachusetts': '8/82/Seal_of_Massachusetts.svg','Michigan': '3/3f/Seal_of_Michigan.svg','Minnesota': 'f/fd/Seal_of_Minnesota-alt.png','Mississippi': '8/84/Seal_of_Mississippi_%281818-2014%29.svg','Missouri': 'd/de/Seal_of_Missouri.svg','Montana': 'e/ed/Montana-StateSeal.svg','Nebraska': '7/73/Seal_of_Nebraska.svg','Nevada': '7/77/Nevada-StateSeal.svg','New Hampshire': 'a/aa/Seal_of_New_Hampshire.svg','New Jersey': '8/8d/Seal_of_New_Jersey.svg','New Mexico': '4/47/Great_seal_of_the_state_of_New_Mexico.png','New York': 'c/ca/Seal_of_New_York.svg','North Carolina': '7/72/Seal_of_North_Carolina.svg','North Dakota': 'e/e7/NorthDakota-StateSeal.svg','Ohio': '9/9b/Seal_of_Ohio_%28Official%29.svg','Oklahoma': '3/39/Seal_of_Oklahoma.svg','Oregon': '4/46/Seal_of_Oregon.svg','Pennsylvania': '7/7d/Seal_of_Pennsylvania.svg','Rhode Island': '7/76/Seal_of_Rhode_Island.svg','South Carolina': '8/80/Seal_of_South_Carolina.svg','South Dakota': 'b/bb/SouthDakota-StateSeal.svg','Tennessee': '3/3c/Seal_of_Tennessee.svg','Texas': 'c/cb/Seal_of_Texas.svg','Utah': 'a/a9/Seal_of_Utah.svg','Vermont': 'b/b3/Seal_of_Vermont_%28B%26W%29.svg','Virginia': '6/6f/Seal_of_Virginia.svg','Washington': '3/3d/Seal_of_Washington.svg', 'Washington D.C': 'thumb/4/4e/Seal_of_Washington%2C_D.C..svg/600px-Seal_of_Washington%2C_D.C..svg.png', 'West Virginia': '1/1c/Seal_of_West_Virginia.svg','Wisconsin': '3/31/Seal_of_Wisconsin.svg','Wyoming': 'e/e4/Seal_of_Wyoming.svg'};
+  $scope.stateSeals = {'Alabama': {pre: 'f/f7/', svg: 'Seal_of_Alabama.svg'},'Alaska': {pre: '2/2b/', svg: 'Alaska-StateSeal.svg'},'Arizona': {pre: '7/7e/', svg: 'Arizona-StateSeal.svg'},'Arkansas': {pre: 'a/a4/', svg: 'Seal_of_Arkansas.svg'},'California': {pre: '0/0f/', svg: 'Seal_of_California.svg'},'Colorado': {pre: '0/00/', svg: 'Seal_of_Colorado.svg'},'Connecticut': {pre: '4/48/', svg: 'Seal_of_Connecticut.svg'},'Delaware': {pre: '3/35/', svg: 'Seal_of_Delaware.svg'},'Florida': {pre: '2/2b/', svg: 'Seal_of_Florida.svg'},'Georgia': {pre: '7/79/', svg: 'Seal_of_Georgia.svg'},'Hawaii': {pre: 'c/ca/', svg: 'Seal_of_the_State_of_Hawaii.svg'},'Idaho': {pre: 'e/eb/', svg: 'Seal_of_Idaho.svg'},'Illinois': {pre: 'e/e7/', svg: 'Seal_of_Illinois.svg'},'Indiana': {pre: 'c/c4/', svg: 'Indiana-StateSeal.svg'},'Iowa': {pre: '5/5a/', svg: 'Iowa-StateSeal.svg'},'Kansas': {pre: '4/45/', svg: 'Seal_of_Kansas.svg'},'Kentucky': {pre: '3/35/', svg: 'Seal_of_Kentucky.svg'},'Louisiana': {pre: '2/2f/', svg: 'Seal_of_Louisiana.svg'},'Maine': {pre: '6/63/', svg: 'Seal_of_Maine.svg'},'Maryland': {pre: '1/1f/', svg: 'Seal_of_Maryland.svg'},'Massachusetts': {pre: '8/82/', svg: 'Seal_of_Massachusetts.svg'},'Michigan': {pre: '3/3f/', svg: 'Seal_of_Michigan.svg'},'Minnesota': {pre: 'a/a7/', svg: 'Seal_of_Minnesota.svg', base: "//upload.wikimedia.org/wikipedia/en/thumb/"},'Mississippi': {pre: '8/84/', svg: 'Seal_of_Mississippi_%281818-2014%29.svg'},'Missouri': {pre: 'd/de/', svg: 'Seal_of_Missouri.svg'},'Montana': {pre: 'e/ed/', svg: 'Montana-StateSeal.svg'},'Nebraska': {pre: '7/73/', svg: 'Seal_of_Nebraska.svg'},'Nevada': {pre: '7/77/', svg: 'Nevada-StateSeal.svg'},'New Hampshire': {pre: 'a/aa/', svg: 'Seal_of_New_Hampshire.svg'},'New Jersey': {pre: '8/8d/', svg: 'Seal_of_New_Jersey.svg'},'New Mexico': {pre: '4/47/', svg: 'Great_seal_of_the_state_of_New_Mexico.png', extension: ""},'New York': {pre: 'c/ca/', svg: 'Seal_of_New_York.svg'},'North Carolina': {pre: '7/72/', svg: 'Seal_of_North_Carolina.svg'},'North Dakota': {pre: 'e/e7/', svg: 'NorthDakota-StateSeal.svg'},'Ohio': {pre: '9/9b/', svg: 'Seal_of_Ohio_%28Official%29.svg'},'Oklahoma': {pre: '3/39/', svg: 'Seal_of_Oklahoma.svg'},'Oregon': {pre: '4/46/', svg: 'Seal_of_Oregon.svg'},'Pennsylvania': {pre: '7/7d/', svg: 'Seal_of_Pennsylvania.svg'},'Rhode Island': {pre: '7/76/', svg: 'Seal_of_Rhode_Island.svg'},'South Carolina': {pre: '8/80/', svg: 'Seal_of_South_Carolina.svg'},'South Dakota': {pre: 'b/bb/', svg: 'SouthDakota-StateSeal.svg'},'Tennessee': {pre: '3/3c/', svg: 'Seal_of_Tennessee.svg'},'Texas': {pre: 'c/cb/', svg: 'Seal_of_Texas.svg'},'Utah': {pre: 'a/a9/', svg: 'Seal_of_Utah.svg'},'Vermont': {pre: 'b/b3/', svg: 'Seal_of_Vermont_%28B%26W%29.svg'},'Virginia': {pre: '6/6f/', svg: 'Seal_of_Virginia.svg'},'Washington': {pre: '3/3d/', svg: 'Seal_of_Washington.svg'},'Washington D.C': {pre: '4/4e/', svg: 'Seal_of_Washington%2C_D.C..svg'},'West Virginia': {pre: '1/1c/', svg: 'Seal_of_West_Virginia.svg'},'Wisconsin': {pre: '3/31/', svg: 'Seal_of_Wisconsin.svg'},'Wyoming': {pre: 'e/e4/', svg: 'Seal_of_Wyoming.svg'}};
   $scope.states = Object.keys($scope.stateSeals);
 
   $scope.setState = function (value) {
@@ -170,16 +170,23 @@ app.controller('ApplicationController', function($scope, $window, $sce, $timeout
   }
 
   $scope.stateSealUrl = function (state) {
-    var baseUrl = '//upload.wikimedia.org/wikipedia/commons/';
+    var baseUrl = '//upload.wikimedia.org/wikipedia/commons/thumb/';
 
     if ($scope.selectedLogoOption == 'Default') {
       return 'img/vip-logo.png';
     } else if ($scope.selectedLogoOption == 'Custom') {
-      console.log($scope.logoUrl)
       if ($scope.logoUrl == undefined) return '//:0';
       return $scope.logoURL($scope.logoUrl);
     } else {
-      return baseUrl + $scope.stateSeals[state];
+      console.log($scope.stateSeals[state].base)
+      if ($scope.stateSeals[state].base != undefined) baseUrl = $scope.stateSeals[state].base;
+      var extension = ".png"
+      if ($scope.stateSeals[state].extension != undefined) extension = $scope.stateSeals[state].extension;
+      if (state == "Connecticut") {
+        return "//upload.wikimedia.org/wikipedia/commons/" + $scope.stateSeals[state].pre + $scope.stateSeals[state].svg;
+      } else {
+        return baseUrl + $scope.stateSeals[state].pre + $scope.stateSeals[state].svg + "/170px-" + $scope.stateSeals[state].svg + extension;
+      }
     }
   }
 

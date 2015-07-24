@@ -13,10 +13,10 @@ gulp.task("push-staging", function () {
     }));
 })
 
-awsStaging = JSON.parse(fs.readFileSync('../aws-production.json'));
+awsProduction = JSON.parse(fs.readFileSync('../aws-production.json'));
 gulp.task("push-production", function () {
   return gulp.src('**')
-    .pipe(s3(awsStaging, {
+    .pipe(s3(awsProduction, {
       uploadPath: "/cms/"
     }));
 })

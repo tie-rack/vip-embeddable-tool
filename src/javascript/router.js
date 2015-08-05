@@ -1,49 +1,12 @@
 module.exports = (function() {
   var data
-    , voterIdData
-    , translatedVoterIdData = false
     , addressView           = require('./views/addressView.js')
     , mapView               = require('./views/mapView.js')
     , apiRequest            = require('./api.js')
     , text                  = require('./config.js')
     , $                     = require('jquery')
-    , csv                   = require('csv-string')
     , xdr                   = require('jquery-xdr').load($)
     , mock                  = require('../../spec/mocks/milwaukee.json')
-
-  var parseVoterIdData = function (state, data) {
-    var csvArray = csv.parse(data);
-    var questions = csvArray[0];
-    var states = csvArray.slice(1);
-    var stateData = Array.prototype.filter.call(states, function(entry) {
-      return entry[0] === state;
-    });
-
-    var voterIdInfo = {};
-    var voterIdLink;
-    stateData.forEach(function(state) {
-      questions.forEach(function(question, index) {
-        if (question !== 'Complete Voter ID Information') {
-          var answer = state[index];
-          for (var i = 0, len = answer.length; i < len; i++) {
-            if (answer.charCodeAt(i) === 65533) {
-              var newStr = answer.slice(0, i) + answer.slice(i + 1, answer.length);
-              answer = newStr;
-            }
-          }
-          voterIdInfo[index] = {
-            'question' : question,
-            'answer': answer
-          }
-        } else voterIdLink = state[index];
-      });
-    });
-
-    return {
-      voterId: voterIdInfo,
-      VoterIdLink: voterIdLink
-    };
-  }
 
   return {
     start: function(config) {
@@ -79,17 +42,6 @@ module.exports = (function() {
           //
           data = response;
 
-          if (translatedVoterIdData && !options.json) {
-            var parsedVoterIdData = parseVoterIdData(data.normalizedInput.state, translatedVoterIdData)
-            if ( parsedVoterIdData.voterId["0"] ) {
-              $.extend(data, parseVoterIdData(data.normalizedInput.state, translatedVoterIdData));
-            } else {
-               $.extend(data, parseVoterIdData(data.normalizedInput.state, voterIdData));
-            }
-          } else {
-            $.extend(data, parseVoterIdData(data.normalizedInput.state, voterIdData));
-          }
-          
           window.history && history.pushState && history.pushState(null, null, '?polling-location');
 
           $(window).on('popstate', function() {
@@ -120,26 +72,12 @@ module.exports = (function() {
         .onRouteEvent('mapViewSubmit', function(response) {
           data = response;
 
-          if (translatedVoterIdData && !options.json) {
-            var parsedVoterIdData = parseVoterIdData(data.normalizedInput.state, translatedVoterIdData)
-            if ( parsedVoterIdData.voterId["0"] ) {
-              $.extend(data, parseVoterIdData(data.normalizedInput.state, translatedVoterIdData));
-            } else {
-               $.extend(data, parseVoterIdData(data.normalizedInput.state, voterIdData));
-            }
-          } else {
-            $.extend(data, parseVoterIdData(data.normalizedInput.state, voterIdData));
-          }
-
           $.extend(options, { data: data })
           router.navigate(mapView, mapView, options);
         });
 
       // path to the voter ID information updated CSV file
       var voterIdInfoUrl = location.protocol.toString() + '//s3.amazonaws.com/vip-voter-information-tool/voter-id/voterIdInfo.csv';
-
-      // keep for the case of translateable voter id Info
-      var voterIdTranslatedInfoUrl = false;
 
       // default language unless specified in configs
       var language = navigator.language || navigator.browserLanguage;
@@ -165,9 +103,6 @@ module.exports = (function() {
 
         // path for the supported language translation copy
         var url = location.protocol.toString() + '//s3.amazonaws.com/vip-voter-information-tool/languages/' + language + '-config.json';
-        
-        // if applicable, translated voter ID information
-        var voterIdTranslatedInfoUrl = location.protocol.toString() + '//s3.amazonaws.com/vip-voter-information-tool/voter-id/voterIdInfo_'+options.language+'.csv';
 
         if (options.json) {
           // render with custom JSON text
@@ -186,24 +121,6 @@ module.exports = (function() {
         }
 
       } else addressView.render(options);
-
-      // in the background grab the voter ID info copy
-      $.ajax({
-        url: voterIdInfoUrl,
-        cache: false,
-        success: function(resp) { 
-          voterIdData = resp; 
-          if (voterIdTranslatedInfoUrl && !options.json) {
-            $.ajax({
-              url: voterIdTranslatedInfoUrl,
-              cache: false,
-              success: function(resp) { 
-                translatedVoterIdData = resp;
-              }
-            })
-          }
-        }
-      });
     },
 
     // helper function for navigation

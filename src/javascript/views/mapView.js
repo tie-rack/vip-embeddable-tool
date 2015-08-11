@@ -626,11 +626,6 @@ module.exports = View.extend({
       this.find('.blue')
         .remove()
 
-
-    if (options.data.pollingLocations && options.data.pollingLocations.filter(function(location) {
-      return (location.isEarlyVote === false && location.isDropOffLocation === false);
-    }).length === 0)
-
     if (!options.data.contests)
       this.find('#ballot-information')
         .remove()

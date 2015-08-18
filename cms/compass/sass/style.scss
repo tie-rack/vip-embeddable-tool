@@ -267,6 +267,7 @@ navigation, .nav-holder {
     width: 241px;
     position: absolute;
     left: 50%;
+    -webkit-transform: translate(-50%, 0);
     transform: translate(-50%, 0);
     margin-top: 22px;
     margin-left: 1px;

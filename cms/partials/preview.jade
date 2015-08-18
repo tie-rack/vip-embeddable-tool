@@ -38,6 +38,9 @@
     .row(class="device-preview-2" ng-class="{'show-device-preview': !isFirstVisible(), 'hide-device-preview': isFirstVisible(), phonePrev: selectedDevice == 'phone'}")
 
       img(class="logo-image" ng-class="{'vis-hidden': (selectedLogoOption != 'State Seal' && selectedLogoOption != 'Default') && selectedLogoOption != 'Custom'}" ng-src='{{ stateSealUrl(selectedState) | unsafeResource }}')
+      div.alert-rectangle(ng-show="alertTextEnabled")
+        span {{ alertText }}
+
       include ./devices/desktop-map.jade
 
       include ./devices/tablet-map.jade

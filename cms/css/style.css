@@ -692,6 +692,21 @@ navigation, .nav-holder {
   top: 70px;
   z-index: 3;
 }
+.row .alert-rectangle {
+  background: red;
+  width: 241px;
+  position: absolute;
+  left: 50%;
+  transform: translate(-50%, 0);
+  margin-top: 22px;
+  margin-left: 1px;
+  z-index: 3;
+  font-size: 10px;
+  text-align: left;
+  padding: 5px 10px;
+  min-height: 12px;
+  color: white;
+}
 
 .device-preview-1, .device-preview-2 {
   margin-top: -30px;
@@ -704,6 +719,9 @@ navigation, .nav-holder {
 
 .device-preview-2.phonePrev .logo-image {
   visibility: hidden;
+}
+.device-preview-2.phonePrev .alert-rectangle {
+  display: none;
 }
 
 .subtitle,
@@ -1124,6 +1142,10 @@ h2.preview-label {
   }
 
   h2.preview-label {
+    display: none;
+  }
+
+  .alert-rectangle {
     display: none;
   }
 }

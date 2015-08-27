@@ -27,8 +27,8 @@
       <rect fill="{{ selectedSecondaryTileBarColor }}" x="0" y="89" width="45" height="45"></rect>
       <image xlink:href="img/map.jpg" x="40" y="0" height="102px" width="102px"></image>
       <rect fill="#333" x="0" y="97" width="140" height="6"></rect>
-      <rect ng-show="alertTextEnabled" fill="#f00" x="0" y="0" width="145" height="10"></rect>
-      <text ng-show="alertTextEnabled" x="2" y="7" font-size="5px" fill="#fff">{{ alertText }}</text>
+      <rect ng-show="alertTextEnabled" fill="#f00" style="fill-opacity: 0.78" x="0" y="0" width="145" height="10" class="alert-rectangle-svg"></rect>
+      <text ng-show="alertTextEnabled" x="2" y="7" font-size="5px" fill="#fff" class="alert-rectangle-svg">{{ alertText }}</text>
     </svg>
   </svg>
 </div>

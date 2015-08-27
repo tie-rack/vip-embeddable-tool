@@ -176,6 +176,14 @@
   .alert-rectangle {
     display: none;
   }
+
+  .alert-rectangle-svg {
+    display: block;
+  }
+
+  .row h6 {
+    text-align: center;
+  }
 }
 
 @media screen and (max-width: 685px) and (max-height: 525px) {

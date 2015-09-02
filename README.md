@@ -50,7 +50,7 @@ You can also add colors by passing an object of this format to the `colors` para
 
 ## Example Embed With Parameters:
 ```html
-<script type="text/javascript" src="//tool.votinginfoproject.org/app.js"></script>
+<script type="text/javascript" src="tool.votinginfoproject.org/app.js"></script>
 <div id="_vit"></div>
 <script type="text/javascript">vit.load({
   modal: true,

@@ -7,7 +7,7 @@ The Voting Information Project is developing a white-label, easily embedded web 
 ## Adding the Voter Information Tool to your page
 Append the following code to your website where you want the Voting Information Tool to appear:
 ```HTML
-<script type="text/javascript" src="https://s3.amazonaws.com/vip-voter-information-tool/app.js"></script>
+<script type="text/javascript" src="tool.votinginfoproject.org/app.js"></script>
 <div id="_vit"></div>
 <script type="text/javascript">vit.load({});</script>
 ```
@@ -50,7 +50,7 @@ You can also add colors by passing an object of this format to the `colors` para
 
 ## Example Embed With Parameters:
 ```html
-<script type="text/javascript" src="//s3.amazonaws.com/vip-voter-information-tool/app.js"></script>
+<script type="text/javascript" src="//tool.votinginfoproject.org/app.js"></script>
 <div id="_vit"></div>
 <script type="text/javascript">vit.load({
   modal: true,

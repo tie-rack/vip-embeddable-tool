@@ -37,5 +37,5 @@ svg(
   rect(fill="#333" x="0" y="97" width="140" height="6")
 
   //- alert text
-  rect(ng-show="alertTextEnabled" fill="#f00" x="0" y="0" width="145" height="10")
-  text(ng-show="alertTextEnabled" x="2" y="7" font-size="5px" fill="#fff") {{ alertText }}
+  rect(ng-show="alertTextEnabled" class="alert-rectangle-svg" fill="#f00" style="fill-opacity: 0.78" x="0" y="0" width="145" height="10")
+  text(ng-show="alertTextEnabled" class="alert-rectangle-svg" x="2" y="7" font-size="5px" fill="#fff") {{ alertText }}

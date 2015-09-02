@@ -254,6 +254,13 @@ navigation, .nav-holder {
 .row {
   text-align: center;
 
+  h6 {
+    text-align: left;
+    padding-left: 7px;
+    margin: 5px 0;
+    font-size: 11px;
+  }
+
   .logo-image {
     width: 30px;
     height: 30px;
@@ -263,6 +270,7 @@ navigation, .nav-holder {
   }
 
   .alert-rectangle {
+    opacity: .78;
     background: red;
     width: 241px;
     position: absolute;
@@ -282,6 +290,10 @@ navigation, .nav-holder {
       // margin: 5px 10px;
     }
   }
+}
+
+.alert-rectangle-svg {
+  display: none;
 }
 
 .device-preview-1, .device-preview-2 {

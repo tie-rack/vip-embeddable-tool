@@ -5,6 +5,7 @@
         | Step {{ step }} of 8
       h2.subtitle
         | Alert text
+      h6(ng-show="alertTextEnabled") Note: Alert text will disappear automatically after 10 seconds.
 
       ul.options(ng-init="alertTextEnabled = false")
         li.option(

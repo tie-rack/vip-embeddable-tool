@@ -685,6 +685,12 @@ navigation, .nav-holder {
 .row {
   text-align: center;
 }
+.row h6 {
+  text-align: left;
+  padding-left: 7px;
+  margin: 5px 0;
+  font-size: 11px;
+}
 .row .logo-image {
   width: 30px;
   height: 30px;
@@ -693,6 +699,7 @@ navigation, .nav-holder {
   z-index: 3;
 }
 .row .alert-rectangle {
+  opacity: .78;
   background: red;
   width: 241px;
   position: absolute;
@@ -707,6 +714,10 @@ navigation, .nav-holder {
   padding: 5px 10px;
   min-height: 12px;
   color: white;
+}
+
+.alert-rectangle-svg {
+  display: none;
 }
 
 .device-preview-1, .device-preview-2 {
@@ -1148,6 +1159,14 @@ h2.preview-label {
 
   .alert-rectangle {
     display: none;
+  }
+
+  .alert-rectangle-svg {
+    display: block;
+  }
+
+  .row h6 {
+    text-align: center;
   }
 }
 @media screen and (max-width: 685px) and (max-height: 525px) {

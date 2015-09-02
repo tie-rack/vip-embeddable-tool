@@ -1,12 +1,11 @@
 module.exports = (function() {
-  var data
-    , addressView           = require('./views/addressView.js')
-    , mapView               = require('./views/mapView.js')
-    , apiRequest            = require('./api.js')
-    , text                  = require('./config.js')
-    , $                     = require('jquery')
-    , xdr                   = require('jquery-xdr').load($)
-    , mock                  = require('../../spec/mocks/milwaukee.json')
+  var data, addressView = require('./views/addressView.js'),
+    mapView = require('./views/mapView.js'),
+    apiRequest = require('./api.js'),
+    text = require('./config.js'),
+    $ = require('jquery'),
+    xdr = require('jquery-xdr').load($),
+    mock = require('../../spec/mocks/milwaukee.json')
 
   return {
     start: function(config) {
@@ -20,8 +19,8 @@ module.exports = (function() {
         key: 'AIzaSyCLNlhlWcKcozqYRq9M1_j25GLUzqrJxH8',
         title: 'Voting Information Project',
         subtitle: '',
-        logo: 'https://s3.amazonaws.com/vip-voter-information-tool/images/voting-information-project.png',
-        smallLogo: 'https://s3.amazonaws.com/vip-voter-information-tool/images/vip-logo.png',
+        logo: '/images/voting-information-project.png',
+        smallLogo: '/images/vip-logo.png',
         language: 'en',
         width: 640,
         height: 480,
@@ -30,7 +29,9 @@ module.exports = (function() {
       };
 
       $.extend(options, config);
-      $.extend(options, { root: 'https://d13luoc3ou2p3l.cloudfront.net'});
+      $.extend(options, {
+        root: ''
+      });
 
       if (options.productionOnly === false) options.productionDataOnly = options.productionOnly;
 
@@ -49,7 +50,9 @@ module.exports = (function() {
             $('#_vitModal').hide();
           }.bind(this));
 
-          $.extend(options, { data: data });
+          $.extend(options, {
+            data: data
+          });
 
           router.navigate(mapView, addressView, options);
         })
@@ -66,13 +69,17 @@ module.exports = (function() {
           router.navigate(addressView, mapView, options);
         })
         .onRouteEvent('mapViewRerender', function() {
-          $.extend(options, { data: data })
+          $.extend(options, {
+            data: data
+          })
           router.navigate(mapView, mapView, options)
         })
         .onRouteEvent('mapViewSubmit', function(response) {
           data = response;
 
-          $.extend(options, { data: data })
+          $.extend(options, {
+            data: data
+          })
           router.navigate(mapView, mapView, options);
         });
 
@@ -106,7 +113,9 @@ module.exports = (function() {
 
         if (options.json) {
           // render with custom JSON text
-          $.extend(options, { assets: JSON.parse(options.json) });
+          $.extend(options, {
+            assets: JSON.parse(options.json)
+          });
           addressView.render(options);
         } else {
           // grab the translated copy and render with the new text
@@ -114,7 +123,9 @@ module.exports = (function() {
             url: url,
             cache: false,
             success: function(newText) {
-              $.extend(options, { assets: JSON.parse(newText) });
+              $.extend(options, {
+                assets: JSON.parse(newText)
+              });
               addressView.render(options);
             }
           });
@@ -125,7 +136,9 @@ module.exports = (function() {
 
     // helper function for navigation
     navigate: function(toView, fromView, options) {
-      $.extend(options, { root: 'https://d13luoc3ou2p3l.cloudfront.net'});
+      $.extend(options, {
+        root: ''
+      });
       fromView.remove();
       toView.render(options);
     }

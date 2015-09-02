@@ -1,5 +1,5 @@
 var View = require('./view.js');
-var api  = require('../api.js');
+var api = require('../api.js');
 var $ = require('jquery');
 var fastclick = require('fastclick');
 var ouiCal = require('../ouical.js');
@@ -7,9 +7,9 @@ var async = require('async');
 
 module.exports = View.extend({
 
-  $id : 'map-view',
+  $id: 'map-view',
 
-  template : require('./templates/map.hbs'),
+  template: require('./templates/map.hbs'),
 
   addressPartial: require('./templates/partials/address.hbs'),
 
@@ -24,23 +24,23 @@ module.exports = View.extend({
   modal: false,
 
   events: {
-    '#map-view click' : "closePopUps",
-    '.nav click' : 'back',
-    '.contest-toggle click' : 'toggleContest',
-    '.election-selection click' : 'changeElection',
-    '#registered-address click' : 'changeAddress',
-    '#vote-address-edit click' : 'changeAddress',
-    '.address click' : 'changeAddress',
-    '#fade click' : 'changeAddress',
-    '#submit-address-button click' : 'submitAddress',
-    '#polling-location click' : 'toggleMap',
-    '#more-elections click' : 'toggleElections',
-    '#resources-toggle click' : 'toggleResources',
-    '#plus-icon click' : 'openAboutModal',
-    '#close-button click' : 'closeAboutModal',
-    '#ballot-information click' : 'toggleBallot',
-    '#map-view-toggle click' : 'toggleMapListView',
-    '#alert click' : 'closeAlert',
+    '#map-view click': "closePopUps",
+    '.nav click': 'back',
+    '.contest-toggle click': 'toggleContest',
+    '.election-selection click': 'changeElection',
+    '#registered-address click': 'changeAddress',
+    '#vote-address-edit click': 'changeAddress',
+    '.address click': 'changeAddress',
+    '#fade click': 'changeAddress',
+    '#submit-address-button click': 'submitAddress',
+    '#polling-location click': 'toggleMap',
+    '#more-elections click': 'toggleElections',
+    '#resources-toggle click': 'toggleResources',
+    '#plus-icon click': 'openAboutModal',
+    '#close-button click': 'closeAboutModal',
+    '#ballot-information click': 'toggleBallot',
+    '#map-view-toggle click': 'toggleMapListView',
+    '#alert click': 'closeAlert',
     '#not-found-button click': 'closeAddressNotFound'
   },
 
@@ -81,7 +81,7 @@ module.exports = View.extend({
     this.locationTypes.hasBoth = false;
 
     var removeIndices = function(arr, indices) {
-      for (var i = arr.length-1; i > -1; i--)
+      for (var i = arr.length - 1; i > -1; i--)
         if (indices.indexOf(i) !== -1)
           arr.splice(i, 1);
     };
@@ -89,11 +89,11 @@ module.exports = View.extend({
     var mergeAndRemoveDups = function(pollingLocation, otherLocation, otherLocationCollection, toRemoveCollection, isBoth, isBothPollingAndDropoff) {
       if (
         ((pollingLocation.address.line1 && otherLocation.address.line1) &&
-        (pollingLocation.address.line1.replace(/\./g, '').toLowerCase() === otherLocation.address.line1.replace(/\./g, '').toLowerCase())) ||
+          (pollingLocation.address.line1.replace(/\./g, '').toLowerCase() === otherLocation.address.line1.replace(/\./g, '').toLowerCase())) ||
         ((pollingLocation.address.line2 && otherLocation.address.line2) &&
-        (pollingLocation.address.line2.replace(/\./g, '').toLowerCase() === otherLocation.address.line2.replace(/\./g, '').toLowerCase())) ||
+          (pollingLocation.address.line2.replace(/\./g, '').toLowerCase() === otherLocation.address.line2.replace(/\./g, '').toLowerCase())) ||
         ((pollingLocation.address.line3 && otherLocation.address.line3) &&
-        (pollingLocation.address.line3.replace(/\./g, '').toLowerCase() === otherLocation.address.line3.replace(/\./g, '').toLowerCase()))
+          (pollingLocation.address.line3.replace(/\./g, '').toLowerCase() === otherLocation.address.line3.replace(/\./g, '').toLowerCase()))
       ) {
         $.extend(pollingLocation, otherLocation);
 
@@ -198,10 +198,10 @@ module.exports = View.extend({
 
     if (pollingLocations) pollingLocations.forEach(function(pollingLocation) {
       if (!pollingLocation.isEarlyVoteSite &&
-          !pollingLocation.isBoth &&
-          !pollingLocation.isDropOffLocation &&
-          !pollingLocation.isBothEarlyVoteAndDropOff &&
-          !pollingLocation.isBothPollingAndDropoff)
+        !pollingLocation.isBoth &&
+        !pollingLocation.isDropOffLocation &&
+        !pollingLocation.isBothEarlyVoteAndDropOff &&
+        !pollingLocation.isBothPollingAndDropoff)
         pollingLocation.isOnlyPollingLocation = true;
     })
 
@@ -218,8 +218,8 @@ module.exports = View.extend({
     }
 
     if (state.electionAdministrationBody &&
-        state.electionAdministrationBody.correspondenceAddress &&
-        state.electionAdministrationBody.physicalAddress) {
+      state.electionAdministrationBody.correspondenceAddress &&
+      state.electionAdministrationBody.physicalAddress) {
 
       // delete duplicate state election administration body address
       var correspondenceAddress = this._parseAddress(
@@ -237,9 +237,9 @@ module.exports = View.extend({
     // them and give them to the date object--decrementing month, because
     // it's 0-indexed. Then convert it to a locale string
     var dateArray = options.data.election.electionDay.split('-');
-    var date = new Date(dateArray[0], dateArray[1]-1, dateArray[2]);
+    var date = new Date(dateArray[0], dateArray[1] - 1, dateArray[2]);
 
-    options.data.election.dateForCalendar = date.getMonth() + 1 + '/' + date.getDate() + '/' +  date.getFullYear();
+    options.data.election.dateForCalendar = date.getMonth() + 1 + '/' + date.getDate() + '/' + date.getFullYear();
 
     var newDate = date.toLocaleDateString(options.language, {
       weekday: 'long',
@@ -281,7 +281,7 @@ module.exports = View.extend({
     }
   },
 
-  _resizeHandler: function () {
+  _resizeHandler: function() {
     if (!this.modal) {
       if (this.$container.parent().width() < this.$container.width())
         this.$container.width(this.$container.parent().width());
@@ -290,19 +290,29 @@ module.exports = View.extend({
         // set to mobile view
         this.landscape = false;
         this.$container.css({
-          'overflow-y':'scroll',
-          'overflow-x':'hidden'
+          'overflow-y': 'scroll',
+          'overflow-x': 'hidden'
         })
       } else {
         this.landscape = true;
         this.$container.width(this.width);
         this.$container.height(this.height)
         if (this.$container.width() < 600) {
-          this.find('.info').css({ 'font-size': '14px' });
-          this.find('.election').css({ 'font-size': '16px' });
-          this.find('.subsection').css({ 'font-size': '15px' });
-          this.find('.right .box').css({ 'padding': '5px 15px' });
-          this.find('#more-resources h1').css({ 'font-size': '16px' });
+          this.find('.info').css({
+            'font-size': '14px'
+          });
+          this.find('.election').css({
+            'font-size': '16px'
+          });
+          this.find('.subsection').css({
+            'font-size': '15px'
+          });
+          this.find('.right .box').css({
+            'padding': '5px 15px'
+          });
+          this.find('#more-resources h1').css({
+            'font-size': '16px'
+          });
         } else {
           if (this.$container.height() < 480) {
             // $('.left-wrapper')[0].style['overflow-y'] = 'auto';
@@ -317,10 +327,10 @@ module.exports = View.extend({
       return;
     }
 
-    var width = $(window).width()
-      , height = $(window).height()
-      , screenWidth = screen.availWidth
-      , screenHeight = screen.availHeight;
+    var width = $(window).width(),
+      height = $(window).height(),
+      screenWidth = screen.availWidth,
+      screenHeight = screen.availHeight;
 
     if (!$('#viewport-mobile-web-tag').length) {
       $('<meta>')
@@ -342,20 +352,20 @@ module.exports = View.extend({
     } else {
       // tablet sizing
       this.$container
-        .width(width-40);
+        .width(width - 40);
 
       var containerWidth = this.$container.width();
       this.$container
-        .height(containerWidth * (7/10));
+        .height(containerWidth * (7 / 10));
 
       var containerHeight = this.$container.height();
-      var top = (height/2) - (containerHeight/2);
+      var top = (height / 2) - (containerHeight / 2);
       top = (top > 0 ? top : 0);
 
       this.$container
         .css({
           'top': top + 'px',
-          'left':((width/2) - (containerWidth/2)) + 'px'
+          'left': ((width / 2) - (containerWidth / 2)) + 'px'
         });
 
       $('#_vitModal').css({
@@ -372,14 +382,14 @@ module.exports = View.extend({
       $('html, body')
         .removeClass('max-height')
         .find('body')
-          .addClass('no-scroll');
+        .addClass('no-scroll');
     } else if (this.modal && this.landscape) {
       this.$container
         .addClass('floating-modal-container')
       $('html, body')
         .addClass('max-height')
         .find('body')
-          .removeClass('no-scroll')
+        .removeClass('no-scroll')
     }
 
     $(window)
@@ -401,7 +411,7 @@ module.exports = View.extend({
       .prepend($('<input name="address" value="' + this._parseAddress(options.data.normalizedInput) + '">'))
       .prepend($('<input name="electionId" value="' + options.data.election.id + '">'));
 
-    this.find("#error-feedback-link").on("click", function (e) {
+    this.find("#error-feedback-link").on("click", function(e) {
       e.preventDefault();
       // $.ajax({
       //   type: 'POST',
@@ -442,20 +452,20 @@ module.exports = View.extend({
     var scrapeAddress = function(arr) {
       return Array.prototype.reduce.call(
         arr,
-        function(m, n) { return m + $(n).text().trim() },
+        function(m, n) {
+          return m + $(n).text().trim()
+        },
         ''
       );
     }
 
     // remove duplicate election administration addresses
-    if (scrapeAddress(this.find('#local-jurisdiction-correspondence-address').children().children())
-      === scrapeAddress(this.find('#local-jurisdiction-physical-address').children().children())) {
+    if (scrapeAddress(this.find('#local-jurisdiction-correspondence-address').children().children()) === scrapeAddress(this.find('#local-jurisdiction-physical-address').children().children())) {
       this.find('#local-jurisdiction-correspondence-address').remove();
       this.find('#state-election-physical-address span').remove();
     }
 
-    if (scrapeAddress(this.find('#state-election-correspondence-address').children().children())
-      === scrapeAddress(this.find('#state-election-physical-address').children().children())) {
+    if (scrapeAddress(this.find('#state-election-correspondence-address').children().children()) === scrapeAddress(this.find('#state-election-physical-address').children().children())) {
       this.find('#state-election-correspondence-address').remove();
       this.find('#local-jurisdiction-physical-address span').remove();
     }
@@ -472,27 +482,27 @@ module.exports = View.extend({
     var informationLinks = this.find('.information-links');
     if (!informationLinks.text().trim())
       informationLinks
-        .hide()
-        .prev()
-          .hide();
+      .hide()
+      .prev()
+      .hide();
 
     if (!informationLinks.children().children().is(':visible'))
-        informationLinks.prev().remove().end().remove()
+      informationLinks.prev().remove().end().remove()
 
     var informationItems = this.find('.voter-id-info').parent();
     if (this.find('.answer').text().trim().length < 10)
       informationItems
-        .prev()
-          .remove()
-        .end()
-        .remove();
+      .prev()
+      .remove()
+      .end()
+      .remove();
 
     if (options.alert)
       this.find('#alert')
-        .find('#text')
-          .html(options.alert)
-        .end()
-        .show();
+      .find('#text')
+      .html(options.alert)
+      .end()
+      .show();
 
     this.width = options.width;
     this.height = options.height;
@@ -510,7 +520,7 @@ module.exports = View.extend({
 
     if (options.alert && this.landscape)
       this.find('#location-legend')
-        .css('top', '11%');
+      .css('top', '11%');
 
     var that = this;
     if (options.data.pollingLocations && options.data.pollingLocations.length) {
@@ -551,8 +561,8 @@ module.exports = View.extend({
 
 
     if (options.data.state &&
-        options.data.state.length &&
-        options.data.state[0].electionAdministrationBody)
+      options.data.state.length &&
+      options.data.state[0].electionAdministrationBody)
       this.find('#info-icon').parent().attr('href', options.data.state[0].electionAdministrationBody.electionInfoUrl);
 
     $('html,body').scrollLeft($(this.$container).scrollLeft());
@@ -591,8 +601,11 @@ module.exports = View.extend({
 
     document.querySelector('#calendar-icon').appendChild(myCalendar);
 
-    if ( this.$container.height() < 465 ) {
-      this.find('.left-overflow-wrapper').find('.left-wrapper').css({'overflow-y': 'auto', 'overflow-x': 'hidden'});
+    if (this.$container.height() < 465) {
+      this.find('.left-overflow-wrapper').find('.left-wrapper').css({
+        'overflow-y': 'auto',
+        'overflow-x': 'hidden'
+      });
     }
 
     fastclick(document.body);
@@ -601,34 +614,36 @@ module.exports = View.extend({
 
     this.autocomplete = new google.maps.places.Autocomplete(this.find('.change-address')[0], {
       types: ['address'],
-      componentRestrictions: { country: 'us' }
+      componentRestrictions: {
+        country: 'us'
+      }
     });
 
     this.earlyVoteSites = options.data.earlyVoteSites;
     this.dropOffLocations = options.data.dropOffLocations;
     if (this.earlyVoteSites || this.dropOffLocations || this.locationTypes.hasPollingLocations)
       this.find('#location-legend')
-        .show()
+      .show()
 
     if (!this.locationTypes.hasEarlyVoteSites)
       this.find('.red')
-        .remove();
+      .remove();
 
     if (!this.locationTypes.hasDropOffLocations)
       this.find('.grey')
-        .remove();
+      .remove();
 
     if (!this.locationTypes.hasBoth)
       this.find('.green')
-        .remove()
+      .remove()
 
     if (!this.locationTypes.hasPollingLocations)
       this.find('.blue')
-        .remove()
+      .remove()
 
     if (!options.data.contests)
       this.find('#ballot-information')
-        .remove()
+      .remove()
 
     var electionAdministrationBody = this.find('#more-resources .correspondence-address.box');
     if (!electionAdministrationBody.find(':not(h1)').text().trim().length)
@@ -665,7 +680,7 @@ module.exports = View.extend({
     })
 
     // hide voter id questions which have no answer
-    this.find('.answer').filter(function () {
+    this.find('.answer').filter(function() {
       return $(this).text().trim().length == 0
     }).prev().hide();
 
@@ -676,8 +691,8 @@ module.exports = View.extend({
     }
   },
 
-  closePopUps: function (e) {
-    if ( !$(e.target).is( $(".add-to-calendar-checkbox") ) )
+  closePopUps: function(e) {
+    if (!$(e.target).is($(".add-to-calendar-checkbox")))
       this.find(".add-to-calendar-checkbox").attr("checked", false)
   },
 
@@ -689,10 +704,10 @@ module.exports = View.extend({
     this.timeouts.forEach(clearTimeout)
 
     this.$container.css({
-      'width' : '',
-      'height' : '',
-      'left' : '',
-      'top' : ''
+      'width': '',
+      'height': '',
+      'left': '',
+      'top': ''
     });
 
     $('#_vitModal').remove();
@@ -706,38 +721,34 @@ module.exports = View.extend({
     $(window).off('.mapview');
   },
 
-  _modifyExternals: function () {
+  _modifyExternals: function() {
     $('html, body')
       .addClass('max-height')
       .find('#_vitModal')
-        .show()
-        .one('click', function() {
-          $(this).hide();
-          this.triggerRouteEvent('mapViewBack')
-        }.bind(this))
+      .show()
+      .one('click', function() {
+        $(this).hide();
+        this.triggerRouteEvent('mapViewBack')
+      }.bind(this))
       .end()
   },
 
   _preventiOSBounce: function() {
-    var allowUp
-      , allowDown
-      , slideBeginY
-      , slideBeginX;
-    this.$container.on('touchstart', function(event){
+    var allowUp, allowDown, slideBeginY, slideBeginX;
+    this.$container.on('touchstart', function(event) {
       allowUp = (this.scrollTop > 0);
       allowDown = (this.scrollTop < this.scrollHeight - this.clientHeight);
       slideBeginY = event.originalEvent.pageY;
       slideBeginX = event.originalEvent.pageX
     });
 
-    this.$container.on('touchmove', function(event){
+    this.$container.on('touchmove', function(event) {
       var up = (event.originalEvent.pageY > slideBeginY);
       var down = (event.originalEvent.pageY < slideBeginY);
       var horizontal = (event.originalEvent.pageX !== slideBeginX);
       $(window).scrollLeft(0);
       slideBeginY = event.originalEvent.pageY;
-      if (((up && allowUp) || (down && allowDown))) {}
-      else {
+      if (((up && allowUp) || (down && allowDown))) {} else {
         event.preventDefault();
       }
     });
@@ -749,37 +760,37 @@ module.exports = View.extend({
       .addClass('landscape')
       .prepend(
         this.find('.left')
-          .detach()
-          .wrapAll('<div class="left-overflow-wrapper"><div class="left-wrapper" />')
-          .parent()
-          .prepend($('<div class="left box" id="vip-logo">')
-            .css('background-image', 'url(' + options.smallLogo + ')')
-          )
+        .detach()
+        .wrapAll('<div class="left-overflow-wrapper"><div class="left-wrapper" />')
+        .parent()
+        .prepend($('<div class="left box" id="vip-logo">')
+          .css('background-image', 'url(' + options.smallLogo + ')')
+        )
       )
       .find('.right')
-        .wrapAll('<div class="right-wrapper" />')
+      .wrapAll('<div class="right-wrapper" />')
       .end()
       .find('.toggle-image')
-        .addClass('arrow')
-        .filter('.plus')
-          .attr('src', 'https://s3.amazonaws.com/vip-voter-information-tool/images/left-arrow-white.png')
-          .addClass('right-arrow')
-        .end()
-        .filter('.minus')
-          .attr('src', 'https://s3.amazonaws.com/vip-voter-information-tool/images/right-arrow-white.png')
-          .addClass('left-arrow')
+      .addClass('arrow')
+      .filter('.plus')
+    .attr('src', '/images/left-arrow-white.png')
+      .addClass('right-arrow')
+      .end()
+      .filter('.minus')
+      .attr('src', '/images/right-arrow-white.png')
+      .addClass('left-arrow')
       .end()
       .find('#polling-location .arrow')
-        .toggleClass('hidden')
+      .toggleClass('hidden')
       .end()
       .find('#more-resources, .contests.right')
-        .hide()
+      .hide()
       .end()
 
     this.landscape = true;
   },
 
-  _generateMap: function (position, zoom, $el) {
+  _generateMap: function(position, zoom, $el) {
     var options = {
       zoom: zoom,
       center: position,
@@ -797,53 +808,69 @@ module.exports = View.extend({
       options.zoomControl = true;
     }
     var map = new google.maps.Map($el, options)
-    map.set('styles', [
-      {
-        featureType: "road",
-        elementType: "labels",
-        stylers: [ { lightness: 20 } ]
-      },{
-        featureType: "administrative.land_parcel",
-        elementType: "all",
-        stylers: [ { visibility: "off" } ]
-      },{
-        featureType: "landscape.man_made",
-        elementType: "all",
-        stylers: [ { visibility: "off" } ]
-      },{
-        featureType: "transit",
-        elementType: "all",
-        stylers: [ { visibility: "off" } ]
-      },{
-        featureType: "road.highway",
-        elementType: "labels",
-        stylers: [ { visibility: "off" } ]
-      },{
-        featureType: "road.arterial",
-        elementType: "labels",
-        stylers: [ { visibility: "off" } ]
-      },{
-        featureType: "water",
-        elementType: "all",
-        stylers: [
-          { hue: "#a1cdfc" },
-          { saturation: 39 },
-          { lightness: 49 }
-        ]
-      },{
-        featureType: "road.highway",
-        elementType: "geometry",
-        stylers: [ { hue: "#f49935" } ]
-      },{
-        featureType: "road.arterial",
-        elementType: "geometry",
-        stylers: [ { hue: "#fad959" } ]
-      }
-    ]);
+    map.set('styles', [{
+      featureType: "road",
+      elementType: "labels",
+      stylers: [{
+        lightness: 20
+      }]
+    }, {
+      featureType: "administrative.land_parcel",
+      elementType: "all",
+      stylers: [{
+        visibility: "off"
+      }]
+    }, {
+      featureType: "landscape.man_made",
+      elementType: "all",
+      stylers: [{
+        visibility: "off"
+      }]
+    }, {
+      featureType: "transit",
+      elementType: "all",
+      stylers: [{
+        visibility: "off"
+      }]
+    }, {
+      featureType: "road.highway",
+      elementType: "labels",
+      stylers: [{
+        visibility: "off"
+      }]
+    }, {
+      featureType: "road.arterial",
+      elementType: "labels",
+      stylers: [{
+        visibility: "off"
+      }]
+    }, {
+      featureType: "water",
+      elementType: "all",
+      stylers: [{
+        hue: "#a1cdfc"
+      }, {
+        saturation: 39
+      }, {
+        lightness: 49
+      }]
+    }, {
+      featureType: "road.highway",
+      elementType: "geometry",
+      stylers: [{
+        hue: "#f49935"
+      }]
+    }, {
+      featureType: "road.arterial",
+      elementType: "geometry",
+      stylers: [{
+        hue: "#fad959"
+      }]
+    }]);
     return map;
   },
 
-  _encodeAddressAndInitializeMap : function(address, currentLocation) {
+  _encodeAddressAndInitializeMap: function(address, currentLocation) {
     var that = this;
     var any = (address !== void 0);
     var zoom = any ? 12 : 3;
@@ -876,7 +903,7 @@ module.exports = View.extend({
           that.find('#location').hide();
 
           // if (currentLocation)
-            // that.map.panTo(currentLocation)
+          // that.map.panTo(currentLocation)
         });
 
         that.find('#map-canvas').on(that._transitionEnd(), function() {
@@ -886,11 +913,11 @@ module.exports = View.extend({
       } else {
         that.find('#location')
           .find('a')
-            .remove()
+          .remove()
           .end()
           .find('.address')
-            .css('text-align', 'center')
-            .text('No Polling Locations Found')
+          .css('text-align', 'center')
+          .text('No Polling Locations Found')
       }
     });
   },
@@ -899,7 +926,7 @@ module.exports = View.extend({
     if (this.markers.length === 1) this.map.setZoom(15);
     else {
       var bounds = new google.maps.LatLngBounds();
-      for(var i=0;i<this.markers.length;i++) {
+      for (var i = 0; i < this.markers.length; i++) {
         bounds.extend(this.markers[i].getPosition());
       }
 
@@ -911,11 +938,11 @@ module.exports = View.extend({
     var that = this;
     var daddr = this._parseAddressWithoutName(address);
     var saddr = this._parseAddressWithoutName(saddr);
-    var url = 'https://s3.amazonaws.com/vip-voter-information-tool/images/' + (isEarlyVote ? 'red-marker.png' : 'blue-marker.png');
+    var url = '/images/' + (isEarlyVote ? 'red-marker.png' : 'blue-marker.png');
     if (isDropOffLocation && !isEarlyVote && !isBothPollingAndDropOff) {
-      url = 'https://s3.amazonaws.com/vip-voter-information-tool/images/gray-marker.png';
+      url = '/images/gray-marker.png';
     }
-    if (isBoth) url = 'https://s3.amazonaws.com/vip-voter-information-tool/images/green-marker.png'
+    if (isBoth) url = '/images/green-marker.png'
 
     var icon = {
       url: url,
@@ -934,7 +961,7 @@ module.exports = View.extend({
     google.maps.event.addListener(marker, 'click', this._markerFocusHandler.bind(this, marker, address, location, saddr, daddr));
     if (this.markers.length === 1) {
       this.find('#blue-block').on('click', this._markerFocusHandler.bind(this, marker, address, location, saddr, daddr))
-      this.find('#red-block').on('click', function () {
+      this.find('#red-block').on('click', function() {
         for (var i = 0; i < that.markers.length; i++) {
           if (that.data.pollingLocations[i].isEarlyVoteSite && !that.data.pollingLocations[i].isBoth && !that.data.pollingLocations[i].isBothEarlyVoteAndDropOff) {
             var location = that.data.pollingLocations[i];
@@ -942,7 +969,7 @@ module.exports = View.extend({
           }
         }
       });
-      this.find('#grey-block').on('click', function () {
+      this.find('#grey-block').on('click', function() {
         for (var i = 0; i < that.markers.length; i++) {
           if (that.data.pollingLocations[i].isDropOffLocation && !that.data.pollingLocations[i].isBothPollingAndDropoff && !that.data.pollingLocations[i].isBothEarlyVoteAndDropOff) {
             var location = that.data.pollingLocations[i];
@@ -950,7 +977,7 @@ module.exports = View.extend({
           }
         }
       });
-      this.find('#green-block').on('click', function () {
+      this.find('#green-block').on('click', function() {
         for (var i = 0; i < that.markers.length; i++) {
           if (that.data.pollingLocations[i].isBoth) {
             var location = that.data.pollingLocations[i];
@@ -976,10 +1003,10 @@ module.exports = View.extend({
       undefined,
       el = document.createElement('div'),
       transitions = {
-        'transition':'transitionend',
-        'OTransition':'otransitionend',
-        'MozTransition':'transitionend',
-        'WebkitTransition':'webkitTransitionEnd'
+        'transition': 'transitionend',
+        'OTransition': 'otransitionend',
+        'MozTransition': 'transitionend',
+        'WebkitTransition': 'webkitTransitionEnd'
       };
 
     for (i in transitions) {
@@ -997,20 +1024,20 @@ module.exports = View.extend({
       'address': this._parseAddressWithoutName(location)
     }, function(results, status) {
       if (status == google.maps.GeocoderStatus.OK) callback(results[0].geometry.location);
-      else  {
+      else {
         error(status);
         setTimeout(that._geocode.bind(that, location, callback, error, count + 1), 2000);
       };
     });
   },
 
-  _geocodeSequence: function (locations, normalizedInput) {
+  _geocodeSequence: function(locations, normalizedInput) {
     var that = this;
     if (!locations.length) return;
 
     var timeout = locations.length > 10 ? 1000 : 100
-      locations.forEach(function(location, idx) {
-      that.timeouts.push(setTimeout(function () {
+    locations.forEach(function(location, idx) {
+      that.timeouts.push(setTimeout(function() {
         that._geocode(
           location.address,
           function(position) {
@@ -1026,15 +1053,15 @@ module.exports = View.extend({
             );
             location.normalizedInput = normalizedInput;
             location.position = position;
-          }, function(status) {
           },
+          function(status) {},
           0
         );
       }, timeout * idx));
     });
   },
 
-  _autocompleteHandler: function () {
+  _autocompleteHandler: function() {
     if (this.hasSubmitted) return;
     var address;
     if (this.autocomplete.getPlace()) address = this.autocomplete.getPlace().formatted_address;
@@ -1055,12 +1082,12 @@ module.exports = View.extend({
     });
   },
 
-  autocompleteListener: function () {
+  autocompleteListener: function() {
     if (this.hasSubmitted) return;
     var enteredAddress = this.autocomplete.getPlace();
     var addrStr = JSON.stringify(enteredAddress);
     if (typeof enteredAddress === 'undefined' ||
-        typeof enteredAddress.formatted_address === 'undefined') {
+      typeof enteredAddress.formatted_address === 'undefined') {
       if (typeof enteredAddress !== 'undefined' && typeof enteredAddress.name !== 'undefined') enteredAddress = enteredAddress.name;
       else {
         // may not be necessary
@@ -1088,7 +1115,7 @@ module.exports = View.extend({
     var addressInput = this.find('.change-address');
 
     // brings up change address bar if you click .address on left, but not if you click .address on map:
-    if ( $(e.currentTarget).hasClass("address") && $(e.currentTarget).closest("#location").length > 0 ) return;
+    if ($(e.currentTarget).hasClass("address") && $(e.currentTarget).closest("#location").length > 0) return;
 
     if (addressInput.is(':hidden')) {
       this.find("#vote-address-edit").hide();
@@ -1141,7 +1168,7 @@ module.exports = View.extend({
     }
   },
 
-  _markerFocusHandler: function (marker, address, location, saddr, daddr) {
+  _markerFocusHandler: function(marker, address, location, saddr, daddr) {
     // additional info partial that goes below the address
     var $locationInfo = $(this.pollingLocationPartial(location));
 
@@ -1180,7 +1207,9 @@ module.exports = View.extend({
         toggle.find('.minus').removeClass('hidden');
         toggle.find('.plus').addClass('hidden');
 
-        canvas.animate({ height: '300px' }, {
+        canvas.animate({
+          height: '300px'
+        }, {
           duration: 500,
           complete: function() {
             this._scrollTo(toggle, 10);
@@ -1192,7 +1221,9 @@ module.exports = View.extend({
         if (address) this.find('#location .address').replaceWith($(this.addressPartial(address)));
         this.find('.polling-location-info').slideDown('fast');
       } else if (!markerSelected) {
-        canvas.animate({ height: '150px' }, {
+        canvas.animate({
+          height: '150px'
+        }, {
           duration: 500,
           complete: function() {
             this._scrollTo(toggle, 10);
@@ -1227,7 +1258,7 @@ module.exports = View.extend({
               // this.find('.polling-location-info').slideDown('fast');
             } else {
               // setTimeout(function() {
-                // this.find('.polling-location-info').slideDown('fast');
+              // this.find('.polling-location-info').slideDown('fast');
               // }.bind(this), 500);
             }
           }
@@ -1268,7 +1299,7 @@ module.exports = View.extend({
     }.bind(this));
     if (!this.landscape)
       this.find('#more-elections')
-        .find('.toggle-image').toggleClass('hidden');
+      .find('.toggle-image').toggleClass('hidden');
   },
 
   toggleResources: function(e) {
@@ -1277,23 +1308,24 @@ module.exports = View.extend({
       .scrollTop(0)
       .css({
         'overflow-y': 'scroll',
-        'overflow-x': 'hidden'});
+        'overflow-x': 'hidden'
+      });
     if (!this.landscape)
       this.find('#more-resources').slideToggle(500, function() {
         this._scrollTo($('#resources-toggle span'), 10);
         this.find('#resources-toggle')
           .find('.plus, .minus')
-            .toggleClass('hidden');
+          .toggleClass('hidden');
       }.bind(this));
     else {
       this.$el
         .find('#about-resources')
-          .css("height", "initial")
-          .show()
-          .find('span')
-            .show()
+        .css("height", "initial")
+        .show()
+        .find('span')
+        .show()
       this.find('#map-canvas, #location, #location-legend, #map-list-view, #map-view-toggle, .contests')
-          .hide()
+        .hide()
       this.find('.info.box')
         .removeClass('expanded-pane')
       this.find('#resources-toggle')
@@ -1309,7 +1341,7 @@ module.exports = View.extend({
 
       this.find('#more-resources')
         .css({
-          'max-height':'20000px'
+          'max-height': '20000px'
         }).show();
     }
   },
@@ -1319,14 +1351,14 @@ module.exports = View.extend({
       .css('overflow', 'hidden')
       .scrollTop(0)
       .css({
-        'overflow-y':'scroll',
-        'overflow-x':'hidden'
+        'overflow-y': 'scroll',
+        'overflow-x': 'hidden'
       });
     if (!this.landscape) {
       var ballotInfoIsMaximized = this.find('#ballot-information').find('.plus').is(":hidden");
 
       this.find('#ballot-information').find('.plus, .minus').toggleClass('hidden');
-      this.find(".contest-toggle").each(function (i, el) {
+      this.find(".contest-toggle").each(function(i, el) {
         var candidateList = $(el).find('.candidate-list');
         var toggleSign = $(el).find('span');
         var subsectionIsMaximized = !candidateList.is(':hidden');
@@ -1363,9 +1395,9 @@ module.exports = View.extend({
 
   toggleContest: function(e) {
     if ($(e.target).hasClass('subsection') ||
-        $(e.target).hasClass('subsection-plus') ||
-        $(e.target).parent().hasClass('subsection') ||
-        $(e.target).parent().hasClass('subsection-plus')) {
+      $(e.target).hasClass('subsection-plus') ||
+      $(e.target).parent().hasClass('subsection') ||
+      $(e.target).parent().hasClass('subsection-plus')) {
       var candidateList = $(e.currentTarget).find('.candidate-list');
       var toggleSign = $(e.currentTarget).find('span');
 
@@ -1373,14 +1405,14 @@ module.exports = View.extend({
         var isHidden = candidateList.is(':hidden')
         if (isHidden) {
           toggleSign.css({
-            'position' : 'relative',
-            'left' : '-2px'
+            'position': 'relative',
+            'left': '-2px'
           });
           this._scrollTo(toggleSign, 20);
         } else {
           toggleSign.css({
             'position': '',
-            'left' : ''
+            'left': ''
           })
         }
         toggleSign.text((isHidden ? '+' : '\u2013'));
@@ -1425,7 +1457,7 @@ module.exports = View.extend({
     this.find('#alert').fadeOut('slow', function() {
       if (this.find('#location-legend').is(':visible'))
         this.find('#location-legend')
-          .css('top', '2%');
+        .css('top', '2%');
     }.bind(this));
   },
 

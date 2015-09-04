@@ -152,10 +152,10 @@ app.controller('ApplicationController', function($scope, $window, $sce, $timeout
   // THEME SELECTOR:
   $scope.themeUrl = function(selectedTheme) {
     var themeUrls = {
-      'No Theme': 'https://tool.votinginfoproject.org/images/theme0.png',
-      'Theme One': 'https://tool.votinginfoproject.org/images/theme1.png',
-      'Theme Two': 'https://tool.votinginfoproject.org/images/theme2.png',
-      'Theme Three': 'https://tool.votinginfoproject.org/images/theme3.png'
+      'No Theme': 'http://tool.votinginfoproject.org/images/theme0.png',
+      'Theme One': 'http://tool.votinginfoproject.org/images/theme1.png',
+      'Theme Two': 'http://tool.votinginfoproject.org/images/theme2.png',
+      'Theme Three': 'http://tool.votinginfoproject.org/images/theme3.png'
     }
     return themeUrls[selectedTheme];
   }

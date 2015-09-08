@@ -1,6 +1,6 @@
 <div class="box" id="alert">
   <span id="text"></span>
-  <span id="alert-close"><img src="images/plus.png"></span>
+  <span id="alert-close"><img src="tool.votinginfoproject.org/images/plus.png"></span>
 </div>
 
 <div class="info box left" id="registered-address">
@@ -22,22 +22,22 @@
 <div class="info box left" id="more-elections">
   {{assets.text.headers.elections}}
   <span>
-    <img src="images/plus.png" class="toggle-image plus">
-    <img src="images/minus.png" class="toggle-image minus hidden">
+    <img src="tool.votinginfoproject.org/images/plus.png" class="toggle-image plus">
+    <img src="tool.votinginfoproject.org/images/minus.png" class="toggle-image minus hidden">
   </span>
 </div>
 
 <div class="info box left" id="election-list">
   <div class="election-selection">
-    <img src="images/radio-checked.png" class="radio checked">
-    <img src="images/radio-unchecked.png" class="radio unchecked hidden">
+    <img src="tool.votinginfoproject.org/images/radio-checked.png" class="radio checked">
+    <img src="tool.votinginfoproject.org/images/radio-unchecked.png" class="radio unchecked hidden">
     <span class="hidden">{{ data.election.id }}</span>
     {{ data.election.name }}
   </div>
   {{#each data.otherElections }}
   <div class="election-selection">
-    <img src="images/radio-checked.png" class="radio checked hidden">
-    <img src="images/radio-unchecked.png" class="radio unchecked">
+    <img src="tool.votinginfoproject.org/images/radio-checked.png" class="radio checked hidden">
+    <img src="tool.votinginfoproject.org/images/radio-unchecked.png" class="radio unchecked">
     <span class="hidden">{{ id }}</span>
     {{ name }}
   </div>
@@ -46,15 +46,15 @@
 
 <div class="box left" id="chosen-election">
   {{>election data.election}}
-  <div id="calendar-icon" title="{{ data.election.name }}" class="addthisevent" style="background-image: url('images/calendar.png'); float: right; margin-top: -30px; margin-right: 2px; background-color: transparent; border: 0; height: 20px; width: 20px; background-size: contain; padding: 0; background-position: center;">
+  <div id="calendar-icon" title="{{ data.election.name }}" class="addthisevent" style="background-image: url('tool.votinginfoproject.org/images/calendar.png'); float: right; margin-top: -30px; margin-right: 2px; background-color: transparent; border: 0; height: 20px; width: 20px; background-size: contain; padding: 0; background-position: center;">
   </div>
 </div>
 
 <div class="info box left" id="polling-location">
   {{assets.text.headers.pollingLocation}}
   <span id="map-toggle">
-    <img src="images/plus.png" class="toggle-image plus">
-    <img src="images/minus.png" class="toggle-image minus hidden">
+    <img src="tool.votinginfoproject.org/images/plus.png" class="toggle-image plus">
+    <img src="tool.votinginfoproject.org/images/minus.png" class="toggle-image minus hidden">
   </span>
 </div>
 
@@ -64,7 +64,7 @@ Click to Toggle
 
 <div id="location-legend" class="box right">
   <div id="location-legend-close">
-    <img src="./images/grey-plus.png">
+    <img src="tool.votinginfoproject.org/images/grey-plus.png">
   </div>
   <div id="red-block" class="red"></div>
   <span id="red-label" class="red">Early Voting Site</span>
@@ -80,12 +80,12 @@ Click to Toggle
 
 <div id="location" class="box right">
   <div id="polling-location-info-close">
-    <img src="./images/grey-plus.png">
+    <img src="tool.votinginfoproject.org/images/grey-plus.png">
   </div>
   {{> address data.pollingLocations.0.address }}
   <span>
     <a href="#" target="_blank">
-      <img src="images/directions.png">
+      <img src="tool.votinginfoproject.org/images/directions.png">
     </a>
   </span>
   {{#if data.pollingLocations.0.isEarlyVoteSite}}
@@ -107,8 +107,8 @@ Click to Toggle
 <div class="info box left" id="resources-toggle">
   {{assets.text.headers.voterResources}}
   <span>
-    <img src="images/plus.png" class="toggle-image plus hidden">
-    <img src="images/minus.png" class="toggle-image minus">
+    <img src="tool.votinginfoproject.org/images/plus.png" class="toggle-image plus hidden">
+    <img src="tool.votinginfoproject.org/images/minus.png" class="toggle-image minus">
   </span>
 </div>
 
@@ -206,8 +206,8 @@ Click to Toggle
 <div class="info box left" id="ballot-information">
   {{assets.text.headers.ballotInformation}}
   <span>
-    <img src="images/plus.png" class="toggle-image plus hidden">
-    <img src="images/minus.png" class="toggle-image minus">
+    <img src="tool.votinginfoproject.org/images/plus.png" class="toggle-image plus hidden">
+    <img src="tool.votinginfoproject.org/images/minus.png" class="toggle-image minus">
   </span>
 </div>
 

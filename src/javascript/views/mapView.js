@@ -773,11 +773,11 @@ module.exports = View.extend({
       .find('.toggle-image')
       .addClass('arrow')
       .filter('.plus')
-      .attr('src', 'images/left-arrow-white.png')
+      .attr('src', 'tool.votinginfoproject.org/images/left-arrow-white.png')
       .addClass('right-arrow')
       .end()
       .filter('.minus')
-      .attr('src', 'images/right-arrow-white.png')
+      .attr('src', 'tool.votinginfoproject.org/images/right-arrow-white.png')
       .addClass('left-arrow')
       .end()
       .find('#polling-location .arrow')
@@ -938,11 +938,11 @@ module.exports = View.extend({
     var that = this;
     var daddr = this._parseAddressWithoutName(address);
     var saddr = this._parseAddressWithoutName(saddr);
-    var url = 'images/' + (isEarlyVote ? 'red-marker.png' : 'blue-marker.png');
+    var url = 'tool.votinginfoproject.org/images/' + (isEarlyVote ? 'red-marker.png' : 'blue-marker.png');
     if (isDropOffLocation && !isEarlyVote && !isBothPollingAndDropOff) {
-      url = 'images/gray-marker.png';
+      url = 'tool.votinginfoproject.org/images/gray-marker.png';
     }
-    if (isBoth) url = 'images/green-marker.png'
+    if (isBoth) url = 'tool.votinginfoproject.org/images/green-marker.png'
 
     var icon = {
       url: url,

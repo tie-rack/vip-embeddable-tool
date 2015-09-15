@@ -4,7 +4,7 @@
   <h2 class="subtitle">{{subtitle}}</h2>
   <input type="text" id="address-input" placeholder="{{assets.text.placeholderText.enterAddress}}">
   <div class="magnifying-glass" id="submit-address-button">
-    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 500 500">
+    <svg xmlns="https://www.w3.org/2000/svg" viewBox="0 0 500 500">
       <path fill="none" stroke="#fff" stroke-width="36" stroke-linecap="round"
     d="m280,278a153,153 0 1,0-2,2l170,170m-91-117 110,110-26,26-110-110"/>
     </svg>
@@ -13,7 +13,7 @@
 </div>
 <div class="footer">
   <span>{{ assets.text.footer.text }}</span>
-  <i id="plus-icon"><img src="images/plus.png"></i>
+  <i id="plus-icon"><img src="{{ image 'plus.png' }}"></i>
 </div>
 
 {{> modals }}

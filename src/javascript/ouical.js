@@ -51,7 +51,7 @@
                                                   MS_IN_MINUTES))) || '';
 
       var href = encodeURI([
-        'http://calendar.yahoo.com/?v=60&view=d&type=20',
+        'https://calendar.yahoo.com/?v=60&view=d&type=20',
         '&title=' + (event.title || ''),
         '&st=' + st,
         '&dur=' + (yahooEventDuration || ''),

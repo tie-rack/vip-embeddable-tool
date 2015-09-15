@@ -10,7 +10,7 @@ module.exports = {
     "footerColor" : "#898989"
   },
   "text" : {
-    "summary" : "Find out where to vote, what's on your ballot, what you need to bring to the polls, and more...",
+    "summary" : "Find out where to vote, what's on your ballot, and more...",
     "placeholderText" : {
       "enterAddress" : "Enter Registered Voting Address",
       "changeAddress" : "Enter a different address"
@@ -42,7 +42,7 @@ module.exports = {
       "ballotInformation" : "Ballot Information"
     },
     "resources" : {
-      "summary" : "Information on how to navigate the elections process, including deadlines, Voter ID information, and registration links.",
+      "summary" : "Information on how to navigate the elections process, including deadlines and registration links.",
       "electionAdministration" : {
         "title" : "Election Administration",
         "local_jurisdiction" : "Local Jurisdiction",

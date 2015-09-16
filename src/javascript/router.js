@@ -1,11 +1,11 @@
 module.exports = (function() {
-  var data, addressView = require('./views/addressView.js'),
-    mapView = require('./views/mapView.js'),
-    apiRequest = require('./api.js'),
-    text = require('./config.js'),
-    $ = require('jquery'),
-    xdr = require('jquery-xdr').load($),
-    mock = require('../../spec/mocks/milwaukee.json')
+  var data
+    , addressView = require('./views/addressView.js')
+    , mapView = require('./views/mapView.js')
+    , text = require('./config.js')
+    , $ = require('jquery')
+    , xdr = require('jquery-xdr').load($)
+    , mock = require('../../spec/mocks/milwaukee.json');
 
   return {
     start: function(config) {
@@ -29,9 +29,6 @@ module.exports = (function() {
       };
 
       $.extend(options, config);
-      $.extend(options, {
-        root: ''
-      });
 
       if (options.productionOnly === false) options.productionDataOnly = options.productionOnly;
 
@@ -83,9 +80,6 @@ module.exports = (function() {
           router.navigate(mapView, mapView, options);
         });
 
-      // path to the voter ID information updated CSV file
-      var voterIdInfoUrl = location.protocol.toString() + '//s3.amazonaws.com/vip-voter-information-tool/voter-id/voterIdInfo.csv';
-
       // default language unless specified in configs
       var language = navigator.language || navigator.browserLanguage;
 
@@ -136,9 +130,6 @@ module.exports = (function() {
 
     // helper function for navigation
     navigate: function(toView, fromView, options) {
-      $.extend(options, {
-        root: ''
-      });
       fromView.remove();
       toView.render(options);
     }

@@ -19,5 +19,5 @@
   background: red;
   width: 0.35em;
   height: 0.08em;
-  @include rotate(45deg);
+  transform: rotate(45deg);
 }

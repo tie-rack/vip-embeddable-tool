@@ -411,7 +411,7 @@ app.controller('ApplicationController', function($scope, $window, $sce, $timeout
   $scope.interiorSecondaryTileBarColors = ['#555', '#909090', '#228a9d', '#8d1919', '#258065', '#7caa66', '#dd8004', '#5e3481', '#81665f', '#c04273']
 
   // FORMAT SELECTOR:
-  $scope.formats = ['640x480', '320x240', 'Responsive'];
+  $scope.formats = ['640x480 - Fixed height and width', '320x240 - Fixed height and width', 'Responsive - Stretches to fill parent container'];
 
   $scope.setFormat = function(value) {
     $scope.selectedFormat = value;

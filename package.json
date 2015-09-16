@@ -43,7 +43,6 @@
     "watchify": "^3.4.0"
   },
   "dependencies": {
-    "async": "^1.4.2",
     "csv-string": "^2.3.0",
     "csv-to-json": "^0.1.2",
     "csvtojson": "^0.4.2",

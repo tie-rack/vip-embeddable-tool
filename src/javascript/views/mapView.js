@@ -3,7 +3,6 @@ var api = require('../api.js');
 var $ = require('jquery');
 var fastclick = require('fastclick');
 var ouiCal = require('../ouical.js');
-var async = require('async');
 
 module.exports = View.extend({
 

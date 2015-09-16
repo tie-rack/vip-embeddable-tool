@@ -21,10 +21,10 @@
         br(ng-if="title")
         span(ng-if="subtitle")     subtitle: '{{ subtitle }}',
         br(ng-if="subtitle")
-        span(ng-if="selectedFormat == '640x480'")
+        span(ng-if="selectedFormat == '640x480 - Fixed height and width'")
           |     width: '640px',
           |     height: '480px',
-        span(ng-if="selectedFormat == '320x240'")
+        span(ng-if="selectedFormat == '320x240 - Fixed height and width'")
           |     width: '320px',
           |     height: '240px',
         br(ng-if="selectedFormat.length > 0")

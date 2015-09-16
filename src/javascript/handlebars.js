@@ -2,7 +2,9 @@ var handlebars = require('hbsfy/runtime');
 var $ = require('jquery')
 
 module.exports = (function() {
-  var json = function(context) { return JSON.stringify(context) };
+  var json = function(context) {
+    return JSON.stringify(context)
+  };
 
   var escapeHTML = function(encoded) {
     var unencoded = $('<textarea />').html(encoded).val();

@@ -6,17 +6,17 @@ module.exports = (function() {
   function update() {
     $('#_vit')
       .css('color', theme.text)
-      .find('#alert') 
-        .css('background-color', theme.alertText)
+      .find('#alert')
+      .css('background-color', theme.alertText)
       .end()
       .find('.info:not(.expanded-pane)')
-        .css('background-color', theme.header)
+      .css('background-color', theme.header)
       .end()
       .find('.info.expanded-pane')
-        .css('background-color', theme.selectedHeader)
+      .css('background-color', theme.selectedHeader)
       .end()
       .find('.left-wrapper')
-        .css('background-color', theme.landscapeHeaderBackground)
+      .css('background-color', theme.landscapeHeaderBackground)
       .end()
   }
 

@@ -1,16 +1,14 @@
 var gulp = require('gulp');
 var sass = require('gulp-ruby-sass');
+var gulpSass = require('gulp-sass');
+var sourcemaps = require('gulp-sourcemaps');
+var autoprefixer = require('gulp-autoprefixer');
 var handleErrors = require('../util/handleErrors');
-var browserSync  = require('browser-sync');
 
 gulp.task('sass', ['images'], function () {
-  return gulp.src('src/sass/*.{sass, scss}')
-    .pipe(sass({
-      compass: true,
-      bundleExec: true,
-      sourcemap: true,
-      sourcemapPath: '../sass'
-    }))
-    .on('error', handleErrors)
-    .pipe(gulp.dest('build'));
+  sass('src/scss/app.scss', {
+    sourcemap: false
+  }).pipe(
+    autoprefixer({ browsers: '> 5%' })
+  ).pipe(gulp.dest('build'));
 });

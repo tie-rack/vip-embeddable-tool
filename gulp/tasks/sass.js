@@ -1,14 +1,22 @@
 var gulp = require('gulp');
 var sass = require('gulp-ruby-sass');
-var gulpSass = require('gulp-sass');
+var sass = require('gulp-sass');
 var sourcemaps = require('gulp-sourcemaps');
-var autoprefixer = require('gulp-autoprefixer');
+var prefix = require('gulp-autoprefixer');
 var handleErrors = require('../util/handleErrors');
 
+// WARNING: uses gulp-ruby-sass (not gulp-sass)
+// gulp.task('sass', ['images'], function () {
+//   sass('src/scss/app.scss', {
+//     sourcemap: false
+//   }).pipe(
+//     prefix({ browsers: '> 5%' })
+//   ).pipe(gulp.dest('build'));
+// });
+
 gulp.task('sass', ['images'], function () {
-  sass('src/scss/app.scss', {
-    sourcemap: false
-  }).pipe(
-    autoprefixer({ browsers: '> 5%' })
-  ).pipe(gulp.dest('build'));
+  gulp.src('src/scss/app.scss')
+    .pipe(sass().on('error', sass.logError))
+    .pipe(prefix({ browsers: '> 5%' }))
+    .pipe(gulp.dest('build'));
 });

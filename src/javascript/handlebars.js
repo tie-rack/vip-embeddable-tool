@@ -44,6 +44,16 @@ module.exports = (function() {
     return asset("images/" + filename);
   };
 
+  var partyName = function (text) {
+    var parties = {
+      "DEM": "Democratic Party",
+      "LIB": "Libertarian Party",
+      "REP": "Republican Party"
+    };
+
+    return parties[text] != void 0 ? parties[text] : text;
+  };
+
   return {
     registerHelpers: function() {
       handlebars.registerHelper('json', json);
@@ -52,6 +62,7 @@ module.exports = (function() {
       handlebars.registerHelper('log', log);
       handlebars.registerHelper('asset', asset);
       handlebars.registerHelper('image', image);
+      handlebars.registerHelper('partyName', partyName);
     },
 
     registerPartials: function() {

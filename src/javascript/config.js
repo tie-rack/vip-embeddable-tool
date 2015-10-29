@@ -36,7 +36,7 @@ module.exports = {
     "headers": {
       "registeredVoterAddress": "Registered Voter Address",
       "edit": "Edit",
-      "elections": "Elections",
+      "elections": "Election Date",
       "pollingLocation": "Polling Location",
       "voterResources": "Voter Resources",
       "ballotInformation": "Ballot Information"

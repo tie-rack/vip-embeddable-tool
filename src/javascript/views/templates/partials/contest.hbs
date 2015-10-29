@@ -5,7 +5,7 @@
 		</p>
 		<span class="subsection-plus">&#8212</span>
 		<div class="contest-type">
-			{{ primaryParty }}
+			{{ partyName primaryParty }}
 		</div>
 	</div>
 	<div class="candidate-list">
@@ -45,7 +45,7 @@
 				<img src="{{ image 'arrow.png' }}" class="arrow">
 				{{/if}}
 				<div class="party">
-				{{ party }}
+				{{ partyName party }}
 				</div>
 				{{#if email}}
 				<a href="mailto:{{ email }}" class="email">

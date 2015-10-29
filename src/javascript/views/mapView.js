@@ -3,6 +3,7 @@ var api = require('../api.js');
 var $ = require('jquery');
 var fastclick = require('fastclick');
 var ouiCal = require('../ouical.js');
+var _ = require('lodash');
 
 module.exports = View.extend({
 
@@ -258,11 +259,42 @@ module.exports = View.extend({
     if (options.data.contests) {
       options.data.contests = options.data.contests.sort(contestComparator);
 
+      var contests = options.data.contests;
+
+      // get all closed primaries
+      var closedPrimaries = _.filter(contests, function(contest) {
+        return contest.primaryParty != void 0;
+      });
+
+      var openPrimaries = _.filter(contests, function(contest) {
+        return contest.primaryParty == void 0;
+      });
+
+
+      if (!_.isEmpty(closedPrimaries)) {
+        // get list of each primary party
+        var primaryParties = _.uniq(
+          _.map(closedPrimaries, function(primary) {
+            return primary.primaryParty
+          })
+        );
+        _.each(primaryParties, function(party) {
+          if (!options.data.closedPrimaries) {
+            options.data.closedPrimaries = {};
+          }
+          options.data.closedPrimaries[party] = _.union(_.filter(closedPrimaries, function(primary) {
+            return primary.primaryParty == party;
+          }), openPrimaries);
+        })
+      }
+
       // remove candidate-specific party if its a primary
       options.data.contests.forEach(function(contest) {
+        console.log(contest.type, contest.primaryParty)
         if (contest.type === 'Primary' && contest.primaryParty) {
           contest.candidates.forEach(function(candidate) {
-            delete candidate.party;
+            console.log(candidate.party)
+            // delete candidate.party;
           })
         }
       })
@@ -620,7 +652,7 @@ module.exports = View.extend({
 
     this.earlyVoteSites = options.data.earlyVoteSites;
     this.dropOffLocations = options.data.dropOffLocations;
-    if (this.earlyVoteSites || this.dropOffLocations || this.locationTypes.hasPollingLocations)
+    if ((this.earlyVoteSites || this.dropOffLocations || this.locationTypes.hasPollingLocations) && this.landscape)
       this.find('#location-legend')
       .show()
 
@@ -687,6 +719,37 @@ module.exports = View.extend({
     if (options.data.pollingLocations && options.data.dropOffLocations && (options.data.pollingLocations.length === options.data.dropOffLocations.length)) {
       this.find('#grey-block').css('top', 'initial');
       this.find('#grey-label').css('top', '-8px');
+    }
+
+    if (options.data.closedPrimaries) {
+      var $closedPrimariesSelection = this.find('.closed-primaries-selection');
+      var $selectClosedPrimary = $closedPrimariesSelection.find('.select-closed-primary');
+      var $closedPrimaries = this.find('.closed-primaries');
+
+      $selectClosedPrimary.on('click', function() {
+        // get selected primary name
+        var primaryName = $(this).data('primary-name');
+
+        // hide selection view
+        $closedPrimariesSelection.addClass('hidden');
+
+        // show closed primaries view
+        $closedPrimaries.removeClass('hidden');
+
+        // get chosen closed primary
+        var $chosenPrimary = $closedPrimaries.find('.closed-primary').filter('[data-primary-name="' + primaryName + '"]');
+
+        // display chosen closed primary
+        $chosenPrimary.removeClass('hidden');
+
+        // allow the user to go back
+        $closedPrimaries.find('.closed-primary-back button').one('click', function() {
+          $chosenPrimary.addClass('hidden');
+          $closedPrimaries.addClass('hidden');
+          $closedPrimariesSelection.removeClass('hidden')
+        });
+
+      });
     }
   },
 

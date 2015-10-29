@@ -1025,17 +1025,19 @@ module.exports = View.extend({
       this.find('#blue-block').on('click', this._markerFocusHandler.bind(this, marker, address, location, saddr, daddr))
       this.find('#red-block').on('click', function() {
         for (var i = 0; i < that.markers.length; i++) {
-          if (that.data.pollingLocations[i].isEarlyVoteSite && !that.data.pollingLocations[i].isBoth && !that.data.pollingLocations[i].isBothEarlyVoteAndDropOff) {
+          if (that.data.pollingLocations[i].isEarlyVoteSite) {
             var location = that.data.pollingLocations[i];
             that._markerFocusHandler(that.markers[i], location.address, location, location.normalizedInput, that._parseAddressWithoutName(location.address))
+            break;
           }
         }
       });
       this.find('#grey-block').on('click', function() {
         for (var i = 0; i < that.markers.length; i++) {
-          if (that.data.pollingLocations[i].isDropOffLocation && !that.data.pollingLocations[i].isBothPollingAndDropoff && !that.data.pollingLocations[i].isBothEarlyVoteAndDropOff) {
+          if (that.data.pollingLocations[i].isDropOffLocation) {
             var location = that.data.pollingLocations[i];
             that._markerFocusHandler(that.markers[i], location.address, location, location.normalizedInput, that._parseAddressWithoutName(location.address))
+            break;
           }
         }
       });
@@ -1044,6 +1046,7 @@ module.exports = View.extend({
           if (that.data.pollingLocations[i].isBoth) {
             var location = that.data.pollingLocations[i];
             that._markerFocusHandler(that.markers[i], location.address, location, location.normalizedInput, that._parseAddressWithoutName(location.address))
+            break;
           }
         }
       });

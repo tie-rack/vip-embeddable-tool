@@ -105,11 +105,15 @@ module.exports = View.extend({
           that.locationTypes.hasBoth = true;
         } else pollingLocation.isBothEarlyVoteAndDropOff = true;
 
-        if (isBothPollingAndDropoff)
+        if (isBothPollingAndDropoff) {
           pollingLocation.isBothPollingAndDropOff = true;
+          pollingLocation.isOnlyPollingLocation = false;
+        }
 
-        if (pollingLocation.isBoth && otherLocation.isDropOffLocation)
+        if (pollingLocation.isBoth && otherLocation.isDropOffLocation) {
           pollingLocation.isDropOffLocation = false;
+          pollingLocation.isOnlyPollingLocation = false;
+        }
       }
     }
 
@@ -132,28 +136,33 @@ module.exports = View.extend({
 
             if (earlyVoteSite.name)
               earlyVoteSite.address.name = earlyVoteSite.name;
-
-            if (endDate < now)
-              earlyVoteSitesToRemove.push(earlyVoteSite);
-            else
+            // console.log(endDate)
+            // if (endDate < now)
+              // earlyVoteSitesToRemove.push(earlyVoteSites.indexOf(earlyVoteSite));
+            // else
               mergeAndRemoveDups(pollingLocation, earlyVoteSite, earlyVoteSites, earlyVoteSitesToRemove, true, false);
           });
           if (dropOffLocations)
             dropOffLocations.forEach(function(dropOffLocation) {
               dropOffLocation.isDropOffLocation = true;
-              mergeAndRemoveDups(pollingLocation, dropOffLocation, dropOffLocations, dropOffLocationsToRemove, false, false);
+              mergeAndRemoveDups(pollingLocation, dropOffLocation, dropOffLocations, dropOffLocationsToRemove, false, true);
             })
         } else if (dropOffLocations)
           dropOffLocations.forEach(function(dropOffLocation) {
             dropOffLocation.isDropOffLocation = true;
-            mergeAndRemoveDups(pollingLocation, dropOffLocation, dropOffLocations, dropOffLocationsToRemove, false, true);
+            mergeAndRemoveDups(pollingLocation, dropOffLocation, dropOffLocations, dropOffLocationsToRemove, false, false);
           })
       });
 
-      if (earlyVoteSites)
+      if (earlyVoteSites) {
+        // console.log(earlyVoteSites)
+        // console.log(earlyVoteSitesToRemove)
         removeIndices(earlyVoteSites, earlyVoteSitesToRemove);
-      if (dropOffLocations)
+      }
+      if (dropOffLocations) {
+        // console.log(dropOffLocationsToRemove)
         removeIndices(dropOffLocations, dropOffLocationsToRemove);
+      }
     } else {
       if (earlyVoteSites) {
         earlyVoteSites.forEach(function(earlyVoteSite) {
@@ -163,8 +172,8 @@ module.exports = View.extend({
           if (earlyVoteSite.name)
             earlyVoteSite.address.name = earlyVoteSite.name;
 
-          if (endDate < now)
-            earlyVoteSitesToRemove.push(idx);
+          // if (endDate < now)
+          //   earlyVoteSitesToRemove.push(idx);
 
           if (dropOffLocations)
             dropOffLocations.forEach(function(dropOffLocation) {
@@ -290,10 +299,10 @@ module.exports = View.extend({
 
       // remove candidate-specific party if its a primary
       options.data.contests.forEach(function(contest) {
-        console.log(contest.type, contest.primaryParty)
+        // console.log(contest.type, contest.primaryParty)
         if (contest.type === 'Primary' && contest.primaryParty) {
           contest.candidates.forEach(function(candidate) {
-            console.log(candidate.party)
+            // console.log(candidate.party)
             // delete candidate.party;
           })
         }
@@ -664,9 +673,13 @@ module.exports = View.extend({
       this.find('.grey')
       .remove();
 
-    if (!this.locationTypes.hasBoth)
+    if (!this.locationTypes.hasBoth) {
       this.find('.green')
       .remove()
+
+      this.find('#grey-block').css('top', '0')
+      this.find('#grey-label').css('top', '-10px')
+    }
 
     if (!this.locationTypes.hasPollingLocations)
       this.find('.blue')

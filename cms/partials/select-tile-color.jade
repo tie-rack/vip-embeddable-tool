@@ -1,12 +1,11 @@
 .container(ng-show='isVisible(4, step)')
   .left.form
     .row
-      h2.subtitle.step
-        | Step {{ step }} of 8
-
+      heading
       .section-interior-tile-bar-color
         h2.subtitle
           | Interior tile bar color
+
         ul
           li(
             ng-repeat="tileBarColor in interiorTileBarColors track by $index"

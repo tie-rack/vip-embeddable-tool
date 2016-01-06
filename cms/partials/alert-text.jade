@@ -1,10 +1,10 @@
 .container.alert-text(ng-show='isVisible(6, step)')
   .left.form
     .row
-      h2.subtitle.step
-        | Step {{ step }} of 8
+      heading
       h2.subtitle
         | Alert text
+
       h6(ng-show="alertTextEnabled") Note: Alert text will disappear automatically after 10 seconds.
 
       ul.options(ng-init="alertTextEnabled = false")

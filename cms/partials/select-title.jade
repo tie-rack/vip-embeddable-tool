@@ -1,12 +1,11 @@
 .container.select-title(ng-show='isVisible(3, step)')
   .left.form
     .row
-      h2.subtitle.step
-        | Step {{ step }} of 8
-
+      heading
       .section-title
         h2.subtitle
           | Title
+
         input(type="text" class="input-text" ng-model="title" placeholder="Enter title here")
 
         input(type="text" class="input-text" ng-model="subtitle" placeholder="Enter subtitle here (optional)")

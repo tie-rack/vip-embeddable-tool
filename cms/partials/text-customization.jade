@@ -5,6 +5,27 @@
       .section-title
         h2.subtitle
           | Advanced Customization
-        input(type="text" class="input-text" ng-model="pollingLocationLabel" placeholder="Polling Location Label")
 
-        //- input(type="text" class="input-text" ng-model="subtitle" placeholder="Enter subtitle here (optional)")
+          div.advanced-plus(ng-show="!advancedPlus" ng-click="advancedPlus = !advancedPlus") +
+          div.advanced-plus(ng-show="advancedPlus" ng-click="advancedPlus = !advancedPlus") -
+
+        div(ng-show="advancedPlus")
+          h3.custom-text Custom labels:
+
+          p.custom-text-explanation Replace the following labels' or links' text with your own.
+
+          input(type="text" class="input-text" ng-model="pollingLocationLabel" placeholder="Polling Location Label")
+
+          p.custom-text-explanation The following text is not shown in the customizer preview, but will appear in your embedded voter information tool.
+
+          input(type="text" class="input-text" ng-model="stateElectionsOfficeLabel" placeholder="State Elections Office Label")
+
+          input(type="text" class="input-text" ng-model="electionInformationLabel" placeholder="Election Information Label")
+
+          input(type="text" class="input-text" ng-model="registrationConfirmationLabel" placeholder="Registration Confirmation Label")
+
+          input(type="text" class="input-text" ng-model="absenteeVotingInformationLabel" placeholder="Absentee Voting Information Label")
+
+          input(type="text" class="input-text" ng-model="votingLocationFinderLabel" placeholder="Voting Location Finder Label")
+
+          input(type="text" class="input-text" ng-model="ballotInformationLabel" placeholder="Ballot Information Label")

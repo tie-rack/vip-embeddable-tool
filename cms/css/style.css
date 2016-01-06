@@ -772,6 +772,28 @@ navigation, .nav-holder {
   width: 90%;
 }
 
+.custom-text {
+  text-align: left;
+  padding: 0 0 0 22px;
+  margin-bottom: 0;
+}
+
+.custom-text-explanation {
+  text-align: left;
+  padding: 2px 0 0 22px;
+  margin: 0;
+  font-size: 12px;
+}
+
+.advanced-plus {
+  position: absolute;
+  color: white;
+  cursor: pointer;
+  right: 7px;
+  top: 3px;
+  font-size: 24px;
+}
+
 .vip-name {
   color: #d7d7d7;
   display: inline-block;
@@ -882,6 +904,7 @@ h2.preview-label {
     letter-spacing: 1px;
     margin: 0;
     padding: 8px 15px;
+    position: relative;
     text-align: left;
   }
 

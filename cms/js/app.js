@@ -103,6 +103,13 @@ app.controller('ApplicationController', function($scope, $window, $sce, $timeout
   $scope.init = function() {
     $scope.setTheme($scope.themes[0]);
     $scope.selectedLogoOption = $scope.logoOptions[0];
+    $scope.forceChromeSpellcheck = function(model) {
+      // $scope[model] = $scope[model] + " ";
+      setTimeout(function() {
+        $scope[model] = $scope[model].split();
+        $scope[model].join();
+      }, 30);
+    };
     $scope.setState($scope.states[0]);
     $scope.setFormat($scope.formats[0]);
     $scope.setPreviewOption('desktop');
@@ -110,6 +117,7 @@ app.controller('ApplicationController', function($scope, $window, $sce, $timeout
 
     // Advanced Customizations:
     $scope.advancedPlus = false;
+    $scope.advancedCustomizationChanged = false;
     $scope.pollingLocationLabel = "Polling Locations";
     $scope.stateElectionsOfficeLabel = "State Elections Office";
     $scope.electionInformationLabel = "Election Information";

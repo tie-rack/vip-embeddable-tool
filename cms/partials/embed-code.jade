@@ -38,8 +38,26 @@
         br(ng-if="selectedTileBarColor")
         span(ng-if="alertTextEnabled")     alertText: '{{ alertText }}',
         br(ng-if="alertTextEnabled")
-        span(ng-if="selectedLanguage")     language: '{{ languages[selectedLanguage] }}'
+        span(ng-if="selectedLanguage")     language: '{{ languages[selectedLanguage] }}',
         br(ng-if="selectedLanguage")
+        span(ng-if="advancedCustomizationChanged")     json: {
+          |       headers: {
+          |         pollingLocation: '{{pollingLocationLabel}}'
+          |       },
+          |       resources: {
+          |         electionAdministration: {
+          |           stateElectionsOffice: '{{stateElectionsOfficeLabel}}'
+          |         },
+          |         moreResources: {
+          |           electionInformationUrl: '{{electionInformationLabel}}',
+          |           registrationConfirmationUrl: '{{registrationConfirmationLabel}}',
+          |           absenteeVotingInformationUrl: '{{absenteeVotingInformationLabel}}',
+          |           votingLocationFinderUrl: '{{votingLocationFinderLabel}}',
+          |           ballotInformationUrl: '{{ballotInformationLabel}}'
+          |         }
+          |      }
+          |    }
+        br(ng-if="advancedCustomizationChanged")
         | });&lt/script&gt
 
   .options

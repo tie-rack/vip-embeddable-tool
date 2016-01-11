@@ -654,6 +654,9 @@ navigation, .nav-holder {
   width: 90%;
   margin: 10px 0;
   padding: 6px;
+  resize: none;
+  height: 20px;
+  border-color: #ABABAB;
 }
 
 .interior-tile-bar-color {

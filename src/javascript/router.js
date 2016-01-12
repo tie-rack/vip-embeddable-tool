@@ -108,9 +108,7 @@ module.exports = (function() {
 
         if (options.json) {
           // render with custom JSON text
-          $.extend({}, options, {
-            assets: options.json
-          });
+          $.extend(true, options.assets, options.json);
 
           addressView.render(options);
         } else {

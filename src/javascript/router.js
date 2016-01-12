@@ -108,9 +108,10 @@ module.exports = (function() {
 
         if (options.json) {
           // render with custom JSON text
-          $.extend(options, {
+          $.extend({}, options, {
             assets: options.json
           });
+
           addressView.render(options);
         } else {
           // grab the translated copy and render with the new text

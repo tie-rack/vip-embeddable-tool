@@ -39,7 +39,7 @@ module.exports = function(options) {
     url: url,
     dataType: 'jsonp',
     cache: false,
-    error: function(e) { 
+    error: function(e) {
       options.error && options.error();
     },
     success: function(response) {

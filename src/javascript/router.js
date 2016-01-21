@@ -1,11 +1,11 @@
 module.exports = (function() {
-  var data, addressView = require('./views/addressView.js'),
-    mapView = require('./views/mapView.js'),
-    apiRequest = require('./api.js'),
-    text = require('./config.js'),
-    $ = require('jquery'),
-    xdr = require('jquery-xdr').load($),
-    mock = require('../../spec/mocks/milwaukee.json')
+  var data
+    , addressView = require('./views/addressView.js')
+    , mapView = require('./views/mapView.js')
+    , text = require('./config.js')
+    , $ = require('jquery')
+    , xdr = require('jquery-xdr').load($)
+    , mock = require('../../spec/mocks/milwaukee.json');
 
   return {
     start: function(config) {
@@ -29,9 +29,6 @@ module.exports = (function() {
       };
 
       $.extend(options, config);
-      $.extend(options, {
-        root: ''
-      });
 
       if (options.productionOnly === false) options.productionDataOnly = options.productionOnly;
 
@@ -42,6 +39,7 @@ module.exports = (function() {
           // data = mock;
           //
           data = response;
+          window.data = response;
 
           window.history && history.pushState && history.pushState(null, null, '?polling-location');
 
@@ -83,9 +81,6 @@ module.exports = (function() {
           router.navigate(mapView, mapView, options);
         });
 
-      // path to the voter ID information updated CSV file
-      var voterIdInfoUrl = location.protocol.toString() + '//s3.amazonaws.com/vip-voter-information-tool/voter-id/voterIdInfo.csv';
-
       // default language unless specified in configs
       var language = navigator.language || navigator.browserLanguage;
 
@@ -113,9 +108,8 @@ module.exports = (function() {
 
         if (options.json) {
           // render with custom JSON text
-          $.extend(options, {
-            assets: JSON.parse(options.json)
-          });
+          $.extend(true, options.assets, options.json);
+
           addressView.render(options);
         } else {
           // grab the translated copy and render with the new text
@@ -136,9 +130,6 @@ module.exports = (function() {
 
     // helper function for navigation
     navigate: function(toView, fromView, options) {
-      $.extend(options, {
-        root: ''
-      });
       fromView.remove();
       toView.render(options);
     }

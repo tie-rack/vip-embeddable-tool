@@ -1,6 +1,5 @@
 var $ = require('jquery');
 var api = require('../api.js');
-var csv = require('csv-string');
 var colors = require('../colors.js');
 var xdr = require('../XDomainRequest.min.js')
 

@@ -212,9 +212,31 @@ Click to Toggle
 </div>
 
 <div class="contests right" id="all-contests">
-  {{#each data.contests}}
-  {{> contest}}
-  {{/each}}
+  {{#if data.closedPrimaries}}
+    <div class="closed-primaries-selection">
+      <p>This election is only open to registered members of the listed parties. Please select your party to continue.</p>
+      {{#each data.closedPrimaries}}
+        <button class="select-closed-primary" data-primary-name={{@key}}>{{ partyName @key}}</button>
+      {{/each}}
+    </div>
+    <div class="closed-primaries hidden">
+      {{#each data.closedPrimaries}}
+      <div class="closed-primary hidden" data-primary-name="{{@key}}">
+        <div class="closed-primary-back">
+          <button>Back</button>
+        </div>
+        {{#each this}}
+          {{> contest }}
+        {{/each}}
+      </div>
+      {{/each}}
+    </div>
+  {{else}}
+    {{#each data.contests}}
+      {{> contest}}
+    {{/each}}
+  {{/if}}
+
 </div>
 
 <div class="footer">

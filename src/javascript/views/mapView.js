@@ -4,6 +4,7 @@ var $ = require('jquery');
 var fastclick = require('fastclick');
 var ouiCal = require('../ouical.js');
 var _ = require('lodash');
+var async = require('async');
 
 module.exports = View.extend({
 
@@ -51,8 +52,6 @@ module.exports = View.extend({
   address: '',
 
   locationTypes: {},
-
-  timeouts: [],
 
   mapIsDisplayed: true,
 
@@ -155,12 +154,9 @@ module.exports = View.extend({
       });
 
       if (earlyVoteSites) {
-        // console.log(earlyVoteSites)
-        // console.log(earlyVoteSitesToRemove)
         removeIndices(earlyVoteSites, earlyVoteSitesToRemove);
       }
       if (dropOffLocations) {
-        // console.log(dropOffLocationsToRemove)
         removeIndices(dropOffLocations, dropOffLocationsToRemove);
       }
     } else {
@@ -299,10 +295,8 @@ module.exports = View.extend({
 
       // remove candidate-specific party if its a primary
       options.data.contests.forEach(function(contest) {
-        // console.log(contest.type, contest.primaryParty)
         if (contest.type === 'Primary' && contest.primaryParty) {
           contest.candidates.forEach(function(candidate) {
-            // console.log(candidate.party)
             // delete candidate.party;
           })
         }
@@ -564,37 +558,38 @@ module.exports = View.extend({
 
     var that = this;
     if (options.data.pollingLocations && options.data.pollingLocations.length) {
-      var primaryLocation = options.data.pollingLocations[0];
-      var address = this._parseAddress(primaryLocation.address);
-      var daddr = this._parseAddressWithoutName(primaryLocation.address)
-      var saddr = this._parseAddressWithoutName(options.data.normalizedInput);
+      this._getClosestLocation(function(primaryLocation) {
+        var address = that._parseAddress(primaryLocation.address);
+        var daddr = that._parseAddressWithoutName(primaryLocation.address)
+        var saddr = that._parseAddressWithoutName(options.data.normalizedInput);
 
-      this._encodeAddressAndInitializeMap(primaryLocation.address, options.data.currentLocation);
+        that._encodeAddressAndInitializeMap(primaryLocation.address, options.data.currentLocation);
 
-      this.find('#location a').attr('href', 'https://maps.google.com?daddr=' + daddr + '&saddr=' + saddr);
+        that.find('#location a').attr('href', 'https://maps.google.com?daddr=' + daddr + '&saddr=' + saddr);
 
-      var $locationInfo = $(this.pollingLocationPartial(primaryLocation));
-      var earlyVoteTag = this.find('.early-vote-site');
-      if (earlyVoteTag) earlyVoteTag.remove()
-      this.find('#location').append($locationInfo);
-      $locationInfo.find('a').attr('href', 'https://maps.google.com?daddr=' + daddr + '&saddr=' + saddr);
-      var earlyVoteTag = this.find('.early-vote-site');
-      if (earlyVoteTag.length > 1)
-        earlyVoteTag.last().remove()
+        var $locationInfo = $(that.pollingLocationPartial(primaryLocation));
+        var earlyVoteTag = that.find('.early-vote-site');
+        if (earlyVoteTag) earlyVoteTag.remove()
+        that.find('#location .address').replaceWith($(that.addressPartial(primaryLocation.address)));
+        that.find('#location').append($locationInfo);
+        $locationInfo.find('a').attr('href', 'https://maps.google.com?daddr=' + daddr + '&saddr=' + saddr);
+        var earlyVoteTag = that.find('.early-vote-site');
+        if (earlyVoteTag.length > 1)
+          earlyVoteTag.last().remove()
 
-      var ampersands = this.find('.early-vote-site').text().match(/ &/g);
-      if (ampersands && ampersands.length > 1) {
-        var newLocationText = this.find('.early-vote-site').text().replace(' & ', ', ');
-        this.find('.early-vote-site').text(newLocationText);
-      }
-      if (!this.landscape) $locationInfo.hide();
+        var ampersands = that.find('.early-vote-site').text().match(/ &/g);
+        if (ampersands && ampersands.length > 1) {
+          var newLocationText = that.find('.early-vote-site').text().replace(' & ', ', ');
+          that.find('.early-vote-site').text(newLocationText);
+        }
+        if (!that.landscape) $locationInfo.hide();
 
-      if (options.data.pollingLocations.length) {
-        var locations = options.data.pollingLocations;
+        if (options.data.pollingLocations.length) {
+          var locations = options.data.pollingLocations;
 
-        this._geocodeSequence(locations, options.data.normalizedInput);
-      }
-
+          that._geocodeSequence([primaryLocation].concat(locations), options.data.normalizedInput);
+        }
+      });
     } else this._encodeAddressAndInitializeMap();
 
     if (this.landscape) this._switchToLandscape(options);
@@ -775,8 +770,6 @@ module.exports = View.extend({
     if (this.autocomplete) google.maps.event.clearInstanceListeners(this.autocomplete);
 
     this.markers = [];
-
-    this.timeouts.forEach(clearTimeout)
 
     this.$container.css({
       'width': '',
@@ -959,6 +952,8 @@ module.exports = View.extend({
           map: that.map,
           position: location
         });
+      }, function(status) {
+
       });
 
       if (any) {
@@ -994,6 +989,8 @@ module.exports = View.extend({
           .css('text-align', 'center')
           .text('No Polling Locations Found')
       }
+    }, function(status) {
+
     });
   },
 
@@ -1104,7 +1101,7 @@ module.exports = View.extend({
       if (status == google.maps.GeocoderStatus.OK) callback(results[0].geometry.location);
       else {
         error(status);
-        setTimeout(that._geocode.bind(that, location, callback, error, count + 1), 2000);
+        setTimeout(that._geocode.bind(that, location, callback, error, count + 1), 200);
       };
     });
   },
@@ -1113,29 +1110,26 @@ module.exports = View.extend({
     var that = this;
     if (!locations.length) return;
 
-    var timeout = locations.length > 10 ? 1000 : 100
     locations.forEach(function(location, idx) {
-      that.timeouts.push(setTimeout(function() {
-        that._geocode(
-          location.address,
-          function(position) {
-            that._addPollingLocation(
-              position,
-              location.address,
-              location,
-              normalizedInput,
-              location.isEarlyVoteSite,
-              location.isBoth,
-              location.isDropOffLocation,
-              location.isBothPollingAndDropOff
-            );
-            location.normalizedInput = normalizedInput;
-            location.position = position;
-          },
-          function(status) {},
-          0
-        );
-      }, timeout * idx));
+      that._geocode(
+        location.address,
+        function(position) {
+          that._addPollingLocation(
+            position,
+            location.address,
+            location,
+            normalizedInput,
+            location.isEarlyVoteSite,
+            location.isBoth,
+            location.isDropOffLocation,
+            location.isBothPollingAndDropOff
+          );
+          location.normalizedInput = normalizedInput;
+          location.position = position;
+        },
+        function(status) {},
+        0
+      );
     });
   },
 
@@ -1367,6 +1361,45 @@ module.exports = View.extend({
     if (addressNames.length > 1 &&
       (addressNames.first().text() === addressNames.last().text()))
       addressNames.first().remove();
+  },
+
+  _getClosestLocation: function(locationCallback) {
+    var self = this;
+    var closestLocations = [];
+
+    if (this.data.pollingLocations && this.data.pollingLocations[0]) {
+      closestLocations.push(this.data.pollingLocations[0]);
+    }
+    if (this.data.earlyVoteSites && this.data.earlyVoteSites[0]) {
+      closestLocations.push(this.data.earlyVoteSites[0]);
+    }
+    if (this.data.dropOffLocations && this.data.dropOffLocations[0]) {
+      closestLocations.push(this.data.dropOffLocations[0]);
+    }
+
+    var closestDist = Infinity;
+    var closestLocation;
+
+    this._geocode(this._parseAddressWithoutName(this.data.normalizedInput), function(fromCoords) {
+      async.each(closestLocations, function(location, callback) {
+        self._geocode(location.address, function(toCoords) {
+          var dist = google.maps.geometry.spherical.computeDistanceBetween(fromCoords, toCoords);
+          if (dist < closestDist) {
+            closestDist = dist;
+            closestLocation = location;
+          }
+          callback();
+        }, function(status) {
+
+        });
+      }, function(err) {
+        if (err) throw err;
+
+        locationCallback(closestLocation);
+      })
+    }, function(status) {
+
+    });
   },
 
   toggleElections: function(e) {

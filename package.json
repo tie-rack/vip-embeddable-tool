@@ -43,6 +43,7 @@
     "watchify": "^3.4.0"
   },
   "dependencies": {
+    "async": "^1.5.2",
     "fastclick": "",
     "jquery": "^2.1.4",
     "lodash": "^3.10.1"

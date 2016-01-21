@@ -108,6 +108,17 @@ app.controller('ApplicationController', function($scope, $window, $sce, $timeout
     $scope.setPreviewOption('desktop');
     $scope.setLanguage("English");
 
+    // Advanced Customizations:
+    $scope.advancedPlus = false;
+    $scope.advancedCustomizationChanged = false;
+    $scope.pollingLocationLabel = "Polling Locations";
+    $scope.stateElectionsOfficeLabel = "State Elections Office";
+    $scope.electionInformationLabel = "Election Information";
+    $scope.registrationConfirmationLabel = "Registration Confirmation";
+    $scope.absenteeVotingInformationLabel = "Absentee Voting Information";
+    $scope.votingLocationFinderLabel = "Voting Location Finder";
+    $scope.ballotInformationLabel = "Ballot Information";
+
     // Bug fix for theme SVGS:
     setTimeout(function() {
       $scope.setPreviewOption('tablet');

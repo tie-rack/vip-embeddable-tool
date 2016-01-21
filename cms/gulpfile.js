@@ -6,7 +6,7 @@ var s3 = require("gulp-s3");
 var fs = require("fs");
 
 awsStaging = JSON.parse(fs.readFileSync('../aws-staging.json'));
-gulp.task("push-staging", function () {
+gulp.task("push-staging", function() {
   return gulp.src('**')
     .pipe(s3(awsStaging, {
       uploadPath: "/cms/"
@@ -14,7 +14,7 @@ gulp.task("push-staging", function () {
 })
 
 awsProduction = JSON.parse(fs.readFileSync('../aws-production.json'));
-gulp.task("push-production", function () {
+gulp.task("push-production", function() {
   return gulp.src('**')
     .pipe(s3(awsProduction, {
       uploadPath: "/cms/"
@@ -37,7 +37,7 @@ gulp.task('compass', function() {
     .pipe(gulp.dest('./css'));
 });
 
-gulp.task('jade', function () {
+gulp.task('jade', function() {
   gulp.src('./partials/devices/*.jade')
     .pipe(jade({
       pretty: true
@@ -59,8 +59,12 @@ gulp.task('jade', function () {
     .pipe(gulp.dest('./'));
 });
 
-gulp.task('watch-jade', function () {
-    gulp.watch(['./index.jade', './partials/**/*.jade'], ['jade'])
+gulp.task('watch-jade', function() {
+  gulp.watch([
+    './index.jade',
+    './partials/*.jade',
+    './partials/**/*.jade'
+  ], ['jade'])
 });
 
 gulp.task('default', ['webserver', 'compass', 'watch-jade']);

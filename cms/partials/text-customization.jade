@@ -1,0 +1,31 @@
+.container.select-title(ng-show='isVisible(8, step)')
+  .left.form
+    .row
+      heading
+      .section-title
+        h2.subtitle
+          | Advanced Customization
+
+          div.advanced-plus(ng-show="!advancedPlus" ng-click="advancedPlus = !advancedPlus") +
+          div.advanced-plus(ng-show="advancedPlus" ng-click="advancedPlus = !advancedPlus") -
+
+        div(ng-show="advancedPlus")
+          h3.custom-text Custom labels:
+
+          p.custom-text-explanation Replace the following labels' or links' text with your own.
+
+          textarea(type="text" class="input-text" ng-model="pollingLocationLabel" placeholder="Polling Location Label" ng-change="advancedCustomizationChanged = true" spellcheck="true" contenteditable="true")
+
+          p.custom-text-explanation The following text is not shown in the customizer preview, but will appear in your embedded tool.
+
+          textarea(type="text" class="input-text" ng-model="stateElectionsOfficeLabel" placeholder="State Elections Office Label" ng-change="advancedCustomizationChanged = true" spellcheck="true" contenteditable="true")
+
+          textarea(type="text" class="input-text" ng-model="electionInformationLabel" placeholder="Election Information Label" ng-change="advancedCustomizationChanged = true" spellcheck="true" contenteditable="true")
+
+          textarea(type="text" class="input-text" ng-model="registrationConfirmationLabel" placeholder="Registration Confirmation Label" ng-change="advancedCustomizationChanged = true" spellcheck="true" contenteditable="true")
+
+          textarea(type="text" class="input-text" ng-model="absenteeVotingInformationLabel" placeholder="Absentee Voting Information Label" ng-change="advancedCustomizationChanged = true" spellcheck="true" contenteditable="true")
+
+          textarea(type="text" class="input-text" ng-model="votingLocationFinderLabel" placeholder="Voting Location Finder Label" ng-change="advancedCustomizationChanged = true" spellcheck="true" contenteditable="true")
+
+          textarea(type="text" class="input-text" ng-model="ballotInformationLabel" placeholder="Ballot Information Label" ng-change="advancedCustomizationChanged = true" spellcheck="true" contenteditable="true")

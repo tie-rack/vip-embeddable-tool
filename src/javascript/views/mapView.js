@@ -5,7 +5,7 @@ var fastclick = require('fastclick');
 var ouiCal = require('../ouical.js');
 var _ = require('lodash');
 var async = require('async');
-
+window._ = _
 module.exports = View.extend({
 
   $id: 'map-view',
@@ -55,6 +55,8 @@ module.exports = View.extend({
 
   mapIsDisplayed: true,
 
+  _stringReplacePattern: /\./g,
+
   onBeforeRender: function(options) {
     var that = this;
 
@@ -86,38 +88,36 @@ module.exports = View.extend({
     };
 
     var mergeAndRemoveDups = function(pollingLocation, otherLocation, otherLocationCollection, toRemoveCollection, isBoth, isBothPollingAndDropoff) {
-      if (
-        ((pollingLocation.address.line1 && otherLocation.address.line1) &&
-          (pollingLocation.address.line1.replace(/\./g, '').toLowerCase() === otherLocation.address.line1.replace(/\./g, '').toLowerCase())) ||
-        ((pollingLocation.address.line2 && otherLocation.address.line2) &&
-          (pollingLocation.address.line2.replace(/\./g, '').toLowerCase() === otherLocation.address.line2.replace(/\./g, '').toLowerCase())) ||
-        ((pollingLocation.address.line3 && otherLocation.address.line3) &&
-          (pollingLocation.address.line3.replace(/\./g, '').toLowerCase() === otherLocation.address.line3.replace(/\./g, '').toLowerCase()))
-      ) {
-        $.extend(pollingLocation, otherLocation);
+      if (!that._addressesMatch(pollingLocation, otherLocation)) {
+        console.log('match')
+        return;
+      }
 
-        var idx = otherLocationCollection.indexOf(otherLocation);
-        toRemoveCollection.push(idx);
+      // console.log(that._parseAddress(pollingLocation.address), that._parseAddress(otherLocation.address))
 
-        if (isBoth) {
-          pollingLocation.isBoth = true;
-          that.locationTypes.hasBoth = true;
-        } else pollingLocation.isBothEarlyVoteAndDropOff = true;
+      _.extend(pollingLocation, otherLocation);
 
-        if (isBothPollingAndDropoff) {
-          pollingLocation.isBothPollingAndDropOff = true;
-          pollingLocation.isOnlyPollingLocation = false;
-        }
+      var idx = otherLocationCollection.indexOf(otherLocation);
+      toRemoveCollection.push(idx);
 
-        if (pollingLocation.isBoth && otherLocation.isDropOffLocation) {
-          pollingLocation.isDropOffLocation = false;
-          pollingLocation.isOnlyPollingLocation = false;
-        }
+      if (isBoth) {
+        pollingLocation.isBoth = true;
+        that.locationTypes.hasBoth = true;
+      } else pollingLocation.isBothEarlyVoteAndDropOff = true;
+
+      if (isBothPollingAndDropoff) {
+        pollingLocation.isBothPollingAndDropOff = true;
+        pollingLocation.isOnlyPollingLocation = false;
+      }
+
+      if (pollingLocation.isBoth && otherLocation.isDropOffLocation) {
+        pollingLocation.isDropOffLocation = false;
+        pollingLocation.isOnlyPollingLocation = false;
       }
     }
 
+
     if (pollingLocations) {
-      var now = new Date();
 
       pollingLocations.forEach(function(pollingLocation) {
         if (pollingLocation.name) pollingLocation.address.name = pollingLocation.name;
@@ -130,16 +130,12 @@ module.exports = View.extend({
 
         if (earlyVoteSites) {
           earlyVoteSites.forEach(function(earlyVoteSite) {
-            var endDate = new Date(earlyVoteSite.endDate);
             earlyVoteSite.isEarlyVoteSite = true;
 
             if (earlyVoteSite.name)
               earlyVoteSite.address.name = earlyVoteSite.name;
-            // console.log(endDate)
-            // if (endDate < now)
-              // earlyVoteSitesToRemove.push(earlyVoteSites.indexOf(earlyVoteSite));
-            // else
-              mergeAndRemoveDups(pollingLocation, earlyVoteSite, earlyVoteSites, earlyVoteSitesToRemove, true, false);
+
+            mergeAndRemoveDups(pollingLocation, earlyVoteSite, earlyVoteSites, earlyVoteSitesToRemove, true, false);
           });
           if (dropOffLocations)
             dropOffLocations.forEach(function(dropOffLocation) {
@@ -1400,6 +1396,22 @@ module.exports = View.extend({
     }, function(status) {
 
     });
+  },
+
+  _addressesMatch: function (loc1, loc2) {
+    return (
+      this._compareStr(loc1.address.line1, loc2.address.line1) &&
+      this._compareStr(loc1.address.line2, loc2.address.line2) &&
+      this._compareStr(loc1.address.line3, loc2.address.line3)
+    )
+  },
+
+  _compareStr: function (str1, str2) {
+    return this._adaptStr(str1) == this._adaptStr(str2)
+  },
+
+  _adaptStr: function (str) {
+    return str && str.replace(this._stringReplacePattern, '').toLowerCase()
   },
 
   toggleElections: function(e) {

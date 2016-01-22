@@ -81,42 +81,6 @@ module.exports = View.extend({
     var dropOffLocationsToRemove = [];
     this.locationTypes.hasBoth = false;
 
-    var removeIndices = function(arr, indices) {
-      for (var i = arr.length - 1; i > -1; i--)
-        if (indices.indexOf(i) !== -1)
-          arr.splice(i, 1);
-    };
-
-    var mergeAndRemoveDups = function(pollingLocation, otherLocation, otherLocationCollection, toRemoveCollection, isBoth, isBothPollingAndDropoff) {
-      if (!that._addressesMatch(pollingLocation, otherLocation)) {
-        console.log('match')
-        return;
-      }
-
-      // console.log(that._parseAddress(pollingLocation.address), that._parseAddress(otherLocation.address))
-
-      _.extend(pollingLocation, otherLocation);
-
-      var idx = otherLocationCollection.indexOf(otherLocation);
-      toRemoveCollection.push(idx);
-
-      if (isBoth) {
-        pollingLocation.isBoth = true;
-        that.locationTypes.hasBoth = true;
-      } else pollingLocation.isBothEarlyVoteAndDropOff = true;
-
-      if (isBothPollingAndDropoff) {
-        pollingLocation.isBothPollingAndDropOff = true;
-        pollingLocation.isOnlyPollingLocation = false;
-      }
-
-      if (pollingLocation.isBoth && otherLocation.isDropOffLocation) {
-        pollingLocation.isDropOffLocation = false;
-        pollingLocation.isOnlyPollingLocation = false;
-      }
-    }
-
-
     if (pollingLocations) {
 
       pollingLocations.forEach(function(pollingLocation) {
@@ -135,25 +99,25 @@ module.exports = View.extend({
             if (earlyVoteSite.name)
               earlyVoteSite.address.name = earlyVoteSite.name;
 
-            mergeAndRemoveDups(pollingLocation, earlyVoteSite, earlyVoteSites, earlyVoteSitesToRemove, true, false);
+            that._mergeAndRemoveDups(pollingLocation, earlyVoteSite, earlyVoteSites, earlyVoteSitesToRemove, true, false);
           });
           if (dropOffLocations)
             dropOffLocations.forEach(function(dropOffLocation) {
               dropOffLocation.isDropOffLocation = true;
-              mergeAndRemoveDups(pollingLocation, dropOffLocation, dropOffLocations, dropOffLocationsToRemove, false, true);
+              that._mergeAndRemoveDups(pollingLocation, dropOffLocation, dropOffLocations, dropOffLocationsToRemove, false, true);
             })
         } else if (dropOffLocations)
           dropOffLocations.forEach(function(dropOffLocation) {
             dropOffLocation.isDropOffLocation = true;
-            mergeAndRemoveDups(pollingLocation, dropOffLocation, dropOffLocations, dropOffLocationsToRemove, false, false);
+            that._mergeAndRemoveDups(pollingLocation, dropOffLocation, dropOffLocations, dropOffLocationsToRemove, false, false);
           })
       });
 
       if (earlyVoteSites) {
-        removeIndices(earlyVoteSites, earlyVoteSitesToRemove);
+        that._removeIndices(earlyVoteSites, earlyVoteSitesToRemove);
       }
       if (dropOffLocations) {
-        removeIndices(dropOffLocations, dropOffLocationsToRemove);
+        that._removeIndices(dropOffLocations, dropOffLocationsToRemove);
       }
     } else {
       if (earlyVoteSites) {
@@ -170,13 +134,13 @@ module.exports = View.extend({
           if (dropOffLocations)
             dropOffLocations.forEach(function(dropOffLocation) {
               dropOffLocation.isDropOffLocation = true;
-              mergeAndRemoveDups(earlyVoteSite, dropOffLocation, dropOffLocations, dropOffLocationsToRemove, false, false)
+              that._mergeAndRemoveDups(earlyVoteSite, dropOffLocation, dropOffLocations, dropOffLocationsToRemove, false, false)
             })
         });
 
-        removeIndices(earlyVoteSites, earlyVoteSitesToRemove);
+        that._removeIndices(earlyVoteSites, earlyVoteSitesToRemove);
         if (dropOffLocations)
-          removeIndices(dropOffLocations, dropOffLocationsToRemove);
+          that._removeIndices(dropOffLocations, dropOffLocationsToRemove);
       }
     }
 
@@ -1398,7 +1362,48 @@ module.exports = View.extend({
     });
   },
 
+  _removeIndices: function(arr, indices) {
+    for (var i = arr.length - 1; i > -1; i--)
+      if (indices.indexOf(i) !== -1)
+        arr.splice(i, 1);
+  },
+
+
+  _mergeAndRemoveDups: function(pollingLocation, otherLocation, otherLocationCollection, toRemoveCollection, isBoth, isBothPollingAndDropoff) {
+    if (!this._addressesMatch(pollingLocation, otherLocation)) {
+      return;
+    }
+
+    console.log('looking for dups')
+
+    _.extend(pollingLocation, otherLocation);
+
+    // var idx = otherLocationCollection.indexOf(otherLocation);
+    // toRemoveCollection.push(idx);
+    console.log("djlks")
+    console.log(_.findIndex(otherLocationCollection, otherLocation))
+    toRemoveCollection.push(_.findIndex(otherLocationCollection, otherLocation))
+
+    if (isBoth) {
+      pollingLocation.isBoth = true;
+      this.locationTypes.hasBoth = true;
+    } else pollingLocation.isBothEarlyVoteAndDropOff = true;
+
+    if (isBothPollingAndDropoff) {
+      pollingLocation.isBothPollingAndDropOff = true;
+      pollingLocation.isOnlyPollingLocation = false;
+    }
+
+    if (pollingLocation.isBoth && otherLocation.isDropOffLocation) {
+      pollingLocation.isDropOffLocation = false;
+      pollingLocation.isOnlyPollingLocation = false;
+    }
+  },
+
   _addressesMatch: function (loc1, loc2) {
+    // console.log(this._compareStr(loc1.address.line1, loc2.address.line1),
+    //   this._compareStr(loc1.address.line2, loc2.address.line2),
+    //   this._compareStr(loc1.address.line3, loc2.address.line3))
     return (
       this._compareStr(loc1.address.line1, loc2.address.line1) &&
       this._compareStr(loc1.address.line2, loc2.address.line2) &&
@@ -1407,6 +1412,7 @@ module.exports = View.extend({
   },
 
   _compareStr: function (str1, str2) {
+    console.log(this._adaptStr(str1), this._adaptStr(str2),this._adaptStr(str1) == this._adaptStr(str2))
     return this._adaptStr(str1) == this._adaptStr(str2)
   },
 

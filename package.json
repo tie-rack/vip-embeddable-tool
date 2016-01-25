@@ -36,6 +36,7 @@
     "handlebars": "^4.0.2",
     "hbsfy": "^2.3.1",
     "lodash": "^3.10.1",
+    "mocha": "^2.3.4",
     "phantom": "^0.7.2",
     "pretty-hrtime": "^1.0.0",
     "require-dir": "^0.3.0",
@@ -46,6 +47,6 @@
     "async": "^1.5.2",
     "fastclick": "",
     "jquery": "^2.1.4",
-    "lodash": "^3.10.1"
+    "lodash": "^4.0.0"
   }
 }

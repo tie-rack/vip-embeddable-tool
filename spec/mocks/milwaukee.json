@@ -85,6 +85,25 @@
             ]
         },
         {
+            "id": "asdfsd232342",
+            "address": {
+                "locationName": "Schwartz",
+                "line1": "3329 N. Downer Ave.",
+                "city": "Milwaukee",
+                "state": "WI",
+                "zip": "53211"
+            },
+            "notes": "Use the side entrance ramp",
+            "pollingHours": "9am - 5pm",
+            "voterServices": "Accessible",
+            "sources": [
+                {
+                    "name": "Test",
+                    "official": false
+                }
+            ]
+        },
+        {
             "id": "ajldk234231",
             "address": {
                 "locationName": "St. Robert's School",
@@ -159,6 +178,24 @@
                     "official": false
                 }
             ]
+        },
+        {
+            "id": "djlsdj0283",
+            "address": {
+                "locationName": "Jamos",
+                "line1": "Brady st.",
+                "city": "Milwaukee",
+                "state": "WI",
+                "zip": "53211"
+            },
+            "notes": "",
+            "pollingHours": "9am-8pm",
+            "sources": [
+                {
+                    "name": "Text",
+                    "official": false
+                }
+            ]
         }
     ],
     "dropOffLocations": [
@@ -167,6 +204,25 @@
             "address": {
                 "locationName": "Plymouth Church",
                 "line1": "3329 N. Hackett Ave.",
+                "city": "Milwaukee",
+                "state": "WI",
+                "zip": "53211"
+            },
+            "notes": "Use the side entrance ramp",
+            "pollingHours": "9am - 5pm",
+            "voterServices": "Accessible",
+            "sources": [
+                {
+                    "name": "Test",
+                    "official": false
+                }
+            ]
+        },
+        {
+            "id": "dsafsd23423",
+            "address": {
+                "locationName": "Schwartz",
+                "line1": "3329 N. Downer Ave.",
                 "city": "Milwaukee",
                 "state": "WI",
                 "zip": "53211"
@@ -195,6 +251,24 @@
             "sources": [
                 {
                     "name": "Test",
+                    "official": false
+                }
+            ]
+        },
+        {
+            "id": "djfksljal302",
+            "address": {
+                "locationName": "Jamos",
+                "line1": "Brady st.",
+                "city": "Milwaukee",
+                "state": "WI",
+                "zip": "53211"
+            },
+            "notes": "",
+            "pollingHours": "9am-8pm",
+            "sources": [
+                {
+                    "name": "Text",
                     "official": false
                 }
             ]

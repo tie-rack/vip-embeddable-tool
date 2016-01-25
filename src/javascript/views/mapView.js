@@ -43,7 +43,8 @@ module.exports = View.extend({
     '#ballot-information click': 'toggleBallot',
     '#map-view-toggle click': 'toggleMapListView',
     '#alert click': 'closeAlert',
-    '#not-found-button click': 'closeAddressNotFound'
+    '#not-found-button click': 'closeAddressNotFound',
+    '#error-feedback-link click': 'submitErrorForm'
   },
 
   map: null,
@@ -62,6 +63,13 @@ module.exports = View.extend({
 
   _GEOCODE_RETRY_TIMEOUT: 200,
 
+  _DATE_DISPLAY_OPTIONS: {
+    weekday: 'long',
+    year: 'numeric',
+    month: 'long',
+    day: 'numeric'
+  },
+
   onBeforeRender: function(options) {
     var that = this;
 
@@ -78,111 +86,57 @@ module.exports = View.extend({
 
     $(this.$container).css('-webkit-overflow-scrolling', 'touch');
 
-    // add the early vote sites to the regular polling places
-    var pollingLocations = options.data.pollingLocations;
-    var earlyVoteSites = options.data.earlyVoteSites;
-    var dropOffLocations = options.data.dropOffLocations;
-
-    // this._mergeLocations(pollingLocations, earlyVoteSites, dropOffLocations);
-
-    // options.data.pollingLocations = pollingLocations
-
     options.data.locations = LocationMatcher(options.data);
 
     options.data.home = { address: options.data.normalizedInput };
 
     this._geocoder = new google.maps.Geocoder();
 
-    // comb the address data
-    var state = (options.data.state && options.data.state.length ? options.data.state[0] : {});
-    if (state.electionAdministrationBody && !state.electionAdministrationBody.name) {
-      state.electionAdministrationBody.name = "Election Administration Body";
-    }
+    // set default names for the election bodies and remove duplicate addresses
+    var state = _.get(options, 'data.state[0]');
+    if (_.has(state, 'electionAdministrationBody')) {
+      _.defaultsDeep(state, _.set({}, 'electionAdministrationBody.name', "Election Administration Body"));
 
-    if (state.local_jurisdiction && !state.local_jurisdiction.name) {
-      state.local_jurisdiction.name = "Local Jurisdiction";
-    }
+      var correspondenceAddress = _.get(state, 'electionAdministrationBody.correspondenceAddress');
+      var physicalAddress = _.get(state, 'electionAdministrationBody.physicalAddress');
 
-    if (state.electionAdministrationBody &&
-      state.electionAdministrationBody.correspondenceAddress &&
-      state.electionAdministrationBody.physicalAddress) {
-
-      // delete duplicate state election administration body address
-      var correspondenceAddress = this._parseAddress(
-        state.electionAdministrationBody.correspondenceAddress
-      );
-      var physicalAddress = this._parseAddress(
-        state.electionAdministrationBody.physicalAddress
-      );
-      if (correspondenceAddress === physicalAddress) {
-        delete options.data.state[0].electionAdministrationBody.correspondenceAddress;
+      if (correspondenceAddress == physicalAddress) {
+        _.unset(state, 'electionAdministrationBody.correspondenceAddress');
       }
+    }
+
+    if (_.has(state, 'local_jurisdiction')) {
+      _.defaultsDeep(state, _.set({}, 'local_jurisdiction.name', "Local Jurisdiction"));
     }
 
     // reformat the dates: Civic Info API returns yyyy-mm-dd, so split
     // them and give them to the date object--decrementing month, because
     // it's 0-indexed. Then convert it to a locale string
-    var dateArray = options.data.election.electionDay.split('-');
+    var dateArray = _.get(options, 'data.election.electionDay').split('-');
     var date = new Date(dateArray[0], dateArray[1] - 1, dateArray[2]);
 
-    options.data.election.dateForCalendar = date.getMonth() + 1 + '/' + date.getDate() + '/' + date.getFullYear();
+    _.set(options, 'data.election.dateForCalendar', date.getMonth() + 1 + '/' + date.getDate() + '/' + date.getFullYear());
 
-    var newDate = date.toLocaleDateString(options.language, {
-      weekday: 'long',
-      year: 'numeric',
-      month: 'long',
-      day: 'numeric'
+    var newDate = date.toLocaleDateString(options.language, this._DATE_DISPLAY_OPTIONS);
+
+    _.set(options, 'data.election.electionDay', newDate);
+
+    var contests = _.get(options, 'data.contests');
+    _.set(options, 'data.contests', _.sortBy(contests, this._contestComparator))
+
+
+    // get all closed primaries
+    var closedPrimaries = _.filter(contests, function(c) { return _.get(c, 'primaryParty') });
+    var openPrimaries = _.filter(contests, function(c) { return !_.get(c, 'primaryParty') });
+
+    // get list of each primary party
+    var primaryParties = _.uniq(_.map(closedPrimaries, function(p) { return _.get(primary, 'primaryParty') }));
+    _.defaultsDeep(options, _.set({}, 'data.closedPrimaries', {}));
+    _.forEach(primaryParties, function(party) {
+      options.data.closedPrimaries[party] = _.union(_.filter(closedPrimaries, function(primary) {
+        return primary.primaryParty == party;
+      }), openPrimaries);
     });
-
-    options.data.election.electionDay = newDate;
-
-    // sort the contests by their placement on the ballot
-    function contestComparator(firstContest, secondContest) {
-      var firstPosition = parseInt(firstContest.ballotPlacement);
-      var secondPosition = parseInt(secondContest.ballotPlacement);
-      return firstPosition - secondPosition;
-    }
-    if (options.data.contests) {
-      options.data.contests = options.data.contests.sort(contestComparator);
-
-      var contests = options.data.contests;
-
-      // get all closed primaries
-      var closedPrimaries = _.filter(contests, function(contest) {
-        return contest.primaryParty != void 0;
-      });
-
-      var openPrimaries = _.filter(contests, function(contest) {
-        return contest.primaryParty == void 0;
-      });
-
-
-      if (!_.isEmpty(closedPrimaries)) {
-        // get list of each primary party
-        var primaryParties = _.uniq(
-          _.map(closedPrimaries, function(primary) {
-            return primary.primaryParty
-          })
-        );
-        _.each(primaryParties, function(party) {
-          if (!options.data.closedPrimaries) {
-            options.data.closedPrimaries = {};
-          }
-          options.data.closedPrimaries[party] = _.union(_.filter(closedPrimaries, function(primary) {
-            return primary.primaryParty == party;
-          }), openPrimaries);
-        })
-      }
-
-      // remove candidate-specific party if its a primary
-      options.data.contests.forEach(function(contest) {
-        if (contest.type === 'Primary' && contest.primaryParty) {
-          contest.candidates.forEach(function(candidate) {
-            // delete candidate.party;
-          })
-        }
-      })
-    }
 
     this.data = options.data;
 
@@ -312,32 +266,13 @@ module.exports = View.extend({
       .scrollLeft(0)
   },
 
+  submitErrorForm: function(event) {
+    event.preventDefault();
+
+    this.find('#error-feedback-form').submit();
+  },
+
   onAfterRender: function(options) {
-
-    // var errorFeedbackUrl = "https://voter-info-tool.appspot.com/feedback?electionId=" +
-    //   options.data.election.id +
-    //   "&address=" +
-    //   this._parseAddress(options.data.normalizedInput);
-
-    var errorFeedbackUrl = "https://voter-info-tool.appspot.com/feedback";
-
-    this.find('#error-feedback-form')
-      .attr('action', errorFeedbackUrl)
-      .prepend($('<input name="address" value="' + this._parseAddress(options.data.normalizedInput) + '">'))
-      .prepend($('<input name="electionId" value="' + options.data.election.id + '">'));
-
-    this.find("#error-feedback-link").on("click", function(e) {
-      e.preventDefault();
-      // $.ajax({
-      //   type: 'POST',
-      //   url: 'https://voter-info-tool.appspot.com/feedback',
-      //   data: {
-      //     electionId: options.data.election.id,
-      //     address: this._parseAddress(options.data.normalizedInput)
-      //   }
-      // });
-      this.find('#error-feedback-form').submit();
-    }.bind(this))
 
     var linkGroupTitles = this.find('.election-administration-body div');
     linkGroupTitles.each(function(_, group) {
@@ -832,13 +767,12 @@ module.exports = View.extend({
       this.map = this._generateMap(geocodedLocation.position, zoom, mapEl)
 
       this._geocode(that.data.home, function(geocodedHome) {
+        console.log(geocodedHome)
         var marker = new google.maps.Marker({
           map: this.map,
           position: geocodedHome.location
         });
-      }.bind(this), function(status) {
-
-      });
+      }.bind(this));
 
       if (_.has(location, 'address')) {
         google.maps.event.addListener(that.map, 'click', function() {
@@ -847,8 +781,8 @@ module.exports = View.extend({
             that.toggleMap();
             // that.map.panTo((currentLocation ? currentLocation : position))
           }
-          if (currentLocation)
-            that.map.panTo(currentLocation)
+          if (this.data.currentLocation)
+            that.map.panTo(this.data.currentLocation)
           else
             that._fitMap();
 
@@ -981,6 +915,10 @@ module.exports = View.extend({
   },
 
   _geocode: function(location, callback, error, count) {
+    if (!count) {
+      count = 0;
+    }
+
     if (_.has(location, 'position')) {
       callback(location);
       return;
@@ -990,13 +928,19 @@ module.exports = View.extend({
       _.get(location, 'address', 'United States of America')
     );
 
+    console.log(location)
+
     this._geocoder.geocode({ 'address': address }, function (results, status) {
       if (status == google.maps.GeocoderStatus.OK) {
         var position = _.get(results, '[0].geometry.location');
         location.position = position;
-        callback(location);
+        if (callback) {
+          callback(location);
+        }
       } else {
-        error(status);
+        if (error) {
+          error(status);
+        }
 
         setTimeout(this._geocode.bind(this, location, callback, error, count + 1), this._GEOCODE_RETRY_TIMEOUT);
       };
@@ -1005,33 +949,16 @@ module.exports = View.extend({
 
   _geocodeSequence: function(locations, normalizedInput) {
     _.forEach(locations, function(location) {
-      this._geocode(location, function(geocodedLocation) {
-        this._addPollingLocation(geocodedLocation);
-      }.bind(this),
-      function(status) {},
-      0);
+      this._geocode(location, this._addPollingLocation.bind(this));
     }.bind(this));
   },
 
-  _autocompleteHandler: function() {
-    if (this.hasSubmitted) return;
-    var address;
-    if (this.autocomplete.getPlace()) address = this.autocomplete.getPlace().formatted_address;
-    if (typeof address === 'undefined') {
-      var autocompleteContainer = $('.pac-container').last().find('.pac-item-query').first();
-      address = autocompleteContainer.text() + ' ' +
-        autocompleteContainer.next().text();
-    }
-    this.hasSubmitted = true;
+    // sort the contests by their placement on the ballot
+  _contestComparator: function (firstContest, secondContest) {
+    var firstPosition = _.toInteger(_.get(firstContest, 'ballotPlacement'));
+    var secondPosition = _.toInteger(_.get(secondContest, 'ballotPlacement'));
 
-    this._makeRequest({
-      address: address,
-      success: function(response) {
-        this.hasSubmitted = false;
-        this.triggerRouteEvent('mapViewSubmit', response);
-      }.bind(this),
-      error: this.handleAddressNotFound
-    });
+    return firstPosition - secondPosition;
   },
 
   autocompleteListener: function() {
@@ -1130,24 +1057,13 @@ module.exports = View.extend({
 
     // slide up the current polling location information partial
     // and then replace its information with new
-    this.find('.early-vote-site').remove();
     this.find('.polling-location-info').replaceWith($locationInfo).fadeOut('slow').fadeIn('slow');
 
     // replace the directions link with the correct address
     this.find('#location a').attr('href', 'https://maps.google.com?daddr=' + daddr + '&saddr=' + saddr);
     $locationInfo.find('a').attr('href', 'https://maps.google.com?daddr=' + daddr + '&saddr=' + saddr);
 
-    var ampersands = this.find('.early-vote-site').text().match(/ &/g);
-    if (ampersands && ampersands.length > 1) {
-      var newLocationText = this.find('.early-vote-site').text().replace(' & ', ', ');
-      this.find('.early-vote-site').text(newLocationText);
-    }
-
     this.toggleMap.call(this, null, location.marker, location.address);
-
-    var earlyVoteTag = this.find('.early-vote-site');
-    if (earlyVoteTag.length > 1)
-      earlyVoteTag.last().remove()
   },
 
   toggleMap: function(e, marker, address) {
@@ -1249,193 +1165,47 @@ module.exports = View.extend({
 
   _getClosestLocation: function(locationCallback) {
     console.log('#_getClosestLocation');
-
-    var self = this;
     var closestLocations = [];
+    var home = this.data.home;
+    var locations = this.data.locations;
 
-    closestLocations.push(this.data.locations[0]);
+    closestLocations.push(locations[0]);
 
-    closestLocations.push(_.find(this.data.locations, function(l) {
+    closestLocations.push(_.find(locations, function(l) {
       return !l.pollingLocation && l.earlyVoteSite && !l.dropOffLocation
     }));
 
-    closestLocations.push(_.find(this.data.locations, function(l) {
+    closestLocations.push(_.find(locations, function(l) {
       return !l.pollingLocation && !l.earlyVoteSite && l.dropOffLocation
     }));
 
+    console.log(closestLocations)
+
+    console.log('geocoding home...')
+
+    this._geocode(home,
+      _.bind(this._closestLocationTo, this, locationCallback, _.compact(closestLocations))
+    );
+  },
+
+  _closestLocationTo: function (callback, locations, destination) {
     var closestDist = Infinity;
     var closestLocation;
 
-    this._geocode(this.data.home, function(geocodedHome) {
-      async.each(closestLocations, function(location, callback) {
-        self._geocode(location, function(geocodedLocation) {
-          var dist = google.maps.geometry.spherical.computeDistanceBetween(geocodedHome.position, geocodedLocation.position);
-          if (dist < closestDist) {
-            closestDist = dist;
-            closestLocation = location;
-          }
-          callback();
-        }, function(status) {
-
-        });
-      }, function(err) {
-        if (err) throw err;
-
-        locationCallback(closestLocation);
-      })
-    }, function(status) {
-
-    });
-  },
-
-  _mergeLocations: function (pollingLocations, earlyVoteSites, dropOffLocations) {
-    var self = this;
-    var earlyVoteSitesToRemove = [];
-    var dropOffLocationsToRemove = [];
-    this.locationTypes.hasBoth = false;
-
-    if (pollingLocations) {
-
-      pollingLocations.forEach(function(pollingLocation) {
-        if (pollingLocation.name) pollingLocation.address.name = pollingLocation.name;
-
-        pollingLocation.isEarlyVoteSite = false
-        pollingLocation.isBoth = false;
-        pollingLocation.isDropOffLocation = false;
-        pollingLocation.isBothEarlyVoteAndDropOff = false;
-        pollingLocation.isBothPollingAndDropOff = false;
-
-        if (earlyVoteSites) {
-          earlyVoteSites.forEach(function(earlyVoteSite) {
-            earlyVoteSite.isEarlyVoteSite = true;
-
-            if (earlyVoteSite.name)
-              earlyVoteSite.address.name = earlyVoteSite.name;
-
-            self._mergeAndRemoveDups(pollingLocation, earlyVoteSite, earlyVoteSites, earlyVoteSitesToRemove, true, false);
-          });
-          if (dropOffLocations)
-            dropOffLocations.forEach(function(dropOffLocation) {
-              dropOffLocation.isDropOffLocation = true;
-              self._mergeAndRemoveDups(pollingLocation, dropOffLocation, dropOffLocations, dropOffLocationsToRemove, false, true);
-            })
-        } else if (dropOffLocations)
-          dropOffLocations.forEach(function(dropOffLocation) {
-            dropOffLocation.isDropOffLocation = true;
-            self._mergeAndRemoveDups(pollingLocation, dropOffLocation, dropOffLocations, dropOffLocationsToRemove, false, false);
-          })
+    async.each(locations, function(location, step) {
+      this._geocode(location, function(geocodedLocation) {
+        var dist = google.maps.geometry.spherical.computeDistanceBetween(destination.position, geocodedLocation.position);
+        if (dist < closestDist) {
+          closestDist = dist;
+          closestLocation = location;
+        }
+        step();
       });
+    }.bind(this), function(err) {
+      if (err) throw err;
 
-      if (earlyVoteSites) {
-        self._removeIndices(earlyVoteSites, earlyVoteSitesToRemove);
-      }
-      if (dropOffLocations) {
-        self._removeIndices(dropOffLocations, dropOffLocationsToRemove);
-      }
-    } else {
-      if (earlyVoteSites) {
-        earlyVoteSites.forEach(function(earlyVoteSite) {
-          var endDate = new Date(earlyVoteSite.endDate);
-          earlyVoteSite.isEarlyVoteSite = true;
-
-          if (earlyVoteSite.name)
-            earlyVoteSite.address.name = earlyVoteSite.name;
-
-          // if (endDate < now)
-          //   earlyVoteSitesToRemove.push(idx);
-
-          if (dropOffLocations)
-            dropOffLocations.forEach(function(dropOffLocation) {
-              dropOffLocation.isDropOffLocation = true;
-              self._mergeAndRemoveDups(earlyVoteSite, dropOffLocation, dropOffLocations, dropOffLocationsToRemove, false, false)
-            })
-        });
-
-        self._removeIndices(earlyVoteSites, earlyVoteSitesToRemove);
-        if (dropOffLocations)
-          self._removeIndices(dropOffLocations, dropOffLocationsToRemove);
-      }
-    }
-
-    this.locationTypes.hasPollingLocations = !!pollingLocations && !!pollingLocations.length;
-    this.locationTypes.hasEarlyVoteSites = (!!earlyVoteSites && earlyVoteSites.length);
-    this.locationTypes.hasDropOffLocations = (!!dropOffLocations && dropOffLocations.length)
-
-    if (pollingLocations && earlyVoteSites)
-      pollingLocations = pollingLocations.concat(earlyVoteSites);
-    else if (!pollingLocations && earlyVoteSites)
-      pollingLocations = earlyVoteSites;
-
-    if (pollingLocations && dropOffLocations)
-      pollingLocations = pollingLocations.concat(dropOffLocations);
-    else if (!pollingLocations && dropOffLocations)
-      pollingLocations = dropOffLocations.map(function(location) {
-        location.isDropOffLocation = true;
-        return location;
-      });
-
-    if (pollingLocations) pollingLocations.forEach(function(pollingLocation) {
-      if (!pollingLocation.isEarlyVoteSite &&
-        !pollingLocation.isBoth &&
-        !pollingLocation.isDropOffLocation &&
-        !pollingLocation.isBothEarlyVoteAndDropOff &&
-        !pollingLocation.isBothPollingAndDropoff)
-        pollingLocation.isOnlyPollingLocation = true;
+      callback(closestLocation);
     })
-  },
-
-  _removeIndices: function(arr, indices) {
-    for (var i = arr.length - 1; i > -1; i--)
-      if (indices.indexOf(i) !== -1)
-        arr.splice(i, 1);
-  },
-
-
-  _mergeAndRemoveDups: function(pollingLocation, otherLocation, otherLocationCollection, toRemoveCollection, isBoth, isBothPollingAndDropoff) {
-    if (!this._addressesMatch(pollingLocation, otherLocation)) {
-      return;
-    }
-
-    console.log('looking for dups')
-
-    _.extend(pollingLocation, otherLocation);
-
-    // var idx = otherLocationCollection.indexOf(otherLocation);
-    // toRemoveCollection.push(idx);
-    console.log("djlks")
-    console.log(_.findIndex(otherLocationCollection, otherLocation))
-    toRemoveCollection.push(_.findIndex(otherLocationCollection, otherLocation))
-
-    if (isBoth) {
-      pollingLocation.isBoth = true;
-      this.locationTypes.hasBoth = true;
-    } else pollingLocation.isBothEarlyVoteAndDropOff = true;
-
-    if (isBothPollingAndDropoff) {
-      pollingLocation.isBothPollingAndDropOff = true;
-      pollingLocation.isOnlyPollingLocation = false;
-    }
-
-    if (pollingLocation.isBoth && otherLocation.isDropOffLocation) {
-      pollingLocation.isDropOffLocation = false;
-      pollingLocation.isOnlyPollingLocation = false;
-    }
-  },
-
-  _addressesMatch: function (loc1, loc2) {
-    return (
-      this._compareStr(loc1.address.line1, loc2.address.line1) &&
-      this._compareStr(loc1.address.line2, loc2.address.line2) &&
-      this._compareStr(loc1.address.line3, loc2.address.line3)
-    )
-  },
-
-  _compareStr: function (str1, str2) {
-    return this._adaptStr(str1) == this._adaptStr(str2)
-  },
-
-  _adaptStr: function (str) {
-    return str && str.replace(this._stringReplacePattern, '').toLowerCase()
   },
 
   toggleElections: function(e) {

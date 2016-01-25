@@ -245,7 +245,9 @@ Click to Toggle
   </span>
   <a href="#" target="_blank" id="error-feedback-link">Report an error</a>
 
-  <form id="error-feedback-form" action="" method="post" class="hidden">
+  <form id="error-feedback-form" action="https://voter-info-tool.appspot.com/feedback" method="post" class="hidden">
+    <input name="address" value="{{parseAddress data.normalizedInput}}">
+    <input name="electionId" value="{{data.election.id}}">
     <input id="error-feedback-link" type="submit">
   </form>
   <a href="#" target="_blank"><i id="info-icon">i</i></a>

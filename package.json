@@ -45,6 +45,7 @@
   },
   "dependencies": {
     "async": "^1.5.2",
+    "console-polyfill": "^0.2.2",
     "fastclick": "",
     "jquery": "^2.1.4",
     "lodash": "^4.0.0"

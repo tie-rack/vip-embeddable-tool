@@ -44,6 +44,44 @@ module.exports = (function() {
     return asset("images/" + filename);
   };
 
+  var locationTypes = function(location) {
+    var pollingLocation = location.pollingLocation;
+    var earlyVoteSite = location.earlyVoteSite;
+    var dropOffLocation = location.dropOffLocation;
+
+    if (pollingLocation && !earlyVoteSite && !dropOffLocation) {
+      return "Polling Location";
+    }
+    if (!pollingLocation && earlyVoteSite && !dropOffLocation) {
+      return "Early Vote Site";
+    }
+    if (!pollingLocation && !earlyVoteSite && dropOffLocation) {
+      return "Drop-off Location";
+    }
+    if (pollingLocation && earlyVoteSite && !dropOffLocation) {
+      return "Polling Location & Early Vote Site";
+    }
+    if (pollingLocation && !earlyVoteSite && dropOffLocation) {
+      return "Polling Location & Drop-off Location";
+    }
+    if (!pollingLocation && earlyVoteSite && dropOffLocation) {
+      return "Early Vote Site & Drop-off Location";
+    }
+    if (pollingLocation && earlyVoteSite && dropOffLocation) {
+      return "Polling Location, Early Vote Site & Drop-off Location";
+    }
+
+    return "";
+  };
+
+  var parseAddress = function (address) {
+    if (typeof address === 'object') {
+      var parsedAddress = '';
+      for (var key in address) parsedAddress += address[key] + ' ';
+    return parsedAddress;
+    } else return address;
+  }
+
   var partyName = function (text) {
     var parties = {
       "DEM": "Democratic Party",
@@ -63,6 +101,8 @@ module.exports = (function() {
       handlebars.registerHelper('asset', asset);
       handlebars.registerHelper('image', image);
       handlebars.registerHelper('partyName', partyName);
+      handlebars.registerHelper('locationTypes', locationTypes);
+      handlebars.registerHelper('parseAddress', parseAddress);
     },
 
     registerPartials: function() {

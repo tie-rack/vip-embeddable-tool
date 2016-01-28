@@ -1,5 +1,6 @@
 var handlebars = require('hbsfy/runtime');
-var $ = require('jquery')
+var $ = require('jquery');
+var _ = require('lodash');
 
 module.exports = (function() {
   var json = function(context) {
@@ -92,6 +93,188 @@ module.exports = (function() {
     return parties[text] != void 0 ? parties[text] : text;
   };
 
+  var getUrlKeys = function (obj) {
+    return _.filter(_.keys(obj), function (key) { return _.endsWith(key, 'Url') });
+  };
+
+  var hasUrlProperties = function (obj) {
+    return !_.isEmpty(getUrlKeys(obj))
+  };
+
+  var createInfoLink = function (urlObj, titleObj, key) {
+    return "<a href=\"" + _.get(urlObj, key) + "\" target=\"_blank\">" + _.get(titleObj, key) + "</a><br><br>";
+  };
+
+  var electionResourceLinks = function (assets, data) {
+    var localHeader = _.get(assets, 'text.resources.electionAdministration.local_jurisdiction');
+    var stateHeader = _.get(assets, 'text.resources.electionAdministration.stateElectionsOffice');
+    var local = _.get(data, 'state[0].local_jurisdiction.electionAdministrationBody');
+    var state = _.get(data, 'state[0].electionAdministrationBody');
+    var linkTitles = _.get(assets, 'text.resources.moreResources');
+    var str = "";
+
+    if (hasUrlProperties(local)) {
+      var localLinks = _.partial(createInfoLink, local, linkTitles);
+
+      str += "<div id=\"local-jurisdiction-title\"><h1>" + localHeader + "</h1>";
+      str += _.reduce(_.map(getUrlKeys(local), localLinks), _.add);
+      str += "</div>";
+    }
+
+    if (hasUrlProperties(state)) {
+      var stateLinks = _.partial(createInfoLink, state, linkTitles);
+
+      str += "<div id=\"state-elections-office\"><h1>" + stateHeader + "</h1>";
+      str += _.reduce(_.map(getUrlKeys(local), stateLinks), _.add);
+      str += "</div>";
+    }
+
+    return str;
+  };
+
+  var localJurisdictionName = function (data) {
+    var ljName = _.get(data, 'state[0].local_jurisdiction.name');
+    var ljEABName = _.get(data, 'state[0].local_jurisdiction.electionAdministrationBody.name');
+
+    var ljNameTag = "<span id=\local-jurisdiction-name\"><b>" + ljName + "</b></span><br>";
+    var ljEABNameTag = "<span id=\local-jurisdiction-eab-name\"><b>" + ljEABName + "</b></span><br>"
+
+    if (ljName == ljEABName) {
+      return ljNameTag
+    }
+    if (_.includes(ljName, ljEABName)) {
+      return ljNameTag
+    }
+    if (_.includes(ljEABName, ljName)) {
+      return ljEABNameTag
+    }
+
+    return ljNameTag + ljEABNameTag
+  };
+
+  var electionAdministrationBodyAddresses = function (assets, eab) {
+    // per request we are only returning the physical address from the API
+    // for now. otherwise we will match the correspondence and physical
+    // addresses to remove duplicates or contained addresses, and if they
+    // are unique display both with their separate labels
+
+    var addressPartial = handlebars.partials['normalized-address'];
+    if (typeof addressPartial !== 'function') {
+      addressPartial = handlebars.compile(addressPartial);
+    }
+
+    // var correspondenceAddress = _.get(eab, 'correspondenceAddress');
+    var physicalAddress = _.get(eab, 'physicalAddress');
+
+    // var correspondenceAddressStr = _.reduce(_.values(correspondenceAddress), _.add);
+    var physicalAddressStr = _.reduce(_.values(physicalAddress), _.add);
+
+    // var correspondenceAddressTitle = _.get(assets, 'text.resources.electionAdministration.correspondenceAddress');
+    // var physicalAddressTitle = _.get(assets, 'text.resources.electionAdministration.physicalAddress');
+
+    var physicalAddressTag = "<div class=\"election-administration-address\">" + addressPartial(physicalAddress) + "</div>";
+    // var correspondenceAddressTag = "<div class=\"election-administration-address\">" + addressPartial(correspondenceAddress) + "</div>";
+
+    // var physicalAddressTagWithTitle = "<div class=\"election-administration-address\"><span>" +
+    //   physicalAddressTitle + ": </span>" + addressPartial(physicalAddress) + "</div>";
+
+    // var correspondenceAddressTagWithTitle = "<div class=\"election-administration-address\"><span>" +
+    //   correspondenceAddressTitle + ": </span>" + addressPartial(correspondenceAddress) + "</div>";
+
+    // per request eliminate addresses that only have state initials
+    // and nothing else
+    if (physicalAddressStr == void 0 || physicalAddressStr.length <= 2) {
+      return ""
+    }
+
+    return physicalAddressTag
+
+    // if (correspondenceAddressStr == physicalAddressStr) {
+    //   return physicalAddressTag
+    // }
+    // if (_.includes(correspondenceAddressStr, physicalAddressStr) ||
+    //     _.isEmpty(physicalAddressStr) && !_.isEmpty(correspondenceAddressStr)) {
+    //   return correspondenceAddressTag
+    // }
+    // if (_.includes(physicalAddressStr, correspondenceAddressStr) ||
+    //     _.isEmpty(correspondenceAddressStr) && !_.isEmpty(physicalAddressStr)) {
+    //   return physicalAddressTag
+    // }
+    // if (!_.isEmpty(correspondenceAddressStr) && !_.isEmpty(physicalAddressStr)) {
+    //   return physicalAddressTagWithTitle + correspondenceAddressTagWithTitle
+    // }
+
+    // return ""
+  };
+
+  var locationLegend = function(data) {
+
+    if (_.isEmpty(data.locations)) {
+      return "";
+    }
+
+    var pollingLocations = !_.isUndefined(_.find(data.locations, function(l) {
+      return l.pollingLocation && !l.earlyVoteSite && !l.dropOffLocation
+    }));
+    var earlyVoteSites = !_.isUndefined(_.find(data.locations, function(l) {
+      return !l.pollingLocation && l.earlyVoteSite && !l.dropOffLocation
+    }));
+    var dropOffLocations = !_.isUndefined(_.find(data.locations, function(l) {
+      return !l.pollingLocations && !l.earlyVoteSites && l.dropOffLocation
+    }))
+    var multiSitesPLEV = !_.isUndefined(_.find(data.locations, function(l) {
+      return l.pollingLocation && l.earlyVoteSite && !l.dropOffLocation
+    }));
+    var multiSitesPLDO = !_.isUndefined(_.find(data.locations, function(l) {
+      return l.pollingLocation && !l.earlyVoteSite && l.dropOffLocation
+    }));
+    var multiSitesEVDO = !_.isUndefined(_.find(data.locations, function(l) {
+      return !l.pollingLocation && l.earlyVoteSite && l.dropOffLocation
+    }));
+    var multiSitesPLEVDO = !_.isUndefined(_.find(data.locations, function(l) {
+      return l.pollingLocation && l.earlyVoteSite && l.dropOffLocation
+    }));
+
+
+    var str =
+      '<div id="location-legend" class="box right">' +
+        '<div id="location-legend-close"><img src="' + image('grey-plus.png') + '"></div>';
+
+    if (pollingLocations) {
+      str += '<div class="legend-row"><div id="blue-block" class="blue"></div><span id="blue-label" class="blue">Polling Location</span></div>';
+    }
+    if (earlyVoteSites) {
+      str += '<div class="legend-row"><div id="red-block" class="red"></div><span id="red-label" class="red">Early Voting Site</span></div>';
+    }
+    if (dropOffLocations) {
+      str += '<div class="legend-row"><div id="grey-block" class="grey"></div><span id="grey-label" class="grey">Dropoff Location</span></div>';
+    }
+    if (multiSitesPLEV || multiSitesPLDO || multiSitesEVDO || multiSitesPLEVDO) {
+      var multiSiteBegin = '<div class="legend-row"><div id="green-block" class="green"></div><span id="green-label" class="green">';
+      var multiSiteEnd = '</span></div>';
+
+      str += multiSiteBegin;
+
+      if (_.toInteger(multiSitesPLEV) + _.toInteger(multiSitesPLDO) + _.toInteger(multiSitesEVDO) + _.toInteger(multiSitesPLEVDO) > 1) {
+        str += 'Multiple Location Types';
+      } else if (multiSitesPLEVDO) {
+        str += 'Polling Location, Early Vote Site, & Dropoff Location';
+      } else if (multiSitesPLEV) {
+        str += 'Polling Location & Early Vote Site';
+      } else if (multiSitesPLDO) {
+        str += 'Polling Location & Dropoff Location';
+      } else if (multiSitesEVDO) {
+        str += 'Early Vote Site & Dropoff Location';
+      }
+
+      str += multiSiteEnd;
+    }
+
+    str += '</div>';
+
+    return str;
+  }
+
   return {
     registerHelpers: function() {
       handlebars.registerHelper('json', json);
@@ -102,7 +285,11 @@ module.exports = (function() {
       handlebars.registerHelper('image', image);
       handlebars.registerHelper('partyName', partyName);
       handlebars.registerHelper('locationTypes', locationTypes);
+      handlebars.registerHelper('locationLegend', locationLegend);
       handlebars.registerHelper('parseAddress', parseAddress);
+      handlebars.registerHelper('electionResourceLinks', electionResourceLinks);
+      handlebars.registerHelper('localJurisdictionName', localJurisdictionName);
+      handlebars.registerHelper('electionAdministrationBodyAddresses', electionAdministrationBodyAddresses);
     },
 
     registerPartials: function() {

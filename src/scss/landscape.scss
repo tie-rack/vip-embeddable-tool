@@ -57,53 +57,39 @@
       transform: box-shadow(2px 2px 8px rgba(0, 0, 0, 0.25));
       font-size: 13px;
       padding: 10px;
-      span {
-        position: relative;
-        margin-left: 10px;
+      .legend-row {
+        display: table-row;
+        margin: 10px 0;
+        height: 30px;
       }
-      &:hover > #location-legend-close {
-        display: block;
+      span {
+        display: table-cell;
+        padding: 0 0 0 5px;
+        vertical-align: middle;
       }
       #red-block,
       #blue-block,
       #green-block,
       #grey-block {
-        display: inline-block;
-        width: 15px;
-        height: 24px;
         background-size: contain;
         background-repeat: no-repeat;
+        display: table-cell;
+        width: 15px;
+        height: 24px;
+        position: relative;
+        top: 3px;
       }
       #red-block {
         background-image: url(https://tool.votinginfoproject.org/images/red-marker.png);
-        margin-bottom: 4px;
       }
       #blue-block {
         background-image: url(https://tool.votinginfoproject.org/images/blue-marker.png);
       }
       #green-block {
         background-image: url(https://tool.votinginfoproject.org/images/green-marker.png);
-        position: relative;
-        top: 4px;
       }
       #grey-block {
         background-image: url(https://tool.votinginfoproject.org/images/gray-marker.png);
-        position: relative;
-        top: -16px;
-      }
-      #green-label {
-        top: -24px;
-        left: 19px;
-        display: inline-block;
-      }
-      #red-label {
-        top: -13px;
-      }
-      #blue-label {
-        top: -8px;
-      }
-      #grey-label {
-        top: -25px;
       }
     }
     #location {

@@ -36,7 +36,7 @@ gulp.task('browserify', function() {
       .bundle()
       .on('error', handleErrors)
       .pipe(source('app.js'))
-      // .pipe(streamify(uglify()))
+      .pipe(streamify(uglify()))
       .pipe(gulp.dest('./build/'))
       .on('end', bundleLogger.end)
       .on('data', function() {})

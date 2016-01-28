@@ -52,11 +52,13 @@ module.exports = {
       },
       "moreResources": {
         "title": "Additional Resources",
-        "electionInformationUrl": "Election Information",
-        "registrationConfirmationUrl": "Registration Confirmation",
-        "absenteeVotingInformationUrl": "Absentee Voting Information",
+        "electionInfoUrl": "Election Information",
+        "electionRegistrationUrl": "Election Registration",
+        "electionRegistrationConfirmationUrl": "Registration Confirmation",
+        "absenteeVotingInfoUrl": "Absentee Voting Information",
         "votingLocationFinderUrl": "Voting Location Finder",
-        "ballotInformationUrl": "Ballot Information"
+        "ballotInfoUrl": "Ballot Information",
+        "electionRulesUrl": "Election Rules"
       },
       "voterIdRequirements": {
         "title": "Voter ID Requirements",

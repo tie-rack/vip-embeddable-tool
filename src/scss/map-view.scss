@@ -92,6 +92,16 @@
         float: right;
         font-weight: bolder;
         margin: 0 10px;
+
+        &:after {
+          content: "−";
+        }
+
+        &.plus-sign:after {
+          content: "＋";
+          position: relative;
+          left: 3px;
+        }
       }
       .contest-type {
         font-style: italic;

@@ -21,10 +21,12 @@
 
 <div class="info box left" id="more-elections">
   {{assets.text.headers.elections}}
-  <span>
-    <img src="{{ image 'plus.png' }}" class="toggle-image plus">
-    <img src="{{ image 'minus.png' }}" class="toggle-image minus hidden">
-  </span>
+  {{#if data.otherElections }}
+    <span>
+      <img src="{{ image 'plus.png' }}" class="toggle-image plus">
+      <img src="{{ image 'minus.png' }}" class="toggle-image minus hidden">
+    </span>
+  {{/if }}
 </div>
 
 <div class="info box left" id="election-list">
@@ -62,7 +64,8 @@
 Click to Toggle
 </div>
 
-<div id="location-legend" class="box right">
+{{{ locationLegend data }}}
+{{!-- <div id="location-legend" class="box right">
   <div id="location-legend-close">
     <img src="{{ image 'grey-plus.png' }}">
   </div>
@@ -76,7 +79,7 @@ Click to Toggle
   <span id="green-label" class="green">Early Voting Site & Polling Location</span><br class="green">
   <div id="grey-block" class="grey"></div>
   <span id="grey-label" class="grey">Dropoff Location</span>
-</div>
+</div> --}}
 
 <div id="location" class="box right">
   <div id="polling-location-info-close">
@@ -126,29 +129,11 @@ Click to Toggle
     {{#if data.state.0.local_jurisdiction}}
     <h1>{{assets.text.resources.electionAdministration.local_jurisdiction}}</h1>
     {{/if}}
-    <span id="local-jurisdiction-name">
-      {{#if data.state.0.local_jurisdiction.name}}
-      <b>{{ data.state.0.local_jurisdiction.name }}</b><br>
-      {{/if}}
-    </span>
-    <span id="local-jurisdiction-eab-name">
-      {{#if data.state.0.local_jurisdiction.electionAdministrationBody.name }}
-      <b>{{ data.state.0.local_jurisdiction.electionAdministrationBody.name }}</b><br>
-      {{/if}}
-    </span>
+    {{{ localJurisdictionName data }}}
     {{ data.state.0.local_jurisdiction.electionAdministrationBody.hoursOfOperation }}
-    {{!-- {{#if data.state.0.local_jurisdiction.electionAdministrationBody.correspondenceAddress }}
-      <div id="local-jurisdiction-correspondence-address" class="election-administration-address">
-      <span>{{assets.text.resources.electionAdministration.correspondenceAddress}}:</span>
-      {{> normalized-address data.state.0.local_jurisdiction.electionAdministrationBody.correspondenceAddress }}
-      </div>
-      {{/if}} --}}
-    {{#if data.state.0.local_jurisdiction.electionAdministrationBody.physicalAddress }}
-    <div id="local-jurisdiction-physical-address" class="election-administration-address">
-      <span>{{assets.text.resources.electionAdministration.physicalAddress}}</span>
-      {{> normalized-address data.state.0.local_jurisdiction.electionAdministrationBody.physicalAddress }}
-    </div>
-    {{/if}}
+
+    {{{ electionAdministrationBodyAddresses assets data.state.0.local_jurisdiction.electionAdministrationBody }}}
+
     {{#each data.state.0.local_jurisdiction.electionAdministrationBody.electionOfficials }}
     {{> election-official}}
     {{/each}}
@@ -158,18 +143,9 @@ Click to Toggle
     {{/if}}
     <b>{{ data.state.0.electionAdministrationBody.name }}</b>
     {{ data.state.0.electionAdministrationBody.hoursOfOperation }}
-    {{!-- {{#if data.state.0.electionAdministrationBody.correspondenceAddress }}
-      <div id="state-election-correspondence-address" class="election-administration-address">
-      <span>{{assets.text.resources.electionAdministration.correspondenceAddress}}</span>
-      {{> normalized-address data.state.0.electionAdministrationBody.correspondenceAddress }}
-      </div>
-      {{/if}} --}}
-    {{#if data.state.0.electionAdministrationBody.physicalAddress }}
-    <div id="state-election-physical-address" class="election-administration-address">
-      <span>{{assets.text.resources.electionAdministration.physicalAddress}}</span>
-      {{> normalized-address data.state.0.electionAdministrationBody.physicalAddress }}
-    </div>
-    {{/if}}
+
+    {{{ electionAdministrationBodyAddresses assets data.state.0.electionAdministrationBody }}}
+
     {{#each data.state.0.electionAdministrationBody.electionOfficials }}
     {{> election-official}}
     {{/each}}
@@ -183,6 +159,8 @@ Click to Toggle
   <div class="box information-links">
   {{> election-administration-body }}
   </div>
+{{!--
+   -- TO REMOVE --
   <div class="subsection box more-resources-header">
     <span>
     {{assets.text.resources.voterIdRequirements.title}}
@@ -200,9 +178,11 @@ Click to Toggle
         {{/if}}
       </div>
     </div>
-  </div>
+  </div> --}}
 </div>
 
+
+{{#if data.contests }}
 <div class="info box left" id="ballot-information">
   {{assets.text.headers.ballotInformation}}
   <span>
@@ -238,6 +218,7 @@ Click to Toggle
   {{/if}}
 
 </div>
+{{/if}}
 
 <div class="footer">
   <span>

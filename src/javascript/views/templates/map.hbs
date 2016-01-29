@@ -65,38 +65,7 @@ Click to Toggle
 </div>
 
 {{{ locationLegend data }}}
-{{!-- <div id="location-legend" class="box right">
-  <div id="location-legend-close">
-    <img src="{{ image 'grey-plus.png' }}">
-  </div>
-  <div id="red-block" class="red"></div>
-  <span id="red-label" class="red">Early Voting Site</span>
-  <br class="red">
-  <div id="blue-block" class="blue"></div>
-  <span id="blue-label" class="blue">Polling Location</span>
-  <br class="blue">
-  <div id="green-block" class="green"></div>
-  <span id="green-label" class="green">Early Voting Site & Polling Location</span><br class="green">
-  <div id="grey-block" class="grey"></div>
-  <span id="grey-label" class="grey">Dropoff Location</span>
-</div> --}}
 
-<div id="location" class="box right">
-  <div id="polling-location-info-close">
-    <img src="{{ image 'grey-plus.png' }}">
-  </div>
-  {{> address data.pollingLocations.0.address }}
-  <span>
-    <a href="#" target="_blank">
-      <img src="{{ image 'directions.png' }}">
-    </a>
-  </span>
-  {{#if data.pollingLocations.0.isEarlyVoteSite}}
-  <div class="early-vote-site">
-    Early Vote Site
-  </div>
-  {{/if}}
-</div>
 <div id="map-canvas" class="right"></div>
 
 <div id="map-list-view" class="box right">

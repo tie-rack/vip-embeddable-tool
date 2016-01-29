@@ -19,6 +19,8 @@ module.exports = View.extend({
 
   pollingLocationPartial: require('./templates/partials/polling-location-info.hbs'),
 
+  locationPartial: require('./templates/partials/location.hbs'),
+
   landscape: false,
 
   hasSubmitted: false,
@@ -282,6 +284,30 @@ module.exports = View.extend({
     this.find('#error-feedback-form').submit();
   },
 
+  _initializeMap: function (primaryLocation) {
+    if (_.isUndefined(primaryLocation)) {
+      this._encodeAddressAndInitializeMap();
+      return;
+    }
+
+    this._encodeAddressAndInitializeMap(primaryLocation);
+
+    this._sortLocations(primaryLocation);
+
+    var $location = $(this.locationPartial({
+      location: primaryLocation,
+      daddr: this._parseAddressWithoutName(_.get(primaryLocation, 'address')),
+      saddr: this._parseAddressWithoutName(_.get(this.data, 'home.address'))
+    }));
+
+    $location.insertBefore(this.find('#map-canvas'));
+
+
+    this._setZoom();
+
+    this._geocodeSequence(this.data.locations, this.data.normalizedInput);
+  },
+
   onAfterRender: function(options) {
 
     if (options.alert)
@@ -310,49 +336,8 @@ module.exports = View.extend({
       .css('top', '11%');
 
     var that = this;
-    this._getClosestLocation(function(primaryLocation) {
-      if (_.isUndefined(primaryLocation)) {
-        that._encodeAddressAndInitializeMap();
-        return;
-      }
 
-
-      // var address = that._parseAddress(primaryLocation.address);
-      // var daddr = that._parseAddressWithoutName(primaryLocation.address)
-      // var saddr = that._parseAddressWithoutName(options.data.normalizedInput);
-
-      that._encodeAddressAndInitializeMap(primaryLocation);
-
-      // that.find('#location a').attr('href', 'https://maps.google.com?daddr=' + daddr + '&saddr=' + saddr);
-
-      var $locationInfo = $(that.pollingLocationPartial(primaryLocation));
-      // var earlyVoteTag = that.find('.early-vote-site');
-      // if (earlyVoteTag) earlyVoteTag.remove()
-      that.find('#location .address').replaceWith($(that.addressPartial(primaryLocation.address)));
-      that.find('#location').append($locationInfo);
-      // $locationInfo.find('a').attr('href', 'https://maps.google.com?daddr=' + daddr + '&saddr=' + saddr);
-      // var earlyVoteTag = that.find('.early-vote-site');
-      // if (earlyVoteTag.length > 1)
-      //   earlyVoteTag.last().remove()
-
-      // var ampersands = that.find('.early-vote-site').text().match(/ &/g);
-      // if (ampersands && ampersands.length > 1) {
-      //   var newLocationText = that.find('.early-vote-site').text().replace(' & ', ', ');
-      //   that.find('.early-vote-site').text(newLocationText);
-      // }
-      // if (!that.landscape) $locationInfo.hide();
-
-      // if (options.data.pollingLocations.length) {
-        // var locations = options.data.pollingLocations;
-
-      that._sortLocations(primaryLocation);
-
-      that._setZoom();
-
-      // that._geocodeSequence([primaryLocation].concat(options.data.locations), options.data.normalizedInput);
-      that._geocodeSequence(that.data.locations, options.data.normalizedInput);
-      // }
-    });
+    this._getClosestLocation(this._initializeMap.bind(this));
 
     if (this.landscape) this._switchToLandscape(options);
 
@@ -695,26 +680,14 @@ module.exports = View.extend({
   },
 
   _fitMap: function() {
-    console.log('#_fitMap');
-    if (this.markers.length === 1) this.map.setZoom(15);
-    else {
-      var bounds = new google.maps.LatLngBounds();
-      for (var i = 0; this.data.locations.length; i++) {
-        if (_.get(this.data, 'locations[i].geocoded')) {
-          bounds.extend(this.data.locations[i].marker.getPosition());
-        }
-      }
-
-      this.map.fitBounds(bounds);
-    }
   },
 
   _setZoom: function() {
     console.log('#_setZoom');
     var bounds = new google.maps.LatLngBounds();
-    _.forEach(_.take(this.data.locations, 2), function(l) {
-      bounds.extend(l.position)
-    });
+
+    bounds.extend(_.get(this, 'data.locations[0].position'));
+    bounds.extend(_.get(this, 'data.home.position'));
 
     this.map.fitBounds(bounds);
   },
@@ -818,7 +791,7 @@ module.exports = View.extend({
           error(status);
         }
 
-        setTimeout(this._geocode.bind(this, location, callback, error, count + 1), this._GEOCODE_RETRY_TIMEOUT);
+        // setTimeout(this._geocode.bind(this, location, callback, error, count + 1), this._GEOCODE_RETRY_TIMEOUT);
       };
     }.bind(this));
   },
@@ -946,21 +919,20 @@ module.exports = View.extend({
 
   _markerFocusHandler: function(location, saddr) {
     console.log('#_markerFocusHandler')
-    var saddr = this._parseAddressWithoutName(this.data.home.address);
-    var daddr = this._parseAddressWithoutName(location.address);
 
-    // additional info partial that goes below the address
-    var $locationInfo = $(this.pollingLocationPartial(location));
+    var $location = $(this.locationPartial({
+      location: location,
+      daddr: this._parseAddressWithoutName(_.get(location, 'address')),
+      saddr: this._parseAddressWithoutName(_.get(this.data, 'home.address'))
+    }));
 
     // slide up the current polling location information partial
     // and then replace its information with new
-    this.find('.polling-location-info').replaceWith($locationInfo).fadeOut('slow').fadeIn('slow');
+    this.find('#location').replaceWith($location).fadeOut('slow').fadeIn('slow');
 
-    // replace the directions link with the correct address
-    this.find('#location a').attr('href', 'https://maps.google.com?daddr=' + daddr + '&saddr=' + saddr);
-    $locationInfo.find('a').attr('href', 'https://maps.google.com?daddr=' + daddr + '&saddr=' + saddr);
+    this.map.panTo(location.marker.getPosition())
 
-    this.toggleMap.call(this, null, location.marker, location.address);
+    // this.toggleMap.call(this, null, location.marker, location.address);
   },
 
   toggleMap: function(e, marker, address) {
@@ -1050,7 +1022,7 @@ module.exports = View.extend({
           this.find('#map-list-view').show();
 
         console.log('#panto');
-        this.map.panTo(marker.getPosition());
+        // this.map.panTo(marker.getPosition());
       }
     }
 

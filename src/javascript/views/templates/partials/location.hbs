@@ -1,0 +1,14 @@
+<div id="location" class="box right">
+  <div id="polling-location-info-close">
+    <img src="{{ image 'grey-plus.png' }}">
+  </div>
+  {{#if location }}
+    {{> address location.address }}
+    <span>
+      <a href="https://maps.google.com?daddr={{ daddr }}&saddr={{ saddr }}" target="_blank">
+        <img src="{{ image 'directions.png' }}">
+      </a>
+    </span>
+    {{> polling-location-info location }}
+  {{/if}}
+</div>

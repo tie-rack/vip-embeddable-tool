@@ -342,6 +342,11 @@ module.exports = (function() {
         'polling-location-info',
         require('./views/templates/partials/polling-location-info.hbs')
       );
+
+      handlebars.registerPartial(
+        'location',
+        require('./views/templates/partials/location.hbs')
+      );
     }
   }
 })(this);

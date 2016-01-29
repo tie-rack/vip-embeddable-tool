@@ -136,9 +136,12 @@ module.exports = (function() {
     var ljName = _.get(data, 'state[0].local_jurisdiction.name');
     var ljEABName = _.get(data, 'state[0].local_jurisdiction.electionAdministrationBody.name');
 
-    var ljNameTag = "<span id=\local-jurisdiction-name\"><b>" + ljName + "</b></span><br>";
-    var ljEABNameTag = "<span id=\local-jurisdiction-eab-name\"><b>" + ljEABName + "</b></span><br>"
+    var ljNameTag = "<span id=\local-jurisdiction-name\"><b>" + _.toString(ljName) + "</b></span><br>";
+    var ljEABNameTag = "<span id=\local-jurisdiction-eab-name\"><b>" + _.toString(ljEABName) + "</b></span><br>"
 
+    if (_.isUndefined(ljName) && _.isUndefined(ljEABName)) {
+      return ""
+    }
     if (ljName == ljEABName) {
       return ljNameTag
     }

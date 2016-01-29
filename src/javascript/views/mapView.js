@@ -81,8 +81,6 @@ module.exports = View.extend({
   },
 
   onBeforeRender: function(options) {
-    var that = this;
-
     $("#_vit").css("max-width", "800px")
     $("#_vit .footer").css("max-width", "800px")
 
@@ -194,15 +192,6 @@ module.exports = View.extend({
           this.find('#more-resources h1').css({
             'font-size': '16px'
           });
-        } else {
-          if (this.$container.height() < 480) {
-            // $('.left-wrapper')[0].style['overflow-y'] = 'auto';
-            // $('.left-wrapper')[0].style['overflow-x'] = 'hidden';
-            // css({
-            //   overflowY: 'auto',
-            //   overflowX: 'hidden'
-            // })
-          }
         }
       }
       return;
@@ -226,9 +215,7 @@ module.exports = View.extend({
       this.$container.height(window.innerHeight);
       this.landscape = false;
 
-      // this.find('.box,#map-canvas').width(window.innerWidth);
       this.find('#map-canvas').width(window.innerWidth);
-      // this.find('.box').width(window.innerWidth)
 
     } else {
       // tablet sizing
@@ -285,11 +272,6 @@ module.exports = View.extend({
   },
 
   _initializeMap: function (primaryLocation) {
-    if (_.isUndefined(primaryLocation)) {
-      this._encodeAddressAndInitializeMap();
-      return;
-    }
-
     this._encodeAddressAndInitializeMap(primaryLocation);
 
     this._sortLocations(primaryLocation);
@@ -302,10 +284,10 @@ module.exports = View.extend({
 
     $location.insertBefore(this.find('#map-canvas'));
 
-
-    this._setZoom();
-
-    this._geocodeSequence(this.data.locations, this.data.normalizedInput);
+    if (!_.isUndefined(primaryLocation)) {
+      this._setZoom();
+      this._geocodeSequence(this.data.locations, this.data.normalizedInput);
+    }
   },
 
   onAfterRender: function(options) {
@@ -334,8 +316,6 @@ module.exports = View.extend({
     if (options.alert && this.landscape)
       this.find('#location-legend')
       .css('top', '11%');
-
-    var that = this;
 
     this._getClosestLocation(this._initializeMap.bind(this));
 
@@ -393,20 +373,6 @@ module.exports = View.extend({
         country: 'us'
       }
     });
-
-    // this.earlyVoteSites = options.data.earlyVoteSites;
-    // this.dropOffLocations = options.data.dropOffLocations;
-    // if ((this.earlyVoteSites || this.dropOffLocations || this.locationTypes.hasPollingLocations) && this.landscape)
-    //   this.find('#location-legend')
-    //   .show()
-
-    // _.forEach(options.data.locations, function(location) {
-
-    // }.bind(this));
-
-    // if (!options.data.contests)
-    //   this.find('#ballot-information')
-    //   .remove()
 
     window.setTimeout(this.closeAlert.bind(this), 8000);
 
@@ -625,16 +591,13 @@ module.exports = View.extend({
 
   _encodeAddressAndInitializeMap: function(location) {
     console.log('#_encodeAddressAndInitializeMap')
-    var that = this;
     var zoom = _.has(location, 'address') ? 12 : 3;
-    var mapEl = that.find('#map-canvas').get(0);
+    var mapEl = this.find('#map-canvas').get(0);
 
     this._geocode(location, function(geocodedLocation) {
-      var mapCenter = this.data.currentLocation || geocodedLocation;
-      // that.map = that._generateMap((currentLocation ? currentLocation : geocodedLocation.position), zoom, that.find('#map-canvas').get(0));
-      this.map = this._generateMap(geocodedLocation.position, zoom, mapEl)
-      console.log(mapCenter)
-      this._geocode(that.data.home, function(geocodedHome) {
+      var currentLocation = this.data.currentLocation;
+      this.map = this._generateMap((currentLocation ? currentLocation : geocodedLocation.position), zoom, mapEl)
+      this._geocode(this.data.home, function(geocodedHome) {
         var marker = new google.maps.Marker({
           map: this.map,
           position: geocodedHome.position
@@ -642,41 +605,11 @@ module.exports = View.extend({
       }.bind(this));
 
       if (_.has(location, 'address')) {
-        // google.maps.event.addListener(that.map, 'click', function() {
-        //   if (that.landscape) {
-        //     // that.find('.polling-location-info').slideUp('fast');
-        //     that.toggleMap();
-        //     // that.map.panTo((currentLocation ? currentLocation : position))
-        //   }
-        //   if (this.data.currentLocation)
-        //     that.map.panTo(this.data.currentLocation)
-        //   else
-        //     that._fitMap();
-
-        //   // that.map.panTo(position)
-        //   // that.find('#location .address').replaceWith($(that.addressPartial(address)));
-        //   that.find('#location').hide();
-
-        //   // if (currentLocation)
-        //   // that.map.panTo(currentLocation)
-        // });
-
-        that.find('#map-canvas').on(that._transitionEnd(), function() {
-          google.maps.event.trigger(that.map, 'resize');
-        });
-
-      } else {
-        that.find('#location')
-          .find('a')
-          .remove()
-          .end()
-          .find('.address')
-          .css('text-align', 'center')
-          .text('No Polling Locations Found')
+        this.find('#map-canvas').on(this._transitionEnd(), function() {
+          google.maps.event.trigger(this.map, 'resize');
+        }.bind(this));
       }
-    }.bind(this), function(status) {
-
-    });
+    }.bind(this));
   },
 
   _fitMap: function() {
@@ -715,7 +648,6 @@ module.exports = View.extend({
   },
 
   _addPollingLocation: function(location) {
-    var that = this;
     console.log('#_addPollingLocation');
 
     var url = this._getMarkerColor(location);
@@ -853,14 +785,9 @@ module.exports = View.extend({
     this.address = enteredAddress;
 
     this.hasSubmitted = true;
-    this._makeRequest({
-      address: enteredAddress
-    });
-
-    // this.toggleLoadingDisplay();
+    this._makeRequest({ address: enteredAddress });
   },
   changeAddress: function(e) {
-    var that = this;
     var addressInput = this.find('.change-address');
 
     // brings up change address bar if you click .address on left, but not if you click .address on map:
@@ -926,110 +853,37 @@ module.exports = View.extend({
       saddr: this._parseAddressWithoutName(_.get(this.data, 'home.address'))
     }));
 
-    // slide up the current polling location information partial
-    // and then replace its information with new
     this.find('#location').replaceWith($location).fadeOut('slow').fadeIn('slow');
 
     this.map.panTo(location.marker.getPosition())
-
-    // this.toggleMap.call(this, null, location.marker, location.address);
   },
 
-  toggleMap: function(e, marker, address) {
+  toggleMap: function(event) {
     console.log('#toggleMap');
-    var markerSelected = true;
-    if (typeof marker === 'undefined') {
-      markerSelected = false;
-      marker = this.markers[0];
-    }
     if (!this.landscape) {
       var canvas = this.find('#map-canvas');
       var toggle = this.find('#map-toggle');
-      if (canvas.height() !== 300 && (!markerSelected)) {
-        toggle.find('.minus').removeClass('hidden');
-        toggle.find('.plus').addClass('hidden');
-
-        canvas.animate({
-          height: '300px'
-        }, {
-          duration: 500,
-          complete: function() {
-            this._scrollTo(toggle, 10);
-            // this.map.panTo(marker.getPosition());
-            this._fitMap();
-          }.bind(this)
-        });
-
-        if (address) this.find('#location .address').replaceWith($(this.addressPartial(address)));
-        this.find('.polling-location-info').slideDown('fast');
-      } else if (!markerSelected) {
-        canvas.animate({
-          height: '150px'
-        }, {
-          duration: 500,
-          complete: function() {
-            this._scrollTo(toggle, 10);
-            console.log('#panto')
-            this.map.panTo(marker.getPosition());
-            this.map.setZoom(12);
-            // this._fitMap();
-          }.bind(this)
-        });
-        toggle.find('.plus').removeClass('hidden');
-        toggle.find('.minus').addClass('hidden');
-
-        this.find('.polling-location-info').slideUp('fast');
-      } else {
-        console.log('#panto')
-        this.map.panTo(marker.getPosition());
-        var isSameLocation = (this.find('#location .address').text() === $(this.addressPartial(address)).text());
-        if (address) this.find('#location .address').replaceWith($(this.addressPartial(address)));
-        if (isSameLocation) this.find('.polling-location-info').slideToggle('fast');
-        else this.find('.polling-location-info').slideUp('fast');
-      }
+      var height = canvas.height() != 300 ? '300px' : '150px';
+      toggle.find('.toggle-image').toggleClass('hidden');
+      canvas.animate({ height: height }, {
+        duration: 500,
+        complete: function() {
+          this._scrollTo(toggle, 10);
+          this._setZoom();
+        }.bind(this)
+      });
     } else {
-      if (this.find('#location').is(':visible')) {
-        console.log('already at map...')
-        // this._fitMap();
-        console.log('#panto')
-        this.map.panTo(marker.getPosition());
-        if (address) {
-          var isSameLocation = (this.find('#location .address').text() === $(this.addressPartial(address)).text());
-          if (isSameLocation) this.find('.polling-location-info').show();
-          else {
-            this.find('#location .address').replaceWith($(this.addressPartial(address)));
-            this.find('.polling-location-info').show();
-            if (this.find('.polling-location-info').is(':hidden')) {
-              // this.find('.polling-location-info').slideDown('fast');
-            } else {
-              // setTimeout(function() {
-              // this.find('.polling-location-info').slideDown('fast');
-              // }.bind(this), 500);
-            }
-          }
-        }
-      } else {
-        console.log('navigating to map...')
-        this._disableRightPanelScroll();
+      this._disableRightPanelScroll();
 
-        this._hideRightPanels();
+      this._hideRightPanels();
 
-        this._togglePane(this.find('#polling-location'));
+      this._togglePane(this.find('#polling-location'));
 
-        if (this.mapIsDisplayed)
-          this.find('#map-canvas, #location, #location-legend').show();
-        else
-          this.find('#map-list-view').show();
-
-        console.log('#panto');
-        // this.map.panTo(marker.getPosition());
-      }
+      if (this.mapIsDisplayed)
+        this.find('#map-canvas, #location, #location-legend').show();
+      else
+        this.find('#map-list-view').show();
     }
-
-    // var addressNames = this.find('#location .address-name');
-    // if (addressNames.length > 1 &&
-    //   (addressNames.first().text() === addressNames.last().text()))
-    //   addressNames.first().remove();
   },
 
   _getClosestLocation: function(locationCallback) {
@@ -1081,16 +935,14 @@ module.exports = View.extend({
       if (!this.landscape) this._scrollTo($('#more-elections span'), 10)
     }.bind(this));
     if (!this.landscape)
-      this.find('#more-elections')
-      .find('.toggle-image').toggleClass('hidden');
+      this.find('#more-elections .toggle-image').toggleClass('hidden');
   },
 
-  toggleResources: function(e) {
+  toggleResources: function() {
     if (!this.landscape)
       this.find('#more-resources').slideToggle(500, function() {
         this._scrollTo($('#resources-toggle span'), 10);
-        this.find('#resources-toggle')
-          .find('.plus, .minus')
+        this.find('#resources-toggle .plus, #resources-toggle .minus')
           .toggleClass('hidden');
       }.bind(this));
     else {
@@ -1104,36 +956,26 @@ module.exports = View.extend({
         .show()
 
       this._hideRightPanels();
-
       this._togglePane(this.find('#resources-toggle'));
 
-      this.find('#more-resources')
-        .css({
-          'max-height': '20000px'
-        }).show();
+      this.find('#more-resources').css({ 'max-height': '20000px' }).show();
     }
   },
 
   toggleBallot: function() {
     console.log('#toggleBallot');
-
     var $ballotInfo = this.find('#ballot-information');
 
     if (!this.landscape) {
-
       $ballotInfo.find('.toggle-image').toggleClass('hidden');
       _.each(this.find('.contest-toggle'), function(el) { $(el).trigger('click') });
 
       if ($ballotInfo.find('.plus').is(':hidden')) {
         this._scrollTo($("#ballot-information"), 20);
       }
-
     } else {
-
       this._enableRightPanelScroll();
-
       this._hideRightPanels();
-
       this._togglePane(this.find('#ballot-information'));
 
       this.find('.contests').show()

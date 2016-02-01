@@ -57,6 +57,10 @@ module.exports = View.extend({
       'height' : options.height
     });
 
+    if (options.modal) {
+      this.$container.addClass('modal');
+    }
+
     // can we just do this in CSS?
     $("#_vit .footer").css("max-width", "none")
 

@@ -1,6 +1,50 @@
 @import "variables";
 
 #_vit {
+  &:not(.modal) {
+    #map-view {
+      width: inherit;
+
+      #location-legend-close,
+      #polling-location-info-close {
+        display: none;
+      }
+
+      @media only screen and (max-width: 465) {
+        .left-wrapper {
+          overflow-y: auto;
+          overflow-x: hidden;
+        }
+      }
+    }
+
+    &:not(.landscape) {
+      overflow-y: scroll;
+      overflow-x: hidden;
+    }
+    &.landscape {
+      overflow: hidden;
+    }
+
+    @media only screen and (min-width: 500px) and (max-width: 600px) {
+      .info {
+        font-size: 14px;
+      }
+      .election {
+        font-size: 16px;
+      }
+      .subsection {
+        font-size: 15px;
+      }
+      .right .box {
+        padding: 5px 15px;
+      }
+      #more-resources h1 {
+        font-size: 16px;
+      }
+    }
+  }
+
   #map-view {
     display: table;
     z-index: 999;
@@ -72,6 +116,19 @@
     .early-vote-site {
       color: $red;
     }
+    .contest {
+      .subsection span {
+        &:after {
+          content: "-";
+        }
+
+        &.plus-sign:after {
+          content: "＋";
+          position: relative;
+          left: 3px;
+        }
+      }
+    }
     .subsection {
       cursor: default;
       background-color: #eeeeee;
@@ -92,16 +149,6 @@
         float: right;
         font-weight: bolder;
         margin: 0 10px;
-
-        &:after {
-          content: "−";
-        }
-
-        &.plus-sign:after {
-          content: "＋";
-          position: relative;
-          left: 3px;
-        }
       }
       .contest-type {
         font-style: italic;
@@ -355,7 +402,6 @@
       margin: 8px 0 0;
     }
     #alert {
-      display: none;
       position: fixed;
       z-index: 10000;
       background-color: rgba(200, 0, 0, 0.85);

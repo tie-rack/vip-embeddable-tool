@@ -169,6 +169,9 @@
   .hidden {
     display: none;
   }
+  .zero-opacity {
+    opacity: 0 !important;
+  }
   .loading {
     display: none;
     position: absolute;

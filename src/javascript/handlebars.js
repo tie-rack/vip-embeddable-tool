@@ -125,7 +125,7 @@ module.exports = (function() {
       var stateLinks = _.partial(createInfoLink, state, linkTitles);
 
       str += "<div id=\"state-elections-office\"><h1>" + stateHeader + "</h1>";
-      str += _.reduce(_.map(getUrlKeys(local), stateLinks), _.add);
+      str += _.reduce(_.map(getUrlKeys(state), stateLinks), _.add);
       str += "</div>";
     }
 

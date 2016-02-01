@@ -38,6 +38,7 @@ module.exports = View.extend({
     '#vote-address-edit click': 'changeAddress',
     '.address click': 'changeAddress',
     '#fade click': 'changeAddress',
+    '.change-address keypress': 'showPlaceAutocomplete',
     '#submit-address-button click': 'submitAddress',
     '#polling-location click': 'toggleMap',
     '#more-elections click': 'toggleElections',
@@ -80,10 +81,72 @@ module.exports = View.extend({
     day: 'numeric'
   },
 
-  onBeforeRender: function(options) {
-    $("#_vit").css("max-width", "800px")
-    $("#_vit .footer").css("max-width", "800px")
+  _MAP_STYLES: [{
+      featureType: "road",
+      elementType: "labels",
+      stylers: [{
+        lightness: 20
+      }]
+    }, {
+      featureType: "administrative.land_parcel",
+      elementType: "all",
+      stylers: [{
+        visibility: "off"
+      }]
+    }, {
+      featureType: "landscape.man_made",
+      elementType: "all",
+      stylers: [{
+        visibility: "off"
+      }]
+    }, {
+      featureType: "transit",
+      elementType: "all",
+      stylers: [{
+        visibility: "off"
+      }]
+    }, {
+      featureType: "road.highway",
+      elementType: "labels",
+      stylers: [{
+        visibility: "off"
+      }]
+    }, {
+      featureType: "road.arterial",
+      elementType: "labels",
+      stylers: [{
+        visibility: "off"
+      }]
+    }, {
+      featureType: "water",
+      elementType: "all",
+      stylers: [{
+        hue: "#a1cdfc"
+      }, {
+        saturation: 39
+      }, {
+        lightness: 49
+      }]
+    }, {
+      featureType: "road.highway",
+      elementType: "geometry",
+      stylers: [{
+        hue: "#f49935"
+      }]
+    }, {
+      featureType: "road.arterial",
+      elementType: "geometry",
+      stylers: [{
+        hue: "#fad959"
+      }]
+    }],
 
+  onBeforeRender: function(options) {
+    // $("#_vit").css("max-width", "800px")
+    // $("#_vit .footer").css("max-width", "800px")
+
+    // TODO: REFACTOR THIS INTO OWN FUNCTION
+    // sets special viewport tag
     if (navigator.userAgent.match('CriOS')) {
       $('<meta>')
         .attr('name', 'viewport')
@@ -92,6 +155,8 @@ module.exports = View.extend({
         .appendTo($('head'));
     }
 
+    // TODO: detect webkit/iOS here...
+    // set iOS flow scrolling
     $(this.$container).css('-webkit-overflow-scrolling', 'touch');
 
     options.data.locations = LocationMatcher(options.data);
@@ -150,50 +215,24 @@ module.exports = View.extend({
 
     this.data = options.data;
 
+    // TODO: REFACTOR THIS INTO OWN FUNCTION
+    // places the modal and the tool as the first element on the page
+    // to deal with certain z-index / positioning issues
     $('<div id="_vitModal">')
       .prependTo($('html'));
 
     if (options.modal) {
       this.modal = true;
+      this.$container.addClass('modal');
       this.initialParent = $("#_vit").parent();
       $("#_vit").prependTo($('html'));
     }
   },
 
   _resizeHandler: function() {
+    console.log("#_resizeHandler");
     if (!this.modal) {
-      if (this.$container.parent().width() < this.$container.width())
-        this.$container.width(this.$container.parent().width());
-
-      if (this.$container.width() < 500) {
-        // set to mobile view
-        this.landscape = false;
-        this.$container.css({
-          'overflow-y': 'scroll',
-          'overflow-x': 'hidden'
-        })
-      } else {
-        this.landscape = true;
-        this.$container.width(this.width);
-        this.$container.height(this.height)
-        if (this.$container.width() < 600) {
-          this.find('.info').css({
-            'font-size': '14px'
-          });
-          this.find('.election').css({
-            'font-size': '16px'
-          });
-          this.find('.subsection').css({
-            'font-size': '15px'
-          });
-          this.find('.right .box').css({
-            'padding': '5px 15px'
-          });
-          this.find('#more-resources h1').css({
-            'font-size': '16px'
-          });
-        }
-      }
+      this.landscape = this.$container.width() > 500;
       return;
     }
 
@@ -210,13 +249,19 @@ module.exports = View.extend({
         .appendTo($('head'));
     }
 
+    $(window).scrollTop(0).scrollLeft(0);
+
     if (screenWidth < 600) {
       this.$container.width(window.innerWidth);
       this.$container.height(window.innerHeight);
-      this.landscape = false;
 
       this.find('#map-canvas').width(window.innerWidth);
 
+      this.$container.addClass('floating-container');
+      $('html, body').removeClass('max-height');
+      $('body').addClass('no-scroll');
+
+      this.landscape = false;
     } else {
       // tablet sizing
       this.$container
@@ -236,33 +281,12 @@ module.exports = View.extend({
           'left': ((width / 2) - (containerWidth / 2)) + 'px'
         });
 
-      $('#_vitModal').css({
-        'width': width,
-        'height': height
-      })
+      this.$container.addClass('floating-modal-container');
+      $('html, body').addClass('max-height');
+      $('body').removeClass('no-scroll')
 
       this.landscape = true;
     }
-
-    if (this.modal && !this.landscape) {
-      this.$container
-        .addClass('floating-container')
-      $('html, body')
-        .removeClass('max-height')
-        .find('body')
-        .addClass('no-scroll');
-    } else if (this.modal && this.landscape) {
-      this.$container
-        .addClass('floating-modal-container')
-      $('html, body')
-        .addClass('max-height')
-        .find('body')
-        .removeClass('no-scroll')
-    }
-
-    $(window)
-      .scrollTop(0)
-      .scrollLeft(0)
   },
 
   submitErrorForm: function(event) {
@@ -282,6 +306,8 @@ module.exports = View.extend({
       saddr: this._parseAddressWithoutName(_.get(this.data, 'home.address'))
     }));
 
+    $location.find('#polling-location-info-close').on('click', this.closePollingLocationInfo.bind(this));
+
     $location.insertBefore(this.find('#map-canvas'));
 
     if (!_.isUndefined(primaryLocation)) {
@@ -291,13 +317,6 @@ module.exports = View.extend({
   },
 
   onAfterRender: function(options) {
-
-    if (options.alert)
-      this.find('#alert')
-      .find('#text')
-      .html(options.alert)
-      .end()
-      .show();
 
     this.width = options.width;
     this.height = options.height;
@@ -313,19 +332,17 @@ module.exports = View.extend({
 
     setTimeout(this._resizeHandler.bind(this), 250);
 
-    if (options.alert && this.landscape)
-      this.find('#location-legend')
-      .css('top', '11%');
+    // hide alert after it's gradually faded out
+    this.find('#alert').on(this._transitionEnd(), function() {
+      $(this).hide();
+    })
 
     this._getClosestLocation(this._initializeMap.bind(this));
 
-    if (this.landscape) this._switchToLandscape(options);
-
-
-    if (options.data.state &&
-      options.data.state.length &&
-      options.data.state[0].electionAdministrationBody)
-      this.find('#info-icon').parent().attr('href', options.data.state[0].electionAdministrationBody.electionInfoUrl);
+    if (this.landscape) {
+      this._switchToLandscape(options);
+      this.toggleMap();
+    }
 
     $('html,body').scrollLeft($(this.$container).scrollLeft());
     $('html,body').scrollTop($(this.$container).scrollTop());
@@ -344,24 +361,7 @@ module.exports = View.extend({
       }
     });
 
-    if (this.landscape) {
-      this.find('.info.box').removeClass('expanded-pane');
-      this.find('#polling-location').addClass('expanded-pane')
-      this.find(':not(#polling-location) .right-arrow').removeClass('hidden');
-      this.find(':not(#polling-location) .left-arrow').addClass('hidden');
-      this.find('#polling-location .right-arrow').addClass('hidden');
-      this.find('#polling-location .left-arrow').removeClass('hidden');
-      this.find('#more-resources, .contests').hide();
-    }
-
     document.querySelector('#calendar-icon').appendChild(myCalendar);
-
-    if (this.$container.height() < 465) {
-      this.find('.left-overflow-wrapper').find('.left-wrapper').css({
-        'overflow-y': 'auto',
-        'overflow-x': 'hidden'
-      });
-    }
 
     fastclick(document.body);
 
@@ -375,10 +375,6 @@ module.exports = View.extend({
     });
 
     window.setTimeout(this.closeAlert.bind(this), 8000);
-
-    this.find('.change-address').on('keypress', function() {
-      $('.pac-container').last().css('z-index', 100000);
-    });
 
     if (options.data.closedPrimaries) {
       var $closedPrimariesSelection = this.find('.closed-primaries-selection');
@@ -475,6 +471,7 @@ module.exports = View.extend({
 
   _switchToLandscape: function(options) {
     if (this.modal) this._modifyExternals();
+    this.$container.addClass('landscape');
     this.$el
       .addClass('landscape')
       .prepend(
@@ -510,82 +507,20 @@ module.exports = View.extend({
   },
 
   _generateMap: function(position, zoom, $el) {
-    var options = {
+    var map = new google.maps.Map($el, {
       zoom: zoom,
       center: position,
       mapTypeId: google.maps.MapTypeId.ROADMAP,
-      draggable: false,
+      draggable: !!this.landscape,
       panControl: false,
-      zoomControl: false,
-      scrollwheel: false,
+      zoomControl: !!this.landscape,
+      scrollwheel: !!this.landscape,
       mapTypeControl: false,
       streetViewControl: false
-    };
-    if (this.landscape) {
-      options.draggable = true;
-      options.scrollWheel = true;
-      options.zoomControl = true;
-    }
-    var map = new google.maps.Map($el, options)
-    map.set('styles', [{
-      featureType: "road",
-      elementType: "labels",
-      stylers: [{
-        lightness: 20
-      }]
-    }, {
-      featureType: "administrative.land_parcel",
-      elementType: "all",
-      stylers: [{
-        visibility: "off"
-      }]
-    }, {
-      featureType: "landscape.man_made",
-      elementType: "all",
-      stylers: [{
-        visibility: "off"
-      }]
-    }, {
-      featureType: "transit",
-      elementType: "all",
-      stylers: [{
-        visibility: "off"
-      }]
-    }, {
-      featureType: "road.highway",
-      elementType: "labels",
-      stylers: [{
-        visibility: "off"
-      }]
-    }, {
-      featureType: "road.arterial",
-      elementType: "labels",
-      stylers: [{
-        visibility: "off"
-      }]
-    }, {
-      featureType: "water",
-      elementType: "all",
-      stylers: [{
-        hue: "#a1cdfc"
-      }, {
-        saturation: 39
-      }, {
-        lightness: 49
-      }]
-    }, {
-      featureType: "road.highway",
-      elementType: "geometry",
-      stylers: [{
-        hue: "#f49935"
-      }]
-    }, {
-      featureType: "road.arterial",
-      elementType: "geometry",
-      stylers: [{
-        hue: "#fad959"
-      }]
-    }]);
+    });
+
+    map.set('styles', this._MAP_STYLES);
+
     return map;
   },
 
@@ -610,9 +545,6 @@ module.exports = View.extend({
         }.bind(this));
       }
     }.bind(this));
-  },
-
-  _fitMap: function() {
   },
 
   _setZoom: function() {
@@ -787,6 +719,7 @@ module.exports = View.extend({
     this.hasSubmitted = true;
     this._makeRequest({ address: enteredAddress });
   },
+
   changeAddress: function(e) {
     var addressInput = this.find('.change-address');
 
@@ -852,6 +785,8 @@ module.exports = View.extend({
       daddr: this._parseAddressWithoutName(_.get(location, 'address')),
       saddr: this._parseAddressWithoutName(_.get(this.data, 'home.address'))
     }));
+
+    $location.find('#polling-location-info-close').on('click', this.closePollingLocationInfo.bind(this));
 
     this.find('#location').replaceWith($location).fadeOut('slow').fadeIn('slow');
 
@@ -1035,6 +970,10 @@ module.exports = View.extend({
     }, 500);
   },
 
+  showPlaceAutocomplete: function() {
+    $('.pac-container').last().css('z-index', 100000);
+  },
+
   back: function() {
     this.triggerRouteEvent('mapViewBack');
   },
@@ -1051,11 +990,7 @@ module.exports = View.extend({
   },
 
   closeAlert: function() {
-    this.find('#alert').fadeOut('slow', function() {
-      if (this.find('#location-legend').is(':visible'))
-        this.find('#location-legend')
-        .css('top', '2%');
-    }.bind(this));
+    this.find('#alert').addClass('zero-opacity');
   },
 
   closeAddressNotFound: function() {

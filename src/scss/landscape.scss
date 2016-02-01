@@ -1,8 +1,25 @@
 @import "variables";
 
 #_vit {
+  max-width: 800px;
   .landscape#map-view {
     height: 100%;
+
+    #alert {
+      opacity: 1;
+
+      -webkit-transition: opacity 1s ease-in-out;
+      -moz-transition: opacity 1s ease-in-out;
+      -ms-transition: opacity 1s ease-in-out;
+      -o-transition: opacity 1s ease-in-out;
+    }
+
+    #alert + .right-wrapper #location-legend {
+      top: 11%;
+    }
+    #alert.zero-opacity + .right-wrapper #location-legend {
+      top: 2%;
+    }
     .footer {
       bottom: 0;
       span {

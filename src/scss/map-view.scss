@@ -162,6 +162,7 @@
       position: relative;
       .right-arrow {
         transform: translateY(-50%);
+        -ms-transform: translateY(-50%);
       }
     }
     .change-address {
@@ -200,6 +201,7 @@
       span {
         top: 50%;
         transform: translateY(-50%);
+        -ms-transform: translateY(-50%);
         float: left;
       }
     }
@@ -246,11 +248,14 @@
       width: 10px;
       float: right;
       transform: translateY(-50%);
+      -ms-transform: translateY(-50%);
       &.toggle-image {
         transform: translateY(0);
+        -ms-transform: translateY(0);
       }
       &.left-arrow {
         transform: translateY(27%);
+        -ms-transform: translateY(27%);
       }
     }
     .referendum-subtitle {
@@ -413,6 +418,7 @@
         float: right;
         width: 18px;
         transform: rotate(45deg);
+        -ms-transform: rotate(45deg);
         cursor: pointer;
         img {
           width: 100%;
@@ -429,6 +435,7 @@
       span {
         width: 100%;
         transform: translateY(0);
+        -ms-transform: translateY(0);
         top: 5px;
       }
       #error-feedback-link {
@@ -438,6 +445,7 @@
         width: 100%;
         font-size: 9px;
         transform: translateY(-50%);
+        -ms-transform: translateY(-50%);
         top: 63%;
       }
     }

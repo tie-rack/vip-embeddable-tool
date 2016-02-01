@@ -11,6 +11,7 @@
   height: 100%;
   transform: none;
   -webkit-transform: none;
+  -ms-transform: none;
 }
 
 .floating-container {
@@ -100,6 +101,7 @@
       position: absolute;
       width: 75%;
       transform: translate(0%, -50%);
+      -ms-transform: translate(0%, -50%);
       top: 50%;
     }
   }
@@ -123,6 +125,7 @@
     left: 50%;
     top: 50%;
     transform: translate(-50%, -50%);
+    -ms-transform: translate(-50%, -50%);
     z-index: 3;
     box-shadow: 0 3px 2px 0 rgba(50, 50, 50, 0.45);
     h2 {
@@ -178,6 +181,7 @@
     left: 50%;
     top: 40%;
     transform: translate(-50%, -50%);
+    -ms-transform: translate(-50%, -50%);
     z-index: 3;
     width: 50px;
     height: 50px;
@@ -200,6 +204,7 @@
     left: 50%;
     top: 50%;
     transform: translate(-50%, -50%);
+    -ms-transform: translate(-50%, -50%);
     z-index: 3;
     box-shadow: 0 3px 2px 0 rgba(50, 50, 50, 0.45);
     h1 {

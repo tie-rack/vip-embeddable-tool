@@ -24,11 +24,13 @@
       bottom: 0;
       span {
         transform: translateY(-50%);
+        -ms-transform: translateY(-50%);
         top: 50%;
       }
       #error-feedback-link {
         left: 92%;
         transform: translateY(50%);
+        -ms-transform: translateY(50%);
         margin-top: -5px;
       }
       #info-icon {
@@ -40,6 +42,7 @@
     }
     .subsection {
       transform: box-shadow(0 2px 5px 0 rgba(0, 0, 0, 0.15));
+      -ms-transform: box-shadow(0 2px 5px 0 rgba(0, 0, 0, 0.15));
       span {
         font-weight: normal;
       }
@@ -58,6 +61,7 @@
       background-color: rgba(255, 255, 255, 0.75);
       z-index: 2;
       transform: box-shadow(2px 2px 8px rgba(0, 0, 0, 0.25));
+      -ms-transform: box-shadow(2px 2px 8px rgba(0, 0, 0, 0.25));
       font-size: 13px;
       padding: 10px;
       cursor: pointer;
@@ -72,6 +76,7 @@
       background-color: rgba(255, 255, 255, 0.75);
       z-index: 2;
       transform: box-shadow(2px 2px 8px rgba(0, 0, 0, 0.25));
+      -ms-transform: box-shadow(2px 2px 8px rgba(0, 0, 0, 0.25));
       font-size: 13px;
       padding: 10px;
       .legend-row {
@@ -141,6 +146,7 @@
         top: 17px;
         left: -7px;
         transform: rotate(45deg);
+        -ms-transform: rotate(45deg);
       }
     }
     #location-legend-close {

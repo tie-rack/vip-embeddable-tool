@@ -1,6 +1,10 @@
 @import "variables";
 
 #_vit {
+  &.modal {
+    max-width: 800px !important;
+  }
+
   &:not(.modal) {
     #map-view {
       width: inherit;

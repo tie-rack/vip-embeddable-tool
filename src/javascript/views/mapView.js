@@ -8,7 +8,7 @@ var async = require('async');
 var LocationMatcher = require('../locationMatcher');
 var zipcodes = require('../zipcodes');
 var BinarySearchIndex = require('tiny-binary-search');
-
+window.$ = $;
 module.exports = View.extend({
 
   $id: 'map-view',
@@ -332,11 +332,6 @@ module.exports = View.extend({
 
     setTimeout(this._resizeHandler.bind(this), 250);
 
-    // hide alert after it's gradually faded out
-    this.find('#alert').on(this._transitionEnd(), function() {
-      $(this).hide();
-    })
-
     this._getClosestLocation(this._initializeMap.bind(this));
 
     if (this.landscape) {
@@ -483,25 +478,10 @@ module.exports = View.extend({
           .css('background-image', 'url(' + options.smallLogo + ')')
         )
       )
-      .find('.right')
-      .wrapAll('<div class="right-wrapper" />')
-      .end()
-      .find('.toggle-image')
-      .addClass('arrow')
-      .filter('.plus')
-      .attr('src', 'https://tool.votinginfoproject.org/images/left-arrow-white.png')
-      .addClass('right-arrow')
-      .end()
-      .filter('.minus')
-      .attr('src', 'https://tool.votinginfoproject.org/images/right-arrow-white.png')
-      .addClass('left-arrow')
-      .end()
-      .find('#polling-location .arrow')
-      .toggleClass('hidden')
-      .end()
-      .find('#more-resources, .contests.right')
-      .hide()
-      .end()
+    this.find('.right').wrapAll('<div class="right-wrapper" />');
+
+    this.find('#resources-toggle .toggle-image').toggleClass('hidden');
+    this.find('#ballot-information .toggle-image').toggleClass('hidden');
 
     this.landscape = true;
   },
@@ -655,7 +635,7 @@ module.exports = View.extend({
           error(status);
         }
 
-        setTimeout(this._geocode.bind(this, location, callback, error, count + 1), this._GEOCODE_RETRY_TIMEOUT);
+        // setTimeout(this._geocode.bind(this, location, callback, error, count + 1), this._GEOCODE_RETRY_TIMEOUT);
       };
     }.bind(this));
   },
@@ -797,7 +777,7 @@ module.exports = View.extend({
     console.log('#toggleMap');
     if (!this.landscape) {
       var canvas = this.find('#map-canvas');
-      var toggle = this.find('#map-toggle');
+      var toggle = this.find('#polling-location');
       var height = canvas.height() != 300 ? '300px' : '150px';
       toggle.find('.toggle-image').toggleClass('hidden');
       canvas.animate({ height: height }, {
@@ -874,13 +854,11 @@ module.exports = View.extend({
   },
 
   toggleResources: function() {
-    if (!this.landscape)
-      this.find('#more-resources').slideToggle(500, function() {
-        this._scrollTo($('#resources-toggle span'), 10);
-        this.find('#resources-toggle .plus, #resources-toggle .minus')
-          .toggleClass('hidden');
-      }.bind(this));
-    else {
+    if (!this.landscape) {
+      this._scrollTo($('#resources-toggle'), 10);
+      this.find('#resources-toggle .toggle-image').toggleClass('hidden');
+      this.find('#more-resources').slideToggle();
+    } else {
       this._enableRightPanelScroll();
 
       this.$el
@@ -905,7 +883,7 @@ module.exports = View.extend({
       $ballotInfo.find('.toggle-image').toggleClass('hidden');
       _.each(this.find('.contest-toggle'), function(el) { $(el).trigger('click') });
 
-      if ($ballotInfo.find('.plus').is(':hidden')) {
+      if ($ballotInfo.find('.contracted').is(':hidden')) {
         this._scrollTo($("#ballot-information"), 20);
       }
     } else {
@@ -918,15 +896,13 @@ module.exports = View.extend({
   },
 
   _togglePane: function ($activeEl) {
-    var $panes = this.find('.info.box');
+    var $expandedPane = this.find('.expanded-pane');
 
-    $panes.removeClass('expanded-pane');
-    $panes.find('.right-arrow').removeClass('hidden');
-    $panes.find('.left-arrow').addClass('hidden');
+    $expandedPane.removeClass('expanded-pane');
+    $expandedPane.find('.toggle-image').toggleClass('hidden');
 
     $activeEl.addClass('expanded-pane');
-    $activeEl.find('.right-arrow').addClass('hidden');
-    $activeEl.find('.left-arrow').removeClass('hidden');
+    $activeEl.find('.toggle-image').toggleClass('hidden');
   },
 
   _hideRightPanels: function() {
@@ -991,6 +967,11 @@ module.exports = View.extend({
 
   closeAlert: function() {
     this.find('#alert').addClass('zero-opacity');
+    setTimeout(this.removeAlert.bind(this), 1000);
+  },
+
+  removeAlert: function() {
+    this.find('#alert').remove();
   },
 
   closeAddressNotFound: function() {

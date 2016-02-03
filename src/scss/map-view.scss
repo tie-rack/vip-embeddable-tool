@@ -61,6 +61,40 @@
       display: table;
       clear: both;
     }
+
+    .info.box {
+      display: table;
+    }
+
+    .toggle-image {
+      display: table-cell;
+
+      &.hidden {
+        display: none;
+      }
+
+      &.contracted {
+        background-image: url("https://tool.votinginfoproject.org/images/plus.png");
+        background-position: 0 0;
+        background-size: contain;
+        background-repeat: no-repeat;
+        height: 10px;
+      }
+
+      &.expanded {
+        background-image: url("https://tool.votinginfoproject.org/images/minus.png");
+        background-position: 0 10px;
+        background-size: contain;
+        background-repeat: no-repeat;
+        height: 10px;
+      }
+    }
+
+    .toggle-text {
+      display: table-cell;
+      vertical-align: middle;
+    }
+
     // button:not(#not-found-button) {
     //   position: absolute;
     //   left: 2px;
@@ -163,11 +197,28 @@
       overflow: hidden;
     }
     .candidate-item {
-      position: relative;
-      .right-arrow {
-        transform: translateY(-50%);
-        -ms-transform: translateY(-50%);
+      display: table;
+
+      .name,
+      .party {
+        // display: table-row;
       }
+      a,
+      img,
+      span {
+        display: table-cell;
+        vertical-align: middle;
+      }
+      .phone,
+      .email,
+      .link {
+        width: 25px;
+      }
+      // position: relative;
+      // .right-arrow {
+      //   transform: translateY(-50%);
+      //   -ms-transform: translateY(-50%);
+      // }
     }
     .change-address {
       display: none;
@@ -215,16 +266,16 @@
     .party {
       font-style: italic;
     }
-    .phone,
-    .email {
-      position: absolute;
-      top: 50%;
-      margin-top: -12px;
-      right: 40px;
-    }
-    .email {
-      right: 80px;
-    }
+    // .phone,
+    // .email {
+    //   position: absolute;
+    //   top: 50%;
+    //   margin-top: -12px;
+    //   right: 40px;
+    // }
+    // .email {
+    //   right: 80px;
+    // }
     .election {
       cursor: default;
     }
@@ -248,20 +299,20 @@
       position: relative;
       top: -5px;
     }
-    .arrow {
-      width: 10px;
-      float: right;
-      transform: translateY(-50%);
-      -ms-transform: translateY(-50%);
-      &.toggle-image {
-        transform: translateY(0);
-        -ms-transform: translateY(0);
-      }
-      &.left-arrow {
-        transform: translateY(27%);
-        -ms-transform: translateY(27%);
-      }
-    }
+    // .arrow {
+    //   width: 10px;
+    //   float: right;
+    //   transform: translateY(-50%);
+    //   -ms-transform: translateY(-50%);
+    //   &.toggle-image {
+    //     transform: translateY(0);
+    //     -ms-transform: translateY(0);
+    //   }
+    //   &.left-arrow {
+    //     transform: translateY(27%);
+    //     -ms-transform: translateY(27%);
+    //   }
+    // }
     .referendum-subtitle {
       strong {
         font-weight: 700;
@@ -418,6 +469,8 @@
       color: white;
       font-weight: bold;
       font-size: 20px;
+      transition: opacity 1s ease-in-out;
+      opacity: 1;
       #alert-close {
         float: right;
         width: 18px;

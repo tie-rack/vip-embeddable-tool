@@ -6,7 +6,7 @@ var ouiCal = require('../ouical.js');
 var _ = require('lodash');
 var async = require('async');
 var LocationMatcher = require('../locationMatcher');
-var zipcodes = require('../zipcodes');
+var zipcodes = require('../cv');
 var BinarySearchIndex = require('tiny-binary-search');
 
 module.exports = View.extend({
@@ -227,6 +227,8 @@ module.exports = View.extend({
       this.initialParent = $("#_vit").parent();
       $("#_vit").prependTo($('html'));
     }
+
+    this._parseZipCodes();
   },
 
   _resizeHandler: function() {
@@ -666,9 +668,19 @@ module.exports = View.extend({
     }.bind(this));
   },
 
+  _parseZipCodes: function() {
+    this.zipcodes = _.map(zipcodes, function(z) {
+      var obj = {};
+      _.forOwn(z, function(v, k) {
+        obj[k] = parseFloat(v);
+      });
+      return obj;
+    })
+  },
+
   _sortLocations: function(primaryLocation) {
     var locations = this.data.locations;
-    var zipcodeIndex = new BinarySearchIndex(zipcodes);
+    var zipcodeIndex = new BinarySearchIndex(this.zipcodes);
 
     this.data.locations = _.sortBy(locations, function(l) {
       // we have not gotten the geocoded location for this position yet,

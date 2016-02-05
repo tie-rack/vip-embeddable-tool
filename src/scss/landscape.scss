@@ -5,13 +5,20 @@
   .landscape#map-view {
     height: 100%;
 
-    #alert {
-      opacity: 1;
+    .toggle-image.expanded {
+      background-image: url("https://tool.votinginfoproject.org/images/right-arrow-white.png");
+      background-position: 0 0;
+      background-size: contain;
+      background-repeat: no-repeat;
+      height: 18px;
+    }
 
-      -webkit-transition: opacity 1s ease-in-out;
-      -moz-transition: opacity 1s ease-in-out;
-      -ms-transition: opacity 1s ease-in-out;
-      -o-transition: opacity 1s ease-in-out;
+    .toggle-image.contracted {
+      background-image: url("https://tool.votinginfoproject.org/images/left-arrow-white.png");
+      background-position: 0 0;
+      background-size: contain;
+      background-repeat: no-repeat;
+      height: 18px;
     }
 
     #alert + .right-wrapper #location-legend {

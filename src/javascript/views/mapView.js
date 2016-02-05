@@ -203,7 +203,7 @@ module.exports = View.extend({
     var openPrimaries = _.filter(contests, function(c) { return !_.get(c, 'primaryParty') });
 
     // get list of each primary party
-    var primaryParties = _.uniq(_.map(closedPrimaries, function(p) { return _.get(primary, 'primaryParty') }));
+    var primaryParties = _.uniq(_.map(closedPrimaries, function(primary) { return _.get(primary, 'primaryParty') }));
     _.forEach(primaryParties, function(party) {
       if (!_.has(data, 'closedPrimaries')) {
         _.set(data, 'closedPrimaries', {});

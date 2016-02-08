@@ -353,7 +353,7 @@ module.exports = View.extend({
         title: options.data.election.name,
         start: new Date(options.data.election.dateForCalendar),
         duration: 1440,
-        address: this._parseAddress(_.first(this.data.locations)),
+        address: this._parseAddress(_.get(_.first(this.data.locations), 'address')),
         description: options.data.election.name
       }
     });

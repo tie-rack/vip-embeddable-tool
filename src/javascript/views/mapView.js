@@ -223,7 +223,7 @@ module.exports = View.extend({
 
     if (options.modal) {
       this.modal = true;
-      this.$container.addClass('modal');
+      this.$container.addClass('vit-modal');
       this.initialParent = $("#_vit").parent();
       $("#_vit").prependTo($('html'));
     }

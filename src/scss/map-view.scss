@@ -1,11 +1,13 @@
 @import "variables";
 
 #_vit {
-  &.modal {
+  overflow: hidden;
+
+  &.vit-modal {
     max-width: 800px !important;
   }
 
-  &:not(.modal) {
+  &:not(.vit-modal) {
     #map-view {
       width: inherit;
 

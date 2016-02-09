@@ -11,6 +11,8 @@ module.exports = View.extend({
 
   multipleElections : require('./templates/partials/multiple-elections.hbs'),
 
+  mailOnly     : require('./templates/partials/mail-only.hbs'),
+
   events : {
     '#plus-icon click' : 'openAboutModal',
     '#close-button click' : 'closeAboutModal',
@@ -170,7 +172,9 @@ module.exports = View.extend({
     this.response = response;
 
     var stateName = _.get(this.response, 'state[0].name');
-    if (stateName === 'Washington' || stateName === 'Oregon') {
+    if (response.mailOnly) {
+      this.showMailOnlyModal();
+    } else if (stateName === 'Washington' || stateName === 'Oregon') {
       this.showCurrentLocationModal();
     } else if (response.otherElections) {
       this.showMultipleElectionsModal();
@@ -254,6 +258,19 @@ module.exports = View.extend({
 
   showCurrentLocationModal: function () {
     this.$currentLocationModal.fadeIn();
+    this.$fade.fadeTo('fast', .2);
+    this.$loading.hide();
+  },
+
+  showMailOnlyModal: function () {
+    this.$el.append(this.mailOnly(this.response));
+
+    var $mailOnly = this.find('#mail-only');
+    $mailOnly.fadeIn();
+    $mailOnly.find('button').on('click', function() {
+      this.triggerRouteEvent('addressViewSubmit', this.response);
+    }.bind(this));
+
     this.$fade.fadeTo('fast', .2);
     this.$loading.hide();
   },

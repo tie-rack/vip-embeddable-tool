@@ -350,6 +350,11 @@ module.exports = (function() {
         'location',
         require('./views/templates/partials/location.hbs')
       );
+
+      handlebars.registerPartial(
+        'mail-only',
+        require('./views/templates/partials/mail-only.hbs')
+      );
     }
   }
 })(this);

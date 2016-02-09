@@ -276,8 +276,8 @@
     .referendum-subtitle {
       display: table;
 
-      * {
-        display: table-cell;
+      .arrow {
+        float: right;
       }
 
       strong {

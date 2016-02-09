@@ -58,7 +58,7 @@ module.exports = View.extend({
     });
 
     if (options.modal) {
-      this.$container.addClass('modal');
+      this.$container.addClass('vit-modal');
     }
 
     // can we just do this in CSS?

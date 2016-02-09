@@ -58,7 +58,7 @@ module.exports = View.extend({
     });
 
     if (options.modal) {
-      this.$container.addClass('vit-modal');
+      this.$container.addClass('vit-modal unexpanded');
     }
 
     // can we just do this in CSS?
@@ -175,6 +175,8 @@ module.exports = View.extend({
   },
 
   onRemove: function() {
+    this.$container.removeClass('unexpanded');
+
     google.maps.event.clearInstanceListeners(this.autocomplete);
   },
 

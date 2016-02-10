@@ -33,6 +33,9 @@ module.exports = {
       "currentLocation": "Use Current Location",
       "registeredAddress": "Continue"
     },
+    "multipleElections": {
+      "text": "Multiple elections exist for this location:"
+    },
     "headers": {
       "registeredVoterAddress": "Registered Voter Address",
       "edit": "Edit",

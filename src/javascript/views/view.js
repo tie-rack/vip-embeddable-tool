@@ -174,7 +174,7 @@ module.exports = (function() {
         complete: this.toggleLoadingDisplay.bind(this)
       };
 
-      $.extend(requestParams, options)
+      $.extend(requestParams, options);
 
       api(requestParams);
     },

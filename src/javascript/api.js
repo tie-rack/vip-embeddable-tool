@@ -20,10 +20,10 @@ module.exports = function(options) {
     var stagingData = form.find('#staging-data').is(':checked');
 
     // check in case the user left the option blank
-    if (electionId) {
-      url += '&electionId=' + electionId;
-    } else if (options.electionId) {
+    if (options.electionId) {
       url += '&electionId=' + options.electionId;
+    } else if (electionId) {
+      url += '&electionId=' + electionId;
     }
 
     url += '&officialOnly=' + officialOnly;

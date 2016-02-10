@@ -34,6 +34,10 @@ module.exports = View.extend({
     }
   },
 
+  onBeforeRender : function(options) {
+    this.assets = options.assets;
+  },
+
   onAfterRender : function(options) {
     this.$addressInput = this.find('#address-input');
     this.$aboutModal = this.find('#about');
@@ -165,9 +169,7 @@ module.exports = View.extend({
   },
 
   handleElectionData: function(response) {
-    var that = this;
-
-    window.console && console.log(response)
+    console.log(response);
 
     this.response = response;
 
@@ -181,9 +183,27 @@ module.exports = View.extend({
     } else this.triggerRouteEvent('addressViewSubmit', response);
   },
 
-  selectElection: function(e) {
-    var electionId = e.currentTarget.querySelector('.hidden');
-    this.triggerRouteEvent('');
+  submitElection: function () {
+    var $elections = this.$multipleElectionsModal.find('.election');
+    var $selected = $elections.filter('.selected');
+
+    this.electionId = $selected.find('.election-id').text();
+
+    this._makeRequest({
+      address: this._parseAddress(this.response.normalizedInput),
+      success: function(newResponse) {
+        this.triggerRouteEvent('addressViewSubmit', newResponse);
+      }.bind(this)
+    });
+  },
+
+  selectElection: function (event) {
+    var $elections = this.$multipleElectionsModal.find('.election');
+
+    $elections.removeClass('selected');
+    $(event.currentTarget).addClass('selected');
+
+    event.stopPropagation();
   },
 
   openAboutModal: function(e) {
@@ -221,39 +241,25 @@ module.exports = View.extend({
     if (!$this.is(this.$fade)) {
       this.$fade.fadeOut('fast');
     }
+
   },
 
   showMultipleElectionsModal: function () {
-    this.$el.append(this.multipleElections({
-      elections: [this.response.election].concat(this.response.otherElections)
+    this.$multipleElectionsModal = $(this.multipleElections({
+      data: this.response,
+      assets: this.assets
     }));
 
-    var $multipleElections = this.find('#multiple-elections');
+    var $elections = this.$multipleElectionsModal.find('.election');
+    var $select = this.$multipleElectionsModal.find('button');
 
-    $multipleElections.fadeIn();
+    $elections.on('click', this.selectElection.bind(this));
+    $select.on('click', this.submitElection.bind(this));
+
+    this.$el.append(this.$multipleElectionsModal);
+
+    this.$multipleElectionsModal.fadeIn();
     this.$fade.fadeTo('fast', .2);
-    $multipleElections.find('.checked:first').removeClass('hidden');
-    $multipleElections.find('.unchecked:first').addClass('hidden');
-
-    $multipleElections.find('button').on('click', function () {
-      var id = $multipleElections.find('.checked:not(.hidden)').siblings('.hidden').eq(1).text();
-
-      this._makeRequest({
-        address: this._parseAddress(response.normalizedInput),
-        success: function(newResponse) {
-          this.triggerRouteEvent('addressViewSubmit', newResponse);
-        }.bind(this),
-        electionId: id
-      });
-
-    }.bind(this));
-
-    $multipleElections.find('.election').on('click', function() {
-      $multipleElections.find('.checked').addClass('hidden');
-      $multipleElections.find('.unchecked').removeClass('hidden')
-      $(this).find('.checked').removeClass('hidden');
-      $(this).find('.unchecked').addClass('hidden');
-    }.bind(this));
   },
 
   showCurrentLocationModal: function () {

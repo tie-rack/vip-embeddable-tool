@@ -161,6 +161,25 @@
       }
       .election {
         margin: 20px 0;
+
+        &.selected {
+          .checked {
+            display: inline-block;
+          }
+          .unchecked {
+            display: none;
+          }
+        }
+
+        &:not(.selected) {
+          .checked {
+            display: none;
+          }
+          .unchecked {
+            display: inline-block;
+          }
+        }
+
         h1,
         h2 {
           display: inline-block;

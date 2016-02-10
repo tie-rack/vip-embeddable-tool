@@ -206,42 +206,27 @@ module.exports = View.extend({
     event.stopPropagation();
   },
 
-  openAboutModal: function(e) {
-    this.find('#fade').fadeTo('fast', .2);
-    this.find('#about').fadeIn('fast')
+  openAboutModal: function (event) {
+    this.$fade.fadeTo('fast', .2);
+    this.$aboutModal.fadeIn('fast');
 
-    if ( ($("#_vit").find("#about.modal").find("p").height() + $("#_vit").find("#about.modal").find("h2").height()) > ($("#_vit").height() - 120) ) {
-      $("#_vit").find("#about.modal").find("#close-button").hide();
-       $("#_vit").find("#about.modal").find(".close-modal-text-button").toggle();
-    }
-
-    e.stopPropagation();
+    event.stopPropagation();
   },
 
   closeAboutModal: function() {
-    this.find('#about').fadeOut('fast');
-    this.find('#fade').fadeOut('fast');
+    this.$aboutModal.fadeOut('fast');
+    this.$fade.fadeOut('fast');
   },
 
   containerClick: function (event) {
-    var $this = $(this);
+    var $target = $(event.target);
 
-    if (!$this.is(this.$aboutModal)) {
+    if (!$target.hasClass('modal') && !$target.parents('.modal').length > 0) {
       this.$aboutModal.hide();
-    }
-
-    if (!$this.is(this.$notFoundModal)) {
       this.$notFoundModal.hide();
-    }
-
-    if (!$this.is(this.$currentLocationModal)) {
       this.$currentLocationModal.hide();
-    }
-
-    if (!$this.is(this.$fade)) {
       this.$fade.fadeOut('fast');
     }
-
   },
 
   showMultipleElectionsModal: function () {
@@ -269,13 +254,12 @@ module.exports = View.extend({
   },
 
   showMailOnlyModal: function () {
-    this.$el.append(this.mailOnly(this.response));
+    var $mailOnly = $(this.mailOnly(this.response));
 
-    var $mailOnly = this.find('#mail-only');
+    $mailOnly.find('button').on('click', this.useRegisteredAddress.bind(this));
+
+    this.$el.append($mailOnly);
     $mailOnly.fadeIn();
-    $mailOnly.find('button').on('click', function() {
-      this.triggerRouteEvent('addressViewSubmit', this.response);
-    }.bind(this));
 
     this.$fade.fadeTo('fast', .2);
     this.$loading.hide();

@@ -753,17 +753,16 @@ module.exports = View.extend({
     }
   },
 
-  changeElection: function(e) {
-    var selected = $(this).firstElementChild;
+  changeElection: function (event) {
+    console.log('#changeElection');
+    var $selected = $(event.currentTarget);
 
-    if ($(selected).hasClass('hidden')) {
-      var electionId = selected.nextElementSibling.nextElementSibling.innerHTML;
-      var address = this._parseAddress(this.data.normalizedInput);
-      api({
+    if ($selected.hasClass('unselected')) {
+      var electionId = $selected.find('.election-id').text();
+      var address = this._parseAddress(_.get(this.data, 'normalizedInput'));
+
+      this._makeRequest({
         address: address,
-        success: function(response) {
-          this.triggerRouteEvent('mapViewSubmit', response)
-        }.bind(this),
         electionId: electionId
       });
     }
@@ -855,14 +854,18 @@ module.exports = View.extend({
     })
   },
 
-  toggleElections: function(e) {
-    if (typeof this.data.otherElections === 'undefined') return;
-    e.stopPropagation();
+  toggleElections: function (event) {
+    if (_.isUndefined(this.data.otherElections)) {
+      return;
+    }
+
+    event.stopPropagation();
+
     this.find('#election-list').slideToggle(100, function() {
       if (!this.landscape) this._scrollTo($('#more-elections span'), 10)
     }.bind(this));
-    if (!this.landscape)
-      this.find('#more-elections .toggle-image').toggleClass('hidden');
+
+    this.find('#more-elections .toggle-image').toggleClass('hidden');
   },
 
   toggleResources: function() {

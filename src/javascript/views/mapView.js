@@ -144,6 +144,7 @@ module.exports = View.extend({
   onBeforeRender: function(options) {
     // $("#_vit").css("max-width", "800px")
     // $("#_vit .footer").css("max-width", "800px")
+    this.closed = false;
 
     // TODO: REFACTOR THIS INTO OWN FUNCTION
     // sets special viewport tag
@@ -440,7 +441,7 @@ module.exports = View.extend({
       .show()
       .one('click', function() {
         $(this).hide();
-        this.triggerRouteEvent('mapViewBack')
+        this.back();
       }.bind(this))
       .end()
   },
@@ -642,7 +643,9 @@ module.exports = View.extend({
           error(status);
         }
 
-        setTimeout(this._geocode.bind(this, location, callback, error, count + 1), this._GEOCODE_RETRY_TIMEOUT);
+        if (!this.closed) {
+          setTimeout(this._geocode.bind(this, location, callback, error, count + 1), this._GEOCODE_RETRY_TIMEOUT);
+        }
       };
     }.bind(this));
   },
@@ -694,6 +697,7 @@ module.exports = View.extend({
 
   autocompleteListener: function() {
     if (this.hasSubmitted) return;
+
     var enteredAddress = this.autocomplete.getPlace();
     var addrStr = JSON.stringify(enteredAddress);
     if (typeof enteredAddress === 'undefined' ||
@@ -713,6 +717,7 @@ module.exports = View.extend({
 
     this.address = enteredAddress;
 
+    this.closed = true;
     this.hasSubmitted = true;
     this._makeRequest({ address: enteredAddress });
   },
@@ -971,6 +976,7 @@ module.exports = View.extend({
   },
 
   back: function() {
+    this.closed = true;
     this.triggerRouteEvent('mapViewBack');
   },
 

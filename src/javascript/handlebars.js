@@ -105,6 +105,20 @@ module.exports = (function() {
     return "<a href=\"" + _.get(urlObj, key) + "\" target=\"_blank\">" + _.get(titleObj, key) + "</a><br><br>";
   };
 
+  var addressLine = function (name, obj, key1, key2) {
+    var str = "";
+
+    if (!_.isEmpty(_.get(obj, key1))) {
+      str += "<div class=\"address-line\">" +
+        (name ? "<small>" + name + ":</small> " : "") +
+        _.get(obj, key1) +
+        (_.has(obj, key2) ? " - " + _.get(obj, key2) : "") +
+        "</div>";
+    }
+
+    return str;
+  };
+
   var electionResourceLinks = function (assets, data) {
     var localHeader = _.get(assets, 'text.resources.electionAdministration.local_jurisdiction');
     var stateHeader = _.get(assets, 'text.resources.electionAdministration.stateElectionsOffice');
@@ -287,6 +301,7 @@ module.exports = (function() {
       handlebars.registerHelper('asset', asset);
       handlebars.registerHelper('image', image);
       handlebars.registerHelper('partyName', partyName);
+      handlebars.registerHelper('addressLine', addressLine);
       handlebars.registerHelper('locationTypes', locationTypes);
       handlebars.registerHelper('locationLegend', locationLegend);
       handlebars.registerHelper('parseAddress', parseAddress);

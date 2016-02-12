@@ -370,7 +370,15 @@
     }
     #location {
       .address-line {
+        font-size: 14px;
+        text-transform: none;
+      }
+      .address .address-line {
         font-size: 16px;
+      }
+      small {
+        font-size: 13px;
+        font-weight: bold;
       }
       span {
         float: right;

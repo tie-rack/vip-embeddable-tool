@@ -2,30 +2,26 @@
   <div class="early-vote-site">
   {{locationTypes location }}
   </div>
-  {{#if location.pollingHours}}
-  <div class="address-line">
-  {{{ location.pollingHours }}}
-  </div>
-  {{/if}}
-  {{#if location.startDate}}
-  <div class="address-line">
-  {{{ location.startDate }}} -<br>
-  {{{ location.endDate }}}
-  </div>
-  {{/if}}
   <div class="address-line" id="get-directions">
     <a href="https://maps.google.com?daddr={{ daddr }}&saddr={{ saddr }}" target="_blank">Get Directions</a>
   </div>
-  {{#if location.voterServices}}
+
+  {{{ addressLine 'Polling Hours' location "pollingHours" }}}
+  {{{ addressLine 'Dates' location "startDate" "endDate" }}}
+  {{{ addressLine 'Early Voting Dates' location "earlyVoteSiteStartDate" "earlyVoteSiteEndDate" }}}
+  {{{ addressLine 'Drop-off Dates' location "dropOffLocationStartDate" "dropOffLocationEndDate"}}}
+
+  {{{ addressLine 'Voter Services' location 'voterServices' }}}
+  {{{ addressLine 'Early Voting Services' location 'earlyVoteSiteVoterServices' }}}
+  {{{ addressLine 'Drop-off Voting Services' location 'dropOffLocationVoterServices' }}}
+
+  {{{ addressLine 'Notes' location 'notes' }}}
+  {{{ addressLine 'Early Voting Notes' location 'earlyVoteSiteNotes' }}}
+  {{{ addressLine 'Drop-off Notes' location 'dropOffLocationNotes' }}}
+
+  {{#if location.dropOffLocationNotes}}
   <div class="address-line">
-  Voter Services:
-  {{{ location.voterServices }}}
-  </div>
-  {{/if}}
-  {{#if location.notes}}
-  <div class="address-line">
-  Notes:
-  {{{ location.notes }}}
+  {{{ location.dropOffLocationNotes }}}
   </div>
   {{/if}}
 </div>

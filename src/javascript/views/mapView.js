@@ -573,9 +573,14 @@ module.exports = View.extend({
       anchor: new google.maps.Point(23, 35)
     };
 
+    var position = new google.maps.LatLng(
+      location.position.lat() * _.random(.999999, 1.000001),
+      location.position.lng() * _.random(.999999, 1.000001)
+    );
+
     var marker = new google.maps.Marker({
       map: this.map,
-      position: location.position,
+      position: position,
       icon: icon
     });
     this.markers.push(marker);

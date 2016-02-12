@@ -642,7 +642,7 @@ module.exports = View.extend({
           error(status);
         }
 
-        // setTimeout(this._geocode.bind(this, location, callback, error, count + 1), this._GEOCODE_RETRY_TIMEOUT);
+        setTimeout(this._geocode.bind(this, location, callback, error, count + 1), this._GEOCODE_RETRY_TIMEOUT);
       };
     }.bind(this));
   },

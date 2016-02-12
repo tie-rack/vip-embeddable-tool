@@ -16,6 +16,7 @@ module.exports = View.extend({
   events : {
     '#plus-icon click' : 'openAboutModal',
     '#close-button click' : 'closeAboutModal',
+    '#not-found-button click' : 'closeNotFoundModal',
     '#submit-address-button click' : 'submitAddress',
     '#use-current-location click' : 'useCurrentLocation',
     '#use-registered-address click' : 'useRegisteredAddress',
@@ -215,6 +216,11 @@ module.exports = View.extend({
 
   closeAboutModal: function() {
     this.$aboutModal.fadeOut('fast');
+    this.$fade.fadeOut('fast');
+  },
+
+  closeNotFoundModal: function() {
+    this.$notFoundModal.hide();
     this.$fade.fadeOut('fast');
   },
 

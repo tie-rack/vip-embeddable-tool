@@ -363,7 +363,7 @@ module.exports = View.extend({
 
     fastclick(document.body);
 
-    // if (!this.landscape) this._preventiOSBounce();
+    if (!this.landscape) this._preventiOSBounce();
 
     this.autocomplete = new google.maps.places.Autocomplete(this.find('.change-address')[0], {
       types: ['address'],
@@ -423,6 +423,8 @@ module.exports = View.extend({
       'top': ''
     });
 
+    this.$container.off();
+
     $('#_vitModal').remove();
 
     if (this.modal) {
@@ -449,13 +451,19 @@ module.exports = View.extend({
   _preventiOSBounce: function() {
     var allowUp, allowDown, slideBeginY, slideBeginX;
     this.$container.on('touchstart', function(event) {
+      if ($(event.target) == this.find('#map-canvas')) {
+        return;
+      }
       allowUp = (this.scrollTop > 0);
       allowDown = (this.scrollTop < this.scrollHeight - this.clientHeight);
       slideBeginY = event.originalEvent.pageY;
       slideBeginX = event.originalEvent.pageX
-    });
+    }.bind(this));
 
     this.$container.on('touchmove', function(event) {
+      if ($(event.target) == this.find('#map-canvas')) {
+        return;
+      }
       var up = (event.originalEvent.pageY > slideBeginY);
       var down = (event.originalEvent.pageY < slideBeginY);
       var horizontal = (event.originalEvent.pageX !== slideBeginX);
@@ -464,7 +472,7 @@ module.exports = View.extend({
       if (((up && allowUp) || (down && allowDown))) {} else {
         event.preventDefault();
       }
-    });
+    }.bind(this));
   },
 
   _switchToLandscape: function(options) {
@@ -495,8 +503,10 @@ module.exports = View.extend({
       center: position,
       mapTypeId: google.maps.MapTypeId.ROADMAP,
       draggable: !!this.landscape,
+      draggable: true,
       panControl: false,
       zoomControl: !!this.landscape,
+      zoomControl: true,
       scrollwheel: !!this.landscape,
       mapTypeControl: false,
       streetViewControl: false

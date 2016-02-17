@@ -102,7 +102,7 @@ module.exports = (function() {
   };
 
   var createInfoLink = function (urlObj, titleObj, key) {
-    return "<a href=\"" + _.get(urlObj, key) + "\" target=\"_blank\">" + _.get(titleObj, key) + "</a><br><br>";
+    return "<a href=\"" + _.get(urlObj, key) + "\" target=\"_blank\">" + _.get(titleObj, key, _.get(urlObj, key)) + "</a><br><br>";
   };
 
   var addressLine = function (name, obj, key1, key2) {

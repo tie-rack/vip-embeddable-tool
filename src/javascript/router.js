@@ -21,7 +21,6 @@ module.exports = (function() {
         subtitle: '',
         logo: 'https://tool.votinginfoproject.org/images/voting-information-project.png',
         smallLogo: 'https://tool.votinginfoproject.org/images/vip-logo.png',
-        language: 'en',
         width: 640,
         height: 480,
         productionDataOnly: true,
@@ -87,8 +86,8 @@ module.exports = (function() {
       // change language
       if ((options.language && options.language !== 'en') || !language.match(/en/) || options.json) {
         var language = options.language || language;
+
         var supportedLanguages = [
-          'en',
           'es',
           'hi',
           'ja',

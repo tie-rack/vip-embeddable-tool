@@ -73,7 +73,15 @@ module.exports = {
       }
     },
     "pollingLocations": {
-      "getDirections": "Get Directions"
+      "getDirections": "Get Directions",
+      "pollingLocation": "Polling Location",
+      "earlyVoteSite": "Early Vote Site",
+      "dropOffLocation": "Drop-off Location",
+      "multipleLocation": "Multiple Location Types",
+      "noLocationsFound": "No Polling Locations Found"
+    },
+    "mapView": {
+      "toggle": "Toggle map view"
     },
     "inputs": {
       "registeredAddress": "Enter Registered Voting Address",

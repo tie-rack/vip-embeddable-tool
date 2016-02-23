@@ -74,6 +74,7 @@ module.exports = (function() {
       else {
         this.$el = $('<div id=' + this.$id + '/>')
         this.$el.append(this.template(options));
+        this.$container.empty();
         this.$container.append(this.$el);
       }
 

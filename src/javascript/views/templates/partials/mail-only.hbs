@@ -7,6 +7,16 @@
   {{#each state.0.local_jurisdiction.electionAdministrationBody.electionOfficials}}
   {{> election-official this}}
   {{/each}}
+  {{#if state.0.local_jurisdiction.electionAdministrationBody.name }}
+    <br>
+    {{ state.0.local_jurisdiction.electionAdministrationBody.name }}
+    <br>
+  {{/if}}
+  {{#if state.0.local_jurisdiction.electionAdministrationBody.electionInfoUrl}}
+    <a href="{{state.0.local_jurisdiction.electionAdministrationBody.electionInfoUrl}}" target="_blank">
+      {{state.0.local_jurisdiction.electionAdministrationBody.electionInfoUrl}}
+    </a><br>
+  {{/if}}
   <br>
   <p>
   This also means you may be able to return your ballot at multiple locations. Please hit continue to see your election information.

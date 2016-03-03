@@ -584,10 +584,21 @@ module.exports = View.extend({
       anchor: new google.maps.Point(23, 35)
     };
 
-    var position = new google.maps.LatLng(
-      location.position.lat() * _.random(.999999, 1.000001),
-      location.position.lng() * _.random(.999999, 1.000001)
-    );
+    var addedLocations = _.filter(this.data.locations, function(location) { return _.get(location, 'marker') });
+
+    var needsNudge = _.some(addedLocations, function (addedLocation) {
+      var latDelta = addedLocation.position.lat() - location.position.lat();
+      var lngDelta = addedLocation.position.lng() - location.position.lng();
+
+      return latDelta == 0 && lngDelta == 0
+    });
+
+    var position = needsNudge
+      ? new google.maps.LatLng(
+        location.position.lat() * _.random(.999999, 1.000001),
+        location.position.lng() * _.random(.999999, 1.000001)
+      )
+      : location.position;
 
     var marker = new google.maps.Marker({
       map: this.map,
@@ -645,6 +656,7 @@ module.exports = View.extend({
         }
         location.position = position;
         location.geocoded = true;
+
         if (callback) {
           callback(location);
         }

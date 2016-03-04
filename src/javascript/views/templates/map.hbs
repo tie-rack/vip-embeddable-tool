@@ -137,7 +137,7 @@ Click to Toggle
 <div class="contests right" id="all-contests">
   {{#if data.closedPrimaries}}
     <div class="closed-primaries-selection">
-      <p>This election is only open to registered members of the listed parties. Please select your party to continue.</p>
+      <p>Select a party to continue.</p>
       {{#each data.closedPrimaries}}
         <button class="select-closed-primary" data-primary-name={{@key}}>{{ partyName @key}}</button>
       {{/each}}

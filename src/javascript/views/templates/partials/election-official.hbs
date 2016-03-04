@@ -5,12 +5,16 @@
   <div class="official-title">
   {{ title }}
   </div>
+  {{#if officePhoneNumber }}
   <div class="office-phone-number">
-  <a href="tel:{{ officePhoneNumber }}">{{ officePhoneNumber }}</a>
+  Office Phone Number: <a href="tel:{{ officePhoneNumber }}">{{ officePhoneNumber }}</a>
   </div>
+  {{/if}}
+  {{#if faxNumber }}
   <div class="fax-number">
-  <a href="tel:{{ faxNumber }}">{{ faxNumber }}</a>
+  Fax Number: <a href="tel:{{ faxNumber }}">{{ faxNumber }}</a>
   </div>
+  {{/if}}
   <div class="email-address">
   <a href="mailto:{{ emailAddress }}">{{ emailAddress }}</a>
   </div>

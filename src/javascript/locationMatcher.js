@@ -53,13 +53,42 @@ module.exports = function(data) {
   // sites and dropoff locations on their corresponding polling
   // location objects
   var pe = _.map(duplicateEVSites, getMatchingLocationInList.bind(null, pollingLocations));
-  _.forEach(pe, function (location) { location.earlyVoteSite = true });
+  _.forEach(pe, function (location) {
+    var dl = getMatchingLocationInList(duplicateEVSites, location);
+
+    location.earlyVoteSite = true;
+    location.earlyVoteSiteNotes = dl.notes;
+    location.earlyVoteSitePollingHours = dl.pollingHours;
+    location.earlyVoteSiteStartDate = dl.startDate;
+    location.earlyVoteSiteEndDate = dl.endDate;
+    location.earlyVoteSiteVoterServices = dl.voterServices;
+  });
 
   var pd = _.map(duplicateDOLocations, getMatchingLocationInList.bind(null, pollingLocations));
-  _.forEach(pd, function (location) { location.dropOffLocation = true });
+  _.forEach(pd, function (location) {
+    var dl = getMatchingLocationInList(duplicateDOLocations, location);
+
+    location.dropOffLocation = true;
+    location.dropOffLocationNotes = dl.notes;
+    location.dropOffLocationPollingHours = dl.pollingHours;
+    location.dropOffLocationStartDate = dl.startDate;
+    location.dropOffLocationEndDate = dl.endDate;
+    location.dropOffLocationVoterServices = dl.voterServices;
+  });
+
+
 
   var ed = _.map(duplicateEVDOSites, getMatchingLocationInList.bind(null, earlyVoteSites));
-  _.forEach(ed, function (location) { location.dropOffLocation = true });
+  _.forEach(ed, function (location) {
+    var dl = getMatchingLocationInList(duplicateEVDOSites, location);
+
+    location.dropOffLocation = true;
+    location.dropOffLocationNotes = dl.notes;
+    location.dropOffLocationPollingHours = dl.pollingHours;
+    location.dropOffLocationStartDate = dl.startDate;
+    location.dropOffLocationEndDate = dl.endDate;
+    location.dropOffLocationVoterServices = dl.voterServices;
+  });
 
   // return the collection of unique location types and
   // augmented duplicates
@@ -87,5 +116,5 @@ function compareString (str1, str2) {
 }
 
 function adaptString (str) {
-  return str && str.replace(stringReplacePattern, '').toLowerCase()
+  return !!str && str.replace(stringReplacePattern, '').toLowerCase()
 }

@@ -144,6 +144,7 @@ module.exports = View.extend({
   onBeforeRender: function(options) {
     // $("#_vit").css("max-width", "800px")
     // $("#_vit .footer").css("max-width", "800px")
+    this.closed = false;
 
     // TODO: REFACTOR THIS INTO OWN FUNCTION
     // sets special viewport tag
@@ -362,7 +363,7 @@ module.exports = View.extend({
 
     fastclick(document.body);
 
-    // if (!this.landscape) this._preventiOSBounce();
+    if (!this.landscape) this._preventiOSBounce();
 
     this.autocomplete = new google.maps.places.Autocomplete(this.find('.change-address')[0], {
       types: ['address'],
@@ -422,6 +423,8 @@ module.exports = View.extend({
       'top': ''
     });
 
+    this.$container.off();
+
     $('#_vitModal').remove();
 
     if (this.modal) {
@@ -440,7 +443,7 @@ module.exports = View.extend({
       .show()
       .one('click', function() {
         $(this).hide();
-        this.triggerRouteEvent('mapViewBack')
+        this.back();
       }.bind(this))
       .end()
   },
@@ -448,13 +451,19 @@ module.exports = View.extend({
   _preventiOSBounce: function() {
     var allowUp, allowDown, slideBeginY, slideBeginX;
     this.$container.on('touchstart', function(event) {
+      if ($(event.target) == this.find('#map-canvas')) {
+        return;
+      }
       allowUp = (this.scrollTop > 0);
       allowDown = (this.scrollTop < this.scrollHeight - this.clientHeight);
       slideBeginY = event.originalEvent.pageY;
       slideBeginX = event.originalEvent.pageX
-    });
+    }.bind(this));
 
     this.$container.on('touchmove', function(event) {
+      if ($(event.target) == this.find('#map-canvas')) {
+        return;
+      }
       var up = (event.originalEvent.pageY > slideBeginY);
       var down = (event.originalEvent.pageY < slideBeginY);
       var horizontal = (event.originalEvent.pageX !== slideBeginX);
@@ -463,7 +472,7 @@ module.exports = View.extend({
       if (((up && allowUp) || (down && allowDown))) {} else {
         event.preventDefault();
       }
-    });
+    }.bind(this));
   },
 
   _switchToLandscape: function(options) {
@@ -494,8 +503,10 @@ module.exports = View.extend({
       center: position,
       mapTypeId: google.maps.MapTypeId.ROADMAP,
       draggable: !!this.landscape,
+      draggable: true,
       panControl: false,
       zoomControl: !!this.landscape,
+      zoomControl: true,
       scrollwheel: !!this.landscape,
       mapTypeControl: false,
       streetViewControl: false
@@ -573,9 +584,25 @@ module.exports = View.extend({
       anchor: new google.maps.Point(23, 35)
     };
 
+    var addedLocations = _.filter(this.data.locations, function(location) { return _.get(location, 'marker') });
+
+    var needsNudge = _.some(addedLocations, function (addedLocation) {
+      var latDelta = addedLocation.position.lat() - location.position.lat();
+      var lngDelta = addedLocation.position.lng() - location.position.lng();
+
+      return latDelta == 0 && lngDelta == 0
+    });
+
+    var position = needsNudge
+      ? new google.maps.LatLng(
+        location.position.lat() * _.random(.999999, 1.000001),
+        location.position.lng() * _.random(.999999, 1.000001)
+      )
+      : location.position;
+
     var marker = new google.maps.Marker({
       map: this.map,
-      position: location.position,
+      position: position,
       icon: icon
     });
     this.markers.push(marker);
@@ -629,6 +656,7 @@ module.exports = View.extend({
         }
         location.position = position;
         location.geocoded = true;
+
         if (callback) {
           callback(location);
         }
@@ -637,7 +665,9 @@ module.exports = View.extend({
           error(status);
         }
 
-        setTimeout(this._geocode.bind(this, location, callback, error, count + 1), this._GEOCODE_RETRY_TIMEOUT);
+        if (!this.closed) {
+          setTimeout(this._geocode.bind(this, location, callback, error, count + 1), this._GEOCODE_RETRY_TIMEOUT);
+        }
       };
     }.bind(this));
   },
@@ -689,6 +719,7 @@ module.exports = View.extend({
 
   autocompleteListener: function() {
     if (this.hasSubmitted) return;
+
     var enteredAddress = this.autocomplete.getPlace();
     var addrStr = JSON.stringify(enteredAddress);
     if (typeof enteredAddress === 'undefined' ||
@@ -708,6 +739,7 @@ module.exports = View.extend({
 
     this.address = enteredAddress;
 
+    this.closed = true;
     this.hasSubmitted = true;
     this._makeRequest({ address: enteredAddress });
   },
@@ -753,17 +785,16 @@ module.exports = View.extend({
     }
   },
 
-  changeElection: function(e) {
-    var selected = $(this).firstElementChild;
+  changeElection: function (event) {
+    console.log('#changeElection');
+    var $selected = $(event.currentTarget);
 
-    if ($(selected).hasClass('hidden')) {
-      var electionId = selected.nextElementSibling.nextElementSibling.innerHTML;
-      var address = this._parseAddress(this.data.normalizedInput);
-      api({
+    if ($selected.hasClass('unselected')) {
+      var electionId = $selected.find('.election-id').text();
+      var address = this._parseAddress(_.get(this.data, 'normalizedInput'));
+
+      this._makeRequest({
         address: address,
-        success: function(response) {
-          this.triggerRouteEvent('mapViewSubmit', response)
-        }.bind(this),
         electionId: electionId
       });
     }
@@ -855,14 +886,18 @@ module.exports = View.extend({
     })
   },
 
-  toggleElections: function(e) {
-    if (typeof this.data.otherElections === 'undefined') return;
-    e.stopPropagation();
+  toggleElections: function (event) {
+    if (_.isUndefined(this.data.otherElections)) {
+      return;
+    }
+
+    event.stopPropagation();
+
     this.find('#election-list').slideToggle(100, function() {
       if (!this.landscape) this._scrollTo($('#more-elections span'), 10)
     }.bind(this));
-    if (!this.landscape)
-      this.find('#more-elections .toggle-image').toggleClass('hidden');
+
+    this.find('#more-elections .toggle-image').toggleClass('hidden');
   },
 
   toggleResources: function() {
@@ -963,6 +998,7 @@ module.exports = View.extend({
   },
 
   back: function() {
+    this.closed = true;
     this.triggerRouteEvent('mapViewBack');
   },
 

@@ -11,10 +11,17 @@ module.exports = View.extend({
 
   multipleElections : require('./templates/partials/multiple-elections.hbs'),
 
+  mailOnly     : require('./templates/partials/mail-only.hbs'),
+
   events : {
     '#plus-icon click' : 'openAboutModal',
     '#close-button click' : 'closeAboutModal',
-    '#submit-address-button click' : 'submitAddress'
+    '#not-found-button click' : 'closeNotFoundModal',
+    '#submit-address-button click' : 'submitAddress',
+    '#use-current-location click' : 'useCurrentLocation',
+    '#use-registered-address click' : 'useRegisteredAddress',
+    '#use-different-address click' : 'useDifferentAddress',
+    '#out-of-state click' : 'useRegisteredAddress'
   },
 
   hasSubmitted: false,
@@ -22,29 +29,24 @@ module.exports = View.extend({
   address : '',
 
   resizer: function () {
-    // reset about modal max height
-    $('#_vit').find('#about.modal').css({
-      'max-height': $('#_vit').height() - 120 + 'px'
-    });
-
     // constrain container to parent width
     if (this.$container.parent().width() < this.$container.width()) {
       this.$container.width(this.$container.parent().width());
     }
+  },
 
-    if (this.$container.width() <= 320) {
-      this.$el.find('#app-info').css('visibility', 'hidden');
-      this.$el.find('#plus-icon').css('margin-top', '-35px');
-    } else {
-      this.$el.find('#plus-icon').css('margin-top', '-50px');
-    }
+  onBeforeRender : function(options) {
+    this.assets = options.assets;
   },
 
   onAfterRender : function(options) {
-    var $address = this.find('#address-input');
-    var $aboutModal = this.find('#about');
-    var $notFoundModal = this.find('#address-not-found');
-    var $currentLocationModal = this.find('#current-location');
+    this.$addressInput = this.find('#address-input');
+    this.$aboutModal = this.find('#about');
+    this.$notFoundModal = this.find('#address-not-found');
+    this.$currentLocationModal = this.find('#current-location');
+    this.$fade = this.find('#fade');
+    this.$loading = this.find('.loading');
+    this.$outOfStateModal = this.find('#out-of-state');
 
     // set theme
     if (options.theme)
@@ -61,9 +63,6 @@ module.exports = View.extend({
       this.$container.addClass('vit-modal unexpanded');
     }
 
-    // can we just do this in CSS?
-    $("#_vit .footer").css("max-width", "none")
-
     // limit user-uploaded image width
     if (this.$container.width() > 600) {
       $('#user-image').css('max-width', '85%');
@@ -75,14 +74,9 @@ module.exports = View.extend({
     }
 
     // handle container clicks and hide modals
-    this.$container.on('click', function (e) {
-      if (e.target !== $aboutModal) $aboutModal.hide();
-      if (e.target !== $notFoundModal) $notFoundModal.hide();
-      if (e.target !== $currentLocationModal) $currentLocationModal.hide();
-      if (e.target !== this.find('#fade')) this.find('#fade').fadeOut('fast');
-    }.bind(this));
+    this.$container.on('click', this.containerClick.bind(this));
 
-    this.autocomplete = new google.maps.places.Autocomplete($address[0], {
+    this.autocomplete = new google.maps.places.Autocomplete(this.$addressInput[0], {
       types: ['address'],
       componentRestrictions: { country: 'us' }
     });
@@ -115,12 +109,12 @@ module.exports = View.extend({
     if (this.autocomplete.getPlace()) {
       this.address = this.autocomplete.getPlace().formatted_address || this.autocomplete.getPlace().name;
     } else {
-      this.address = this.find('#address-input').val();
+      this.address = this.$addressInput.val();
     }
 
     // OVERRIDE: if what is in the text box is lengthier than the PAC address, use the former
-    if (this.address.length < this.find('#address-input').val().length) {
-      this.address = this.find('#address-input').val();
+    if (this.address.length < this.$addressInput.val().length) {
+      this.address = this.$addressInput.val();
     }
 
     this.hasSubmitted = true;
@@ -159,14 +153,9 @@ module.exports = View.extend({
       this.toggleLoadingDisplay();
     } else {
 
-      this.find('.loading').hide();
-      this.find('#current-location').hide()
-      this.find('#out-of-state')
-        .fadeIn('fast')
-        .one('click', function() {
-          this.triggerRouteEvent('addressViewSubmit', response)
-        }.bind(this));
-
+      this.$loading.hide();
+      this.$currentLocationModal.hide();
+      this.$outOfStateModal.fadeIn('fast')
     }
   },
 
@@ -181,127 +170,140 @@ module.exports = View.extend({
   },
 
   handleElectionData: function(response) {
-    var that = this;
+    console.log(response);
 
-    window.console && console.log(response)
+    this.response = response;
 
-    var stateName = ((response.state && response.state.length) ? response.state[0].name : '');
-    if (stateName === 'Washington' || stateName === 'Oregon') {
-      this.find('#current-location').fadeIn('fast');
-      this.find('#fade').fadeTo('fast', .2);
-      this.find('.loading').hide();
-
-      $('#use-current-location').one('click', function() {
-        that.find('#current-location').fadeOut('fast');
-        that.find('.loading').show();
-        if ('geolocation' in navigator) {
-          navigator.geolocation.getCurrentPosition(function(position) {
-            var lat = position.coords.latitude
-              , lng = position.coords.longitude;
-            that._reverseGeocode(
-              position.coords.latitude,
-              position.coords.longitude,
-              function(address) {
-                var stateAbbr = (stateName === 'Washington' ? 'WA' : 'OR');
-                if (address.indexOf(stateAbbr) !== -1) {
-                  var currentLocation = new google.maps.LatLng(
-                    position.coords.latitude,
-                    position.coords.longitude
-                  );
-                  $.extend(response, { currentLocation: currentLocation });
-                  that.triggerRouteEvent('addressViewSubmit', response);
-                } else {
-                  that.find('.loading').hide();
-                  that.find('#out-of-state')
-                    .fadeIn('fast')
-                    .one('click', function() {
-                      that.triggerRouteEvent('addressViewSubmit', response)
-                    });
-                }
-            });
-          }, function(err) {
-            window.console && console.warn('error...' + err.code + err.message)
-          });
-        } else
-          that.triggerRouteEvent('addressViewRerender')
-      });
-
-      $('#use-registered-address').one('click', function() {
-        that.triggerRouteEvent('addressViewSubmit', response);
-      });
-
-      that.find('#use-different-address').one('click', function() {
-
-        var newInput = $('<input>')
-          .attr('type', 'text')
-          .attr('placeholder', "Enter a different address")
-          .css('margin', '10px 0 0')
-          .insertBefore('#current-location span');
-
-        that.autocomplete = new google.maps.places.Autocomplete(newInput[0], {
-          types: ['address'],
-          componentRestrictions: { country: 'us' }
-        });
-
-        google.maps.event.addListener(that.autocomplete, 'place_changed', that.currentLocationAutocompleteListener.bind(that, response));
-
-      });
-      return;
-    }
-
-    if (response.otherElections) {
-
-      this.$el.append(this.multipleElections({
-        elections: [response.election].concat(response.otherElections)
-      }));
-
-      this.find('#multiple-elections').fadeIn('fast');
-      this.find('#fade').fadeTo('fast', .2);
-      $('.checked:first').removeClass('hidden');
-      $('.unchecked:first').addClass('hidden');
-      $(this.find('#multiple-elections button')).on('click', function() {
-
-        var id = this.find('.checked:not(.hidden)').siblings('.hidden').eq(1).text();
-
-        this._makeRequest({
-          address: this._parseAddress(response.normalizedInput),
-          success: function(newResponse) {
-            this.triggerRouteEvent('addressViewSubmit', newResponse);
-          }.bind(this),
-          electionId: id
-        });
-
-      }.bind(this));
-      $('.election').on('click', function() {
-        $('.checked').addClass('hidden');
-        $('.unchecked').removeClass('hidden')
-        $(this).find('.checked').removeClass('hidden');
-        $(this).find('.unchecked').addClass('hidden');
-      });
-
+    var stateName = _.get(this.response, 'state[0].name');
+    if (response.mailOnly) {
+      this.showMailOnlyModal();
+    } else if (stateName === 'Washington' || stateName === 'Oregon') {
+      this.showCurrentLocationModal();
+    } else if (response.otherElections) {
+      this.showMultipleElectionsModal();
     } else this.triggerRouteEvent('addressViewSubmit', response);
   },
 
-  selectElection: function(e) {
-    var electionId = e.currentTarget.querySelector('.hidden');
-    this.triggerRouteEvent('');
+  submitElection: function () {
+    var $elections = this.$multipleElectionsModal.find('.election');
+    var $selected = $elections.filter('.selected');
+
+    this.electionId = $selected.find('.election-id').text();
+
+    this._makeRequest({
+      address: this._parseAddress(this.response.normalizedInput),
+      success: function(newResponse) {
+        this.triggerRouteEvent('addressViewSubmit', newResponse);
+      }.bind(this)
+    });
   },
 
-  openAboutModal: function(e) {
-    this.find('#fade').fadeTo('fast', .2);
-    this.find('#about').fadeIn('fast')
+  selectElection: function (event) {
+    var $elections = this.$multipleElectionsModal.find('.election');
 
-    if ( ($("#_vit").find("#about.modal").find("p").height() + $("#_vit").find("#about.modal").find("h2").height()) > ($("#_vit").height() - 120) ) {
-      $("#_vit").find("#about.modal").find("#close-button").hide();
-       $("#_vit").find("#about.modal").find(".close-modal-text-button").toggle();
-    }
+    $elections.removeClass('selected');
+    $(event.currentTarget).addClass('selected');
 
-    e.stopPropagation();
+    event.stopPropagation();
+  },
+
+  openAboutModal: function (event) {
+    this.$fade.fadeTo('fast', .2);
+    this.$aboutModal.fadeIn('fast');
+
+    event.stopPropagation();
   },
 
   closeAboutModal: function() {
-    this.find('#about').fadeOut('fast');
-    this.find('#fade').fadeOut('fast');
+    this.$aboutModal.fadeOut('fast');
+    this.$fade.fadeOut('fast');
+  },
+
+  closeNotFoundModal: function() {
+    this.$notFoundModal.hide();
+    this.$fade.fadeOut('fast');
+  },
+
+  containerClick: function (event) {
+    var $target = $(event.target);
+
+    if (!$target.hasClass('modal') && !$target.parents('.modal').length > 0) {
+      this.$aboutModal.hide();
+      this.$notFoundModal.hide();
+      this.$currentLocationModal.hide();
+      this.$fade.fadeOut('fast');
+    }
+  },
+
+  showMultipleElectionsModal: function () {
+    this.$multipleElectionsModal = $(this.multipleElections({
+      data: this.response,
+      assets: this.assets
+    }));
+
+    var $elections = this.$multipleElectionsModal.find('.election');
+    var $select = this.$multipleElectionsModal.find('button');
+
+    $elections.on('click', this.selectElection.bind(this));
+    $select.on('click', this.submitElection.bind(this));
+
+    this.$el.append(this.$multipleElectionsModal);
+
+    this.$multipleElectionsModal.fadeIn();
+    this.$fade.fadeTo('fast', .2);
+  },
+
+  showCurrentLocationModal: function () {
+    this.$currentLocationModal.fadeIn();
+    this.$fade.fadeTo('fast', .2);
+    this.$loading.hide();
+  },
+
+  showMailOnlyModal: function () {
+    var $mailOnly = $(this.mailOnly(this.response));
+
+    $mailOnly.find('button').on('click', this.useRegisteredAddress.bind(this));
+
+    this.$el.append($mailOnly);
+    $mailOnly.fadeIn();
+
+    this.$fade.fadeTo('fast', .2);
+    this.$loading.hide();
+  },
+
+  useCurrentLocation: function () {
+    this.$currentLocationModal.fadeOut();
+    this.$loading.show();
+
+    if ('geolocation' in navigator) {
+      navigator.geolocation.getCurrentPosition(function(position) {
+        var lat = _.get(position, 'coords.latitude');
+        var lng = _.get(position, 'coords.longitude');
+        this._reverseGeocode(lat, lng,
+          this._makeRequestWithCurrentLocation.bind(this, lat, lng));
+      });
+    } else {
+      this.triggerRouteEvent('addressViewRerender');
+    }
+  },
+
+  useRegisteredAddress: function () {
+    this.triggerRouteEvent('addressViewSubmit', this.response);
+  },
+
+  useDifferentAddress: function () {
+    var newInput = $('<input>')
+      .attr('type', 'text')
+      .attr('placeholder', "Enter a different address")
+      .css('margin', '10px 0 0')
+      .insertBefore('#current-location span');
+
+    this.autocomplete = new google.maps.places.Autocomplete(newInput[0], {
+      types: ['address'],
+      componentRestrictions: { country: 'us' }
+    });
+
+    google.maps.event.addListener(this.autocomplete, 'place_changed', that.currentLocationAutocompleteListener.bind(that, response));
   },
 
   _reverseGeocode: function(lat, lng, callback) {
@@ -313,5 +315,19 @@ module.exports = View.extend({
       if (status === google.maps.GeocoderStatus.OK && results.length)
         callback(results[0].formatted_address);
     })
+  },
+
+  _makeRequestWithCurrentLocation: function (lat, lng, address) {
+    var stateName = _.get(this.response, 'state[0].name');
+    var stateAbbr = (stateName === 'Washington' ? 'WA' : 'OR');
+
+    if (address.indexOf(stateAbbr) !== -1) {
+      var currentLocation = new google.maps.LatLng(lat, lng);
+      $.extend(this.response, { currentLocation: currentLocation });
+      this.triggerRouteEvent('addressViewSubmit', this.response);
+    } else {
+      this.$loading.hide();
+      this.$outOfStateModal.fadeIn()
+    }
   }
 });

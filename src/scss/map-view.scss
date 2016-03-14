@@ -52,7 +52,6 @@
   }
 
   #map-view {
-    display: table;
     z-index: 999;
     margin: 0 auto;
     width: 100%;
@@ -370,7 +369,15 @@
     }
     #location {
       .address-line {
+        font-size: 14px;
+        text-transform: none;
+      }
+      .address .address-line {
         font-size: 16px;
+      }
+      small {
+        font-size: 13px;
+        font-weight: bold;
       }
       span {
         float: right;
@@ -411,6 +418,11 @@
         text-decoration: underline;
         color: $blue;
         margin: 30px 0;
+      }
+    }
+    #more-elections {
+      .toggle-image {
+        transform: rotate(270deg);
       }
     }
     #plus-icon {

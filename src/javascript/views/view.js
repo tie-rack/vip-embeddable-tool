@@ -1,7 +1,6 @@
 var $ = require('jquery');
 var api = require('../api.js');
 var colors = require('../colors.js');
-var xdr = require('../XDomainRequest.min.js')
 
 module.exports = (function() {
   var view = {
@@ -176,7 +175,7 @@ module.exports = (function() {
         complete: this.toggleLoadingDisplay.bind(this)
       };
 
-      $.extend(requestParams, options)
+      $.extend(requestParams, options);
 
       api(requestParams);
     },

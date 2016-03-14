@@ -1,12 +1,19 @@
 <div class="modal" id="multiple-elections">
   <h2>{{assets.text.multipleElections.text}}</h2>
-  {{#each elections}}
+  <div class="election selected">
+    <img src="{{ image 'radio-checked-blue.png' }}" class="radio checked">
+    <img src="{{ image 'radio-unchecked-black.png' }}" class="radio unchecked">
+    <h1>{{data.election.name}}</h1>
+    <h2>{{data.election.date}}</h2>
+    <div class="election-id hidden">{{data.election.id}}</div>
+  </div>
+  {{#each data.otherElections}}
     <div class="election">
-      <img src="{{ image 'radio-checked-blue.png' }}" class="radio checked hidden">
+      <img src="{{ image 'radio-checked-blue.png' }}" class="radio checked">
       <img src="{{ image 'radio-unchecked-black.png' }}" class="radio unchecked">
       <h1>{{name}}</h1>
       <h2>{{date}}</h2>
-      <div class="hidden">{{id}}</div>
+      <div class="election-id hidden">{{id}}</div>
     </div>
   {{/each}}
   <button>Done</button>

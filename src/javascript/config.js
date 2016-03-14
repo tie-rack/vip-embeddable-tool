@@ -33,6 +33,9 @@ module.exports = {
       "currentLocation": "Use Current Location",
       "registeredAddress": "Continue"
     },
+    "multipleElections": {
+      "text": "Multiple elections exist for this location:"
+    },
     "headers": {
       "registeredVoterAddress": "Registered Voter Address",
       "edit": "Edit",
@@ -70,7 +73,15 @@ module.exports = {
       }
     },
     "pollingLocations": {
-      "getDirections": "Get Directions"
+      "getDirections": "Get Directions",
+      "pollingLocation": "Polling Location",
+      "earlyVoteSite": "Early Vote Site",
+      "dropOffLocation": "Drop-off Location",
+      "multipleLocation": "Multiple Location Types",
+      "noLocationsFound": "No Polling Locations Found"
+    },
+    "mapView": {
+      "toggle": "Toggle map view"
     },
     "inputs": {
       "registeredAddress": "Enter Registered Voting Address",

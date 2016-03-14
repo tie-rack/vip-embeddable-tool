@@ -48,14 +48,14 @@
   <div class="election-selection">
     <img src="{{ image 'radio-checked.png' }}" class="radio checked">
     <img src="{{ image 'radio-unchecked.png' }}" class="radio unchecked hidden">
-    <span class="hidden">{{ data.election.id }}</span>
+    <span class="election-id hidden">{{ data.election.id }}</span>
     {{ data.election.name }}
   </div>
   {{#each data.otherElections }}
-  <div class="election-selection">
+  <div class="election-selection unselected">
     <img src="{{ image 'radio-checked.png' }}" class="radio checked hidden">
     <img src="{{ image 'radio-unchecked.png' }}" class="radio unchecked">
-    <span class="hidden">{{ id }}</span>
+    <span class="election-id hidden">{{ id }}</span>
     {{ name }}
   </div>
   {{/each}}
@@ -152,7 +152,7 @@ Click to Toggle
 <div class="contests right" id="all-contests">
   {{#if data.closedPrimaries}}
     <div class="closed-primaries-selection">
-      <p>This election is only open to registered members of the listed parties. Please select your party to continue.</p>
+      <p>Select a party to continue.</p>
       {{#each data.closedPrimaries}}
         <button class="select-closed-primary" data-primary-name={{@key}}>{{ partyName @key}}</button>
       {{/each}}

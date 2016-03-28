@@ -154,20 +154,20 @@ Click to Toggle
     <div class="closed-primaries-selection">
       <p>Select a party to continue.</p>
       {{#each data.closedPrimaries}}
-        <button class="select-closed-primary" data-primary-name={{@key}}>{{ partyName @key}}</button>
+        <button class="select-closed-primary" data-primary-name="{{@key}}">{{ partyName @key}}</button>
       {{/each}}
     </div>
     <div class="closed-primaries hidden">
       {{#each data.closedPrimaries}}
-      <div class="closed-primary" data-primary-name="{{@key}}">
+      <div class="closed-primary hidden" data-primary-name="{{@key}}">
         {{#each this}}
           {{> contest }}
         {{/each}}
+        <div class="closed-primary-back">
+          <button>Back</button>
+        </div>
       </div>
       {{/each}}
-      <div class="closed-primary-back">
-        <button>Back</button>
-      </div>
     </div>
   {{else}}
     {{#each data.contests}}

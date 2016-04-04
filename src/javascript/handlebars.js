@@ -292,6 +292,14 @@ module.exports = (function() {
     return str;
   }
 
+  var resourcesExist = function(data, options) {
+    if (_.has(data, 'state[0].local_jurisdiction') || _.has(data, 'state[0].electionAdministration')) {
+      return options.fn(this);
+    } else {
+      return options.inverse(this);
+    }
+  }
+
   return {
     registerHelpers: function() {
       handlebars.registerHelper('json', json);
@@ -308,6 +316,7 @@ module.exports = (function() {
       handlebars.registerHelper('electionResourceLinks', electionResourceLinks);
       handlebars.registerHelper('localJurisdictionName', localJurisdictionName);
       handlebars.registerHelper('electionAdministrationBodyAddresses', electionAdministrationBodyAddresses);
+      handlebars.registerHelper('resourcesExist', resourcesExist);
     },
 
     registerPartials: function() {

@@ -74,6 +74,7 @@ Click to Toggle
   {{/each}}
 </div>
 
+{{#resourcesExist data}}
 <div class="info box left" id="resources-toggle">
   <div class="toggle-text">{{assets.text.headers.voterResources}}</div>
   <div class="toggle-image expanded"></div>
@@ -125,6 +126,7 @@ Click to Toggle
   {{> election-administration-body }}
   </div>
 </div>
+{{/resourcesExist}}
 
 
 {{#if data.contests }}

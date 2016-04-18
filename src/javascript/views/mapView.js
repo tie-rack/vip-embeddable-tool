@@ -233,7 +233,7 @@ module.exports = View.extend({
   },
 
   _resizeHandler: function() {
-    console.log("#_resizeHandler");
+    //console.log("#_resizeHandler");
     if (!this.modal) {
       this.landscape = this.$container.width() > 500;
       return;
@@ -345,6 +345,14 @@ module.exports = View.extend({
     $('html,body').scrollLeft($(this.$container).scrollLeft());
     $('html,body').scrollTop($(this.$container).scrollTop());
 
+    var times = options.data.pollingLocations[0].pollingHours.split("-");
+
+    var startDate = new Date(options.data.election.dateForCalendar);
+    startDate.setHours(parseInt(this.parseTime(times[0])));
+
+    var endDate = new Date(options.data.election.dateForCalendar);
+    endDate.setHours(parseInt(this.parseTime(times[1])) + 12);
+
     var myCalendar = createOUICalendar({
       options: {
         notClass: 'add-to-calendar-drop-class',
@@ -352,7 +360,8 @@ module.exports = View.extend({
       },
       data: {
         title: options.data.election.name,
-        start: new Date(options.data.election.dateForCalendar),
+        start: startDate,
+        end: endDate,
         duration: 1440,
         address: this._parseAddress(_.get(this.data, 'locations[0].address')),
         description: options.data.election.name
@@ -518,7 +527,7 @@ module.exports = View.extend({
   },
 
   _encodeAddressAndInitializeMap: function(location) {
-    console.log('#_encodeAddressAndInitializeMap')
+    //console.log('#_encodeAddressAndInitializeMap')
     var zoom = _.has(location, 'address') ? 12 : 3;
     var mapEl = this.find('#map-canvas').get(0);
 
@@ -541,7 +550,7 @@ module.exports = View.extend({
   },
 
   _setZoom: function() {
-    console.log('#_setZoom');
+    //console.log('#_setZoom');
     var bounds = new google.maps.LatLngBounds();
 
     bounds.extend(_.get(this, 'data.locations[0].position'));
@@ -573,8 +582,9 @@ module.exports = View.extend({
   },
 
   _addPollingLocation: function(location) {
-    console.log('#_addPollingLocation');
-
+    //console.log('#_addPollingLocation');
+    var time = this.parseTime("9am");
+    //console.log(time)
     var url = this._getMarkerColor(location);
 
     var icon = {
@@ -786,7 +796,7 @@ module.exports = View.extend({
   },
 
   changeElection: function (event) {
-    console.log('#changeElection');
+    //console.log('#changeElection');
     var $selected = $(event.currentTarget);
 
     if ($selected.hasClass('unselected')) {
@@ -801,7 +811,7 @@ module.exports = View.extend({
   },
 
   _markerFocusHandler: function(location, saddr) {
-    console.log('#_markerFocusHandler')
+    //console.log('#_markerFocusHandler')
 
     var $location = $(this.locationPartial({
       location: location,
@@ -817,7 +827,7 @@ module.exports = View.extend({
   },
 
   toggleMap: function(event) {
-    console.log('#toggleMap');
+    //console.log('#toggleMap');
     if (!this.landscape) {
       var canvas = this.find('#map-canvas');
       var toggle = this.find('#polling-location');
@@ -845,7 +855,7 @@ module.exports = View.extend({
   },
 
   _getClosestLocation: function(locationCallback) {
-    console.log('#_getClosestLocation');
+    //console.log('#_getClosestLocation');
     var home = this.data.home;
     var locations = this.data.locations;
 
@@ -923,7 +933,7 @@ module.exports = View.extend({
   },
 
   toggleBallot: function() {
-    console.log('#toggleBallot');
+    //console.log('#toggleBallot');
     var $ballotInfo = this.find('#ballot-information');
 
     if (!this.landscape) {
@@ -969,7 +979,7 @@ module.exports = View.extend({
   },
 
   toggleContest: function(e) {
-    console.log('#toggleContest');
+    //console.log('#toggleContest');
     var $contest = $(e.currentTarget).parent();
     var candidateList = $contest.find('.candidate-list');
     var toggle = $contest.find('span');
@@ -1070,5 +1080,13 @@ module.exports = View.extend({
     if (!_.isUndefined(multiSite)) {
       this._markerFocusHandler.call(this, multiSite);
     }
+  },
+
+  parseTime: function(time) {
+    var time = time.replace(/ /g, '');
+    var rx = /\d*/;
+    var parsed = rx.exec(time);
+
+    return parsed[0];
   }
 });

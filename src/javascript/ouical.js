@@ -6,16 +6,13 @@ module.exports = (function(exports) {
     return date.toISOString().replace(/-|:|\.\d+/g, '');
   };
 
-  var calculateEndTime = function(event) {
-    return event.end ?
-      formatTime(event.end) :
-      formatTime(new Date(event.start.getTime() + (event.duration * MS_IN_MINUTES)));
-  };
-
   var calendarGenerators = {
     google: function(event) {
       var startTime = formatTime(event.start);
-      var endTime = calculateEndTime(event);
+      console.log(event);
+      console.log("Start date is: " + event.start)
+      console.log("End date is: " + event.end)
+      var endTime = formatTime(event.end);
 
       var href = encodeURI([
         'https://www.google.com/calendar/render',
@@ -66,7 +63,7 @@ module.exports = (function(exports) {
 
     ics: function(event, eClass, calendarName) {
       var startTime = formatTime(event.start);
-      var endTime = calculateEndTime(event);
+      var endTime = formatTime(event.end);
 
       var href = encodeURI(
         'data:text/calendar;charset=utf8,' + [

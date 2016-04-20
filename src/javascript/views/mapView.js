@@ -345,13 +345,13 @@ module.exports = View.extend({
     $('html,body').scrollLeft($(this.$container).scrollLeft());
     $('html,body').scrollTop($(this.$container).scrollTop());
 
-    var times = options.data.pollingLocations[0].pollingHours.split("-");
+    var times = this.parseTime(options.data.pollingLocations[0].pollingHours);
 
     var startDate = new Date(options.data.election.dateForCalendar);
-    startDate.setHours(parseInt(this.parseTime(times[0])));
+    startDate.setHours(times[0]);
 
     var endDate = new Date(options.data.election.dateForCalendar);
-    endDate.setHours(parseInt(this.parseTime(times[1])) + 12);
+    endDate.setHours(times[1]);
 
     var myCalendar = createOUICalendar({
       options: {
@@ -1082,11 +1082,17 @@ module.exports = View.extend({
     }
   },
 
-  parseTime: function(time) {
-    var time = time.replace(/ /g, '');
+  parseTime: function(date) {
+    var times = date.split("-");
     var rx = /\d*/;
-    var parsed = rx.exec(time);
+    var pmAdjust;
+    for (var i = 0; i < times.length; i++) {
+      pmAdjust = (/pm/.test(times[i]) ? 12 : 0);
 
-    return parsed[0];
+      times[i] = parseInt(rx.exec(times[i].replace(/ /g, '')[0]));
+      times[i] = times[i] + pmAdjust;
+    }
+
+    return times;
   }
 });

@@ -1083,6 +1083,7 @@ module.exports = View.extend({
   },
 
   parseTime: function(date) {
+    if (!date) { return [0, 24] }
     var times = date.split("-");
     var rx = /\d*/;
     var pmAdjust;

@@ -363,7 +363,7 @@ module.exports = View.extend({
 
     fastclick(document.body);
 
-    if (!this.landscape) this._preventiOSBounce();
+    // if (!this.landscape) this._preventiOSBounce();
 
     this.autocomplete = new google.maps.places.Autocomplete(this.find('.change-address')[0], {
       types: ['address'],

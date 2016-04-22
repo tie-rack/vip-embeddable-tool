@@ -247,7 +247,7 @@ module.exports = View.extend({
     if (!$('#viewport-mobile-web-tag').length) {
       $('<meta>')
         .attr('name', 'viewport')
-        .attr('content', 'width=device-width,initial-scale=1.0')
+        .attr('content', 'initial-scale=1.0, maximum-scale=1.0')
         .attr('id', 'viewport-mobile-web-tag')
         .appendTo($('head'));
     }

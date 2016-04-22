@@ -3,7 +3,7 @@
 #_vit {
   overflow: hidden;
 
-  &.vit-modal:not(.unexpanded) {
+  &.vit-modal {
     max-width: 800px !important;
   }
 

@@ -8,7 +8,7 @@ var async = require('async');
 var LocationMatcher = require('../locationMatcher');
 var zipcodes = require('../cv');
 var BinarySearchIndex = require('tiny-binary-search');
-window.$ = $;
+
 module.exports = View.extend({
 
   $id: 'map-view',

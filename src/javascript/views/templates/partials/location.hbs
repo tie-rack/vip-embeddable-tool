@@ -3,7 +3,7 @@
     <img src="{{ image 'grey-plus.png' }}">
   </div>
   {{#if location }}
-    {{> address location.address }}
+    {{> address location }}
     <span>
       <a href="https://maps.google.com?daddr={{ daddr }}&saddr={{ saddr }}" target="_blank">
         <img src="{{ image 'directions.png' }}">

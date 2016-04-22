@@ -10,7 +10,22 @@
 </div>
 
 <div class="box left">
-  {{> address data.normalizedInput }}
+  <div class="address">
+    <div class="address-line">
+    {{ data.normalizedInput.line1 }}
+    </div>
+    <div class="address-line">
+    {{ data.normalizedInput.line2 }}
+    </div>
+    <div class="address-line">
+    {{ data.normalizedInput.line3 }}
+    </div>
+    <div class="address-line">
+    {{ data.normalizedInput.city }}
+    {{ data.normalizedInput.state }}
+    {{ data.normalizedInput.zip }}
+    </div>
+  </div>
   <textarea rows="1" type="text" class="change-address" placeholder="{{assets.text.placeholderText.changeAddress}}" />
   <div class="magnifying-glass" id="submit-address-button">
     <svg xmlns="https://www.w3.org/2000/svg" viewBox="0 0 500 500">
@@ -69,7 +84,7 @@ Click to Toggle
 <div id="map-list-view" class="box right">
   {{#each data.pollingLocations}}
     <div class="address-list-view">
-     {{> address this.address }}
+     {{> address this }}
     </div>
   {{/each}}
 </div>
@@ -141,18 +156,18 @@ Click to Toggle
     <div class="closed-primaries-selection">
       <p>Select a party to continue.</p>
       {{#each data.closedPrimaries}}
-        <button class="select-closed-primary" data-primary-name={{@key}}>{{ partyName @key}}</button>
+        <button class="select-closed-primary" data-primary-name="{{@key}}">{{ partyName @key}}</button>
       {{/each}}
     </div>
     <div class="closed-primaries hidden">
       {{#each data.closedPrimaries}}
       <div class="closed-primary hidden" data-primary-name="{{@key}}">
-        <div class="closed-primary-back">
-          <button>Back</button>
-        </div>
         {{#each this}}
           {{> contest }}
         {{/each}}
+        <div class="closed-primary-back">
+          <button>Back</button>
+        </div>
       </div>
       {{/each}}
     </div>

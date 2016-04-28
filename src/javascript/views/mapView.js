@@ -215,7 +215,7 @@ module.exports = View.extend({
     });
 
     this.data = options.data;
-
+    // console.log(this.data)
     // TODO: REFACTOR THIS INTO OWN FUNCTION
     // places the modal and the tool as the first element on the page
     // to deal with certain z-index / positioning issues
@@ -233,7 +233,7 @@ module.exports = View.extend({
   },
 
   _resizeHandler: function() {
-    console.log("#_resizeHandler");
+    //console.log("#_resizeHandler");
     if (!this.modal) {
       this.landscape = this.$container.width() > 500;
       return;
@@ -345,21 +345,34 @@ module.exports = View.extend({
     $('html,body').scrollLeft($(this.$container).scrollLeft());
     $('html,body').scrollTop($(this.$container).scrollTop());
 
-    var myCalendar = createOUICalendar({
-      options: {
-        notClass: 'add-to-calendar-drop-class',
-        id: 'add-to-calendar-dropdown'
-      },
-      data: {
-        title: options.data.election.name,
-        start: new Date(options.data.election.dateForCalendar),
-        duration: 1440,
-        address: this._parseAddress(_.get(this.data, 'locations[0].address')),
-        description: options.data.election.name
-      }
-    });
+    if (_.get(this.data, 'pollingLocations[0].pollingHours')) {
+      var times = this.parseTime(options.data.pollingLocations[0].pollingHours);
+      if (!!times) {
+        var startDate = new Date(options.data.election.dateForCalendar);
+        startDate.setHours(times[0]);
 
-    document.querySelector('#calendar-icon').appendChild(myCalendar);
+        var endDate = new Date(options.data.election.dateForCalendar);
+        endDate.setHours(times[1]);
+
+        var myCalendar = createOUICalendar({
+          options: {
+            notClass: 'add-to-calendar-drop-class',
+            id: 'add-to-calendar-dropdown'
+          },
+          data: {
+            title: options.data.election.name,
+            start: startDate,
+            end: endDate,
+            duration: 1440,
+            address: this._parseAddress(_.get(this.data, 'locations[0].address')),
+            description: options.data.election.name
+          }
+        });
+      }
+
+      document.querySelector('#calendar-icon').appendChild(myCalendar);
+    }
+
 
     fastclick(document.body);
 
@@ -518,13 +531,13 @@ module.exports = View.extend({
   },
 
   _encodeAddressAndInitializeMap: function(location) {
-    console.log('#_encodeAddressAndInitializeMap')
+    //console.log('#_encodeAddressAndInitializeMap')
     var zoom = _.has(location, 'address') ? 12 : 3;
     var mapEl = this.find('#map-canvas').get(0);
 
     this._geocode(location, function(geocodedLocation) {
-      var currentLocation = this.data.currentLocation;
-      this.map = this._generateMap((currentLocation ? currentLocation : geocodedLocation.position), zoom, mapEl)
+      this.map = this._generateMap(geocodedLocation.position, zoom, mapEl)
+
       this._geocode(this.data.home, function(geocodedHome) {
         var marker = new google.maps.Marker({
           map: this.map,
@@ -541,7 +554,8 @@ module.exports = View.extend({
   },
 
   _setZoom: function() {
-    console.log('#_setZoom');
+    //console.log('#_setZoom');
+
     var bounds = new google.maps.LatLngBounds();
 
     bounds.extend(_.get(this, 'data.locations[0].position'));
@@ -573,8 +587,6 @@ module.exports = View.extend({
   },
 
   _addPollingLocation: function(location) {
-    console.log('#_addPollingLocation');
-
     var url = this._getMarkerColor(location);
 
     var icon = {
@@ -692,6 +704,12 @@ module.exports = View.extend({
     var locations = this.data.locations;
     var zipcodeIndex = new BinarySearchIndex(this.zipcodes);
 
+    // use the current location as the origin if
+    // this has been supplied by the user
+    var origin = _.has(this.data, 'currentLocation') ?
+      _.get(this.data, 'currentLocation') :
+      _.get(this.data, 'home.position');
+
     this.data.locations = _.sortBy(locations, function(l) {
       // we have not gotten the geocoded location for this position yet,
       // so we'll look up the lat/lng from its zip code and use that
@@ -704,7 +722,7 @@ module.exports = View.extend({
         l.needsGeocoding = true;
       }
       return google.maps.geometry.spherical.computeDistanceBetween(
-        _.get(this.data, 'home.position'), _.get(l, 'position')
+        origin, _.get(l, 'position')
       )
     }.bind(this))
   },
@@ -786,7 +804,7 @@ module.exports = View.extend({
   },
 
   changeElection: function (event) {
-    console.log('#changeElection');
+    //console.log('#changeElection');
     var $selected = $(event.currentTarget);
 
     if ($selected.hasClass('unselected')) {
@@ -801,7 +819,7 @@ module.exports = View.extend({
   },
 
   _markerFocusHandler: function(location, saddr) {
-    console.log('#_markerFocusHandler')
+    //console.log('#_markerFocusHandler')
 
     var $location = $(this.locationPartial({
       location: location,
@@ -817,7 +835,7 @@ module.exports = View.extend({
   },
 
   toggleMap: function(event) {
-    console.log('#toggleMap');
+    //console.log('#toggleMap');
     if (!this.landscape) {
       var canvas = this.find('#map-canvas');
       var toggle = this.find('#polling-location');
@@ -845,7 +863,7 @@ module.exports = View.extend({
   },
 
   _getClosestLocation: function(locationCallback) {
-    console.log('#_getClosestLocation');
+    //console.log('#_getClosestLocation');
     var home = this.data.home;
     var locations = this.data.locations;
 
@@ -923,7 +941,7 @@ module.exports = View.extend({
   },
 
   toggleBallot: function() {
-    console.log('#toggleBallot');
+    //console.log('#toggleBallot');
     var $ballotInfo = this.find('#ballot-information');
 
     if (!this.landscape) {
@@ -969,7 +987,7 @@ module.exports = View.extend({
   },
 
   toggleContest: function(e) {
-    console.log('#toggleContest');
+    //console.log('#toggleContest');
     var $contest = $(e.currentTarget).parent();
     var candidateList = $contest.find('.candidate-list');
     var toggle = $contest.find('span');
@@ -1069,6 +1087,25 @@ module.exports = View.extend({
     })
     if (!_.isUndefined(multiSite)) {
       this._markerFocusHandler.call(this, multiSite);
+    }
+  },
+
+  parseTime: function(date) {
+    // console.log(date)
+    var times = date.split("-");
+    var rx = /\d*/;
+    var pmAdjust;
+    for (var i = 0; i < times.length; i++) {
+      pmAdjust = (/pm/.test(times[i]) ? 12 : 0);
+
+      times[i] = parseInt(rx.exec(times[i].replace(/ /g, '')[0]));
+      times[i] = times[i] + pmAdjust;
+    }
+
+    if (times[0] && times[1]) {
+      return times;
+    } else {
+      return false;
     }
   }
 });

@@ -170,8 +170,7 @@ module.exports = View.extend({
   },
 
   handleElectionData: function(response) {
-    console.log(response);
-
+    console.log(response)
     this.response = response;
 
     var stateName = _.get(this.response, 'state[0].name');
@@ -281,7 +280,7 @@ module.exports = View.extend({
         var lng = _.get(position, 'coords.longitude');
         this._reverseGeocode(lat, lng,
           this._makeRequestWithCurrentLocation.bind(this, lat, lng));
-      });
+      }.bind(this));
     } else {
       this.triggerRouteEvent('addressViewRerender');
     }

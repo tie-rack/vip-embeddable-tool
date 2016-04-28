@@ -215,7 +215,7 @@ module.exports = View.extend({
     });
 
     this.data = options.data;
-    console.log(this.data)
+    // console.log(this.data)
     // TODO: REFACTOR THIS INTO OWN FUNCTION
     // places the modal and the tool as the first element on the page
     // to deal with certain z-index / positioning issues
@@ -554,12 +554,8 @@ module.exports = View.extend({
   },
 
   _setZoom: function() {
-<<<<<<< HEAD
     //console.log('#_setZoom');
-=======
-    console.log('#_setZoom');
 
->>>>>>> e9f714c2bea5baced32c1092db2777a189b2218a
     var bounds = new google.maps.LatLngBounds();
 
     bounds.extend(_.get(this, 'data.locations[0].position'));
@@ -1095,7 +1091,7 @@ module.exports = View.extend({
   },
 
   parseTime: function(date) {
-    console.log(date)
+    // console.log(date)
     var times = date.split("-");
     var rx = /\d*/;
     var pmAdjust;

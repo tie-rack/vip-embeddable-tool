@@ -9,9 +9,9 @@ module.exports = (function(exports) {
   var calendarGenerators = {
     google: function(event) {
       var startTime = formatTime(event.start);
-      console.log(event);
-      console.log("Start date is: " + event.start)
-      console.log("End date is: " + event.end)
+      // console.log(event);
+      // console.log("Start date is: " + event.start)
+      // console.log("End date is: " + event.end)
       var endTime = formatTime(event.end);
 
       var href = encodeURI([
@@ -160,7 +160,7 @@ module.exports = (function(exports) {
 
   exports.createOUICalendar = function(params) {
     if (!validParams(params)) {
-      console.log('Event details missing.');
+      // console.log('Event details missing.');
       return;
     }
 

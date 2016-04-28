@@ -215,7 +215,7 @@ module.exports = View.extend({
     });
 
     this.data = options.data;
-
+    console.log(this.data)
     // TODO: REFACTOR THIS INTO OWN FUNCTION
     // places the modal and the tool as the first element on the page
     // to deal with certain z-index / positioning issues
@@ -345,30 +345,34 @@ module.exports = View.extend({
     $('html,body').scrollLeft($(this.$container).scrollLeft());
     $('html,body').scrollTop($(this.$container).scrollTop());
 
-    var times = this.parseTime(options.data.pollingLocations[0].pollingHours);
+    if (_.get(this.data, 'pollingLocations[0].pollingHours')) {
+      var times = this.parseTime(options.data.pollingLocations[0].pollingHours);
+      if (!!times) {
+        var startDate = new Date(options.data.election.dateForCalendar);
+        startDate.setHours(times[0]);
 
-    var startDate = new Date(options.data.election.dateForCalendar);
-    startDate.setHours(times[0]);
+        var endDate = new Date(options.data.election.dateForCalendar);
+        endDate.setHours(times[1]);
 
-    var endDate = new Date(options.data.election.dateForCalendar);
-    endDate.setHours(times[1]);
-
-    var myCalendar = createOUICalendar({
-      options: {
-        notClass: 'add-to-calendar-drop-class',
-        id: 'add-to-calendar-dropdown'
-      },
-      data: {
-        title: options.data.election.name,
-        start: startDate,
-        end: endDate,
-        duration: 1440,
-        address: this._parseAddress(_.get(this.data, 'locations[0].address')),
-        description: options.data.election.name
+        var myCalendar = createOUICalendar({
+          options: {
+            notClass: 'add-to-calendar-drop-class',
+            id: 'add-to-calendar-dropdown'
+          },
+          data: {
+            title: options.data.election.name,
+            start: startDate,
+            end: endDate,
+            duration: 1440,
+            address: this._parseAddress(_.get(this.data, 'locations[0].address')),
+            description: options.data.election.name
+          }
+        });
       }
-    });
 
-    document.querySelector('#calendar-icon').appendChild(myCalendar);
+      document.querySelector('#calendar-icon').appendChild(myCalendar);
+    }
+
 
     fastclick(document.body);
 
@@ -582,9 +586,6 @@ module.exports = View.extend({
   },
 
   _addPollingLocation: function(location) {
-    //console.log('#_addPollingLocation');
-    var time = this.parseTime("9am");
-    //console.log(time)
     var url = this._getMarkerColor(location);
 
     var icon = {
@@ -1083,7 +1084,7 @@ module.exports = View.extend({
   },
 
   parseTime: function(date) {
-    if (!date) { return [0, 24] }
+    console.log(date)
     var times = date.split("-");
     var rx = /\d*/;
     var pmAdjust;
@@ -1094,6 +1095,10 @@ module.exports = View.extend({
       times[i] = times[i] + pmAdjust;
     }
 
-    return times;
+    if (times[0] && times[1]) {
+      return times;
+    } else {
+      return false;
+    }
   }
 });

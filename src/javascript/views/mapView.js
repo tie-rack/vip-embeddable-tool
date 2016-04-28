@@ -536,8 +536,8 @@ module.exports = View.extend({
     var mapEl = this.find('#map-canvas').get(0);
 
     this._geocode(location, function(geocodedLocation) {
-      var currentLocation = this.data.currentLocation;
-      this.map = this._generateMap((currentLocation ? currentLocation : geocodedLocation.position), zoom, mapEl)
+      this.map = this._generateMap(geocodedLocation.position, zoom, mapEl)
+
       this._geocode(this.data.home, function(geocodedHome) {
         var marker = new google.maps.Marker({
           map: this.map,
@@ -554,7 +554,12 @@ module.exports = View.extend({
   },
 
   _setZoom: function() {
+<<<<<<< HEAD
     //console.log('#_setZoom');
+=======
+    console.log('#_setZoom');
+
+>>>>>>> e9f714c2bea5baced32c1092db2777a189b2218a
     var bounds = new google.maps.LatLngBounds();
 
     bounds.extend(_.get(this, 'data.locations[0].position'));
@@ -703,6 +708,12 @@ module.exports = View.extend({
     var locations = this.data.locations;
     var zipcodeIndex = new BinarySearchIndex(this.zipcodes);
 
+    // use the current location as the origin if
+    // this has been supplied by the user
+    var origin = _.has(this.data, 'currentLocation') ?
+      _.get(this.data, 'currentLocation') :
+      _.get(this.data, 'home.position');
+
     this.data.locations = _.sortBy(locations, function(l) {
       // we have not gotten the geocoded location for this position yet,
       // so we'll look up the lat/lng from its zip code and use that
@@ -715,7 +726,7 @@ module.exports = View.extend({
         l.needsGeocoding = true;
       }
       return google.maps.geometry.spherical.computeDistanceBetween(
-        _.get(this.data, 'home.position'), _.get(l, 'position')
+        origin, _.get(l, 'position')
       )
     }.bind(this))
   },

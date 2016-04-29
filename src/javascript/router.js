@@ -100,7 +100,10 @@ module.exports = (function() {
         ];
 
         // unsupported language
-        if (supportedLanguages.indexOf(language) === -1) addressView.render(options);
+        if (supportedLanguages.indexOf(language) === -1 && !options.json) {
+          addressView.render(options);
+          return;
+        }
 
         // path for the supported language translation copy
         var url = location.protocol.toString() + '//s3.amazonaws.com/vip-voter-information-tool/languages/' + language + '-config.json';

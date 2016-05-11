@@ -40,7 +40,7 @@ module.exports = {
       "registeredVoterAddress": "Registered Voter Address",
       "edit": "Edit",
       "elections": "Election Date",
-      "pollingLocation": "Polling Location",
+      "pollingLocation": "Voting Location",
       "voterResources": "Voter Resources",
       "ballotInformation": "Ballot Information"
     },

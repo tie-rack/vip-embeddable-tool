@@ -368,9 +368,9 @@ module.exports = View.extend({
             description: options.data.election.name
           }
         });
-      }
 
-      document.querySelector('#calendar-icon').appendChild(myCalendar);
+        document.querySelector('#calendar-icon').appendChild(myCalendar);
+      }
     }
 
 

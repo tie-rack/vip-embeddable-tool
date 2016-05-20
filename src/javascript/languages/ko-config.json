@@ -1,6 +1,6 @@
 {
   "text" : {
-    "summary" : "투표지 정보, 투표소 위치, 조기 투표, ID요구 등에 대해 알아보기.",
+    "summary" : "투표소 위치, 투표지에 들어있는 정보등에 대해 알아보기.",
     "placeholderText" : {
       "enterAddress" : "등록된 투표 주소 입력",
       "changeAddress" : "다른 주소 입력"

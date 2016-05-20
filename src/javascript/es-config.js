@@ -1,6 +1,6 @@
 module.exports = {
   "text": {
-    "summary": "Conozca más acerca de la boleta, la ubicación de la votación, la votación anticipada, los requisitos de identificación y más ...",
+    "summary": "Averigue donde votar, lo que está en su boleta electoral, y más...",
     "about": {
       "title": "Acerca de la Herramienta de Información de la Votación",
       "content": "El Proyecto de Información de la Votación (VIP) trabaja para conectar a los votantes con la información esencial necesaria para emitir su voto; como dónde votar y qué está en la boleta. Es un proyecto entre The Pew Charitable Trusts, Google  y los estados. Lanzado en 2008, VIP trabaja con los funcionarios electorales estatales y locales para proporcionar información oficial de las elecciones a los ciudadanos por medio de una variedad de medios, entre ellos, la API de Información Cívica de Google. La herramienta de información de la votación es uno de los muchos beneficios puestos a disposición por medio del VIP, que asegura que la información oficial electoral sea accesible a los votantes antes y durante la jornada electoral."

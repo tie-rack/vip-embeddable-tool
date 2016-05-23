@@ -88,15 +88,21 @@ module.exports = (function() {
         var language = options.language || language;
 
         var supportedLanguages = [
+          'am',
           'es',
           'hi',
+          'hm',
           'ja',
+          'km',
           'ko',
+          'la',
+          'or',
+          'ru',
+          'so',
           'th',
           'tl-PH',
           'vi',
-          'zh',
-          'km'
+          'zh'
         ];
 
         // unsupported language

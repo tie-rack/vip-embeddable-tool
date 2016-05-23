@@ -2,8 +2,7 @@
   "text" : {
     "summary" : "Bakka itti filtu adda baafadhu, wraqaa filmaata kee irra maaltu jira, fi kan biraas…",
     "placeholderText" : {
-      "enterAddress" : "Teesso bakka itti filtu isa galmaa’e galchi
-Teesso ka biraa galchi",
+      "enterAddress" : "Teesso bakka itti filtu isa galmaa’e galchi Teesso ka biraa galchi",
       "changeAddress" : "Teesso ka biraa galchi"
     },
     "about" : {
@@ -15,8 +14,7 @@ Teesso ka biraa galchi",
     },
     "addressNotFound" : {
       "title" : "Odeeffannoo filmaataa argachuu hin dandeenye.",
-      "text" : "Ka galchite:<h1>1234 Main St<br>New York, NY 1000</h1>.
-Teesoo ati galchite willin kan deemu odeeffannoo filmaataa hin argine. Sirriitti galchuu kee irra deebi’ii ilaali, qondaala filannoo kee quunami, ykn ogaa Guyyaan Filannoo dhihaatu irra deebi’ii yaali. Odeeffannon torbee 2 -4 filmaata durse ni argama. Odeeffannoo guutuu fi ka fooya’ee argachuuf qondaala filannoo ganda kee quunnami.",
+      "text" : "Ka galchite:<h1>1234 Main St<br>New York, NY 1000</h1>. Teesoo ati galchite willin kan deemu odeeffannoo filmaataa hin argine. Sirriitti galchuu kee irra deebi’ii ilaali, qondaala filannoo kee quunami, ykn ogaa Guyyaan Filannoo dhihaatu irra deebi’ii yaali. Odeeffannon torbee 2 -4 filmaata durse ni argama. Odeeffannoo guutuu fi ka fooya’ee argachuuf qondaala filannoo ganda kee quunnami.",
       "button" : "Irra deebisii Yaali"
     },
     "multipleElections" : {

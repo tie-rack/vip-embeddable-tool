@@ -1,0 +1,73 @@
+{
+  "text" : {
+    "summary" : "Bakka itti filtu adda baafadhu, wraqaa filmaata kee irra maaltu jira, fi kan biraas…",
+    "placeholderText" : {
+      "enterAddress" : "Teesso bakka itti filtu isa galmaa’e galchi
+Teesso ka biraa galchi",
+      "changeAddress" : "Teesso ka biraa galchi"
+    },
+    "about" : {
+      "title" : "Odeefannoo filuuf nama gargaaran",
+      "content" : "Projektii Odeeffannoo Filuu (POF) kan inni gargaaru akka namoonni filan, filuuf odeeffannoo barbaachisaa argataniif, kan akka eessati akka filan fi waraqaa filmaataa irra maal akka jiru beekuuf. Kuni projektii “Pew Charitable Trusts”, “Google”, fi mootummoota waliin ta’uudha. Bara 2008 ti eegale, POF mootummaa fi qondaaltota filanna gandaa waliin ta’uun karaa ada addaati dhimma ba’uun lamiiwan akka isaan odeeffannoo filmaataa beeksifame argatan gochuudha, API odeefannoo uummataa Google dabalate. Odeeffannoon filuuf nama gargaaran hedduu keessaa karaa POF ti. Odeeffannoon filmaata seeraan beeksifame dursa fi gaafa Guyyaa filmmaataa argachuu danda’amuu isaa mirkaneefachuu."
+    },
+    "footer" : {
+      "text" : "Odeeffannoo guutuu fi ka fooya’e argachuuf qondaala filmaataa ganda kee quunami."
+    },
+    "addressNotFound" : {
+      "title" : "Odeeffannoo filmaataa argachuu hin dandeenye.",
+      "text" : "Ka galchite:<h1>1234 Main St<br>New York, NY 1000</h1>.
+Teesoo ati galchite willin kan deemu odeeffannoo filmaataa hin argine. Sirriitti galchuu kee irra deebi’ii ilaali, qondaala filannoo kee quunami, ykn ogaa Guyyaan Filannoo dhihaatu irra deebi’ii yaali. Odeeffannon torbee 2 -4 filmaata durse ni argama. Odeeffannoo guutuu fi ka fooya’ee argachuuf qondaala filannoo ganda kee quunnami.",
+      "button" : "Irra deebisii Yaali"
+    },
+    "multipleElections" : {
+      "text" : "Bakka kana ga’uuf karaa hedduu ba’amu"
+    },
+    "mailInVoting" : {
+      "title" : "Bakka jirtu irraa haala ittin ergan",
+      "text" : "Teessoon galmaa’e ati galchite bkka jirtu irraa erguu ka taasisuudha. Kana jechuun Waraqaa filannoo kee sanduqa seeraan beekame kamuu keessa buusuudha.Teessoo kee galmeesite irrati hundoofte sanduuqa bakka keesa buuftu barbaadu feeta moo, ykn teesoo bakka amma itti argamtuti dhimma baate irra deebite erguu gaafachuu feeta?",
+      "currentLocation" : "Bakka Amma jirtuti dhimmi Ba’i",
+      "registeredAddress" : "Itti fufi"
+    },
+    "headers" : {
+      "registeredVoterAddress" : "Teessoo Nama Filuu Galmaa’e",
+      "edit" : "Gulaali",
+      "elections" : "Guyyaa Filannoo",
+      "pollingLocation" : "Bakka Filannoo",
+      "voterResources" : "Warra Filan Waan Gargaaru",
+      "ballotInformation" : "Oddeefannoo Waraqaa Filannoo"
+    },
+    "resources" : {
+      "summary" : "Odeeffannoo akkataa toora filannoon itti adeemsifamu, guyyainni itti dhumu fi galma’uu bakka ilaalatan.",
+      "electionAdministration" : {
+        "title" : "Bulchiinsa Filannoo",
+        "local_jurisdiction" : "Bulchiinsa Gandaa",
+        "stateElectionsOffice" : "Waajjira Filmaataa Mootummaa",
+        "physicalAddress" : "Teessoo Kalatiin",
+        "correspondenceAddress" : "Teessoo ittiin wal-quunaman"
+      },
+      "moreResources" : {
+        "title" : "Waan Gargaaru Dablataa",
+        "electionInformationUrl" : "Odeeffannoo Filannoo",
+        "registrationConfirmationUrl" : "Galmaa’u Mirkaneessuu",
+        "absenteeVotingInformationUrl" : "Bakka Filmaataatti Utuu Hin Argamin Filu",
+        "votingLocationFinderUrl" : "Bakka Filmaataa Kan Agarsiiftu",
+        "ballotInformationUrl" : "Odeefannoo Waraqaa Filannoo"
+      }
+    },
+    "pollingLocations" : {
+      "getDirections" : "Akkaataa Achi Itti Dhaqxu Argadhu",
+      "pollingLocation": "Bakka Filannoo",
+      "earlyVoteSite": "Bakka Dursanii Itti Filan",
+      "dropOffLocation": "Bakka Buusan",
+      "multipleLocation": "Akaakuu Bakka tokko Oli",
+      "noLocationsFound": "Bakki Itti Filan hin Argamne"
+    },
+    "mapView": {
+      "toggle": "Ilaalcha Kaartaa Toggle"
+    },
+    "inputs" : {
+      "registeredAddress" : "Filuuf Teessoo Galmaa’e Galchi",
+      "differentAddress" : "Teesso Biraa Galchi"
+    }
+  }
+}

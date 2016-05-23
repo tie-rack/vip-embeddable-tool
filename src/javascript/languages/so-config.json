@@ -1,0 +1,71 @@
+{
+  "text" : {
+    "summary" : "",
+    "placeholderText" : {
+      "enterAddress" : "",
+      "changeAddress" : ""
+    },
+    "about" : {
+      "title" : "",
+      "content" : ""
+    },
+    "footer" : {
+      "text" : ""
+    },
+    "addressNotFound" : {
+      "title" : "",
+      "text" : "",
+      "button" : ""
+    },
+    "multipleElections" : {
+      "text" : ""
+    },
+    "mailInVoting" : {
+      "title" : "",
+      "text" : "",
+      "currentLocation" : "",
+      "registeredAddress" : ""
+    },
+    "headers" : {
+      "registeredVoterAddress" : "",
+      "edit" : "",
+      "elections" : "",
+      "pollingLocation" : "",
+      "voterResources" : "",
+      "ballotInformation" : ""
+    },
+    "resources" : {
+      "summary" : "",
+      "electionAdministration" : {
+        "title" : "",
+        "local_jurisdiction" : "",
+        "stateElectionsOffice" : "",
+        "physicalAddress" : "",
+        "correspondenceAddress" : ""
+      },
+      "moreResources" : {
+        "title" : "",
+        "electionInformationUrl" : "",
+        "registrationConfirmationUrl" : "",
+        "absenteeVotingInformationUrl" : "",
+        "votingLocationFinderUrl" : "",
+        "ballotInformationUrl" : ""
+      }
+    },
+    "pollingLocations" : {
+      "getDirections" : "",
+      "pollingLocation": "",
+      "earlyVoteSite": "",
+      "dropOffLocation": "",
+      "multipleLocation": "",
+      "noLocationsFound": ""
+    },
+    "mapView": {
+      "toggle": ""
+    },
+    "inputs" : {
+      "registeredAddress" : "",
+      "differentAddress" : ""
+    }
+  }
+}

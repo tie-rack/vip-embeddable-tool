@@ -1,71 +1,71 @@
 {
   "text" : {
-    "summary" : "",
+    "summary" : "Nrhiav seb yuav pov ntawv qhov twg, muaj dab tsi hauv tsab ntawv pov ntawv, thiab ntxiv...",
     "placeholderText" : {
-      "enterAddress" : "",
-      "changeAddress" : ""
+      "enterAddress" : "Ntaus Qhov Chaw Nyob rau Kev Pov Ntawv",
+      "changeAddress" : "Ntaus lwm qhov chaw nyob"
     },
     "about" : {
-      "title" : "",
-      "content" : ""
+      "title" : "Txog qhov Cuab Yeej Qhia Xov Xwm txog Kev Pov Ntawv",
+      "content" : "Kev Pab Qhia Xov Xwm txog Kev Pov Ntawv (Voting Information Project, VIP) yeej pab cov neeg pov ntawv kawm txog tej xov xwm tseem ceeb uas pab lawv paub pov ntawv, ib yam li seb yuav pov ntawv qhov twg thiab muaj dab tsis hauv tsab ntawv pov ntawv. Nov yog ib qho kev pab ntawm The Pew Charitable Trusts, Google, thiab cov xeev. Qhov no pib thaum 2008, VIP ua hauj lwm nrog lub xeev thiab cov thawj coj rau kev xaiv nom tswv hauv nroog los pab qhia tej xov xwm txog kev xaiv nom tswv rau cov pej xeem siv ntau yam txuj ci, kuj hais txog Google Civic Information API. Qhov Cuab Yeej Qhia Xov Xwm txog Kev Pov Ntawv yog ib yam ntawm ntau yam kev pab los ntawm VIP, uas pab tshaj tawm tej xov xwm txog kev xaiv nom tswv uas pab cov neeg pov ntawv ua ntej thiab thaum Hnub uas Xaiv Nom Tswv."
     },
     "footer" : {
-      "text" : ""
+      "text" : "Rau tag nrho tej xov xwm uas thwj, cia li nrog koj tus thawj coj rau kev xaiv nom tswv tham."
     },
     "addressNotFound" : {
-      "title" : "",
-      "text" : "",
-      "button" : ""
+      "title" : "Nrhiav Tsis Pom Xov Xwm txog Kev Xaiv Nom Tswv",
+      "text" : "Koj ntaus hais tias:<h1>1234 Main St<br>New York, NY 1000</h1>. Peb nrhiav tsis tau tej xov xwm txog kev xaiv nom tswv rau qhov chaw nyob uas koj sau no. Thov xyuas seb koj ntaus puas thwj, tiv tauj mus rau koj tus thawj coj rau kev xaiv nom tswv, los sis rov qab sim dua thaum ze Hnub uas Xaiv Nom Tswv. Yuav muaj tej xov xwm li 2 - 4 lim piam ua ntej hnub uas xaiv nom tswv. Rau tag nrho tej xov xwm uas thwj, cia li nrog koj tus thawj coj rau kev xaiv nom tswv tham.",
+      "button" : "Sim Ua Dua"
     },
     "multipleElections" : {
-      "text" : ""
+      "text" : "Muaj ntau txoj kev xaiv nom tswv hauv qhov chaw no"
     },
     "mailInVoting" : {
-      "title" : "",
-      "text" : "",
-      "currentLocation" : "",
-      "registeredAddress" : ""
+      "title" : "Lub Xeev Xa Ntawv Tuaj Pov Ntawv",
+      "text" : "Qhov chaw nyob uas koj sau yeej nyob hauv ib lub xeev uas xa ntawv tuaj pov ntawv. Qhov no txhais tau hais tias koj muaj xa koj tsab ntawv pov ntawv tuaj rau ib lub thawv rau kev pov ntawv. Koj puas tseem xav tshawb nrhiav kom tau cov thawv nqa mus raws li koj qhov chaw nyob, los sis koj puas xav rov qab nrhiav dua siv qhov chaw uas koj nyob tas sim no?",
+      "currentLocation" : "Siv Koj Qhov Chaw uas Koj Nyob Tas Sim No",
+      "registeredAddress" : "Txuas ntxiv mus"
     },
     "headers" : {
-      "registeredVoterAddress" : "",
-      "edit" : "",
-      "elections" : "",
-      "pollingLocation" : "",
-      "voterResources" : "",
-      "ballotInformation" : ""
+      "registeredVoterAddress" : "Tus Neeg Pov Ntawv Chaw Nyob hauv Ntaub Ntawv",
+      "edit" : "Kev kho",
+      "elections" : "Hnub uas Xaiv Nom Tswv",
+      "pollingLocation" : "Qhov Chaw Pov Ntawv",
+      "voterResources" : "Cov Ntaub Ntawv rau cov Neeg Pov Ntawv",
+      "ballotInformation" : "Tej Xov Xwm txog Tsab Ntawv Pov Ntawv"
     },
     "resources" : {
-      "summary" : "",
+      "summary" : "Tej xov xwm uas pab yus paub ua txoj kev xaiv nom tswv, kuj qhia txog tej hnub tas sij hawm thiab kev ua ntaub ntawv.",
       "electionAdministration" : {
-        "title" : "",
-        "local_jurisdiction" : "",
-        "stateElectionsOffice" : "",
-        "physicalAddress" : "",
-        "correspondenceAddress" : ""
+        "title" : "Coj Kav Kev Xaiv Nom Tswv",
+        "local_jurisdiction" : "Ciaj Ciam Luag Num hauv Nroog",
+        "stateElectionsOffice" : "Lub Xeev lub Hoob Kas rau Kev Xaiv Nom Tswv",
+        "physicalAddress" : "Qhov Chaw Nyob Kiag",
+        "correspondenceAddress" : "Qhov Chaw Nyob Xa Ntawv"
       },
       "moreResources" : {
-        "title" : "",
-        "electionInformationUrl" : "",
-        "registrationConfirmationUrl" : "",
-        "absenteeVotingInformationUrl" : "",
-        "votingLocationFinderUrl" : "",
-        "ballotInformationUrl" : ""
+        "title" : "Lwm Yam Ntaub Ntawv",
+        "electionInformationUrl" : "Tej Xov Xwm txog Kev Xaiv Nom Tswv",
+        "registrationConfirmationUrl" : "Kev Pom Zoo Ua Ntaub Ntawv Tas",
+        "absenteeVotingInformationUrl" : "Tej Xov Xwm Txog Kev Pov Ntawv Thaum Yus Tsis Nyob",
+        "votingLocationFinderUrl" : "Kev Pab Nrhiav Qhov Chaw Pov Ntawv",
+        "ballotInformationUrl" : "Tej Xov Xwm txog Tsab Ntawv Pov Ntawv"
       }
     },
     "pollingLocations" : {
-      "getDirections" : "",
-      "pollingLocation": "",
-      "earlyVoteSite": "",
-      "dropOffLocation": "",
-      "multipleLocation": "",
-      "noLocationsFound": ""
+      "getDirections" : "Tau Lus Qhia Kev",
+      "pollingLocation": "Qhov Chaw Pov Ntawv",
+      "earlyVoteSite": "Qhov Chaw Pov Ntawv Thaum Ntxov",
+      "dropOffLocation": "Qhov Chaw Xa Mus",
+      "multipleLocation": "Ntau Hom Qhov Chaw",
+      "noLocationsFound": "Nrhiav Tsis Pom Muaj Tej Qhov Chaw Pov Ntawv"
     },
     "mapView": {
-      "toggle": ""
+      "toggle": "Saib Daim Pheem Thib"
     },
     "inputs" : {
-      "registeredAddress" : "",
-      "differentAddress" : ""
+      "registeredAddress" : "Ntaus Qhov Chaw Nyob rau Kev Pov Ntawv",
+      "differentAddress" : "Ntaus lwm qhov chaw nyob"
     }
   }
 }

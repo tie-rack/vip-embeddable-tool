@@ -1,71 +1,71 @@
 {
   "text" : {
-    "summary" : "",
+    "summary" : "የት እንደሚመርጡ፡ በምርጫ ወረቀትዎ ላይ ምን እንዳለ እንዲሁም ሌሎች ጉዳዮችን ለማውቅ ፈልጉ",
     "placeholderText" : {
-      "enterAddress" : "",
-      "changeAddress" : ""
+      "enterAddress" : "ለምርጫ የተመዘገቡበትን ኣድራሻ ኣስገቡ",
+      "changeAddress" : "የተለየ  ኣድራሻ ኣስገቡ"
     },
     "about" : {
-      "title" : "",
-      "content" : ""
+      "title" : "ስለምርጫ መረጃ ያለው መሳርያ",
+      "content" : "የምርጫ መረጃ መሳርያ (ቪ-ኣይ-ፒ VIP)፡ መራጮችን ወይም ድምጽ ሰጪዎችን ምርጫቸውን ለማካሄድ፡ የት ሂደው እንደሚመርጡ፡ በምርጫው ወረቀት ላይ ምን እንደሰፈረ  ከመሳስሉትና  ከሚያስፈልጉዋቸው መረጃዎች ጋር የሚያገኛቸው መሳርያ ነው። ይሄው መሳርያ በዘ ፒው ቻሪቴብል ትራስት (The Pew Charitable Trusts), በጉጉል (Google) እና በክፍለሃገሩ መካከል ይገኛል። ይሄው የምርጫ መረጃ መሳርያ((ቪ-ኣይ-ፒ VIP)፡ የተጀመረው  በ2008 ነው። ይሄው የምርጫ መረጃ መሳርያ ከክፍለሃገርና ከኣካባቢ  የምርጫ ባለስልጣኖች ጋርና ከጉግል (Google Civic Information API) በመተባበር፡ በተለየዩ ዘዴዎች  የምርጫ መረጃዎችን ለህዝብ በማቅረብ  ይሰራል። ይሄው መሳርያ በVIP ስር ሁኖ ከምርጫ በፊትና በምርጫ ቀን መራጮች መከተል ስላለባቸው እርምጃዎች መረጃ ይሰጣል።"
     },
     "footer" : {
-      "text" : ""
+      "text" : "ለተ ሟላና ወቅታዊ ለሆነ መረጃ በኣካባቢዎ የሚገኝ  የምርጫ ጣብያ ባለስልጣንን ኣማክሩ"
     },
     "addressNotFound" : {
-      "title" : "",
-      "text" : "",
-      "button" : ""
+      "title" : "ምንም የምርጫ መረጃ ኣልተገኘም",
+      "text" : "ያስገቡት ኣድራሻ :<h1>1234 Main St<br>New York, NY 1000</h1> የሚል ነው። ባስገቡት ኣድራሻ ስር ምንም ዓይነት የምርጫ መረጃ ኣላገኘንም። በትክክል ማስገባትዎን ተመልሰው ያጣሩ፡  የኣስመራጭ ኮሚቴ ባለስልጣንን ኣነጋግሩ ወይም ዋናው የምርጫ ቀን ኣካባቢ ቀናት ውስጥ እንደገና ይሞክሩ። ከምርጫው ቀን ከሁለት እስከ 4 ሳምንታት በፊት ኣስፈላጊው መረጃ ይቀርባል።ለተ ሟላና ወቅታዊ ለሆነ መረጃ በኣካባቢዎ የሚገኝ  የምርጫ ጣብያ ባለስልጣንን ኣማክሩ።",
+      "button" : "እንደገና ይሞክሩ"
     },
     "multipleElections" : {
-      "text" : ""
+      "text" : "ለዚህ ቦታ፡ በርካታ ምርጫዎች ተመዝግበዋል"
     },
     "mailInVoting" : {
-      "title" : "",
-      "text" : "",
-      "currentLocation" : "",
-      "registeredAddress" : ""
+      "title" : "በፖስታ የተላኩ የምርጫ ወረቀቶች የገቡበት",
+      "text" : "ያስመዘገቡት ኣድራሻ  በፖስታ ከተላኩ የምርጫ ወረቀቶች ጋር ይገኛል። ይህም ማለት የምርጫ ወረቀትዎን በማናቸውም ኦፊሲያላዊ  የፖስታ ሳጥን ውስጥ ለመጣል ይችላሉ። በተመዘገበው ኣድራሻዎ በመመርኮዝ፡ በየፖስታ ሳጥኑ መፈለግን ሊቀጥሉበት ይሻሉ ወይስ ኣዲሱን ኣድራሻዎን ተጠቅመው ጥያቄዎን እንደገና ማስገባት  ይሻሉ?",
+      "currentLocation" : "ወቅታዊ ኣድራሻ ተጠቀሙ",
+      "registeredAddress" : "ቀጥሉ"
     },
     "headers" : {
-      "registeredVoterAddress" : "",
-      "edit" : "",
-      "elections" : "",
-      "pollingLocation" : "",
-      "voterResources" : "",
-      "ballotInformation" : ""
+      "registeredVoterAddress" : "የተመዘገበ የመራጭ ኣድራሻ",
+      "edit" : "ኣስተካክሉ",
+      "elections" : "የምርጫ ቀን",
+      "pollingLocation" : "ምርጫ የሚካሄበት ቦታ/የምርጫ ጣብያ",
+      "voterResources" : "ለመራጮች የሚያገለግሉ የመረጃ ምንጮች",
+      "ballotInformation" : "የምርጫ መረጃ"
     },
     "resources" : {
-      "summary" : "",
+      "summary" : "የምርጫውን ሂደት እንዴት ማካሄድ እንደሚቻል የሚያግዝና  እንዲሁም  ስለ የመጨረሻ ቀኖችና የምዝገባ ግንኙነቶች የተሰጠ መረጃ",
       "electionAdministration" : {
-        "title" : "",
-        "local_jurisdiction" : "",
-        "stateElectionsOffice" : "",
-        "physicalAddress" : "",
-        "correspondenceAddress" : ""
+        "title" : "የምርጫ ኣስተዳደር",
+        "local_jurisdiction" : "የኣካባቢ ህጎች",
+        "stateElectionsOffice" : "የክፍለሃገር የምርጫ ጽህፈት ቤት",
+        "physicalAddress" : "ቀዋሚ ኣድራሻ",
+        "correspondenceAddress" : "የመጻጻፍያ ኣድራሻ"
       },
       "moreResources" : {
-        "title" : "",
-        "electionInformationUrl" : "",
-        "registrationConfirmationUrl" : "",
-        "absenteeVotingInformationUrl" : "",
-        "votingLocationFinderUrl" : "",
-        "ballotInformationUrl" : ""
+        "title" : "ተጨማሪ ምንጮች",
+        "electionInformationUrl" : "የምርጫ መረጃ",
+        "registrationConfirmationUrl" : "የምዝገባ ማረጋገጫ",
+        "absenteeVotingInformationUrl" : "በኣካል ተገኝተው ለማይመርጡና ከምርጫው ቀን በፊት  ለመምረጥ ስለሚፈልጉ (Absentee) ያለው መረጃ ",
+        "votingLocationFinderUrl" : "የምርጫ ቦታ የት እንደሆነ ለማወቅ የሚያግዝ  ",
+        "ballotInformationUrl" : "ስለ ምርጫ ወረቀት ካርድ መረጃ"
       }
     },
     "pollingLocations" : {
-      "getDirections" : "",
-      "pollingLocation": "",
-      "earlyVoteSite": "",
-      "dropOffLocation": "",
-      "multipleLocation": "",
-      "noLocationsFound": ""
+      "getDirections" : "ኣድራሻ ማግኝያ",
+      "pollingLocation": "የምርጫ ጣብያዎች የት እንደሚገኙ መረጃ",
+      "earlyVoteSite": "ከምርጫው ቀን በፊት የሚመረጥበት ቦታ",
+      "dropOffLocation": "የምርጫ ወረቀት የሚከተትበት ሳጥን የሚገኝበት ቦታ",
+      "multipleLocation": "የኣያሌ የተለያዩ ቦታዎች ኣድራሻ",
+      "noLocationsFound": "ምንም የምርጫ ቦታዎች የሉም"
     },
     "mapView": {
-      "toggle": ""
+      "toggle": "ልዩ የካርታ ማሳያ"
     },
     "inputs" : {
-      "registeredAddress" : "",
-      "differentAddress" : ""
+      "registeredAddress" : "የተመዘገበ የምርጫ ኣድራሻን እዚህ ላይ ኣስገቡ",
+      "differentAddress" : "ሌላ የተለየ ኣድራሻ ኣስገቡ"
     }
   }
 }

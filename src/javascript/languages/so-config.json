@@ -1,71 +1,71 @@
 {
   "text" : {
-    "summary" : "",
+    "summary" : "Ogow meesha laga codeeyo, waxa ku qoran warqaddaada codbixinta, iyo ka badan…",
     "placeholderText" : {
-      "enterAddress" : "",
-      "changeAddress" : ""
+      "enterAddress" : "Qor Cinwaanka Codbixinta ee Diiwaangashan",
+      "changeAddress" : "Qor Cinwaan ka Duwan"
     },
     "about" : {
-      "title" : "",
-      "content" : ""
+      "title" : "Ku Saabsan Macluumaadka Qlabka Codbixinta",
+      "content" : "Mashruuca Macluumaadka Codbixinta (The Voting Information Project (VIP)) waxaa shaqadiisu tahay in uu ku xiro codbixiyayaasha macluumaadka muhiimka ah ee loo baahan yahay si ay codkooda u dhiibtaan, sida meesha laga codeeyo iyo waxa ku qoran warqaddaada codbixinta.  Waa mashruuc ka dhexeeya The Pew Charitable Trusts, Google, iyo gobolada.  Waxaa la bilaabay 2008, VIP waxay la shaqaysaa gobolada iyo saraakiisha doorashada ee deegaanka si ay u siiso muwaadiniinta macluumaad rasmi ah oo ku saabsan doorashada iyadoo u gaarsiisa siyaabo kala duwan, oo ay ka mid yihiin Google Civic Information API.  Macluumaadka Qlabka Codbixinta waa mid ka mid ah siyaabaha badan oo loo sii marsiiyo VIP, tan oo lagu hubinayo in macluumaadka rasmiga ah ee doorashada ay codbixiyayaashu heli karaan Maalinta Doorashada iyo ka hor."
     },
     "footer" : {
-      "text" : ""
+      "text" : "Wixii ah macluumaad buuxa oo ka turjumaya waxa hadda jira, la tasho sarkaalka doorashada ee deegaankaaga."
     },
     "addressNotFound" : {
-      "title" : "",
-      "text" : "",
-      "button" : ""
+      "title" : "Lama Helin Macluumaadka Doorashada",
+      "text" : "Waxaad qortay:<h1>1234 Main St<br>New York, NY 1000</h1>. Ma helin wax ku saabsan macluumaadka doorashada ee cinwaanka aad qortay.  Fadlan hubi si aad u xaqiijiso in aad cinwaanka sax u qortay, la xiriir sarkaal doorashada, ama mar kale isku day marka ay Maalinta Doorashadu soo dhowaato.  Waxaa macluumaad la heli doonaa 2 - 4 todobaad doorashada ka hor. Wixii ah macluumaad buuxa oo ka turjumaya waxa hadda jira, la tasho sarkaalka doorashada ee deegaankaaga.",
+      "button" : "Isku day mar kale"
     },
     "multipleElections" : {
-      "text" : ""
+      "text" : "Goobtan waxaa ka jira doorashooyin badan"
     },
     "mailInVoting" : {
-      "title" : "",
-      "text" : "",
-      "currentLocation" : "",
-      "registeredAddress" : ""
+      "title" : "Warqadda codbixinta oo lagu rido sanduukha boostada rasmiga ah ee loogu tallagalay",
+      "text" : "Cinwaanka diiwaangashan ee aad qortay waxa uu ku yaal  sanduukha boostada rasmiga ah ee loogu tallagalay.  Tan macnaheedu waa in aad warqadda codbixinta ku soo diri karto boosta adiga oo ku ridaya sanduukha rasmiga ah ee loogu talagalay.  Ma rabtaa in aad siiwado raadinta sanduukh boosto oo lagu rido kuna yaal cinwaankaaga diiwaangashan.",
+      "currentLocation" : "Isticmaal Goobta Hadda",
+      "registeredAddress" : "Sii wad"
     },
     "headers" : {
-      "registeredVoterAddress" : "",
-      "edit" : "",
-      "elections" : "",
-      "pollingLocation" : "",
-      "voterResources" : "",
-      "ballotInformation" : ""
+      "registeredVoterAddress" : "Cinwaanka Codbixiyaha Diiwaangashan",
+      "edit" : "Sax",
+      "elections" : "Maalinta Doorashada",
+      "pollingLocation" : "Goobta Codbixinta",
+      "voterResources" : "Ilaha Codbixiyaha",
+      "ballotInformation" : "Macluumaadka Warqadda Codbixinta"
     },
     "resources" : {
-      "summary" : "",
+      "summary" : "Macluumaadka ku saabsan sidii aad u garan lahayd nadaamka doorashooyinka",
       "electionAdministration" : {
-        "title" : "",
-        "local_jurisdiction" : "",
-        "stateElectionsOffice" : "",
-        "physicalAddress" : "",
-        "correspondenceAddress" : ""
+        "title" : "Maamulka Doorashooyinka",
+        "local_jurisdiction" : "Awoodda Sharci ee Deegaanka",
+        "stateElectionsOffice" : "Xafiiska Doorashooyinka Gobolka",
+        "physicalAddress" : "Cinwaanka aad deggan tahay",
+        "correspondenceAddress" : "Cinwaanka Lagaala Xiriiro"
       },
       "moreResources" : {
-        "title" : "",
-        "electionInformationUrl" : "",
-        "registrationConfirmationUrl" : "",
-        "absenteeVotingInformationUrl" : "",
-        "votingLocationFinderUrl" : "",
-        "ballotInformationUrl" : ""
+        "title" : "Ilo Dheeraad ah",
+        "electionInformationUrl" : "Macluumaadka Doorashooyinka",
+        "registrationConfirmationUrl" : "Caddaynta Isdiiwaangelinta",
+        "absenteeVotingInformationUrl" : "Macluumaadka Codbixinta Maqanaha",
+        "votingLocationFinderUrl" : "Helaha Goobta Codbixinta",
+        "ballotInformationUrl" : "Macluumaadka Warqadda Codbixinta"
       }
     },
     "pollingLocations" : {
-      "getDirections" : "",
-      "pollingLocation": "",
-      "earlyVoteSite": "",
-      "dropOffLocation": "",
-      "multipleLocation": "",
-      "noLocationsFound": ""
+      "getDirections" : "Jihada Hel",
+      "pollingLocation": "Goobta Codbixinta ",
+      "earlyVoteSite": "Meesha Horay Looga Codeeyo",
+      "dropOffLocation": "Meesha Qofka lagu Dejiyo",
+      "multipleLocation": "Noocyada Meela Badan",
+      "noLocationsFound": "Lama Helin Goobo Codbixin"
     },
     "mapView": {
-      "toggle": ""
+      "toggle": "Khariidadda Muuqata Beddel"
     },
     "inputs" : {
-      "registeredAddress" : "",
-      "differentAddress" : ""
+      "registeredAddress" : "Qor Cinwaanka Codbixinta ee Diiwaangashan",
+      "differentAddress" : "Qor Cinwaan ka Duwan"
     }
   }
 }

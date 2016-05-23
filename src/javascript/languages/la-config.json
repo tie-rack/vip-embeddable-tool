@@ -1,71 +1,71 @@
 {
   "text" : {
-    "summary" : "",
+    "summary" : "ຊອກຫາບ່ອນລົງຄະແນນສຽງ, ແມ່ນຫຍັງຢູ່ໃນບັດລົງຄະແນນສຽງຂອງທ່ານ, ແລະອື່ນໆ ...",
     "placeholderText" : {
-      "enterAddress" : "",
-      "changeAddress" : ""
+      "enterAddress" : "ໃສ່ທີ່ຢູ່ລົງຄະແນນສຽງທີ່ລົງທະບຽນໄວ້ແລ້ວ",
+      "changeAddress" : "ໃສ່ທີ່ຢູ່ທີ່ແຕກຕ່າງກັນ"
     },
     "about" : {
-      "title" : "",
-      "content" : ""
+      "title" : "ກ່ຽວກັບເຄື່ອງມືຂໍ້ມູນລົງຄະແນນສຽງ",
+      "content" : "ໂຄງການຂໍ້ມູນຂ່າວສານການລົງຄະແນນສຽງ (ວີໄອພີ VIP) ເຮັດວຽກເພື່ອເຊື່ອມຕໍ່ຜຸ້ລົງຄະແນນສຽງກັບຂໍ້ມູນສໍາຄັນທີ່ຈໍາເປັນໃນການລົງຄະແນນສຽງ, ເຊັ່ນບ່ອນທີ່ຈະລົງຄະແນນສຽງແລະແມ່ນຫຍັງຢູ່ໃນບັດລົງຄະແນນສຽງຂອງທ່ານ ມັນເປັນໂຄງການລະຫວ່າງ The Pew Charitable Trusts, Google, ແລະ ລັດຕ່າງໆ. ໂຄງການນີ້ເປີດຕົວໃນປີ 2008 ແລະ VIP ເຮັດວຽກຮ່ວມກັບລັດແລະພະນັກງານເລືອກຕັ້ງທ້ອງຖິ່ນເພື່ອໃຫ້ຂໍ້ມູນການເລືອກຕັ້ງຢ່າງເປັນທາງການກັບປະຊາຊົນໂດຍຜ່ານຫຼາກຫຼາຍວິທີການລວມທັງຂໍ້ມູນ Google Civic API ເຄື່ອງມືຂໍ້ມູນການລົງຄະແນນສຽງ ເປັນໜຶ່ງໃນຈໍານວນຫຼາຍເຄື່ອງມືທີ່ມີໃຫ້ໂດຍຜ່ານທາງ VIP ຊຶ່ງເປັນການຮັບປະກັນວ່າຜູ້ລົງຄະແນນສຽງສາມາດເຂົ້າເຖິງຂໍ້ມູນຂ່າວສານການເລືອກຕັ້ງຢ່າງເປັນທາງການໄດ້ ກ່ອນແລະໃນວັນເລືອກຕັ້ງ."
     },
     "footer" : {
-      "text" : ""
+      "text" : "ສໍາລັບຂໍ້ມູນທີ່ສົມບູນທີ່ສຸດແລະລ້າສຸດ, ກະລຸນາປຶກສາກັບພະນັກງານການເລືອກຕັ້ງທ້ອງຖິ່ນຂອງທ່ານ."
     },
     "addressNotFound" : {
-      "title" : "",
-      "text" : "",
-      "button" : ""
+      "title" : "ບໍ່ພົບຂໍ້ມູນການເລືອກຕັ້ງ",
+      "text" : "ທ່ານໃຫ້ຂໍ້ມູນວ່າ:<h1>1234 Main St<br>New York, NY 1000</h1> ເຂົ້າໄປ ພວກເຮົາບໍ່ສາມາດຊອກຫາຂໍ້ມູນການເລືອກຕັ້ງຕາມທີ່ຢູ່ທີ່ທ່ານໃຫ້ຂໍ້ມູນໄປ ກະລຸນາກວດສອບເພື່ອໃຫ້ແນ່ໃຈວ່າທ່ານໃຫ້ຂໍ້ມູນຖືກຕ້ອງຫຼືບໍ່  ຕິດຕໍ່ພະນັກງານການເລືອກຕັ້ງຂອງທ່ານ,ຫຼືພະຍາຍາມອີກເທື່ອໜຶ່ງຍາມໃກ້ຈະເຖິງວັນເລືອກຕັ້ງ  ຂໍ້ມູນຈະມີໃຫ້ 2 - 4 ອາທິດກ່ອນການເລືອກຕັ້ງ  ສໍາລັບຂໍ້ມູນລ້າສຸດແລະສົມບູນ ໃຫ້ຕິດຕໍ່ພະນັກງານການເລືອກຕັ້ງທ້ອງຖິ່ນຂອງທ່ານ",
+      "button" : "ລອງ​ອີກ​"
     },
     "multipleElections" : {
-      "text" : ""
+      "text" : "ມີການເລືອກຕັ້ງຫຼາຍບ່ອນຢູ່ບ່ອນນີ້"
     },
     "mailInVoting" : {
-      "title" : "",
-      "text" : "",
-      "currentLocation" : "",
-      "registeredAddress" : ""
+      "title" : "ສົ່ງບັດລົງຄະແນນສຽງຂອງລັດໄປທາງໄປສະນີ",
+      "text" : "ທີ່ຢູ່ທີ່ທ່ານຈົດທະບຽນທີີ່ທ່ານປ່ອນເຂົ້າໄປ ແມ່ນຢູ່ໃນລັດທີ່ໃຫ້ສົ່ງບັດລົງຄະແນນສຽງໄປທາງໄປສະນີ  ນີ້ໝາຍຄວາມວ່າທ່ານສາມາດສົ່ງບັດລົງຄະແນນສຽງຂອງທ່ານໄປຕູ້ປ່ອນບັດທາງການບ່ອນໃດກໍໄດ້  ທ່ານຢາກສືບຕໍ່ຄົ້ນຫາຕູ້ປ່ອນບັດຕາມທີ່ຢູ່ທີ່ທ່ານໄດ້ລົງທະບຽນໄວ້ບໍ່ ຫຼືທ່ານຢາກຈະສົ່ງຄໍາຮ້ອງຂໍຂອງທ່ານຄືນໃໝ່ໂດຍການໃຊ້ສະຖານທີ່ປັດຈຸບັນຂອງທ່ານ?  ",
+      "currentLocation" : "ໃຊ້ສະຖານທີ່ໃນປັດຈຸບັນ",
+      "registeredAddress" : "ຕໍ່"
     },
     "headers" : {
-      "registeredVoterAddress" : "",
-      "edit" : "",
-      "elections" : "",
-      "pollingLocation" : "",
-      "voterResources" : "",
-      "ballotInformation" : ""
+      "registeredVoterAddress" : "ທີ່ຢູ່ຜູ້ລົງຄະແນນທີ່ຈົດທະບຽນ",
+      "edit" : "ແກ້",
+      "elections" : "ວັນເລືອກຕັ້ງ",
+      "pollingLocation" : "ສະຖານທີ່ເລືອກຕັ້ງ",
+      "voterResources" : "ແຫລ່ງຊ່ວຍເຫຼືອສຳລັບຜູ້ມີສິດເລືອກຕັ້ງ",
+      "ballotInformation" : "ຂໍ້ມູນກ່ຽວກັບບັດລົງຄະແນນສຽງ"
     },
     "resources" : {
-      "summary" : "",
+      "summary" : "ຂໍ້ມູນກ່ຽວກັບຂັ້ນຕອນໃນການເລືອກຕັ້ງ, ລວມທັງກໍານົດເວລາແລະລິງການຈົດທະບຽນ",
       "electionAdministration" : {
-        "title" : "",
-        "local_jurisdiction" : "",
-        "stateElectionsOffice" : "",
-        "physicalAddress" : "",
-        "correspondenceAddress" : ""
+        "title" : "ຝ່າຍບໍລິຫານການເລືອກຕັ້ງ",
+        "local_jurisdiction" : "ເຂດອໍານາດທ້ອງຖິ່ນ",
+        "stateElectionsOffice" : "ສຳນັກງານການເລືອກຕັ້ງຂອງລັດ",
+        "physicalAddress" : "ທີ່ຕັ້ງ",
+        "correspondenceAddress" : "ທີ່ຢູ່ສຳລັບຕິດຕໍ່"
       },
       "moreResources" : {
-        "title" : "",
-        "electionInformationUrl" : "",
-        "registrationConfirmationUrl" : "",
-        "absenteeVotingInformationUrl" : "",
-        "votingLocationFinderUrl" : "",
-        "ballotInformationUrl" : ""
+        "title" : "ແຫລ່ງຊ່ວຍເຫລືອເພີ່ມເຕີມ",
+        "electionInformationUrl" : "ຂໍ້ມູນກ່ຽວກັບການເລືອກຕັ້ງ",
+        "registrationConfirmationUrl" : "ການຢັ້ງຢືນການຈົດທະບຽນ",
+        "absenteeVotingInformationUrl" : "ຂໍ້ມູນການລົງຄະແນນສຽງຊະນິດບໍ່ສາມາດໄປບ່ອນເລືອກຕັ້ງໄດ້",
+        "votingLocationFinderUrl" : "ຊອກຫາສະຖານທີ່ລົງຄະແນນສຽງ",
+        "ballotInformationUrl" : "ຂໍ້ມູນບັດລົງຄະແນນສຽງ"
       }
     },
     "pollingLocations" : {
-      "getDirections" : "",
-      "pollingLocation": "",
-      "earlyVoteSite": "",
-      "dropOffLocation": "",
-      "multipleLocation": "",
-      "noLocationsFound": ""
+      "getDirections" : "ຂໍທິດທາງ",
+      "pollingLocation": "ສະຖານທີ່ເລືອກຕັ້ງ",
+      "earlyVoteSite": "ທີ່ຕັ້ງລົງຄະແນນສຽງລ່ວງຫນ້າ",
+      "dropOffLocation": "ສະຖານທີ່ຕັ້ງບ່ອນສົ່ງເອກກະສານ",
+      "multipleLocation": "ສະຖານທີ່ຕັ້ງທີ່ຫຼາກຫຼາຍ",
+      "noLocationsFound": "ບໍ່ພົບສະຖານທີ່ເລືອກຕັ້ງ"
     },
     "mapView": {
-      "toggle": ""
+      "toggle": "ເບິ່ງແຜນທີ່ແບບສະຫຼັບກັນ"
     },
     "inputs" : {
-      "registeredAddress" : "",
-      "differentAddress" : ""
+      "registeredAddress" : "ໃສ່ທີ່ຢູ່ລົງຄະແນນສຽງທີ່ລົງທະບຽນໄວ້ແລ້ວ",
+      "differentAddress" : "ໃສ່ທີ່ຢູ່ທີ່ແຕກຕ່າງກັນ"
     }
   }
 }

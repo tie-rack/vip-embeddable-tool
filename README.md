@@ -37,6 +37,28 @@ vit.load({
 |`colors`| object | custom colors (detailed in the next section) |
 |`json`| string (URL) | Language and other customization via a link to a JSON object (detailed in the following section)|
 
+### Language
+You can specify a non-default language by passing a language key into the `language` parameter:
+
+| Key | Language |
+|-----|----------|
+|`en` |English (default) |
+|`es` |Spanish |
+|`ja` |Japanese |
+|`ru` |Russian |
+|`ko` |Korean |
+|`am` |Amharic |
+|`km` |Khmer |
+|`hi` |Hindi |
+|`la` |Laotian |
+|`vi` |Vietnamese |
+|`zh` |Chinese
+|`so` |Somali |
+|`or` |Oromo |
+|`hm` |Hmong |
+|`th` |Thai |
+|`tl-PH` |Tagalog |
+
 ### Colors
 You can also add colors by passing an object of this format to the `colors` parameter:
 
@@ -57,6 +79,7 @@ You can also add colors by passing an object of this format to the `colors` para
   officialOnly: true,
   width: '600px',
   height: '480px',
+  language: 'es',
   logo: 'http://yourlogourl.com/path/to/logo.jpg',
   smallLogo: 'http://yourlogourl.com/path/to/smallLogo.jpg',
   colors: {

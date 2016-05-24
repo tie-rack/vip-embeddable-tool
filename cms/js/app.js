@@ -432,14 +432,20 @@ app.controller('ApplicationController', function($scope, $window, $sce, $timeout
   $scope.languages = {
     'English': 'en',
     'Spanish': 'es',
-    'Hindi': 'hi',
     'Japanese': 'ja',
-    'Khmer': 'km',
+    'Russian': 'ru',
     'Korean': 'ko',
-    'Tagalog': 'tl-PH',
-    'Thai': 'th',
+    'Amharic': 'am',
+    'Khmer': 'km',
+    'Hindi': 'hi',
+    'Laotian': 'la',
     'Vietnamese': 'vi',
-    'Chinese': 'zh'
+    'Chinese': 'zh',
+    'Somali': 'so',
+    'Oromo': 'or',
+    'Hmong': 'hm',
+    'Thai': 'th',
+    'Tagalog': 'tl-PH'
   };
   $scope.languageNames = Object.keys($scope.languages)
 

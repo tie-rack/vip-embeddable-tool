@@ -192,6 +192,7 @@ module.exports = (function() {
       this.find('#address-not-found h1').text(this.address);
       this.find('#address-input').value = "";
       this.hasSubmitted = false;
+      this.hasShownMailOnlyModal = false;
     },
 
     handleElectionData: function(response) {

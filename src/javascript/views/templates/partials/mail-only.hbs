@@ -1,26 +1,23 @@
 <div class="modal" id="mail-only">
-  <h2>Mail-only Election</h2>
-  <p>
-  Your upcoming election is mail-only. Please contact your local election official to learn more about how to receive and return your ballot:
-  </p>
+  <h2>{{ assets.text.mailInVoting.title }}</h2>
+  <p>{{ assets.text.mailInVoting.text }}</p>
   <br>
-  {{#each state.0.local_jurisdiction.electionAdministrationBody.electionOfficials}}
+  {{#each data.state.0.local_jurisdiction.electionAdministrationBody.electionOfficials}}
   {{> election-official this}}
   {{/each}}
-  {{#if state.0.local_jurisdiction.electionAdministrationBody.name }}
+  {{#if data.state.0.local_jurisdiction.electionAdministrationBody.name }}
     <br>
-    {{ state.0.local_jurisdiction.electionAdministrationBody.name }}
+    {{ data.state.0.local_jurisdiction.electionAdministrationBody.name }}
     <br>
   {{/if}}
-  {{#if state.0.local_jurisdiction.electionAdministrationBody.electionInfoUrl}}
+  {{#if data.state.0.local_jurisdiction.electionAdministrationBody.electionInfoUrl}}
     <a href="{{state.0.local_jurisdiction.electionAdministrationBody.electionInfoUrl}}" target="_blank">
-      {{state.0.local_jurisdiction.electionAdministrationBody.electionInfoUrl}}
+      {{data.state.0.local_jurisdiction.electionAdministrationBody.electionInfoUrl}}
     </a><br>
   {{/if}}
   <br>
-  <p>
-  This also means you may be able to return your ballot at multiple locations. Please hit continue to see your election information.
+  <p class="inputs-container">
+    <button id="use-registered-address">{{ assets.text.mailInVoting.registeredAddress }}</button>
+    <button id="use-different-address">{{assets.text.inputs.differentAddress}}</button>
   </p>
-  <br>
-  <p><button>Continue</button></p>
 </div>

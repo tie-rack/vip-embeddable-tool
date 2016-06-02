@@ -443,7 +443,7 @@ app.controller('ApplicationController', function($scope, $window, $sce, $timeout
     'Oromo': 'or',
     'Russian': 'ru',
     'Somali': 'so',
-    'Tagalog': 'tl-PH'
+    'Tagalog': 'tl-PH',
     'Thai': 'th',
     'Vietnamese': 'vi'
   };

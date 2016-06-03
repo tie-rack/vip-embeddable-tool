@@ -1,6 +1,7 @@
 var View = require('./view.js');
 var api = require('../api.js');
 var $ = require('jquery');
+var _ = require('lodash');
 var colors = require('../colors.js');
 
 module.exports = View.extend({

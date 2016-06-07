@@ -82,8 +82,8 @@ module.exports = View.extend({
       componentRestrictions: { country: 'us' }
     });
 
+    // debounce submissions
     this.hasSubmitted = false;
-    this.hasShownMailOnlyModal = false;
 
     // disable fast-click for place autocomplete by listening for DOM Node
     // Insertion. PAC doesn't work with fastlick. See:
@@ -117,42 +117,6 @@ module.exports = View.extend({
     if (this.address.length < this.$addressInput.val().length) {
       this.address = this.$addressInput.val();
     }
-
-    if (this.$mailOnlyModal) {
-      this.$mailOnlyModal.remove();
-    }
-
-    this.$addressInput.val('');
-
-    this.hasSubmitted = true;
-
-    this._makeRequest({
-      address: this.address
-    });
-
-    this.toggleLoadingDisplay();
-  },
-
-  differentAddressAutocompleteListener: function () {
-    // TODO: replace this with a debouncer
-    if (this.hasSubmitted) return;
-
-    if (this.differentAddressAutocomplete.getPlace()) {
-      this.address = this.differentAddressAutocomplete.getPlace().formatted_address || this.differentAddressAutocomplete.getPlace().name;
-    } else {
-      this.address = this.$addressInput.val();
-    }
-
-    // OVERRIDE: if what is in the text box is lengthier than the PAC address, use the former
-    if (this.address.length < this.$addressInput.val().length) {
-      this.address = this.$addressInput.val();
-    }
-
-    if (this.$mailOnlyModal) {
-      this.$mailOnlyModal.remove();
-    }
-
-    this.$addressInput.val('');
 
     this.hasSubmitted = true;
 
@@ -207,11 +171,11 @@ module.exports = View.extend({
   },
 
   handleElectionData: function(response) {
-    console.log(response);
+    console.log(response)
     this.response = response;
 
     var stateName = _.get(this.response, 'state[0].name');
-    if (response.mailOnly && !this.hasShownMailOnlyModal) {
+    if (response.mailOnly) {
       this.showMailOnlyModal();
     } else if (stateName === 'Washington' || stateName === 'Oregon') {
       this.showCurrentLocationModal();
@@ -296,25 +260,15 @@ module.exports = View.extend({
   },
 
   showMailOnlyModal: function () {
-    if (this.hasShownMailOnlyModal) {
-      return;
-    }
+    var $mailOnly = $(this.mailOnly(this.response));
 
-    this.$mailOnlyModal = $(this.mailOnly({
-      data: this.response,
-      assets: this.assets
-    }));
+    $mailOnly.find('button').on('click', this.useRegisteredAddress.bind(this));
 
-    this.$mailOnlyModal.find('#use-registered-address').on('click', this.useRegisteredAddress.bind(this));
-    this.$mailOnlyModal.find('#use-different-address').on('click', this.useDifferentAddress.bind(this));
-
-    this.$el.append(this.$mailOnlyModal);
-    this.$mailOnlyModal.fadeIn();
+    this.$el.append($mailOnly);
+    $mailOnly.fadeIn();
 
     this.$fade.fadeTo('fast', .2);
     this.$loading.hide();
-
-    this.hasShownMailOnlyModal = true;
   },
 
   useCurrentLocation: function () {
@@ -337,25 +291,19 @@ module.exports = View.extend({
     this.triggerRouteEvent('addressViewSubmit', this.response);
   },
 
-  useDifferentAddress: function (event) {
-    var $inputsContainer = $(event.currentTarget).parents('.inputs-container');
-
-    $inputsContainer.find('#use-different-address').remove();
-
+  useDifferentAddress: function () {
     var newInput = $('<input>')
       .attr('type', 'text')
       .attr('placeholder', "Enter a different address")
-      .css('margin', '10px 0')
-      .insertBefore($inputsContainer);
+      .css('margin', '10px 0 0')
+      .insertBefore('#current-location span');
 
-    this.differentAddressAutocomplete = new google.maps.places.Autocomplete(newInput[0], {
+    this.autocomplete = new google.maps.places.Autocomplete(newInput[0], {
       types: ['address'],
       componentRestrictions: { country: 'us' }
     });
 
-    google.maps.event.addListener(this.differentAddressAutocomplete, 'place_changed', this.differentAddressAutocompleteListener.bind(this, this.response));
-
-    this.hasSubmitted = false;
+    google.maps.event.addListener(this.autocomplete, 'place_changed', that.currentLocationAutocompleteListener.bind(that, response));
   },
 
   _reverseGeocode: function(lat, lng, callback) {

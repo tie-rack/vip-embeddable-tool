@@ -37,7 +37,7 @@ module.exports = {
       "text": "Multiple elections exist for this location:"
     },
     "headers": {
-      "registeredVoterAddress": "Registered Voter Address",
+      "registeredVoterAddress": "Voter Address",
       "edit": "Edit",
       "elections": "Election Date",
       "pollingLocation": "Voting Location",

@@ -22,7 +22,8 @@ module.exports = View.extend({
     '#use-current-location click' : 'useCurrentLocation',
     '#use-registered-address click' : 'useRegisteredAddress',
     '#use-different-address click' : 'useDifferentAddress',
-    '#out-of-state click' : 'useRegisteredAddress'
+    '#out-of-state click' : 'useRegisteredAddress',
+    '#select-language change' : 'selectLanguage'
   },
 
   hasSubmitted: false,
@@ -48,6 +49,7 @@ module.exports = View.extend({
     this.$fade = this.find('#fade');
     this.$loading = this.find('.loading');
     this.$outOfStateModal = this.find('#out-of-state');
+    this.$selectLanguage = this.find('#select-language');
 
     // set theme
     if (options.theme)
@@ -304,6 +306,12 @@ module.exports = View.extend({
     });
 
     google.maps.event.addListener(this.autocomplete, 'place_changed', that.currentLocationAutocompleteListener.bind(that, response));
+  },
+
+  selectLanguage: function () {
+    var selectedLanguage = this.$selectLanguage.val();
+    console.log(selectedLanguage)
+    this.triggerRouteEvent('addressViewRerender', selectedLanguage);
   },
 
   _reverseGeocode: function(lat, lng, callback) {

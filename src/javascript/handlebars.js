@@ -300,6 +300,46 @@ module.exports = (function() {
     }
   }
 
+  var languageTable = {
+    en: 'English',
+    es: 'Spanish',
+    am: 'Amharic',
+    zh: 'Chinese',
+    hi: 'Hindi',
+    ja: 'Japanese',
+    hm: 'Hmong',
+    km: 'Khmer',
+    ko: 'Korean',
+    la: 'Laotian',
+    or: 'Oromo',
+    ru: 'Russian',
+    so: 'Somali',
+    th: 'Thai',
+    'tl-PH': 'Tagalog',
+    vi: 'Vietnamese',
+
+  };
+
+  var languageOptions = function(language) {
+    var languageName = languageTable[language];
+    var str = '';
+
+    if (languageName) {
+      var remainingLanguages = _.omit(languageTable, language);
+      str = '<option value='+language+'>'+languageName+'</option>';
+      for (var key in remainingLanguages) {
+        str += '<option value='+key+'>'+remainingLanguages[key]+'</option>';
+      }
+    } else {
+      for (var key in languageTable) {
+        str += '<option value='+key+'>'+languageTable[key]+'</option>';
+      }
+
+    }
+
+    return str;
+  };
+
   return {
     registerHelpers: function() {
       handlebars.registerHelper('json', json);
@@ -317,6 +357,7 @@ module.exports = (function() {
       handlebars.registerHelper('localJurisdictionName', localJurisdictionName);
       handlebars.registerHelper('electionAdministrationBodyAddresses', electionAdministrationBodyAddresses);
       handlebars.registerHelper('resourcesExist', resourcesExist);
+      handlebars.registerHelper('languageOptions', languageOptions);
     },
 
     registerPartials: function() {

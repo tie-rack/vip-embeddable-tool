@@ -5,7 +5,28 @@ module.exports = (function() {
     , text = require('./config.js')
     , $ = require('jquery')
     , xdr = require('jquery-xdr').load($)
-    , mock = require('../../spec/mocks/milwaukee.json');
+    , mock = require('../../spec/mocks/milwaukee.json')
+    , supportedLanguages = [
+      'am',
+      'es',
+      'hi',
+      'hm',
+      'ja',
+      'km',
+      'ko',
+      'la',
+      'or',
+      'ru',
+      'so',
+      'th',
+      'tl-PH',
+      'vi',
+      'zh'
+    ];
+
+  var languageUrl = function(language) {
+    return location.protocol.toString() + '//s3.amazonaws.com/vip-voter-information-tool/languages/' + language + '-config.json';
+  }
 
   return {
     start: function(config) {
@@ -53,9 +74,24 @@ module.exports = (function() {
 
           router.navigate(mapView, addressView, options);
         })
-        .onRouteEvent('addressViewRerender', function() {
+        .onRouteEvent('addressViewRerender', function(language) {
+          if (!language || supportedLanguages.indexOf(language) == -1) {
+            router.navigate(addressView, addressView, options);
+          } else {
+            options.language = language;
 
-          router.navigate(addressView, addressView, options);
+            // grab the translated copy and render with the new text
+            $.ajax({
+              url: languageUrl(language),
+              cache: false,
+              success: function(newText) {
+                $.extend(options, {
+                  assets: JSON.parse(newText)
+                });
+                router.navigate(addressView, addressView, options);
+              }
+            });
+          }
 
         });
 
@@ -87,32 +123,11 @@ module.exports = (function() {
       if ((options.language && options.language !== 'en') || !language.match(/en/) || options.json) {
         var language = options.language || language;
 
-        var supportedLanguages = [
-          'am',
-          'es',
-          'hi',
-          'hm',
-          'ja',
-          'km',
-          'ko',
-          'la',
-          'or',
-          'ru',
-          'so',
-          'th',
-          'tl-PH',
-          'vi',
-          'zh'
-        ];
-
         // unsupported language
         if (supportedLanguages.indexOf(language) === -1 && !options.json) {
           addressView.render(options);
           return;
         }
-
-        // path for the supported language translation copy
-        var url = location.protocol.toString() + '//s3.amazonaws.com/vip-voter-information-tool/languages/' + language + '-config.json';
 
         if (options.json) {
           // render with custom JSON text
@@ -122,7 +137,7 @@ module.exports = (function() {
         } else {
           // grab the translated copy and render with the new text
           $.ajax({
-            url: url,
+            url: languageUrl(language),
             cache: false,
             success: function(newText) {
               $.extend(options, {

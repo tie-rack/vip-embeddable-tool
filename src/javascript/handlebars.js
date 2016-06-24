@@ -45,31 +45,36 @@ module.exports = (function() {
     return asset("images/" + filename);
   };
 
-  var locationTypes = function(location) {
+  var locationTypes = function(location, assets) {
     var pollingLocation = location.pollingLocation;
     var earlyVoteSite = location.earlyVoteSite;
     var dropOffLocation = location.dropOffLocation;
 
     if (pollingLocation && !earlyVoteSite && !dropOffLocation) {
-      return "Polling Location";
+      return _.get(assets, 'text.pollingLocations.pollingLocation', 'Voting Location')
     }
     if (!pollingLocation && earlyVoteSite && !dropOffLocation) {
-      return "Early Vote Site";
+      return _.get(assets, 'text.pollingLocations.earlyVoteSite', 'Early Vote Site')
     }
     if (!pollingLocation && !earlyVoteSite && dropOffLocation) {
-      return "Drop-off Location";
+      return _.get(assets, 'text.pollingLocations.pollingLocation', 'Drop-off Location')
     }
     if (pollingLocation && earlyVoteSite && !dropOffLocation) {
-      return "Polling Location & Early Vote Site";
+      return _.get(assets, 'text.pollingLocations.pollingLocation', 'Voting Location') + ', '
+        + _.get(assets, 'text.pollingLocations.earlyVoteSite', 'Early Vote Site')
     }
     if (pollingLocation && !earlyVoteSite && dropOffLocation) {
-      return "Polling Location & Drop-off Location";
+      return _.get(assets, 'text.pollingLocations.pollingLocation', 'Voting Location') + ', '
+        + _.get(assets, 'text.pollingLocations.dropOffLocation', 'dropOffLocation')
     }
     if (!pollingLocation && earlyVoteSite && dropOffLocation) {
-      return "Early Vote Site & Drop-off Location";
+      return _.get(assets, 'text.pollingLocations.earlyVoteSite', 'Early Vote Site') + ', '
+        + _.get(assets, 'text.pollingLocations.dropOffLocation', 'Drop-off Location')
     }
     if (pollingLocation && earlyVoteSite && dropOffLocation) {
-      return "Polling Location, Early Vote Site & Drop-off Location";
+      return _.get(assets, 'text.pollingLocations.pollingLocation', 'Voting Location') + ', '
+        + _.get(assets, 'text.pollingLocations.earlyVoteSite', 'Early Vote Site') + ', '
+        + _.get(assets, 'text.pollingLocations.dropOffLocation', 'Drop-off Location')
     }
 
     return "";
@@ -224,8 +229,7 @@ module.exports = (function() {
     // return ""
   };
 
-  var locationLegend = function(data) {
-
+  var locationLegend = function(assets, data) {
     if (_.isEmpty(data.locations)) {
       return "";
     }
@@ -258,13 +262,13 @@ module.exports = (function() {
         '<div id="location-legend-close"><img src="' + image('grey-plus.png') + '"></div>';
 
     if (pollingLocations) {
-      str += '<div class="legend-row"><div id="blue-block" class="blue"></div><span id="blue-label" class="blue">Polling Location</span></div>';
+      str += '<div class="legend-row"><div id="blue-block" class="blue"></div><span id="blue-label" class="blue">' + _.get(assets, 'text.pollingLocations.pollingLocation', 'Voting Location') + '</span></div>';
     }
     if (earlyVoteSites) {
-      str += '<div class="legend-row"><div id="red-block" class="red"></div><span id="red-label" class="red">Early Voting Site</span></div>';
+      str += '<div class="legend-row"><div id="red-block" class="red"></div><span id="red-label" class="red">' + _.get(assets, 'text.pollingLocations.earlyVoteSite', 'Early Vote Site') + '</span></div>';
     }
     if (dropOffLocations) {
-      str += '<div class="legend-row"><div id="grey-block" class="grey"></div><span id="grey-label" class="grey">Dropoff Location</span></div>';
+      str += '<div class="legend-row"><div id="grey-block" class="grey"></div><span id="grey-label" class="grey">' + _.get(assets, 'text.pollingLocations.dropOffLocation', 'Drop-off Location') + '</span></div>';
     }
     if (multiSitesPLEV || multiSitesPLDO || multiSitesEVDO || multiSitesPLEVDO) {
       var multiSiteBegin = '<div class="legend-row"><div id="green-block" class="green"></div><span id="green-label" class="green">';
@@ -273,15 +277,20 @@ module.exports = (function() {
       str += multiSiteBegin;
 
       if (_.toInteger(multiSitesPLEV) + _.toInteger(multiSitesPLDO) + _.toInteger(multiSitesEVDO) + _.toInteger(multiSitesPLEVDO) > 1) {
-        str += 'Multiple Location Types';
+        str += _.get(assets, 'text.pollingLocations.multipleLocation', 'Multiple Location Types');
       } else if (multiSitesPLEVDO) {
-        str += 'Polling Location, Early Vote Site, & Dropoff Location';
+        str +=  _.get(assets, 'text.pollingLocations.pollingLocation', 'Voting Location') + ', '
+          + _.get(assets, 'text.pollingLocations.earlyVoteSite', 'Early Vote Site') + ', '
+          + _.get(assets, 'text.pollingLocations.dropOffLocation', 'Drop-off Location');
       } else if (multiSitesPLEV) {
-        str += 'Polling Location & Early Vote Site';
+        str +=  _.get(assets, 'text.pollingLocations.pollingLocation', 'Voting Location') + ', '
+          + _.get(assets, 'text.pollingLocations.earlyVoteSite', 'Early Vote Site');
       } else if (multiSitesPLDO) {
-        str += 'Polling Location & Dropoff Location';
+        str +=  _.get(assets, 'text.pollingLocations.pollingLocation', 'Voting Location') + ', '
+          + _.get(assets, 'text.pollingLocations.dropOffLocation', 'Drop-off Location');
       } else if (multiSitesEVDO) {
-        str += 'Early Vote Site & Dropoff Location';
+        str += _.get(assets, 'text.pollingLocations.earlyVoteSite', 'Early Vote Site') + ', '
+          + _.get(assets, 'text.pollingLocations.dropOffLocation', 'Drop-off Location');
       }
 
       str += multiSiteEnd;

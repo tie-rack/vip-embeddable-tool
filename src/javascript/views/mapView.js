@@ -17,8 +17,6 @@ module.exports = View.extend({
 
   addressPartial: require('./templates/partials/address.hbs'),
 
-  pollingLocationPartial: require('./templates/partials/polling-location-info.hbs'),
-
   locationPartial: require('./templates/partials/location.hbs'),
 
   landscape: false,
@@ -215,6 +213,7 @@ module.exports = View.extend({
     });
 
     this.data = options.data;
+    this.assets = options.assets;
     // console.log(this.data)
     // TODO: REFACTOR THIS INTO OWN FUNCTION
     // places the modal and the tool as the first element on the page
@@ -304,6 +303,7 @@ module.exports = View.extend({
     this._sortLocations(primaryLocation);
 
     var $location = $(this.locationPartial({
+      assets: this.assets,
       location: primaryLocation,
       daddr: this._parseAddressWithoutName(_.get(primaryLocation, 'address')),
       saddr: this._parseAddressWithoutName(_.get(this.data, 'home.address'))
@@ -822,6 +822,7 @@ module.exports = View.extend({
     //console.log('#_markerFocusHandler')
 
     var $location = $(this.locationPartial({
+      assets: this.assets,
       location: location,
       daddr: this._parseAddressWithoutName(_.get(location, 'address')),
       saddr: this._parseAddressWithoutName(_.get(this.data, 'home.address'))

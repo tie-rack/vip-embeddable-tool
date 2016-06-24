@@ -74,11 +74,11 @@ module.exports = {
     },
     "pollingLocations": {
       "getDirections": "Get Directions",
-      "pollingLocation": "Polling Location",
+      "pollingLocation": "Voting Location",
       "earlyVoteSite": "Early Vote Site",
       "dropOffLocation": "Drop-off Location",
       "multipleLocation": "Multiple Location Types",
-      "noLocationsFound": "No Polling Locations Found"
+      "noLocationsFound": "No Voting Locations Found"
     },
     "mapView": {
       "toggle": "Toggle map view"

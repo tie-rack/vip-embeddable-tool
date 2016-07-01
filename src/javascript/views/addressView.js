@@ -310,7 +310,7 @@ module.exports = View.extend({
 
   selectLanguage: function () {
     var selectedLanguage = this.$selectLanguage.val();
-    console.log(selectedLanguage)
+
     this.triggerRouteEvent('addressViewRerender', selectedLanguage);
   },
 

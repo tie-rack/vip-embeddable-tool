@@ -9,6 +9,7 @@ module.exports = (function() {
     , supportedLanguages = [
       'am',
       'es',
+      'en',
       'hi',
       'hm',
       'ja',

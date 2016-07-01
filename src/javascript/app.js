@@ -10,6 +10,7 @@ function loadScript(language) {
   var script = document.createElement('script');
   script.type = 'text/javascript';
   script.src = 'https://maps.googleapis.com/maps/api/js?v=3.exp' +
+    '&key=' + 'AIzaSyBXMESQOzfhnF90HMFolus6W_kNrzt-Gs0' +
     '&language=' + language +
     '&libraries=places,geometry' +
     '&callback=_VIT_GOOGLE_MAPS_INIT_CALLBACK';

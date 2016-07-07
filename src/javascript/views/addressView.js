@@ -177,10 +177,10 @@ module.exports = View.extend({
     this.response = response;
 
     var stateName = _.get(this.response, 'state[0].name');
-    if (response.mailOnly) {
-      this.showMailOnlyModal();
-    } else if (stateName === 'Washington' || stateName === 'Oregon') {
+    if (stateName === 'Washington' || stateName === 'Oregon') {
       this.showCurrentLocationModal();
+    } else if (response.mailOnly) {
+      this.showMailOnlyModal();
     } else if (response.otherElections) {
       this.showMultipleElectionsModal();
     } else this.triggerRouteEvent('addressViewSubmit', response);

@@ -622,7 +622,15 @@ module.exports = View.extend({
     location.marker = marker;
 
     if (this.markers.length == 1) {
-      this.map.panTo(marker.getPosition())
+      if (_.has(this.data, 'currentLocation')) {
+        var position = {
+          lat: _.invoke(this, 'data.currentLocation.lat'),
+          lng: _.invoke(this, 'data.currentLocation.lng')
+        }
+        this.map.panTo(position);
+      } else {
+        this.map.panTo(marker.getPosition());
+      }
     }
 
     google.maps.event.addListener(location.marker, 'click', this._markerFocusHandler.bind(this, location));

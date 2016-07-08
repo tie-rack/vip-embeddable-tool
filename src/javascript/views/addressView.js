@@ -283,7 +283,7 @@ module.exports = View.extend({
         var lng = _.get(position, 'coords.longitude');
         this._reverseGeocode(lat, lng,
           this._makeRequestWithCurrentLocation.bind(this, lat, lng));
-      }.bind(this));
+      }.bind(this), this.useRegisteredAddress.bind(this));
     } else {
       this.triggerRouteEvent('addressViewRerender');
     }

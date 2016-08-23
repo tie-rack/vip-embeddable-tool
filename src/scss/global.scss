@@ -125,7 +125,8 @@
     padding: 15px;
     width: 95%;
     left: 50%;
-    top: 50%;
+    top: 50% !important;
+    min-height: initial;
     transform: translate(-50%, -50%);
     -ms-transform: translate(-50%, -50%);
     z-index: 3;

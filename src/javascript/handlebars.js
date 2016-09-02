@@ -57,7 +57,7 @@ module.exports = (function() {
       return _.get(assets, 'text.pollingLocations.earlyVoteSite', 'Early Vote Site')
     }
     if (!pollingLocation && !earlyVoteSite && dropOffLocation) {
-      return _.get(assets, 'text.pollingLocations.pollingLocation', 'Drop-off Location')
+      return _.get(assets, 'text.pollingLocations.dropOffLocation', 'Drop-off Location')
     }
     if (pollingLocation && earlyVoteSite && !dropOffLocation) {
       return _.get(assets, 'text.pollingLocations.pollingLocation', 'Voting Location') + ', '
@@ -65,7 +65,7 @@ module.exports = (function() {
     }
     if (pollingLocation && !earlyVoteSite && dropOffLocation) {
       return _.get(assets, 'text.pollingLocations.pollingLocation', 'Voting Location') + ', '
-        + _.get(assets, 'text.pollingLocations.dropOffLocation', 'dropOffLocation')
+        + _.get(assets, 'text.pollingLocations.dropOffLocation', 'Drop-off Location')
     }
     if (!pollingLocation && earlyVoteSite && dropOffLocation) {
       return _.get(assets, 'text.pollingLocations.earlyVoteSite', 'Early Vote Site') + ', '

@@ -10,14 +10,14 @@ gulp.task("push-build-staging", function() {
     }));
 });
 
-gulp.task('push-languages-staging', function() {
-  return gulp.src('src/javascript/languages/*')
-    .pipe(s3(awsStaging, {
-      uploadPath: '/languages/'
-    }));
-});
+// gulp.task('push-languages-staging', function() {
+//   return gulp.src('src/javascript/languages/*')
+//     .pipe(s3(awsStaging, {
+//       uploadPath: '/languages/'
+//     }));
+// });
 
-gulp.task('deploy-staging', ['push-build-staging', 'push-languages-staging']);
+gulp.task('deploy-staging', ['push-build-staging'/*, 'push-languages-staging'*/]);
 
 awsProduction = JSON.parse(fs.readFileSync('./aws-production.json'));
 gulp.task("push-build-production", function() {
@@ -27,11 +27,11 @@ gulp.task("push-build-production", function() {
     }));
 });
 
-gulp.task('push-languages-production', function() {
-  return gulp.src('src/javascript/languages/*')
-    .pipe(s3(awsProduction, {
-      uploadPath: '/languages/'
-    }));
-});
+// gulp.task('push-languages-production', function() {
+//   return gulp.src('src/javascript/languages/*')
+//     .pipe(s3(awsProduction, {
+//       uploadPath: '/languages/'
+//     }));
+// });
 
-gulp.task('deploy-production', ['push-build-production', 'push-languages-production']);
+gulp.task('deploy-production', ['push-build-production'/*, 'push-languages-production'*/]);

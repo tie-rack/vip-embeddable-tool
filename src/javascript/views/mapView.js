@@ -139,6 +139,12 @@ module.exports = View.extend({
       }]
     }],
 
+  removeNameDupes: function(location) {
+    if (_.get(location, 'name') == _.get(location, 'address.locationName')) {
+      location.name = void 0;
+    }
+  },
+
   onBeforeRender: function(options) {
     // $("#_vit").css("max-width", "800px")
     // $("#_vit .footer").css("max-width", "800px")
@@ -159,6 +165,8 @@ module.exports = View.extend({
     $(this.$container).css('-webkit-overflow-scrolling', 'touch');
 
     options.data.locations = LocationMatcher(options.data);
+
+    _.each(options.data.locations, this.removeNameDupes);
 
     options.data.home = { address: options.data.normalizedInput };
 

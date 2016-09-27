@@ -91,6 +91,12 @@ module.exports = (function() {
                   assets: JSON.parse(newText)
                 });
                 router.navigate(addressView, addressView, options);
+
+                if (language === 'ka') {
+                  addressView.$container.addClass('ka');
+                } else {
+                  addressView.$container.removeClass('ka');
+                }
               }
             });
           }
@@ -146,6 +152,12 @@ module.exports = (function() {
                 assets: JSON.parse(newText)
               });
               addressView.render(options);
+
+              if (language === 'ka') {
+                addressView.$container.addClass('ka');
+              } else {
+                addressView.$container.removeClass('ka');
+              }
             }
           });
         }

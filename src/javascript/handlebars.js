@@ -316,6 +316,7 @@ module.exports = (function() {
     zh: 'Chinese',
     hi: 'Hindi',
     ja: 'Japanese',
+    ka: 'Karen',
     hm: 'Hmong',
     km: 'Khmer',
     ko: 'Korean',

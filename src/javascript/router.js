@@ -88,7 +88,7 @@ module.exports = (function() {
               cache: false,
               success: function(newText) {
                 $.extend(options, {
-                  assets: JSON.parse(newText)
+                  assets: newText
                 });
                 router.navigate(addressView, addressView, options);
 
@@ -149,7 +149,7 @@ module.exports = (function() {
             cache: false,
             success: function(newText) {
               $.extend(options, {
-                assets: JSON.parse(newText)
+                assets: newText
               });
               addressView.render(options);
 

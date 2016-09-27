@@ -13,6 +13,7 @@ module.exports = (function() {
       'hi',
       'hm',
       'ja',
+      'ka',
       'km',
       'ko',
       'la',

@@ -437,6 +437,7 @@ app.controller('ApplicationController', function($scope, $window, $sce, $timeout
     'Hindi': 'hi',
     'Hmong': 'hm',
     'Japanese': 'ja',
+    'Karen': 'ka',
     'Khmer': 'km',
     'Korean': 'ko',
     'Laotian': 'la',

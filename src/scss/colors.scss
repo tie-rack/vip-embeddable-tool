@@ -1,10 +1,12 @@
 @import "variables";
 
-.blue-icon {
-  background-color: $blue;
-  border: 6px solid $blue;
-}
+#_vit {
+  .blue-icon {
+    background-color: $blue;
+    border: 6px solid $blue;
+  }
 
-.modal-alert-text {
-  color: $red;
+  .modal-alert-text {
+    color: $red;
+  }
 }

@@ -56,12 +56,12 @@ module.exports = (function() {
       this.onBeforeRender(options);
 
       $('html, body')
-        .removeClass('max-height')
+        .removeClass('_vit_max-height')
         .find('body')
-          .removeClass('no-scroll')
+          .removeClass('_vit_no-scroll')
           .find($container)
-            .removeClass('floating-container')
-            .removeClass('floating-modal-container');
+            .removeClass('_vit_floating-container')
+            .removeClass('_vit_floating-modal-container');
 
       this.insertView(options);
 
@@ -117,13 +117,13 @@ module.exports = (function() {
 
       if (this.modal) {
         this.$container
-          .removeClass('floating-container')
+          .removeClass('_vit_floating-container')
           .css({
             width: this.prevWidth,
             height: this.prevHeight
           });
         $('body')
-          .removeClass('no-scroll');
+          .removeClass('_vit_no-scroll');
       }
 
       return this;

@@ -7,19 +7,19 @@
 
 // global styles added to html, body, vit elements
 
-.no-scroll {
+._vit_no-scroll {
   overflow: hidden;
   position: fixed;
 }
 
-.max-height {
+._vit_max-height {
   height: 100%;
   transform: none;
   -webkit-transform: none;
   -ms-transform: none;
 }
 
-.floating-container {
+._vit_floating-container {
   position: fixed !important;
   z-index: 99999 !important;
   left: 0 !important;
@@ -30,7 +30,7 @@
   border: 0 !important;
 }
 
-.floating-modal-container {
+._vit_floating-modal-container {
   position: fixed !important;
   z-index: 99999 !important;
   margin: 0 !important;

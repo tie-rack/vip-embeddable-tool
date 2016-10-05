@@ -267,9 +267,9 @@ module.exports = View.extend({
 
       this.find('#map-canvas').width(window.innerWidth);
 
-      this.$container.addClass('floating-container');
-      $('html, body').removeClass('max-height');
-      $('body').addClass('no-scroll');
+      this.$container.addClass('_vit_floating-container');
+      $('html, body').removeClass('_vit_max-height');
+      $('body').addClass('_vit_no-scroll');
 
       this.landscape = false;
     } else {
@@ -291,9 +291,9 @@ module.exports = View.extend({
           'left': ((width / 2) - (containerWidth / 2)) + 'px'
         });
 
-      this.$container.addClass('floating-modal-container');
-      $('html, body').addClass('max-height');
-      $('body').removeClass('no-scroll')
+      this.$container.addClass('_vit_floating-modal-container');
+      $('html, body').addClass('_vit_max-height');
+      $('body').removeClass('_vit_no-scroll')
 
       this.landscape = true;
     }
@@ -461,7 +461,7 @@ module.exports = View.extend({
 
   _modifyExternals: function() {
     $('html, body')
-      .addClass('max-height')
+      .addClass('_vit_max-height')
       .find('#_vitModal')
       .show()
       .one('click', function() {

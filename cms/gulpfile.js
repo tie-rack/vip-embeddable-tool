@@ -7,7 +7,7 @@ var fs = require("fs");
 
 awsStaging = JSON.parse(fs.readFileSync('../aws-staging.json'));
 gulp.task("push-staging", function() {
-  return gulp.src('**')
+  return gulp.src(['**', '!node_modules', '!node_modules/**', '!.sass_cache', '!.sass_cache/**'])
     .pipe(s3(awsStaging, {
       uploadPath: "/cms/"
     }));
@@ -15,7 +15,7 @@ gulp.task("push-staging", function() {
 
 awsProduction = JSON.parse(fs.readFileSync('../aws-production.json'));
 gulp.task("push-production", function() {
-  return gulp.src('**')
+  return gulp.src(['**', '!node_modules', '!node_modules/**', '!.sass_cache', '!.sass_cache/**'])
     .pipe(s3(awsProduction, {
       uploadPath: "/cms/"
     }));

@@ -425,6 +425,8 @@ module.exports = View.extend({
 
       });
     }
+
+    this.toggleAllContests();
   },
 
   closePopUps: function(e) {
@@ -963,7 +965,6 @@ module.exports = View.extend({
 
     if (!this.landscape) {
       $ballotInfo.find('.toggle-image').toggleClass('hidden');
-      _.each(this.find('.contest-toggle'), function(el) { $(el).trigger('click') });
 
       if ($ballotInfo.find('.contracted').is(':hidden')) {
         this._scrollTo($("#ballot-information"), 20);
@@ -973,9 +974,7 @@ module.exports = View.extend({
       this._hideRightPanels();
       this._togglePane(this.find('#ballot-information'));
 
-      _.each(this.find('.contest-toggle'), function(el) { $(el).trigger('click') });
-
-      this.find('.contests').show()
+      this.find('.contests').show();
     }
   },
 
@@ -1003,6 +1002,14 @@ module.exports = View.extend({
     this.find('.right-wrapper')
       .css('overflow', 'hidden')
       .scrollTop(0);
+  },
+
+  toggleAllContests: function() {
+    var $allContests = this.find('.contest');
+    var $allCandidateLists = $allContests.find('.candidate-list');
+    var $allToggles = $allContests.find('span');
+
+    $allCandidateLists.slideToggle(500, function() { $allToggles.toggleClass('plus-sign') });
   },
 
   toggleContest: function(e) {

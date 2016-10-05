@@ -1009,7 +1009,8 @@ module.exports = View.extend({
     var $allCandidateLists = $allContests.find('.candidate-list');
     var $allToggles = $allContests.find('span');
 
-    $allCandidateLists.slideToggle(500, function() { $allToggles.toggleClass('plus-sign') });
+    $allCandidateLists.slideToggle();
+    $allToggles.toggleClass('plus-sign');
   },
 
   toggleContest: function(e) {

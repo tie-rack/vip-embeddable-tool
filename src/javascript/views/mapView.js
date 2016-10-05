@@ -973,6 +973,8 @@ module.exports = View.extend({
       this._hideRightPanels();
       this._togglePane(this.find('#ballot-information'));
 
+      _.each(this.find('.contest-toggle'), function(el) { $(el).trigger('click') });
+
       this.find('.contests').show()
     }
   },

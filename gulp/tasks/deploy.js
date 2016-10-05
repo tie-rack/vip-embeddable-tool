@@ -1,5 +1,6 @@
 var gulp = require('gulp');
 var s3 = require('gulp-s3');
+var cloudfront = require('gulp-cloudfront-invalidate');
 var fs = require('fs');
 
 awsStaging = JSON.parse(fs.readFileSync('./aws-staging.json'));
@@ -10,14 +11,7 @@ gulp.task("push-build-staging", function() {
     }));
 });
 
-// gulp.task('push-languages-staging', function() {
-//   return gulp.src('src/javascript/languages/*')
-//     .pipe(s3(awsStaging, {
-//       uploadPath: '/languages/'
-//     }));
-// });
-
-gulp.task('deploy-staging', ['push-build-staging'/*, 'push-languages-staging'*/]);
+gulp.task('deploy-staging', ['push-build-staging']);
 
 awsProduction = JSON.parse(fs.readFileSync('./aws-production.json'));
 gulp.task("push-build-production", function() {
@@ -26,12 +20,18 @@ gulp.task("push-build-production", function() {
       uploadPath: '/'
     }));
 });
+ 
+var settings = {
+  distribution: 'ECVQXYLEFP1ZL',
+  paths: ['/app.js'],
+  accessKeyId: awsProduction.key,
+  secretAccessKey: awsProduction.secret,
+  wait: true
+}
+ 
+gulp.task('invalidate-cloudfront-production', function () {
+  return gulp.src('*')
+    .pipe(cloudfront(settings));
+});
 
-// gulp.task('push-languages-production', function() {
-//   return gulp.src('src/javascript/languages/*')
-//     .pipe(s3(awsProduction, {
-//       uploadPath: '/languages/'
-//     }));
-// });
-
-gulp.task('deploy-production', ['push-build-production'/*, 'push-languages-production'*/]);
+gulp.task('deploy-production', ['push-build-production', 'invalidate-cloudfront-production']);

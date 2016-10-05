@@ -22,6 +22,7 @@
     "gulp": "^3.9.0",
     "gulp-autoprefixer": "^3.0.1",
     "gulp-changed": "",
+    "gulp-cloudfront-invalidate": "^0.1.4",
     "gulp-compass": "^2.1.0",
     "gulp-imagemin": "^2.3.0",
     "gulp-jasmine": "^2.0.1",

@@ -8,7 +8,11 @@ module.exports = function(options) {
   if (options.test) url += '&electionId=2000';
 
   if (!window._vitUsesStagingData) {
-    if (options.electionId) url += '&electionId=' + options.electionId;
+    if (options.electionId) {
+      url += '&electionId=' + options.electionId;
+    } else {
+      url += '&electionId=5000';
+    }
     if (options.officialOnly) url += '&officialOnly=' + options.officialOnly;
     if (typeof options.productionDataOnly !== 'undefined')
       url += '&productionDataOnly=' + options.productionDataOnly;

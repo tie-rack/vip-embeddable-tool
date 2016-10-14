@@ -36,8 +36,6 @@ module.exports = function(options) {
     }
   }
 
-  console.log(url)
-
   $.support.cors = true;
   $.ajax({
     url: url,

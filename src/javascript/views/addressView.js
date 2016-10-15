@@ -173,7 +173,6 @@ module.exports = View.extend({
   },
 
   handleElectionData: function(response) {
-    console.log(response)
     this.response = response;
 
     var stateName = _.get(this.response, 'state[0].name');

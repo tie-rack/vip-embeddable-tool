@@ -350,6 +350,34 @@ module.exports = (function() {
     return str;
   };
 
+  var mailOnlyTitle = function (response) {
+    var state = _.get(response, 'normalizedInput.state');
+
+    if (state == 'CO') {
+      return 'Mail Ballot Election';
+    }
+
+    if (state == 'CA') {
+      return 'Mail-Only Precinct';
+    }
+
+    return 'Mail-Only Election';
+  };
+
+  var mailOnlyText = function (response) {
+    var state = _.get(response, 'normalizedInput.state');
+
+    if (state == 'CO') {
+      return 'If you are an active registered voter in Colorado, you will receive a mail ballot. You can return your ballot by mail, drop off at multiple locations, or vote in person.<br>Please contact your local election official to learn more about how to receive and return your ballot.'
+    }
+
+    if (state == 'CA') {
+      return 'For the upcoming election, your precinct is mail-only. If you have questions, you can contact your local election official:';
+    }
+
+    return 'Your upcoming election is mail-only. Please contact your local election official to learn more about how to receive and return your ballot:';
+  };
+
   return {
     registerHelpers: function() {
       handlebars.registerHelper('json', json);
@@ -368,6 +396,8 @@ module.exports = (function() {
       handlebars.registerHelper('electionAdministrationBodyAddresses', electionAdministrationBodyAddresses);
       handlebars.registerHelper('resourcesExist', resourcesExist);
       handlebars.registerHelper('languageOptions', languageOptions);
+      handlebars.registerHelper('mailOnlyTitle', mailOnlyTitle);
+      handlebars.registerHelper('mailOnlyText', mailOnlyText);
     },
 
     registerPartials: function() {

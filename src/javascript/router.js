@@ -61,7 +61,7 @@ module.exports = (function() {
           // data = mock;
           //
           data = response;
-          window.data = response;
+          window._vit_data = response;
 
           window.history && history.pushState && history.pushState(null, null, '?polling-location');
 

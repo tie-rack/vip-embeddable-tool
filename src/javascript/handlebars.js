@@ -315,19 +315,18 @@ module.exports = (function() {
     am: 'Amharic',
     zh: 'Chinese',
     hi: 'Hindi',
+    hm: 'Hmong',
     ja: 'Japanese',
     ka: 'Karen',
-    hm: 'Hmong',
     km: 'Khmer',
     ko: 'Korean',
     la: 'Laotian',
     or: 'Oromo',
     ru: 'Russian',
     so: 'Somali',
-    th: 'Thai',
     'tl-PH': 'Tagalog',
-    vi: 'Vietnamese',
-
+    th: 'Thai',
+    vi: 'Vietnamese'
   };
 
   var languageOptions = function(language) {

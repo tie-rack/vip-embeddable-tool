@@ -569,6 +569,10 @@ module.exports = View.extend({
     var bounds = new google.maps.LatLngBounds();
 
     bounds.extend(_.get(this, 'data.locations[0].position'));
+    bounds.extend(_.get(this, 'data.locations[1].position'));
+    bounds.extend(_.get(this, 'data.locations[2].position'));
+    bounds.extend(_.get(this, 'data.locations[3].position'));
+    bounds.extend(_.get(this, 'data.locations[4].position'));
     bounds.extend(_.get(this, 'data.home.position'));
 
     this.map.fitBounds(bounds);

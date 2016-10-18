@@ -737,7 +737,14 @@ module.exports = View.extend({
       // so we'll look up the lat/lng from its zip code and use that
       // to estimate distance
       if (_.isUndefined(l.position)) {
-        var zip = _.toInteger(_.get(l, 'address.zip'));
+        var zip = _.get(l, 'address.zip', '0');
+
+        // check if the zip is in the format xxxxx-xxxx and use first 5 digits
+        if (zip.indexOf('-') != -1) {
+          zip = zip.split('-')[0];
+        }
+
+        zip = _.toInteger(zip);
         var pos = zipcodeIndex.query(zip);
 
         l.position = new google.maps.LatLng(pos.lat, pos.lng);

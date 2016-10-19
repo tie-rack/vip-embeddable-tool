@@ -568,12 +568,24 @@ module.exports = View.extend({
 
     var bounds = new google.maps.LatLngBounds();
 
-    bounds.extend(_.get(this, 'data.locations[0].position'));
-    bounds.extend(_.get(this, 'data.locations[1].position'));
-    bounds.extend(_.get(this, 'data.locations[2].position'));
-    bounds.extend(_.get(this, 'data.locations[3].position'));
-    bounds.extend(_.get(this, 'data.locations[4].position'));
-    bounds.extend(_.get(this, 'data.home.position'));
+    if (_.has(this, 'data.locations[0].position')) {
+      bounds.extend(_.get(this, 'data.locations[0].position'));
+    }
+    if (_.has(this, 'data.locations[1].position')) {
+      bounds.extend(_.get(this, 'data.locations[1].position'));
+    }
+    if (_.has(this, 'data.locations[2].position')) {
+      bounds.extend(_.get(this, 'data.locations[2].position'));
+    }
+    if (_.has(this, 'data.locations[3].position')) {
+      bounds.extend(_.get(this, 'data.locations[3].position'));
+    }
+    if (_.has(this, 'data.locations[4].position')) {
+      bounds.extend(_.get(this, 'data.locations[4].position'));
+    }
+    if (_.has(this, 'data.home.position')) {
+      bounds.extend(_.get(this, 'data.home.position'));
+    }
 
     this.map.fitBounds(bounds);
   },

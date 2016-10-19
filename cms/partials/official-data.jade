@@ -5,11 +5,12 @@
       h2.subtitle
         | Official data only
 
+      p.note-to-user Set this parameter to True to return only official state data from the Google Civic Information API. [NOTE: This may result in gaps in coverage due to jurisdictions without official data.] Set to False to return official AND unofficial data.
 
-      ul.options(ng-init="officialDataOnly = false")
+      ul.options(ng-init="officialOnly = false")
         li.option(
-          ng-class="{selected: officialDataOnly}"
-          ng-click="officialDataOnly = true")
+          ng-class="{selected: officialOnly}"
+          ng-click="officialOnly = true")
           .checkbox
             svg(class="checkmark" x='0px' y='0px' width="12px" height="12px" viewbox='0 0 26 25.6')
               g
@@ -20,8 +21,8 @@
                   c-0.8-0.6-0.9-0.8-1.5-1.7c-0.9-1.3-2.2-2.6-5.3-5.7C0.2,16.9,0,16.6,0,16.3z')
           | Yes
         li.option(
-          ng-class="{selected: !officialDataOnly}"
-          ng-click="officialDataOnly = false")
+          ng-class="{selected: !officialOnly}"
+          ng-click="officialOnly = false")
           .checkbox
             svg(class="checkmark" x='0px' y='0px' width="12px" height="12px" viewbox='0 0 26 25.6')
               g

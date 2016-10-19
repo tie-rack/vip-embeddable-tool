@@ -150,7 +150,7 @@ app.controller('ApplicationController', function($scope, $window, $sce, $timeout
   };
 
   $scope.isFirstVisible = function() {
-    return ([1, 2, 3, 5, 8, 9, 10].indexOf($scope.step) != -1)
+    return ([1, 2, 3, 5, 9].indexOf($scope.step) != -1)
   }
 
   // PREVIEW FUNCTIONS:
@@ -465,7 +465,7 @@ app.controller('ApplicationController', function($scope, $window, $sce, $timeout
     $scope.selectedSecondaryTileBarColor = $scope.interiorSecondaryTileBarColors[2];
     $scope.alertTextEnabled = false;
     $scope.alertText = "";
-    $scope.officialDataOnly = false;
+    $scope.officialOnly = false;
 
     window.scrollTo(0, 0);
   }

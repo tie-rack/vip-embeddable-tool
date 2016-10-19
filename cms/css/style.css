@@ -911,6 +911,14 @@ h2.preview-label {
     text-align: left;
   }
 
+  .note-to-user {
+    font-size: .9rem;
+    font-weight: initial;
+    line-height: inherit;
+    padding: 0 20px;
+    text-align: initial;
+  }
+
   .dropdown.border-top {
     border-top: 1px solid #d5d5d5;
   }

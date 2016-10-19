@@ -5,7 +5,7 @@
     height: '240px',</span><br ng-if="selectedFormat.length &gt; 0"/><span ng-if="selectedLogoOption == 'Custom'">    logo: '{{ logoUrl }}',</span><br ng-if="selectedLogoOption == 'Custom'"/><span ng-if="selectedLogoOption == 'State Seal' &amp;&amp; selectedState != 'Default'">    logo: '{{ stateSealUrl(selectedState) }}',</span><br ng-if="selectedLogoOption == 'State Seal' &amp;&amp; selectedState != 'Default'"/><span ng-if="selectedTileBarColor">    colors: {
       'header': '{{ selectedTileBarColor }}',
       'landscapeBackgroundHeader': '{{ selectedSecondaryTileBarColor }}'
-    },</span><br ng-if="selectedTileBarColor"/><span ng-if="alertTextEnabled">    alertText: '{{ alertText }}',</span><br ng-if="alertTextEnabled"/><span ng-if="officialDataOnly">    officialDataOnly: true,</span><br ng-if="officialDataOnly"/><span ng-if="selectedLanguage">    language: '{{ languages[selectedLanguage] }}',</span><br ng-if="selectedLanguage"/><span ng-if="advancedCustomizationChanged">    json: {
+    },</span><br ng-if="selectedTileBarColor"/><span ng-if="alertTextEnabled">    alertText: '{{ alertText }}',</span><br ng-if="alertTextEnabled"/><span ng-if="selectedLanguage">    language: '{{ languages[selectedLanguage] }}',</span><br ng-if="selectedLanguage"/><span ng-if="advancedCustomizationChanged">    json: {
       text: {
         headers: {
           pollingLocation: '{{pollingLocationLabel}}'

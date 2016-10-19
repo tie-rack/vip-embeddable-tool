@@ -1,5 +1,4 @@
-var util = require('./util.js'),
-  router = require('./router.js'),
+var router = require('./router.js'),
   handlebars = require('./handlebars.js'),
   $ = require('jquery'),
   css = require('../../build/app.css')

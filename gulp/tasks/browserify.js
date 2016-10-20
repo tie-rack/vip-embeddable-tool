@@ -15,6 +15,7 @@ var handleErrors = require('../util/handleErrors');
 var source       = require('vinyl-source-stream');
 var uglify       = require('gulp-uglify');
 var streamify    = require('gulp-streamify');
+var wrap         = require('gulp-wrap');
 
 gulp.task('browserify', function() {
 
@@ -36,6 +37,7 @@ gulp.task('browserify', function() {
       .bundle()
       .on('error', handleErrors)
       .pipe(source('app.js'))
+      .pipe(wrap('(function() { var define=void 0; <%= contents %> })(this);'))
       .pipe(streamify(uglify()))
       .pipe(gulp.dest('./build/'))
       .on('end', bundleLogger.end)

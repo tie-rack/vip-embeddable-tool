@@ -14,7 +14,7 @@
 		<a href="{{ referendumUrl }}">
 		{{/if}}
 			<div class="referendum-subtitle box">
-				<p>{{{escapeHTML referendumSubtitle }}}</p>
+				<p><strong>{{{escapeHTML referendumSubtitle }}}</strong></p><br>
 				<p>{{{escapeHTML referendumBrief }}}</p>
 				<p>{{{escapeHTML referendumText }}}</p>
 				<p>{{{escapeHTML referendumProStatement }}}</p>
@@ -22,9 +22,13 @@
 				<p>{{{escapeHTML referendumPassageThreshold }}}</p>
 				<p>{{{escapeHTML referendumEffectOfAbstain }}}</p>
 				<p>{{{escapeHTML referendum }}}</p>
+				<br>
+				<p><strong>Referendum Responses:</strong></p>
+				<ul>
 				{{#each referendumBallotResponses}}
-					<p>{{{escapeHTML this}}}
+					<li>{{{escapeHTML this}}}</li>
 				{{/each}}
+				</ul>
 				{{#if referendumUrl}}
 				<img src="{{ image 'arrow.png' }}" class="arrow">
 				{{/if}}

@@ -74,7 +74,7 @@ module.exports = {
     },
     "pollingLocations": {
       "getDirections": "Get Directions",
-      "pollingLocation": "Voting Location",
+      "pollingLocation": "Election Day Voting Location",
       "earlyVoteSite": "Early Vote Site",
       "dropOffLocation": "Drop-off Location",
       "multipleLocation": "Multiple Location Types",

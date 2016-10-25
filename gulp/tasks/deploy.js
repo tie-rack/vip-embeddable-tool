@@ -34,4 +34,4 @@ gulp.task('invalidate-cloudfront-production', function () {
     .pipe(cloudfront(settings));
 });
 
-gulp.task('deploy-production', ['push-build-production', 'invalidate-cloudfront-production']);
+gulp.task('deploy-production', ['push-build-production'/*, 'invalidate-cloudfront-production'*/]);
